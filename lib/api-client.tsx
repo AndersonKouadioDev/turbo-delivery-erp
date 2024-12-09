@@ -116,4 +116,4 @@ class ApiClient {
     }
 }
 
-export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_RESTO_URL || '');
+export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_ERP_URL || '');

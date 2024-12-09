@@ -30,6 +30,7 @@ export async function loginUser(prevState: any, formData: FormData): Promise<Act
         username: formdata.username,
         password: formdata.password,
     });
+  
     if (response.ok) {
         await signIn('credentials-user', {
             username: formdata.username,
@@ -44,10 +45,12 @@ export async function loginUser(prevState: any, formData: FormData): Promise<Act
         let result: any = '';
         try {
             result = await response.json();
+      
             prevState.message = result.message || 'Erreur lors de la connexion';
         } catch (error) {
             try {
                 result = await response.text();
+              
                 prevState.message = result || 'Erreur lors de la connexion';
             } catch (error) {
                 prevState.message = 'Erreur lors de la connexion';
