@@ -1,4 +1,5 @@
 import { auth } from '@/auth';
+import { signOut } from '@/src/actions/users.actions';
 
 class ApiClient {
     private baseUrl: string;
@@ -40,6 +41,9 @@ class ApiClient {
             // tentative de rafraîchir le token
             const session = await this.getSession();
             if (session && response.status === 401) {
+               if(typeof window===undefined){
+                await signOut();``
+               }
             }
         }
 
@@ -112,4 +116,4 @@ class ApiClient {
     }
 }
 
-export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_ERP_URL || '');
+export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_RESTO_URL || '');
