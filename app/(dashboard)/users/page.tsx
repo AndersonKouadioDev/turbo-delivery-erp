@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function Users() {
     const users = await getUsers();
-    console.log(users);
+    
     return (
         <Suspense fallback={<Loading />}>
             <UsersList users={users} />
