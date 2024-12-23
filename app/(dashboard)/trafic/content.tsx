@@ -9,7 +9,14 @@ export default function Content() {
             <div className="flex items-center">
                 <h1 className={title({ size: 'h3', class: 'text-primary' })}>Trafic</h1>
             </div>
-            <GoogleMap apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!} center={{ lat: 48.8566, lng: 2.3522 }} zoom={12} />
+            <GoogleMap
+                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
+                center={{ lat: 48.8566, lng: 2.3522 }}
+                zoom={13}
+                useCurrentLocation={true}
+                onLocationFound={(position) => console.log('Position trouvée:', position)}
+                onLocationError={(error) => console.error('Erreur:', error)}
+            />
         </div>
     );
 }
