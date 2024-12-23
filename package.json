@@ -15,6 +15,7 @@
         "@fullcalendar/interaction": "^6.1.1",
         "@fullcalendar/react": "^6.1.4",
         "@fullcalendar/timegrid": "^6.1.1",
+        "@googlemaps/js-api-loader": "^1.16.8",
         "@headlessui/react": "^2.1.2",
         "@hookform/resolvers": "^3.9.1",
         "@internationalized/date": "^3.5.6",
@@ -43,6 +44,7 @@
         "@types/react-dom": "^18.3.0",
         "@x1mrdonut1x/nouislider-react": "^3.4.3",
         "apexcharts": "^3.37.1",
+        "axios": "^1.7.9",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "cmdk": "^1.0.4",
@@ -103,6 +105,7 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.8",
+        "@types/google.maps": "^3.58.1",
         "@types/lodash": "^4.17.10",
         "@types/node": "^22.9.1",
         "@types/react-copy-to-clipboard": "^5.0.4",

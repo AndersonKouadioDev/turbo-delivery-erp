@@ -141,5 +141,6 @@
     "delivery_men": "Livreurs",
     "validated": "Validés",
     "partially_validated": "Partiellement validés",
-    "not_validated": "Non validés"
+    "not_validated": "Non validés",
+    "trafic": "Trafic"
 }

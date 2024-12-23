@@ -7,6 +7,7 @@ import {
     IconHome,
     IconLayoutDashboard,
     IconLock,
+    IconMap,
     IconMotorbike,
     IconSettings,
     IconSettings2,
@@ -28,6 +29,7 @@ export interface IMenuData {
 
 const menuData: IMenuData[] = [
     { icon: IconLayoutDashboard, title: 'dashboard', path: '/' },
+    { icon: IconMap, title: 'trafic', path: '/trafic' },
     {
         isHeader: true,
         title: 'database',
