@@ -52,7 +52,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
 
         try {
             const { Map } = await loader.importLibrary('maps') as google.maps.MapsLibrary;
-            
+
             const mapCenter = useCurrentLocation ? await new Promise<{ lat: number; lng: number }>((resolve, reject) => {
                 if (!navigator.geolocation) {
                     reject(new Error("Géolocalisation non supportée"));
@@ -111,7 +111,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
         if (!mapLoaded || !mapInstanceRef.current) return;
 
         const { Marker } = google.maps as any;
-        
+
         if (markers?.length) {
             clearMarkers();
             markers.forEach(markerData => {
@@ -134,10 +134,10 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
     }, [initialCenter, initialZoom, useCurrentLocation]);
 
     return (
-        <div 
-            ref={mapRef} 
-            className={`w-full h-full ${className || ''}`} 
-            style={{ minHeight: '600px', ...style }} 
+        <div
+            ref={mapRef}
+            className={`w-full h-full ${className || ''}`}
+            style={{ minHeight: '600px', ...style }}
         />
     );
 };

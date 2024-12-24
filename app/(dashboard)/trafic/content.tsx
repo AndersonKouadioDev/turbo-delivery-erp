@@ -1,5 +1,6 @@
 'use client';
 
+import GoogleMapsAutocomplete from '@/components/default/GoogleMapsAutocomplete';
 import { title } from '@/components/primitives';
 import GoogleMap from '@/lib/googlemaps';
 
@@ -13,6 +14,7 @@ export default function Content() {
                 apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
                 center={{ lat: 48.8566, lng: 2.3522 }}
                 zoom={13}
+                markers={[{ position: { lat: 48.8566, lng: 2.3522 }, title: 'Paris' }]}
                 useCurrentLocation={true}
                 onLocationFound={(position) => console.log('Position trouvée:', position)}
                 onLocationError={(error) => console.error('Erreur:', error)}
