@@ -5,6 +5,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem,
 import { useState } from 'react';
 import { IconDotsVertical } from '@tabler/icons-react';
 import RestaurantValidate from './restaurant-validate';
+import Link from 'next/link';
 
 const RestaurantTools = ({ restaurant, value, validateBy = 'no-body' }: { restaurant: Restaurant; value: 'list' | 'grid'; validateBy: 'auth' | 'ops' | 'no-body' }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -20,6 +21,9 @@ const RestaurantTools = ({ restaurant, value, validateBy = 'no-body' }: { restau
                     </DropdownTrigger>
                     <DropdownMenu aria-label="Static Actions">
                         <DropdownSection showDivider title="Actions">
+                            <DropdownItem as={Link} href={`/restaurants/${restaurant.id}`} key="details">
+                                Détails
+                            </DropdownItem>
                             {validateBy !== 'no-body' ? (
                                 <DropdownItem key="edit" onClick={() => setOpen(true)}>
                                     Valider

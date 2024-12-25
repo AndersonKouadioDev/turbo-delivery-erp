@@ -5,6 +5,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem,
 import { useState } from 'react';
 import { IconDotsVertical } from '@tabler/icons-react';
 import DeliveryMenValidate from './delivery-men-validate';
+import Link from 'next/link';
 
 const DeliveryMenTools = ({ deliveryMan, value, validateBy = 'no-body' }: { deliveryMan: DeliveryMan; value: 'list' | 'grid'; validateBy: 'auth' | 'ops' | 'no-body' }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -19,6 +20,9 @@ const DeliveryMenTools = ({ deliveryMan, value, validateBy = 'no-body' }: { deli
                         </Button>
                     </DropdownTrigger>
                     <DropdownMenu aria-label="Static Actions">
+                        <DropdownItem as={Link} href={`/delivery-men/${deliveryMan.id}`} key="details">
+                            Détails
+                        </DropdownItem>
                         <DropdownSection showDivider title="Actions">
                             {validateBy !== 'no-body' ? (
                                 <DropdownItem key="edit" onClick={() => setOpen(true)}>

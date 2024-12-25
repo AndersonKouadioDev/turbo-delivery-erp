@@ -3,12 +3,12 @@
 import { apiClient } from '@/lib/api-client';
 import { ActionResult } from '@/types/index.d';
 
-import { TypePlat } from '@/types/models';
+import { Collection } from '@/types/models';
 import typePlatsEndpoints from '@/src/endpoints/type-plats.endpoint';
 import { createFormData, processFormData } from '@/utils/formdata-zod.utilities';
 import { createTypePlatSchema } from '../schemas/type-plats.schema';
 
-export async function getTypePlats(): Promise<TypePlat[] | null> {
+export async function getTypePlats(): Promise<Collection[] | null> {
     const response = await apiClient.get(typePlatsEndpoints.getAll);
     if (!response.ok) {
         return null;
@@ -17,7 +17,7 @@ export async function getTypePlats(): Promise<TypePlat[] | null> {
     return result;
 }
 
-export async function createTypePlat(prevState: any, formData: FormData): Promise<ActionResult<TypePlat>> {
+export async function createTypePlat(prevState: any, formData: FormData): Promise<ActionResult<Collection>> {
     const { success, data: formdata } = processFormData(
         createTypePlatSchema,
         formData,
@@ -47,7 +47,7 @@ export async function createTypePlat(prevState: any, formData: FormData): Promis
     return prevState;
 }
 
-export async function updateTypePlat(prevState: any, formData: FormData, id: string): Promise<ActionResult<TypePlat>> {
+export async function updateTypePlat(prevState: any, formData: FormData, id: string): Promise<ActionResult<Collection>> {
     const { success, data: formdata } = processFormData(
         createTypePlatSchema,
         formData,
@@ -77,7 +77,7 @@ export async function updateTypePlat(prevState: any, formData: FormData, id: str
     return prevState;
 }
 
-export async function getTypePlat(id: string): Promise<TypePlat | null> {
+export async function getTypePlat(id: string): Promise<Collection | null> {
     const response = await apiClient.get(typePlatsEndpoints.info(id));
     if (!response.ok) {
         return null;

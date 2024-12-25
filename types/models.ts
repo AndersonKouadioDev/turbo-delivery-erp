@@ -49,8 +49,31 @@ export interface Restaurant {
     dateService: string;
     documentUrl: string;
     cni: string;
-    pictures: string[];
-    openingHours: string[];
+    longitude: number | null;
+    latitude: number | null;
+    idLocation: string | null;
+    pictures: Picture[];
+    openingHours: OpeningHour[];
+}
+export interface Picture {
+    id: string;
+    status: number;
+    deleted: boolean;
+    dateCreation: string;
+    dateEdition: string;
+    pictureUrl: string;
+}
+
+export interface OpeningHour {
+    id: string;
+    status: number;
+    deleted: boolean;
+    dateCreation: string;
+    dateEdition: string;
+    dayOfWeek: string;
+    openingTime: string;
+    closingTime: string;
+    closed: boolean;
 }
 
 export interface DeliveryMan {
@@ -75,14 +98,81 @@ export interface DeliveryMan {
     matricule: string;
 }
 
-export interface TypePlat {
+export interface Collection {
     id: string;
     status: number;
     deleted: boolean;
     dateCreation: string;
     dateEdition: string;
     libelle: string;
-    description?: string; // Champ optionnel
-    picture?: string | null; // Champ optionnel
-    pictureUrl?: string | null; // Champ optionnel
+    description: string;
+    picture: string;
+    pictureUrl: string;
+}
+
+export interface FindOneRestaurant {
+    typecuisine: string[];
+    restaurant: Restaurant;
+}
+export interface Ingredient {
+    name: string;
+    quantity?: string;
+}
+
+export interface Accompaniment {
+    id: string;
+    libelle: string;
+    price: number;
+    platId?: string;
+}
+
+export interface OptionValue {
+    id: string;
+    valeur: string;
+    prixSup: number;
+    optionId?: string;
+}
+
+export interface Option {
+    id: string;
+    libelle: string;
+    isRequired: boolean;
+    maxSelected: number;
+    optionValeurs: OptionValue[];
+}
+
+export interface Drink {
+    id: string;
+    label: string;
+    price: number;
+    volume: string;
+    platId?: string;
+}
+
+export interface Dish {
+    id: string;
+    status: number;
+    deleted: boolean;
+    dateCreation: string;
+    dateEdition: string;
+    libelle: string;
+    description: string;
+    disponible: boolean;
+    cookTime: string;
+    price: number;
+    imageUrl: string;
+    restaurant: Restaurant;
+    collection: Collection;
+}
+
+export interface CollectionWithDishes {
+    collectionModel: Collection;
+    totalPlat: number;
+}
+
+export interface DishComplet {
+    platM: Dish;
+    accompagnementM: Accompaniment[];
+    optionPlatM: Option[];
+    boissonPlatMs: Drink[];
 }

@@ -34,6 +34,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                         {/* BEGIN TOP NAVBAR */}
                         <Header profile={profile} />
                         {/* END TOP NAVBAR */}
+
                         {/* BEGIN CONTENT AREA */}
                         <ContentAnimation>{children}</ContentAnimation>
                         {/* END CONTENT AREA */}
@@ -41,6 +42,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                         {/* BEGIN FOOTER */}
                         <Footer />
                         {/* END FOOTER */}
+                        
                         <Portals />
                     </div>
                 </MainContainer>

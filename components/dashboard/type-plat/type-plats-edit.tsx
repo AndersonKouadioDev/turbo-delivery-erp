@@ -3,7 +3,7 @@
 import IconX from '@/components/icon/icon-x';
 import { updateTypePlat } from '@/src/actions/type-plats.actions';
 import { _createTypePlatSchema, createTypePlatSchema } from '@/src/schemas/type-plats.schema';
-import { TypePlat } from '@/types/models';
+import { Collection } from '@/types/models';
 import { Transition, Dialog, TransitionChild, DialogPanel } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@nextui-org/react';
@@ -13,7 +13,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-const TypePlatEdit = ({ typePlat, open, setOpen }: { typePlat: TypePlat; open: boolean; setOpen: (open: boolean) => void }) => {
+const TypePlatEdit = ({ typePlat, open, setOpen }: { typePlat: Collection; open: boolean; setOpen: (open: boolean) => void }) => {
     const { pending } = useFormStatus();
     const router = useRouter();
 

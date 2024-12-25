@@ -1,6 +1,5 @@
 'use client';
 
-import GoogleMapsAutocomplete from '@/components/default/GoogleMapsAutocomplete';
 import { title } from '@/components/primitives';
 import GoogleMap from '@/lib/googlemaps';
 

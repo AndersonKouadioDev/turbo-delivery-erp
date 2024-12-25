@@ -2,14 +2,14 @@
 
 import IconSearch from '@/components/icon/icon-search';
 import React, { useState } from 'react';
-import { TypePlat } from '@/types/models';
+import { Collection } from '@/types/models';
 
 import { Avatar, Chip } from '@nextui-org/react';
 import TypePlatsTools from './type-plats-tools';
 import createUrlFile from '@/utils/createUrlFile';
 import TypePlatAdd from './type-plats-add';
 
-const TypePlatsList = ({ typePlats }: { typePlats: TypePlat[] | null }) => {
+const TypePlatsList = ({ typePlats }: { typePlats: Collection[] | null }) => {
     const [search, setSearch] = useState<string>('');
 
     const filteredItems = typePlats?.filter((typePlat) => typePlat.libelle.toLowerCase().includes(search.toLowerCase())) || [];
@@ -44,7 +44,7 @@ const TypePlatsList = ({ typePlats }: { typePlats: TypePlat[] | null }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredItems.map((typePlat: TypePlat) => {
+                            {filteredItems.map((typePlat: Collection) => {
                                 return (
                                     <tr key={typePlat.id}>
                                         <td>

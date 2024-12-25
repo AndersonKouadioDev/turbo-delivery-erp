@@ -14,7 +14,7 @@ export default async function Page() {
 
     const items: { label: string; value: number }[] = [
         {
-            label: 'Utilisateurs',
+            label: 'Membres',
             value: users ? users.content.length : 0,
         },
         {
