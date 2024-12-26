@@ -11,7 +11,6 @@ import TypePlatAdd from './type-plats-add';
 
 const TypePlatsList = ({ typePlats }: { typePlats: Collection[] | null }) => {
     const [search, setSearch] = useState<string>('');
-    console.log(typePlats);
     const filteredItems = typePlats?.filter((typePlat) => typePlat.libelle.toLowerCase().includes(search.toLowerCase())) || [];
 
     return (
