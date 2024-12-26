@@ -3,7 +3,11 @@
 import { title } from '@/components/primitives';
 import GoogleMap from '@/lib/googlemaps';
 
-export default function Content() {
+export interface MarkerI {
+    position: { lat: number; lng: number };
+    title: string;
+}
+export default function Content({ markers }: { markers: MarkerI[] }) {
     return (
         <div className="w-full h-full flex flex-1 flex-col gap-4 lg:gap-6 mb-10">
             <div className="flex items-center">
@@ -13,7 +17,7 @@ export default function Content() {
                 apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
                 center={{ lat: 48.8566, lng: 2.3522 }}
                 zoom={13}
-                markers={[{ position: { lat: 48.8566, lng: 2.3522 }, title: 'Paris' }]}
+                markers={markers}
                 useCurrentLocation={true}
                 onLocationFound={(position) => console.log('Position trouvée:', position)}
                 onLocationError={(error) => console.error('Erreur:', error)}
