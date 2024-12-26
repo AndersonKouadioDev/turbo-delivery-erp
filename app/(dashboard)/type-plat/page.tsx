@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 export default async function TypePlats() {
     const typePlats = await getTypePlats();
+   
     return (
         <Suspense fallback={<Loading />}>
             <TypePlatsList typePlats={typePlats} />
