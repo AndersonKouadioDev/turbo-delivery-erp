@@ -18,6 +18,7 @@ import {
     IconUsersGroup,
 } from '@tabler/icons-react';
 import { HandPlatter } from 'lucide-react';
+import { TbTruckDelivery } from 'react-icons/tb';
 
 export interface IMenuData {
     isHeader?: boolean;
@@ -30,6 +31,7 @@ export interface IMenuData {
 const menuData: IMenuData[] = [
     { icon: IconLayoutDashboard, title: 'dashboard', path: '/' },
     { icon: IconMap, title: 'trafic', path: '/trafic' },
+    { icon: TbTruckDelivery, title: 'external_delivery', path: '/external_delivery' },
     {
         isHeader: true,
         title: 'database',

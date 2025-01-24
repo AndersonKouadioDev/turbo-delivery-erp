@@ -3,6 +3,36 @@ export interface TypeCuisine {
     // id: string;
     // nom: string;
 }
+export interface Sort {
+    sorted: boolean;
+    empty: boolean;
+    unsorted: boolean;
+  }
+  
+  export interface Pageable {
+    paged: boolean;
+    pageNumber: number;
+    pageSize: number;
+    offset: number;
+    sort: Sort;
+    unpaged: boolean;
+  }
+  
+  export interface PaginatedResponse<T> {
+    content: T[];
+    pageable: Pageable;
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    first: boolean;
+    size: number;
+    number: number;
+    sort: Sort;
+    numberOfElements: number;
+    empty: boolean;
+  }
+
+
 export interface Role {
     id: string;
     status: number;
@@ -175,4 +205,43 @@ export interface DishComplet {
     accompagnementM: Accompaniment[];
     optionPlatM: Option[];
     boissonPlatMs: Drink[];
+}
+
+
+
+export interface LocationCourseExterne {
+    longitude: number;
+    latitude: number;
+    address: string;
+}
+
+export interface DestinataireCourseExterne {
+    nomComplet: string;
+    contact: string;
+}
+
+export interface CommandeCourseExterne {
+    id: string;
+    libelle: string;
+    numero: string;
+    dateHeure: string;
+    destinataire: DestinataireCourseExterne;
+    lieuRecuperation: LocationCourseExterne;
+    lieuLivraison: LocationCourseExterne;
+    modePaiement: 'Espèce';
+    statut: string;
+    fraisLivraison: number;
+    prix: number;
+    livraisonPaye: boolean;
+}
+export interface CourseExterne {
+    id: string;
+    code: string;
+    statut: string;
+    dateHeureDebut: string;
+    dateHeureFin: string;
+    restaurant: Restaurant;
+    nombreCommande:number;
+    total: number;
+    commandes: CommandeCourseExterne[];
 }

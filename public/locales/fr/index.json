@@ -142,5 +142,6 @@
     "validated": "Validés",
     "partially_validated": "Partiellement validés",
     "not_validated": "Non validés",
-    "trafic": "Trafic"
+    "trafic": "Trafic",
+    "external_delivery": "Courses Externes"
 }
