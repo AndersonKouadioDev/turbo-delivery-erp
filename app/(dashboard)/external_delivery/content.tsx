@@ -137,9 +137,9 @@ export default function Content({ restaurant, initialData }: Props) {
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
                 <h1 className={title({ size: 'h3', class: 'text-primary' })}>Mes Courses</h1>
-                <Button as={Link} href="/delivery/create" color="primary" size="sm" startContent={<IconPlus className="h-5 w-5" />}>
+                {/* <Button as={Link} href="/delivery/create" color="primary" size="sm" startContent={<IconPlus className="h-5 w-5" />}>
                     Demande de coursier
-                </Button>
+                </Button> */}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
