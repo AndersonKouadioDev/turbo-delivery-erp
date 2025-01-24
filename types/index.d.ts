@@ -53,3 +53,11 @@ export interface PaginatedResponse<T> {
     first: boolean;
     empty: boolean;
 }
+
+
+
+export interface MarkerData {
+    start: google.maps.LatLngLiteral;
+    end: google.maps.LatLngLiteral;
+    color: string;
+}
