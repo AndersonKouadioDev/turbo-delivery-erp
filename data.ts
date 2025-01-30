@@ -1,5 +1,3 @@
-
-
 export const ROUTE_COLORS = [
     '#FF6B6B',
     '#4ECDC4',
@@ -21,21 +19,55 @@ export const ROUTE_COLORS = [
     '#27AE60',
     '#D35400',
     '#C0392B',
-  ];
-  
-  
-  export const STATUSES = {
+];
+
+export const courses_statuses_filters = [
+    {
+        id: 'all',
+        name: 'Toutes les courses',
+    },
+    {
+        id: 'EN_ATTENTE',
+        name: 'En attente',
+    },
+    {
+        id: 'VALIDER',
+        name: 'Validées',
+    },
+    {
+        id: 'EN_COURS',
+        name: 'En cours',
+    },
+    {
+        id: 'TERMINE',
+        name: 'Terminées',
+    },
+    {
+        id: 'ANNULE',
+        name: 'Annulées',
+    },
+];
+
+export const COURSES_STATUSES = {
     EN_ATTENTE: 'EN_ATTENTE',
     EN_COURS: 'EN_COURS',
     TERMINE: 'TERMINE',
     ANNULE: 'ANNULE',
     VALIDER: 'VALIDER',
-  };
-  
-  export const SORT_OPTIONS = {
+};
+
+export const COMMANDES_STATUSES = {
+    EN_ATTENTE_RECUPERATION: 'EN_ATTENTE_RECUPERATION',
+    ANNULER: 'ANNULER',
+    RECUPERER: 'RECUPERER',
+    EN_COURS_LIVRAISON: 'EN_COURS_LIVRAISON',
+    EN_ATTENTE_VERSEMENT: 'EN_ATTENTE_VERSEMENT',
+    TERMINER: 'TERMINER',
+};
+
+export const SORT_OPTIONS = {
     DATE_DESC: 'date_desc',
     DATE_ASC: 'date_asc',
     TOTAL_DESC: 'total_desc',
     TOTAL_ASC: 'total_asc',
-  } as const;
-  
+} as const;

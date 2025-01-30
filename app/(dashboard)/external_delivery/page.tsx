@@ -1,23 +1,16 @@
 import React, { Suspense } from 'react';
 import Content from './content';
 import Loading from '@/components/layouts/loading';
-import { getPaginationCourseExterne } from '@/src/actions/courses.actions';
-// import { findOneRestaurant } from '@/src/actions/restaurant.actions';
-import { redirect } from 'next/navigation';
-import { Restaurant } from '@/types/models';
+import { getPaginationCourseExterneEnAttente } from '@/src/actions/courses.actions';
+import { getLivreursDisponible } from '@/src/actions/delivery-men.actions';
 
 export default async function DeliveryPage() {
-    // const data = await findOneRestaurant();
-    // const restaurant = data?.restaurant;
-    // if (!restaurant) {
-    //     redirect('/auth/signout');
-    // }
-
-    const data2 = await getPaginationCourseExterne("restaurant", 0, 1);
+    const data = await getPaginationCourseExterneEnAttente(0, 5);
+    const delivers = await getLivreursDisponible();
 
     return (
         <Suspense fallback={<Loading />}>
-            <Content initialData={data2} restaurant={{} as Restaurant} />
+            <Content initialData={data} delivers={delivers} />
         </Suspense>
     );
 }

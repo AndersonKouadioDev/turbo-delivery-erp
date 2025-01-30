@@ -5,6 +5,31 @@ import { ActionResult, PaginatedResponse } from '@/types/index.d';
 
 import { Restaurant } from '@/types/models';
 import restaurantsEndpoints from '@/src/endpoints/restaurants.endpoint';
+import { apiClientBackend } from '@/lib/api-client-backend';
+
+// Configuration
+const BASE_URL = '/api/erp/restaurant';
+
+const restaurantEndpoints = {
+    getDetailRestaurant: {
+        endpoint: (idRestaurant: string) => `${BASE_URL}/${idRestaurant}`,
+        method: 'GET',
+    },
+};
+
+export async function getDetailRestaurant(idRestaurant: string): Promise<Restaurant | null> {
+    try {
+        const response = await apiClientBackend.request({
+            endpoint: restaurantEndpoints.getDetailRestaurant.endpoint(idRestaurant),
+            method: restaurantEndpoints.getDetailRestaurant.method,
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching course externe:', error);
+        return null;
+    }
+}
 
 export async function getRestaurants(): Promise<PaginatedResponse<Restaurant> | null> {
     const response = await apiClient.get(restaurantsEndpoints.getAll);

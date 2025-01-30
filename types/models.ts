@@ -7,18 +7,18 @@ export interface Sort {
     sorted: boolean;
     empty: boolean;
     unsorted: boolean;
-  }
-  
-  export interface Pageable {
+}
+
+export interface Pageable {
     paged: boolean;
     pageNumber: number;
     pageSize: number;
     offset: number;
     sort: Sort;
     unpaged: boolean;
-  }
-  
-  export interface PaginatedResponse<T> {
+}
+
+export interface PaginatedResponse<T> {
     content: T[];
     pageable: Pageable;
     totalPages: number;
@@ -30,8 +30,7 @@ export interface Sort {
     sort: Sort;
     numberOfElements: number;
     empty: boolean;
-  }
-
+}
 
 export interface Role {
     id: string;
@@ -207,8 +206,6 @@ export interface DishComplet {
     boissonPlatMs: Drink[];
 }
 
-
-
 export interface LocationCourseExterne {
     longitude: number;
     latitude: number;
@@ -241,7 +238,18 @@ export interface CourseExterne {
     dateHeureDebut: string;
     dateHeureFin: string;
     restaurant: Restaurant;
-    nombreCommande:number;
+    nombreCommande: number;
     total: number;
     commandes: CommandeCourseExterne[];
+}
+
+export interface LivreurDisponible {
+    livreurId: string;
+    avatarUrl: string;
+    nomComplet: string;
+    telephone: string;
+    position: {
+        longitude: number;
+        latitude: number;
+    };
 }

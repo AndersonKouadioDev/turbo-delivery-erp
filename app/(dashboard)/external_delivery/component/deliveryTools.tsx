@@ -1,17 +1,15 @@
 'use client';
 
-import { CourseExterne, Restaurant } from '@/types/models';
+import { CourseExterne, LivreurDisponible, Restaurant } from '@/types/models';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem, Button } from '@nextui-org/react';
 import { useState } from 'react';
 import { IconDotsVertical } from '@tabler/icons-react';
-import { STATUSES } from '@/data';
-import { Check, X } from 'lucide-react';
-import DeliveryValidate from './delivery-validate';
-import DeliveryCancel from './delivery-cancel';
+import { COURSES_STATUSES } from '@/data';
+import DeliveryAssign from './delivery-assign';
+import { TbTruckDelivery } from 'react-icons/tb';
 
-const DeliveryTools = ({ restaurant, delivery }: { restaurant: Restaurant; delivery: CourseExterne }) => {
-    const [openValider, setOpenValider] = useState<boolean>(false);
-    const [openCancel, setOpenCancel] = useState<boolean>(false);
+const DeliveryTools = ({ delivery, delivers }: { delivery: CourseExterne; delivers: LivreurDisponible[] }) => {
+    const [openAssign, setOpenAssign] = useState<boolean>(false);
 
     return (
         <>
@@ -23,26 +21,18 @@ const DeliveryTools = ({ restaurant, delivery }: { restaurant: Restaurant; deliv
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Static Actions">
                     <DropdownSection showDivider title="Actions">
-                        {delivery.statut === STATUSES.EN_ATTENTE ? (
-                            <DropdownItem startContent={<X />} color="danger" key="edit" onClick={() => setOpenCancel(true)}>
-                                Annuler
+                        {/* {delivery.statut === COURSES_STATUSES.EN_ATTENTE ? ( */}
+                            <DropdownItem startContent={<TbTruckDelivery />} color="danger" key="edit" onClick={() => setOpenAssign(true)}>
+                                Assigner la course
                             </DropdownItem>
-                        ) : (
+                        {/* ) : (
                             <></>
-                        )}
-                        {delivery.statut === STATUSES.EN_COURS ? (
-                            <DropdownItem startContent={<Check />} color="success" key="edit" onClick={() => setOpenValider(true)}>
-                                Terminer
-                            </DropdownItem>
-                        ) : (
-                            <></>
-                        )}
+                        )} */}
                     </DropdownSection>
                 </DropdownMenu>
             </Dropdown>
 
-            <DeliveryValidate restaurant={restaurant} delivery={delivery} open={openValider} setOpen={setOpenValider} />
-            <DeliveryCancel restaurant={restaurant} delivery={delivery} open={openCancel} setOpen={setOpenCancel} />
+            <DeliveryAssign delivery={delivery} delivers={delivers} open={openAssign} setOpen={setOpenAssign} />
         </>
     );
 };

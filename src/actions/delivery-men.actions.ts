@@ -3,8 +3,30 @@
 import { apiClient } from '@/lib/api-client';
 import { ActionResult, PaginatedResponse } from '@/types/index.d';
 
-import { DeliveryMan } from '@/types/models';
+import { DeliveryMan, LivreurDisponible } from '@/types/models';
 import deliveryMenEndpoints from '@/src/endpoints/delivbery-men.endpoint';
+import { apiClientBackend } from '@/lib/api-client-backend';
+
+// Configuration
+const BASE_URL = '/api/erp/livreur';
+
+const livreursEndpoints = {
+    getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
+};
+
+export async function getLivreursDisponible(): Promise<LivreurDisponible[]> {
+    try {
+        const response = await apiClientBackend.request({
+            endpoint: livreursEndpoints.getLivreursDisponible.endpoint,
+            method: livreursEndpoints.getLivreursDisponible.method,
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching paginate course externe:', error);
+        return [];
+    }
+}
 
 export async function getDeliveryMen(): Promise<PaginatedResponse<DeliveryMan> | null> {
     const response = await apiClient.get(deliveryMenEndpoints.getAll);
