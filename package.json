@@ -60,6 +60,7 @@
         "highlight.js": "^11.7.0",
         "i18next": "^23.13.0",
         "input-otp": "^1.4.1",
+        "install": "^0.13.0",
         "lucide": "^0.456.0",
         "lucide-react": "^0.460.0",
         "mantine-datatable": "^1.7.35",

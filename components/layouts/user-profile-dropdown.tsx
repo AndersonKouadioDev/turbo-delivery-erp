@@ -30,7 +30,7 @@ export default function UserProfileDropdown() {
                             as="button"
                             className="transition-transform"
                             color="primary"
-                            name={session.user?.name?.split(' ')[0].slice(0, 1)?.toUpperCase() + '' + session.user?.name?.split(' ')[1]?.slice(0, 1).toUpperCase()}
+                            name={session.user?.name?.split(' ')[0].slice(0, 1)?.toUpperCase() + '' + session.user?.name?.split(' ')[1]?.slice(0, 1)?.toUpperCase()}
                             size="sm"
                             src={session.user?.image!}
                         />
@@ -43,7 +43,7 @@ export default function UserProfileDropdown() {
                                         showFallback
                                         as="button"
                                         className="transition-transform"
-                                        name={session.user?.name?.split(' ')[0].slice(0, 1)?.toUpperCase() + '' + session.user?.name?.split(' ')[1]?.slice(0, 1).toUpperCase()}
+                                        name={session.user?.name?.split(' ')[0].slice(0, 1)?.toUpperCase() + '' + session.user?.name?.split(' ')[1]?.slice(0, 1)?.toUpperCase()}
                                         size="sm"
                                         src={session.user?.image!}
                                     />
