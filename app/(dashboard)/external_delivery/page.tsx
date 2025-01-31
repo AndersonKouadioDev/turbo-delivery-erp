@@ -6,7 +6,7 @@ import { getLivreursDisponible } from '@/src/actions/delivery-men.actions';
 
 export default async function DeliveryPage() {
     const data = await getPaginationCourseExterneEnAttente(0, 5);
-    const delivers = await getLivreursDisponible();
+    const delivers = await getLivreursDisponible() ?? [];
 
     return (
         <Suspense fallback={<Loading />}>
