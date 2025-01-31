@@ -13,11 +13,11 @@ const containerStyle = {
 };
 
 const defaultCenter = {
-    lat: 7.546855,
-    lng: -5.5471,
+    lat: 5.345317,
+    lng: -4.024429,
 };
 
-const defaultZoom = 12;
+const defaultZoom = 11;
 
 // Styles de carte pour le mode sombre
 
