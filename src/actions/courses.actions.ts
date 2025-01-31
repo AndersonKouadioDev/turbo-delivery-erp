@@ -42,7 +42,7 @@ export async function assignCourseExterne(courseId: string, livreurId: string, f
             },
         });
 
-        if (response.status !== 201) {
+        if (!response.status.toString().startsWith("20")) {
             return {
                 status: 'error',
                 message: "Erreur lors de l'assignation de la course",

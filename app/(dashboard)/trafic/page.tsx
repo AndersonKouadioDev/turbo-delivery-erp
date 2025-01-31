@@ -1,4 +1,3 @@
-'use server';
 import Loading from '@/components/layouts/loading';
 import React, { Suspense } from 'react';
 import Content from './content';

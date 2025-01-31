@@ -13,8 +13,8 @@ const containerStyle = {
 };
 
 const defaultCenter = {
-    lat: 48.8566,
-    lng: 2.3522,
+    lat: 7.546855,
+    lng: -5.5471,
 };
 
 const defaultZoom = 12;
