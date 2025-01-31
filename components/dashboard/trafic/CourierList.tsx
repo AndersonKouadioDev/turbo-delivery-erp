@@ -16,11 +16,11 @@ export default function CourierList({ couriers, selectedCourierId, onCourierClic
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
             <div className="p-6 border-b border-gray-100 dark:border-gray-700">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Coursiers en activité ({couriers.length})
+                    Coursiers en activité ({couriers?.length})
                 </h2>
             </div>
             <div className="divide-y divide-gray-100 dark:divide-gray-700 max-h-[600px] overflow-y-auto">
-                {couriers.map((courier) => (
+                {couriers && couriers.map((courier) => (
                     <div
                         key={courier.livreurId}
                         className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer ${
