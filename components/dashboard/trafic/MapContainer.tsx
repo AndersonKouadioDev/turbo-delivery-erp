@@ -7,11 +7,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
 import { darkMapStyle } from '@/data';
 
-const containerStyle = {
-    width: '100%',
-    height: '700px',
-};
-
 const defaultCenter = {
     lat: 5.345317,
     lng: -4.024429,
@@ -82,15 +77,16 @@ type MapContainerProps = {
     onMarkerClick?: (courierId: string) => void;
 };
 
-export default function MapContainer({ 
-    couriers, 
-    selectedCourierId,
-    onMarkerClick 
-}: MapContainerProps) {
+export default function MapContainer({ couriers, selectedCourierId, onMarkerClick }: MapContainerProps) {
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const { theme } = useTheme();
     const isDark = theme === 'dark';
-    
+
+    const containerStyle = {
+        width: '100%',
+        height: typeof window !== 'undefined' ? window.innerHeight - 180 + 'px' : '600px',
+    };
+
     const { isLoaded, loadError } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
@@ -106,13 +102,16 @@ export default function MapContainer({
 
     useEffect(() => {
         if (map && selectedCourierId) {
-            const selectedCourier = couriers.find(c => c.livreurId === selectedCourierId);
+            const selectedCourier = couriers.find((c) => c.livreurId === selectedCourierId);
             if (selectedCourier) {
                 map.panTo({
                     lat: selectedCourier.position.latitude,
-                    lng: selectedCourier.position.longitude
+                    lng: selectedCourier.position.longitude,
                 });
-                map.setZoom(15);
+                const zoom = map.getZoom();
+                if (zoom && zoom <= 18) {
+                    map.setZoom(20);
+                }
             }
         }
     }, [selectedCourierId, map, couriers]);
@@ -122,13 +121,10 @@ export default function MapContainer({
 
     return (
         <div className="rounded-xl shadow-lg overflow-hidden">
-            <GoogleMap 
+            <GoogleMap
                 mapContainerStyle={containerStyle}
                 zoom={defaultZoom}
-                center={couriers[0]?.position ? 
-                    { lat: couriers[0].position.latitude, lng: couriers[0].position.longitude } 
-                    : defaultCenter
-                }
+                center={couriers[0]?.position ? { lat: couriers[0].position.latitude, lng: couriers[0].position.longitude } : defaultCenter}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
                 options={{
@@ -138,23 +134,20 @@ export default function MapContainer({
                 }}
             >
                 {couriers.map((courier) => {
-                    const iconPromise = createMarkerIcon(
-                        createUrlFile(courier.avatarUrl, 'delivery'),
-                        courier.nomComplet,
-                        isDark
-                    );
+                    const iconPromise = createMarkerIcon(createUrlFile(courier.avatarUrl, 'delivery'), courier.nomComplet, isDark);
 
                     return (
                         <MarkerAsync
                             key={courier.livreurId}
                             position={{
                                 lat: courier.position.latitude,
-                                lng: courier.position.longitude
+                                lng: courier.position.longitude,
                             }}
                             iconPromise={iconPromise}
-                            onClick={() => onMarkerClick?.(courier.livreurId)}
-                            animation={selectedCourierId === courier.livreurId ? 
-                                google.maps.Animation.BOUNCE : undefined}
+                            onClick={() => {
+                                onMarkerClick?.(courier.livreurId);
+                            }}
+                            animation={selectedCourierId === courier.livreurId ? google.maps.Animation.BOUNCE : undefined}
                         />
                     );
                 })}
@@ -178,7 +171,7 @@ const MarkerAsync = ({ iconPromise, ...props }: any) => {
             icon={{
                 url: iconUrl,
                 scaledSize: new window.google.maps.Size(80, 100),
-                anchor: new google.maps.Point(40, 50)
+                anchor: new google.maps.Point(40, 50),
             }}
         />
     );

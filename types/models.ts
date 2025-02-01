@@ -83,6 +83,11 @@ export interface Restaurant {
     idLocation: string | null;
     pictures: Picture[];
     openingHours: OpeningHour[];
+    position?: {
+        longitude: number;
+        latitude: number;
+    };
+
 }
 export interface Picture {
     id: string;
@@ -221,11 +226,11 @@ export interface CommandeCourseExterne {
     id: string;
     libelle: string;
     numero: string;
-    dateHeure: string;
+    dateHeure?: string;
     destinataire: DestinataireCourseExterne;
-    lieuRecuperation: LocationCourseExterne;
-    lieuLivraison: LocationCourseExterne;
-    modePaiement: 'Espèce';
+    lieuRecuperation: Partial<LocationCourseExterne>;
+    lieuLivraison: Partial<LocationCourseExterne>;
+    modePaiement: string;
     statut: string;
     fraisLivraison: number;
     prix: number;
@@ -237,7 +242,7 @@ export interface CourseExterne {
     statut: string;
     dateHeureDebut: string;
     dateHeureFin: string;
-    restaurant: Restaurant;
+    restaurant: Partial<Restaurant>;
     nombreCommande: number;
     total: number;
     commandes: CommandeCourseExterne[];
@@ -252,4 +257,5 @@ export interface LivreurDisponible {
         longitude: number;
         latitude: number;
     };
+    course?: CourseExterne;
 }

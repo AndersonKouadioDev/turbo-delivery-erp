@@ -17,7 +17,6 @@ export default function useRealTime({ data, setData }: { data: LivreurDisponible
         function onFooEvent(value: any) {
             const newDeliver = JSON.parse(value) as LivreurDisponible;
             const isExist = data.find((d) => d.livreurId == newDeliver.livreurId);
-
             if (isExist) {
                 const others = data.filter((d) => d.livreurId !== isExist.livreurId);
                 setData([...others, newDeliver]);
