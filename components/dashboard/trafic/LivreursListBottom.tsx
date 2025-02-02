@@ -18,7 +18,7 @@ export function LivreursListBottom({ livreurs, handleCourierSelect }: LivreursLi
 
     return (
         <div className="w-full mx-auto mt-8">
-            <h2 className="text-2xl font-bold text-primary mb-4">Encore libre</h2>
+            <h2 className="lg:text-xl font-bold text-primary mb-4">Encore libre</h2>
             <div className="flex gap-2 flex-nowrap overflow-auto scrollbar-thin">
                 {livreursLibres.map((livreur, index) => (
                     <div onClick={() => handleClick(livreur.livreurId)} key={livreur.livreurId} className="shrink-0 flex items-center gap-2 cursor-pointer">

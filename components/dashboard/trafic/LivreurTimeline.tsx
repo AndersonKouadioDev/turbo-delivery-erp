@@ -27,7 +27,7 @@ export function LivreurTimeline({ livreurs: livreursEnCourse, handleCourierSelec
     };
     return (
         <div className="w-full mx-auto">
-            <h2 className="text-2xl font-bold text-primary mb-4">En circulation</h2>
+            <h2 className="lg:text-xl font-bold text-primary mb-4">En circulation</h2>
             <div className="relative mb-8 overflow-auto scrollbar-thin">
                 <div className="absolute inset-0 bg-gray-200 rounded-full h-fit flex flex-nowrap scrollbar-thin" />
                 {/* Base timeline */}
