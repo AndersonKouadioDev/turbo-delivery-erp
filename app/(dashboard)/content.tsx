@@ -46,7 +46,7 @@ import SourcesCard from '@/components/dashboard/SourcesCard';
 import StatsOverview from '@/components/dashboard/StatsOverview';
 import { Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 
-export default function Dashboard() {
+export default function Content({ items }: { items: { label: string; value: number }[] }) {
     const tabs = [
         { id: 'apercu', label: 'Aperçu' },
         { id: 'releve', label: 'Relevé de paie' },
