@@ -46,16 +46,16 @@ import SourcesCard from '@/components/dashboard/SourcesCard';
 import StatsOverview from '@/components/dashboard/StatsOverview';
 import { Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 
-export default function Content({ items }: { items: { label: string; value: number }[] }) {
-    const tabs = [
-        { id: 'apercu', label: 'Aperçu' },
-        { id: 'releve', label: 'Relevé de paie' },
-        { id: 'bilan', label: 'Bilan de paie' },
-        { id: 'partenaire', label: 'Bilan des partenaire' },
-        { id: 'emprunts', label: 'Emprunts' },
-        { id: 'cautions', label: 'Cautions' },
-    ];
+const tabs = [
+    { id: 'apercu', label: 'Aperçu' },
+    { id: 'releve', label: 'Relevé de paie' },
+    { id: 'bilan', label: 'Bilan de paie' },
+    { id: 'partenaire', label: 'Bilan des partenaire' },
+    { id: 'emprunts', label: 'Emprunts' },
+    { id: 'cautions', label: 'Cautions' },
+];
 
+export default function Content({ items }: { items: { label: string; value: number }[] }) {
     const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
     return (
         <div className="p-6 max-w-[1400px] mx-auto space-y-8">
@@ -69,7 +69,7 @@ export default function Content({ items }: { items: { label: string; value: numb
                 <Card className="p-6 shadow-lg bg-white">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Revenu total</div>
-                        <Select  className="max-w-xs" defaultSelectedKeys={["current"]}>
+                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
                             ))}
@@ -90,7 +90,7 @@ export default function Content({ items }: { items: { label: string; value: numb
                 <Card className="p-6 bg-[#E91E63] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Dépenses effectuées</div>
-                        <Select  className="max-w-xs" defaultSelectedKeys={["current"]}>
+                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
                             ))}
@@ -110,7 +110,7 @@ export default function Content({ items }: { items: { label: string; value: numb
                 <Card className="p-6 bg-[#1F2937] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Dépenses effectuées</div>
-                        <Select className="max-w-xs" defaultSelectedKeys={["current"]}>
+                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
                             ))}

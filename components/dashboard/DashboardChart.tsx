@@ -3,6 +3,7 @@
 import { LineChart, Line, XAxis, ResponsiveContainer, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Printer } from 'lucide-react';
+import { Tab, Tabs } from '@nextui-org/react';
 
 const data = [
     { name: 'Lun', revenue: 14000000, expenses: 12000000 },
@@ -35,20 +36,18 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
+const tabs = [
+    { id: 'week', label: 'Semaine' },
+    { id: 'month', label: 'Mois' },
+];
+
 export default function DashboardChart() {
     return (
         <div className="w-full">
             <div className="flex justify-between items-center mb-6">
                 <div>
                     <h3 className="text-lg font-semibold mb-1">Revenu total</h3>
-                    <div className="flex items-center gap-4">
-                        <Button variant="outline" size="sm" className="text-sm bg-gray-100">
-                            Semaine
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-sm">
-                            Mois
-                        </Button>
-                    </div>
+                    <Tabs items={tabs}>{(item) => <Tab id={item.id} title={item.label} />}</Tabs>
                 </div>
                 <Button variant="ghost" size="icon" className="hover:bg-gray-100">
                     <Printer className="h-4 w-4" />
