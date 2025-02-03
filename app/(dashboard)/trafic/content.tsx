@@ -24,11 +24,11 @@ export default function Content({ data }: { data: LivreurDisponible[] }) {
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
-                <SearchBar coursiers={updatedData.filter((deliver) => deliver.position.latitude && deliver.position.longitude)} handleCourierSelect={handleCourierSelect} />
+                <SearchBar coursiers={updatedData.filter((deliver) => deliver.position && deliver.position.latitude && deliver.position.longitude)} handleCourierSelect={handleCourierSelect} />
             </div>
             <div className="relative">
                 <MapContainer
-                    couriers={updatedData.filter((deliver) => deliver.position.latitude && deliver.position.longitude)}
+                    couriers={updatedData.filter((deliver) => deliver.position && deliver.position.latitude && deliver.position.longitude)}
                     selectedCourierId={selectedCourierId}
                     onMarkerClick={handleCourierSelect}
                 />
