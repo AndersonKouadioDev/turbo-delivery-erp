@@ -142,6 +142,8 @@
     "validated": "Validés",
     "partially_validated": "Partiellement validés",
     "not_validated": "Non validés",
+    "external_delivery": "Courses Externes",
     "trafic": "Trafic",
-    "external_delivery": "Courses Externes"
+    "queue":"File d'Attente",
+    "map":"Map"
 }

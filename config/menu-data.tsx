@@ -30,8 +30,20 @@ export interface IMenuData {
 
 const menuData: IMenuData[] = [
     { icon: IconLayoutDashboard, title: 'dashboard', path: '/' },
-    { icon: IconMap, title: 'trafic', path: '/trafic' },
+    {
+        icon: IconMap,
+        title: 'trafic',
+        children: [
+            { icon: IconUsersGroup, title: 'map', path: '/trafic' },
+            { icon: IconUsersGroup, title: 'queue', path: '/file-attente' },
+        ]
+    },
     { icon: TbTruckDelivery, title: 'external_delivery', path: '/external_delivery' },
+    // {
+    //     icon: IconMotorbike,
+    //     title: 'queue',
+    //     path: '/file-attente',
+    // },
     {
         isHeader: true,
         title: 'database',
