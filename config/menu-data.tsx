@@ -17,7 +17,7 @@ import {
     IconUsers,
     IconUsersGroup,
 } from '@tabler/icons-react';
-import { HandPlatter } from 'lucide-react';
+import { HandPlatter, SquareUser } from 'lucide-react';
 import { TbTruckDelivery } from 'react-icons/tb';
 
 export interface IMenuData {
@@ -34,8 +34,8 @@ const menuData: IMenuData[] = [
         icon: IconMap,
         title: 'trafic',
         children: [
-            { icon: IconUsersGroup, title: 'map', path: '/trafic' },
-            { icon: IconUsersGroup, title: 'queue', path: '/file-attente' },
+            { icon: IconMap, title: 'maps', path: '/trafic' },
+            { icon: SquareUser, title: 'queue', path: '/file-attente' },
         ]
     },
     { icon: TbTruckDelivery, title: 'external_delivery', path: '/external_delivery' },
