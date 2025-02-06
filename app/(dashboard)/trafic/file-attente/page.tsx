@@ -37,13 +37,13 @@ export default function Page() {
           <div className='text-2xl mt-2 '>
             104 Turboys
           </div>
-          <Button variant={"destructive"} className='mt-8 w-full text-xl hover:bg-red-300'>Voir la list</Button>
+          <Button variant={"destructive"} className='mt-8 w-full text-xl hover:bg-red-300'>Voir la liste</Button>
         </Card >
         <Card className='card bg-slate-200 box-shadow text-center p-4 w-[35%]'>
           <div className='text-2xl mt-2'>
             45 Partenairs
           </div>
-          <Button variant={"destructive"} className='mt-8 w-full text-xl hover:bg-red-300'>Voir la list</Button>
+          <Button variant={"destructive"} className='mt-8 w-full text-xl hover:bg-red-300'>Voir la liste</Button>
         </Card >
       </div>
       <RestaurantCards />
