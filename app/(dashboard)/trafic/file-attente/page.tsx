@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-export default function Page() {
-  return (
-    <div>page</div>
-=======
 "use client"
 
 import { CardHeader } from '@/components/commons/card-header'
@@ -56,6 +49,5 @@ export default function Page() {
       <RestaurantCards />
       <RestaurantsTab />
     </PageWrapper>
->>>>>>> origin/kra
   )
 }
