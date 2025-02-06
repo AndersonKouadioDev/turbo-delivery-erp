@@ -6,7 +6,7 @@ interface CardHeaderProps {
 }
 export function CardHeader({ title, subTitle }: CardHeaderProps) {
     return (
-        <div className="card pb-4">
+        <div>
             <div className="h1 text-3xl font-[1000] text-red-500">{title}</div>
             {subTitle && <h3>{subTitle}</h3>}
         </div>
