@@ -14,24 +14,29 @@ export default function useRealTime({ data, setData }: { data: LivreurDisponible
             setIsConnected(false);
         }
 
-        function onFooEvent(value: any) {
+        function onTraficLivreurEvent(value: any) {
             const newDeliver = JSON.parse(value) as LivreurDisponible;
-            const isExist = data.find((d) => d.livreurId == newDeliver.livreurId);
-            if (isExist) {
-                const others = data.filter((d) => d.livreurId !== isExist.livreurId);
-                setData([...others, newDeliver]);
-            }
+            setData((prevData) => {
+                const isExist = prevData.find((d) => d.livreurId === newDeliver.livreurId);
+                if (isExist) {
+                    // Remplacer l'élément existant par le nouveau
+                    return prevData.map((d) => (d.livreurId === newDeliver.livreurId ? newDeliver : d));
+                } else {
+                    // Si besoin, ajouter l'élément s'il n'existe pas déjà
+                    return [...prevData, newDeliver];
+                }
+            });
         }
 
         socket.on('connect', onConnect);
         socket.on('disconnect', onDisconnect);
 
-        socket.on('/trafic/livreur/', onFooEvent);
+        socket.on('/trafic/livreur/', onTraficLivreurEvent);
 
         return () => {
             socket.off('connect', onConnect);
             socket.off('disconnect', onDisconnect);
-            socket.off('foo', onFooEvent);
+            socket.off('/trafic/livreur/', onTraficLivreurEvent);
         };
     }, []);
 

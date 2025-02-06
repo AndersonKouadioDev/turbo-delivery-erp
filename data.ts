@@ -39,11 +39,11 @@ export const courses_statuses_filters = [
         name: 'En cours',
     },
     {
-        id: 'TERMINE',
+        id: 'TERMINER',
         name: 'Terminées',
     },
     {
-        id: 'ANNULE',
+        id: 'ANNULER',
         name: 'Annulées',
     },
 ];
@@ -51,8 +51,8 @@ export const courses_statuses_filters = [
 export const COURSES_STATUSES = {
     EN_ATTENTE: 'EN_ATTENTE',
     EN_COURS: 'EN_COURS',
-    TERMINE: 'TERMINE',
-    ANNULE: 'ANNULE',
+    TERMINE: 'TERMINER',
+    ANNULE: 'ANNULER',
     VALIDER: 'VALIDER',
 };
 
@@ -64,6 +64,7 @@ export const COMMANDES_STATUSES = {
     EN_ATTENTE_VERSEMENT: 'EN_ATTENTE_VERSEMENT',
     TERMINER: 'TERMINER',
 };
+
 
 export const SORT_OPTIONS = {
     DATE_DESC: 'date_desc',
