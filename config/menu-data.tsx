@@ -35,7 +35,7 @@ const menuData: IMenuData[] = [
         title: 'trafic',
         children: [
             { icon: IconMap, title: 'maps', path: '/trafic' },
-            { icon: SquareUser, title: 'queue', path: '/file-attente' },
+            { icon: SquareUser, title: 'queue', path: '/trafic/file-attente' },
         ]
     },
     { icon: TbTruckDelivery, title: 'external_delivery', path: '/external_delivery' },
