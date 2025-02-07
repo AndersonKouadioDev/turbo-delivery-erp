@@ -36,9 +36,16 @@ const menuData: IMenuData[] = [
         children: [
             { icon: IconMap, title: 'maps', path: '/trafic' },
             { icon: SquareUser, title: 'queue', path: '/trafic/file-attente' },
-        ]
+        ],
     },
-    { icon: TbTruckDelivery, title: 'external_delivery', path: '/external_delivery' },
+    {
+        icon: TbTruckDelivery,
+        title: 'external_delivery',
+        children: [
+            { icon: TbTruckDelivery, title: 'external_delivery_new', path: '/external_delivery' },
+            { icon: TbTruckDelivery, title: 'external_delivery_all', path: '/external_delivery/all' },
+        ],
+    },
     // {
     //     icon: IconMotorbike,
     //     title: 'queue',
