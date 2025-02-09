@@ -34,7 +34,7 @@ export default function Page() {
 
     return (
         <PageWrapper>
-            <div className=' bg-gray-100'>
+            <div className=''>
                 <CardHeader title="File d'attente" />
                 <div className="flex gap-4 w-1/4">
                     <div className="relative w-full">
