@@ -31,6 +31,8 @@ const courseEndpoints = {
 };
 
 export async function assignCourseExterne(courseId: string, livreurId: string, frais: number): Promise<ActionResult<any>> {
+    
+    
     try {
         const response = await apiClientBackend.request({
             endpoint: courseEndpoints.updateCourseExterne.endpoint,
@@ -38,10 +40,9 @@ export async function assignCourseExterne(courseId: string, livreurId: string, f
             data: {
                 courseId,
                 livreurId,
-                frais,
+                // frais,
             },
         });
-
         if (!response.status.toString().startsWith("20")) {
             return {
                 status: 'error',
@@ -52,7 +53,8 @@ export async function assignCourseExterne(courseId: string, livreurId: string, f
             status: 'success',
             message: 'Course assignée avec succès',
         };
-    } catch (error) {
+    } catch (error:any) {
+      
         return {
             status: 'error',
             message: "Erreur lors de l'assignation de la course",
