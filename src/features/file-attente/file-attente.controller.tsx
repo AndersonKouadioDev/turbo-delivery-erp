@@ -1,4 +1,4 @@
-"use client"
+
 
 import { fetchFilleAttente } from "@/src/actions/file-attente.actions";
 import { FilleAttenteHistoriqueVM, FilleAttenteVM } from "@/types/file-attente.model";
