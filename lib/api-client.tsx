@@ -41,9 +41,9 @@ class ApiClient {
             // tentative de rafraîchir le token
             const session = await this.getSession();
             if (session && response.status === 401) {
-               if(typeof window===undefined){
-                await signOut();``
-               }
+                if (typeof window === 'undefined') {
+                    await signOut();
+                }
             }
         }
 
@@ -54,12 +54,15 @@ class ApiClient {
         const url = `${this.baseUrl}${endpoint}`;
         const headers = await this.getHeaders(type);
 
-        const response = await fetch(url, {
-            ...options,
-            headers: { ...headers, ...options.headers } as HeadersInit,
-        });
-
-        return this.handleResponse(response);
+        try {
+            const response = await fetch(url, {
+                ...options,
+                headers: { ...headers, ...options.headers } as HeadersInit,
+            });
+            return this.handleResponse(response);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async get(endpoint: string) {
@@ -97,8 +100,8 @@ class ApiClient {
             requestInit?: RequestInit;
             type?: 'json' | 'formData';
         } = {
-            type: 'json',
-        },
+                type: 'json',
+            },
     ) {
         return this.fetch(
             endpoint,
