@@ -37,9 +37,8 @@ function App({ children }: PropsWithChildren) {
             <NextThemesProvider attribute="class" defaultTheme={'light'}>
                 <I18nProvider locale={themeConfig.locale}>
                     <div
-                        className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${
-                            themeConfig.rtlClass
-                        } main-section relative font-nunito text-sm font-normal antialiased`}
+                        className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${themeConfig.rtlClass
+                            } main-section relative font-nunito text-sm font-normal antialiased`}
                     >
                         {isLoading ? (
                             <Loading />

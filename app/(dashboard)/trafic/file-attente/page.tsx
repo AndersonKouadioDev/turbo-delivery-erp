@@ -12,10 +12,16 @@ import { Search, Map } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
+import { useFileAttenteController } from '@/src/features/file-attente/file-attente.controller'
+import { LoaderSpinner } from '@/components/commons/loader-spinner'
 
 export default function Page() {
+  const ctrl = useFileAttenteController();
   return (
     <PageWrapper>
+      {
+        ctrl.isLoading && <LoaderSpinner />
+      }
       <div className=' bg-gray-100'>
         <CardHeader title="File d'attente" />
         <div className="flex gap-4 w-1/4">
@@ -46,8 +52,8 @@ export default function Page() {
           <Button variant={"destructive"} className='mt-8 w-full text-xl hover:bg-red-300'>Voir la liste</Button>
         </Card >
       </div>
-      <RestaurantCards />
-      <RestaurantsTab />
+      <RestaurantCards fileAttentes={ctrl.fileAttentes} refreshData={ctrl.refreshData} />
+      <RestaurantsTab fileAttentes={ctrl.fileAttentes} />
     </PageWrapper>
   )
 }
