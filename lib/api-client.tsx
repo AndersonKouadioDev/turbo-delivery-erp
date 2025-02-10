@@ -100,8 +100,8 @@ class ApiClient {
             requestInit?: RequestInit;
             type?: 'json' | 'formData';
         } = {
-                type: 'json',
-            },
+            type: 'json',
+        },
     ) {
         return this.fetch(
             endpoint,

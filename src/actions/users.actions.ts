@@ -19,7 +19,6 @@ export async function loginUser(prevState: any, formData: FormData): Promise<Act
         {
             useDynamicValidation: true,
         },
-        prevState,
     );
 
     if (!success) {

@@ -1,10 +1,8 @@
 'use server';
 
-import { apiClientBackend } from '@/lib/api-client-backend';
+import { apiClientHttp } from '@/lib/api-client-http';
 import { ActionResult } from '@/types';
 import { BonLivraison } from '@/types/bon-livraison.model';
-import { CourseExterne, PaginatedResponse } from '@/types/models';
-import { processFormData } from '@/utils/formdata-zod.utilities';
 
 // Configuration
 const BASE_URL = '/api/erp/bon-livraison';
@@ -16,16 +14,21 @@ const bonLivraisonEndpoints = {
     },
 };
 
-export async function getBonLivraisonAll(): Promise<BonLivraison[] | null> {
+export async function getBonLivraisonAll(): Promise<ActionResult<BonLivraison[]>> {
     try {
-        const response = await apiClientBackend.request({
+        const data = await apiClientHttp.request<BonLivraison[]>({
             endpoint: bonLivraisonEndpoints.getBonLivraisonAll.endpoint,
             method: bonLivraisonEndpoints.getBonLivraisonAll.method,
         });
 
-        return response.data;
-    } catch (error:any) {
-        console.log(error.response.data.message);
-        return null;
+        return {
+            status: 'success',
+            data,
+        };
+    } catch (error: any) {
+        return {
+            status: 'error',
+            message: error?.response?.data?.message,
+        };
     }
 }

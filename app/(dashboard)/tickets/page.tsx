@@ -4,8 +4,8 @@ import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
 import Content from './content';
 
 export default async function Page() {
-    const data = await getBonLivraisonAll();
-    console.log({data})
+    const data = (await getBonLivraisonAll()).data ?? [];
+    console.log({ data });
     return (
         <Suspense fallback={<Loading />}>
             <Content data={data} />

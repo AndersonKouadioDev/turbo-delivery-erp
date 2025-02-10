@@ -5,6 +5,7 @@ import { ActionResult } from '@/types';
 import { CourseExterne, PaginatedResponse } from '@/types/models';
 import { processFormData } from '@/utils/formdata-zod.utilities';
 import { courseExterneSchema } from '../schemas/courses.schema';
+import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
 const BASE_URL = '/api/erp/course-externe';
@@ -30,41 +31,34 @@ const courseEndpoints = {
     },
 };
 
-export async function assignCourseExterne(courseId: string, livreurId: string, frais: number): Promise<ActionResult<any>> {
-    
-    
+export async function assignCourseExterne(courseId: string, livreurId: string, frais: number): Promise<ActionResult> {
     try {
-        const response = await apiClientBackend.request({
+        await apiClientHttp.request({
             endpoint: courseEndpoints.updateCourseExterne.endpoint,
             method: courseEndpoints.updateCourseExterne.method,
             data: {
                 courseId,
                 livreurId,
-                // frais,
+                frais,
             },
+            service: 'backend',
         });
-        if (!response.status.toString().startsWith("20")) {
-            return {
-                status: 'error',
-                message: "Erreur lors de l'assignation de la course",
-            };
-        }
+
         return {
             status: 'success',
             message: 'Course assignée avec succès',
         };
-    } catch (error:any) {
-      
+    } catch (error: any) {
         return {
             status: 'error',
-            message: "Erreur lors de l'assignation de la course",
+            message: error?.response?.data?.message ?? "Erreur lors de l'assignation de la course",
         };
     }
 }
 
 export async function getPaginationCourseExterneEnAttente(page: number = 0, size: number = 10): Promise<PaginatedResponse<CourseExterne> | null> {
     try {
-        const response = await apiClientBackend.request({
+        const data = await apiClientHttp.request({
             endpoint: courseEndpoints.getPaginationCourseExterneEnAttente.endpoint,
             method: courseEndpoints.getPaginationCourseExterneEnAttente.method,
             params: {
@@ -73,9 +67,8 @@ export async function getPaginationCourseExterneEnAttente(page: number = 0, size
             },
         });
 
-        return response.data;
+        return data;
     } catch (error) {
-        console.error('Error fetching paginate course externe:', error);
         return null;
     }
 }
@@ -92,7 +85,6 @@ export async function getPaginationCourseExterneAutreStatus(page: number = 0, si
 
         return response.data;
     } catch (error) {
-        console.error('Error fetching paginate course externe:', error);
         return null;
     }
 }
