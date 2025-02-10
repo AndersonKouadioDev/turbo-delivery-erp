@@ -2,7 +2,7 @@
 import React, { Suspense } from 'react'
 import Loading from '@/components/layouts/loading'
 import RestaurantContent from './content'
-import { useFileAttenteController } from '@/src/features/file-attente/file-attente.controller';
+import { useFileAttenteController } from '@/components/dashboard/trafic/file-attente/file-attente.controller';
 
 export default async function Page() {
   const ctrl = await useFileAttenteController();

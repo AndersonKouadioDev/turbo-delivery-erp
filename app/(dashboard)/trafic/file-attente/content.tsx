@@ -12,7 +12,7 @@ import { Search, Map } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
-import { useFileAttenteController } from '@/src/features/file-attente/file-attente.controller'
+import { useFileAttenteController } from '@/components/dashboard/trafic/file-attente/file-attente.controller'
 import { LoaderSpinner } from '@/components/commons/loader-spinner'
 import { FilleAttenteHistoriqueVM } from '@/types/file-attente.model'
 
