@@ -122,7 +122,7 @@ export function ListeDesLivraisons() {
                     <div className="p-4">
                         <div className="flex flex-col items-center bg-gray-100 rounded-lg p-6">
                             <Avatar className="w-16 h-16">
-                                <AvatarFallback className="bg-red-500 p-0 text-md text-white rounded-full">
+                                <AvatarFallback className="bg-red-500 p-0 text-xl text-white rounded-full">
                                     {avatarFallback("KRAH Éric")}
                                 </AvatarFallback>
                             </Avatar>
