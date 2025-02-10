@@ -119,5 +119,6 @@
     "external_delivery_all":"Toutes Courses",
     "trafic": "Trafic",
     "queue":"File d'Attente",
-    "maps":"Maps"
+    "maps":"Maps",
+    "ticket":"Gestion des Tickets"
 }

@@ -17,7 +17,7 @@ import {
     IconUsers,
     IconUsersGroup,
 } from '@tabler/icons-react';
-import { HandPlatter, SquareUser } from 'lucide-react';
+import { HandPlatter, SquareUser, Ticket } from 'lucide-react';
 import { TbTruckDelivery } from 'react-icons/tb';
 
 export interface IMenuData {
@@ -38,6 +38,7 @@ const menuData: IMenuData[] = [
             { icon: SquareUser, title: 'queue', path: '/trafic/file-attente' },
         ],
     },
+    { icon: Ticket, title: 'ticket', path: '/tickets' },
     {
         icon: TbTruckDelivery,
         title: 'external_delivery',

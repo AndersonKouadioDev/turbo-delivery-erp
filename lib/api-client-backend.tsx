@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosHeaders, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosHeaders, AxiosRequestConfig, AxiosError } from 'axios';
 import { auth } from '@/auth';
 
 class ApiClientBackend {
@@ -15,12 +15,13 @@ class ApiClientBackend {
         // Interceptor pour gérer les réponses
         this.axiosInstance.interceptors.response.use(
             (response) => response,
-            async (error) => {
+            async (error:AxiosError) => {
+              
                 if (error.response?.status === 401) {
                     const url = new URL('/api/auth/logout', process.env.NEXT_PUBLIC_URL || '');
                     await fetch(url.toString(), { method: 'POST' });
                 }
-                return error;
+                return Promise.reject(error);;
             },
         );
 
