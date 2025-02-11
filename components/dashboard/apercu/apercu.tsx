@@ -10,7 +10,7 @@ import { Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 interface Props {
     dates: any
 }
-export function Apprcu({ dates }: Props) {
+export function Appercu({ dates }: Props) {
     return (
         <div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

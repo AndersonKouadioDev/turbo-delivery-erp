@@ -6,7 +6,6 @@ import { Search, Map } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 const data = [
     {
@@ -25,12 +24,14 @@ const data = [
     },
 ];
 export default async function Page() {
+
     // const { id } = useParams()
+
     // console.log(id);
+    
     // const [actRow, setActiveRow] = useState("")
 
-    return (
-        <PageWrapper>
+    return ( <PageWrapper>
             <div className="">
                 <CardHeader title="File d'attente" />
                 <div className="flex gap-4 w-1/4">

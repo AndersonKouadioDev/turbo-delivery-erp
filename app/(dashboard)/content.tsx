@@ -45,14 +45,14 @@ import DashboardChart from '@/components/dashboard/DashboardChart';
 import SourcesCard from '@/components/dashboard/SourcesCard';
 import StatsOverview from '@/components/dashboard/StatsOverview';
 import { Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
-import { Apprcu } from '@/components/dashboard/apercu/apercu';
+import { Appercu } from '@/components/dashboard/apercu/apercu';
 import { RelevePaie } from '@/components/dashboard/releve-de-paie/releve-paie';
 
 
 export default function Content({ items }: { items: { label: string; value: number }[] }) {
     const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
     const tabs = [
-        { id: 'apercu', label: 'Aperçu', children: <Apprcu dates={dates} /> },
+        { id: 'apercu', label: 'Aperçu', children: <Appercu dates={dates} /> },
         { id: 'releve', label: 'Relevé de paie', children: <RelevePaie /> },
         { id: 'bilan', label: 'Bilan de paie' },
         { id: 'partenaire', label: 'Bilan des partenaire' },
