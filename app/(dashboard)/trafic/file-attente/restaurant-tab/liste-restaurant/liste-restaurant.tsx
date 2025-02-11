@@ -1,6 +1,6 @@
 
 import { Paginations } from "@/components/commons/paginations";
-import { useListeRestaurantController } from "@/src/features/file-attente/liste-restaurant.controller";
+import { useListeRestaurantController } from "@/components/dashboard/trafic/file-attente/liste-restaurant.controller";
 import { FilleAttenteVM } from "@/types/file-attente.model";
 import Link from "next/link";
 

@@ -327,7 +327,7 @@ function TableElement({
                                             <TableHead
                                                 key={header.id}
                                                 className={clsx(
-                                                    "bg-white bg-gray-300 font-bold text-sm",
+                                                    "bg-white text-red-500 font-bold text-sm",
                                                     { "whitespace-nowrap": responsive }
                                                 )}
                                             >
