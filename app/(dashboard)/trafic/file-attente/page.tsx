@@ -4,7 +4,7 @@ import Loading from '@/components/layouts/loading'
 import RestaurantContent from './content'
 import { useFileAttenteController } from '@/src/features/file-attente/file-attente.controller';
 
-export default  function Page() {
+export default function Page() {
   const ctrl = useFileAttenteController();
   return (
     <Suspense fallback={<Loading />}>
@@ -12,3 +12,4 @@ export default  function Page() {
     </Suspense>
   )
 }
+

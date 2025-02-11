@@ -1,7 +1,7 @@
 'use server';
 
 import { LivreurDisponible } from '@/types/models';
-import { apiClientBackend } from '@/lib/api-client-backend';
+import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
 const BASE_URL = '/api/erp/trafic';
@@ -12,14 +12,14 @@ const traficEndpoints = {
 
 export async function getTraficLivreurs(): Promise<LivreurDisponible[]> {
     try {
-        const response = await apiClientBackend.request({
+        const data = await apiClientHttp.request<LivreurDisponible[]>({
             endpoint: traficEndpoints.getTraficLivreurs.endpoint,
             method: traficEndpoints.getTraficLivreurs.method,
+            service: 'erp',
         });
 
-        return response.data;
+        return data;
     } catch (error) {
-        console.error('Error fetching paginate course externe:', error);
         return [];
     }
 }

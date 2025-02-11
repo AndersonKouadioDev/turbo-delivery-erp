@@ -1,17 +1,16 @@
+'use client';
 
-
-import { fetchFilleAttente } from "@/src/actions/file-attente.actions";
-import { FilleAttenteHistoriqueVM, FilleAttenteVM } from "@/types/file-attente.model";
-import { useEffect, useState } from "react";
+import { fetchFilleAttente } from '@/src/actions/file-attente.actions';
+import { FilleAttenteHistoriqueVM, FilleAttenteVM } from '@/types/file-attente.model';
+import { useEffect, useState } from 'react';
 
 export function useFileAttenteController() {
     const [fileAttentes, setFileAttentes] = useState<FilleAttenteHistoriqueVM[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
-
     const fetchFileAttentes = async () => {
         try {
-            setIsLoading(true)
+            setIsLoading(true);
             const result = await fetchFilleAttente();
             setFileAttentes(result);
         } catch (error) {
@@ -28,6 +27,6 @@ export function useFileAttenteController() {
     return {
         fileAttentes,
         isLoading,
-        refreshData: fetchFileAttentes
-    }
+        refreshData: fetchFileAttentes,
+    };
 }

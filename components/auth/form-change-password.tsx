@@ -13,9 +13,9 @@ import { useRouter } from 'next/navigation';
 export function FormChangePassword({ userName }: { userName: string }) {
     const router = useRouter();
     const [state, formAction] = useFormState(
-        async (prevState: any, formData: FormData) => {
+        async (_: any, formData: FormData) => {
             formData.set('username', userName);
-            const result = await changePassword(prevState, formData);
+            const result = await changePassword(formData);
 
             if (result.status === 'success') {
                 toast.success(result.message || 'Bravo ! vous avez réussi');

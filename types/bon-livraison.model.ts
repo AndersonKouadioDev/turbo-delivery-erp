@@ -1,5 +1,5 @@
 export interface BonLivraison {
-    commndeId: string;
+    commandeId: string;
     reference: string;
     livreur: string;
     restaurant: string;
@@ -12,5 +12,5 @@ export interface BonLivraison {
         second: number;
         nano: number;
     };
-    staut: string;
+    statut: string;
 }

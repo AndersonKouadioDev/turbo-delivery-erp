@@ -19,7 +19,7 @@ const TypePlatEdit = ({ typePlat, open, setOpen }: { typePlat: Collection; open:
 
     const [state, formAction] = useFormState(
         async (prevState: any, formData: FormData) => {
-            const result = await updateTypePlat(prevState, formData, typePlat.id);
+            const result = await updateTypePlat(formData, typePlat.id);
 
             if (result.status === 'success') {
                 toast.success(result.message || 'Bravo ! vous avez réussi');
