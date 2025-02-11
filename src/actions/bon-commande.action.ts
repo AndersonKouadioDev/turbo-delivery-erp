@@ -19,6 +19,7 @@ export async function getBonLivraisonAll(): Promise<ActionResult<BonLivraison[]>
         const data = await apiClientHttp.request<BonLivraison[]>({
             endpoint: bonLivraisonEndpoints.getBonLivraisonAll.endpoint,
             method: bonLivraisonEndpoints.getBonLivraisonAll.method,
+            service:'backend'
         });
 
         return {

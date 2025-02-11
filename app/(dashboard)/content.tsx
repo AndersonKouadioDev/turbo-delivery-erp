@@ -48,7 +48,6 @@ import { Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 import { Appercu } from '@/components/dashboard/apercu/apercu';
 import { RelevePaie } from '@/components/dashboard/releve-de-paie/releve-paie';
 
-
 export default function Content({ items }: { items: { label: string; value: number }[] }) {
     const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
     const tabs = [
@@ -64,12 +63,13 @@ export default function Content({ items }: { items: { label: string; value: numb
         <div className="p-6 max-w-[1400px] mx-auto space-y-8">
             <Tabs items={tabs} className="w-full">
                 {(item) => {
-                    return <Tab key={item.id} title={item.label} children={item.children} />;
+                    return (
+                        <Tab key={item.id} title={item.label}>
+                            {item.children}
+                        </Tab>
+                    );
                 }}
             </Tabs>
-
-
-
         </div>
     );
 }
