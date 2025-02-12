@@ -14,22 +14,16 @@ const bonLivraisonEndpoints = {
     },
 };
 
-export async function getBonLivraisonAll(): Promise<ActionResult<BonLivraison[]>> {
+export async function getBonLivraisonAll(): Promise<BonLivraison[]> {
     try {
         const data = await apiClientHttp.request<BonLivraison[]>({
             endpoint: bonLivraisonEndpoints.getBonLivraisonAll.endpoint,
             method: bonLivraisonEndpoints.getBonLivraisonAll.method,
-            service:'backend'
+            service: 'backend',
         });
 
-        return {
-            status: 'success',
-            data,
-        };
+        return data;
     } catch (error: any) {
-        return {
-            status: 'error',
-            message: error?.response?.data?.message,
-        };
+        return [];
     }
 }

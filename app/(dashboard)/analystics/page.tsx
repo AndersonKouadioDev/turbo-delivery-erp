@@ -6,6 +6,7 @@ import { getRestaurants } from '@/src/actions/restaurants.actions';
 import { getTypePlats } from '@/src/actions/type-plats.actions';
 import { getUsers } from '@/src/actions/users.actions';
 import { getAllChiffreAffaire } from '@/src/actions/statistiques.action';
+import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
 
 export default async function Page() {
     const items = {
@@ -14,7 +15,9 @@ export default async function Page() {
         typePlats: await getTypePlats(),
         users: await getUsers(),
         chiffreAffaire: await getAllChiffreAffaire(),
+        tikect: await getBonLivraisonAll(),
     };
+
     return (
         <Suspense fallback={<Loading />}>
             <Content items={items} />
