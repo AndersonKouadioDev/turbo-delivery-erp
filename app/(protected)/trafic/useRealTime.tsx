@@ -29,7 +29,7 @@ export default function useRealTime({ data, setData }: { data: LivreurDisponible
             });
         }
 
-        // socket.on('connect', onConnect);
+        socket.on('connect', onConnect);
         socket.on('disconnect', onDisconnect);
 
         socket.on('/trafic/livreur/', onTraficLivreurEvent);
