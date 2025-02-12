@@ -10,6 +10,7 @@ import { formatNumber } from '@/utils/formatNumber';
 import { Select, SelectItem } from '@nextui-org/react';
 import RestaurantList from '@/components/dashboard/apercu/RestaurantList';
 import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
+import DatabaseCards from '@/components/dashboard/apercu/DatabaseCards';
 
 export default function Content({ items }: { items: Record<string, any> }) {
     const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
@@ -107,7 +108,17 @@ export default function Content({ items }: { items: Record<string, any> }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="col-span-3">
+                <div className="col-span-3 space-y-6">
+                    <Card className="p-6 shadow-lg bg-white">
+                        <DatabaseCards
+                            items={[
+                                { label: 'Total Personnel', value: items?.users?.totalElements ?? 0 },
+                                { label: 'Total Partenaire', value: items?.restaurants?.totalElements ?? 0 },
+                                { label: 'Total Livreur', value: items?.deliveryMen?.totalElements ?? 0 },
+                                { label: 'Total Type de plat', value: items?.typePlats?.length ?? 0 },
+                            ]}
+                        />
+                    </Card>
                     <Card className="p-6 shadow-lg bg-white">
                         <DashboardChart />
                     </Card>
@@ -117,7 +128,7 @@ export default function Content({ items }: { items: Record<string, any> }) {
                     <StatsOverview />
                 </div>
             </div>
-            <div className="grid gap-6">
+            <div>
                 <RestaurantList data={items?.chiffresAffairesRestaurants as ChiffreAffaireRestaurant[]} />
             </div>
         </div>

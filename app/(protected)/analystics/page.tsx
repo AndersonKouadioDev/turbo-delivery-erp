@@ -14,7 +14,7 @@ export default async function Page() {
     const typePlats = await getTypePlats();
     const users = await getUsers();
     const chiffreAffaire = await getAllChiffreAffaire();
-
+   
     const chiffresAffairesRestaurants: ChiffreAffaireRestaurant[] = [
         {
             restaurantId: 'resto_001',

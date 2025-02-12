@@ -25,7 +25,7 @@ export default function SourcesCard() {
             <div className="space-y-6">
                 <div className="flex flex-col">
                     <h3 className="text-lg font-semibold">Sources</h3>
-                    <Tabs items={tabs} className="w-auto">
+                    <Tabs size="sm" items={tabs} className="w-auto">
                         {(item) => <Tab key={item.id} title={item.label}/>}
                     </Tabs>
                 </div>

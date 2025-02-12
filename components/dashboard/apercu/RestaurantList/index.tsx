@@ -14,7 +14,7 @@ export default function RestaurantList({ data }: ContentProps) {
     const { columns, renderCell } = useRestaurantListCtx();
 
     return (
-        <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
+        <div className="h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
                 <h1 className={subtitle({class: 'font-semibold' })}>Chiffre d&apos;affaire par restaurant</h1>
             </div>
