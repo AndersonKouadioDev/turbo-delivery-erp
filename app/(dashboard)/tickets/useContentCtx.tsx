@@ -1,20 +1,29 @@
 'use client';
 
 import { BonLivraison } from '@/types/bon-livraison.model';
-import { Key, useCallback } from 'react';
+import { Switch } from '@nextui-org/react';
+import { useCallback } from 'react';
 
-export default function useContentController() {
+export const columns = [
+    { name: 'Référence', uid: 'reference' },
+    { name: 'Date et Heure', uid: 'date' },
+    { name: 'Livreur', uid: 'livreur' },
+    { name: 'Restaurant', uid: 'restaurant' },
+    { name: 'Coût livraison', uid: 'coutLivraison' },
+    { name: 'Coût commande', uid: 'coutCommande' },
+    { name: 'Authentif', uid: 'statut' },
+];
+
+export default function useContentCtx() {
     const renderCell = useCallback((bonLivraison: BonLivraison, columnKey: keyof BonLivraison) => {
         const cellValue = bonLivraison[columnKey];
-
         switch (columnKey) {
-            //   case "role":
-            //     return (
-            //       <div className="flex flex-col">
-            //         <p className="text-bold text-sm capitalize">{cellValue}</p>
-            //         <p className="text-bold text-sm capitalize text-default-400">{bonLivraison.team}</p>
-            //       </div>
-            //     );
+            case 'coutLivraison':
+                return <p>{String(cellValue) + ' FCFA'}</p>;
+            case 'coutCommande':
+                return <p>{String(cellValue) + ' FCFA'}</p>;
+            case 'statut':
+                return cellValue == 'TERMINER' ? <Switch size="sm" color="primary" readOnly defaultSelected /> : <Switch size="sm" readOnly />;
             //   case "status":
             //     return (
             //       <Chip className="capitalize" color={statusColorMap[bonLivraison.status]} size="sm" variant="flat">
@@ -48,5 +57,6 @@ export default function useContentController() {
 
     return {
         renderCell,
+        columns,
     };
 }

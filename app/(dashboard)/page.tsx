@@ -5,32 +5,16 @@ import { getDeliveryMen } from '@/src/actions/delivery-men.actions';
 import { getRestaurants } from '@/src/actions/restaurants.actions';
 import { getTypePlats } from '@/src/actions/type-plats.actions';
 import { getUsers } from '@/src/actions/users.actions';
+import { getAllChiffreAffaire } from '@/src/actions/statistiques.action';
 
 export default async function Page() {
-    const deliveryMen = await getDeliveryMen();
-    const restaurants = await getRestaurants();
-    const typePlats = await getTypePlats();
-    const users = await getUsers();
-
-    const items: { label: string; value: number }[] = [
-        {
-            label: 'Membres',
-            value: users ? users.content.length : 0,
-        },
-        {
-            label: 'Livreurs',
-            value: deliveryMen ? deliveryMen.content.length : 0,
-        },
-        {
-            label: 'Restaurants',
-            value: restaurants ? restaurants.content.length : 0,
-        },
-        {
-            label: 'Type de plats',
-            value: typePlats ? typePlats.length : 0,
-        },
-    ];
-
+    const items = {
+        deliveryMen: await getDeliveryMen(),
+        restaurants: await getRestaurants(),
+        typePlats: await getTypePlats(),
+        users: await getUsers(),
+        chiffreAffaire: await getAllChiffreAffaire(),
+    };
     return (
         <Suspense fallback={<Loading />}>
             <Content items={items} />

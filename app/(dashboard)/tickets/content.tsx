@@ -3,24 +3,15 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react';
 import { title } from '@/components/primitives';
 import { BonLivraison } from '@/types/bon-livraison.model';
-import useContentController from './useController';
+import useContentCtx from './useContentCtx';
+import { Calendar, Cherry, CircleFadingPlus, Home, SquareMenu, ToggleRight, User } from 'lucide-react';
 
 interface ContentProps {
     data: BonLivraison[] | null;
 }
 
-export const columns = [
-    { name: 'Référence', uid: 'reference' },
-    { name: 'Date et Heure', uid: 'date' },
-    { name: 'Livreur', uid: 'livreur' },
-    { name: 'Restaurant', uid: 'restaurant' },
-    { name: 'Coût livraison', uid: 'coutLivraison' },
-    { name: 'Coût commande', uid: 'coutCommande' },
-    { name: 'Authentif', uid: 'statut' },
-];
-
 export default function Content({ data }: ContentProps) {
-    const { renderCell } = useContentController();
+    const { columns, renderCell } = useContentCtx();
 
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
@@ -31,7 +22,17 @@ export default function Content({ data }: ContentProps) {
                 <TableHeader columns={columns}>
                     {(column) => (
                         <TableColumn key={column.uid} align={column.uid === 'actions' ? 'center' : 'start'}>
-                            {column.name}
+                            <div className="flex gap-2 text-primary">
+                                {column.uid === 'reference' ? <CircleFadingPlus size={15} /> 
+                                : column.uid === 'date' ? <Calendar size={15} /> 
+                                : column.uid === 'livreur' ? <User size={15} /> 
+                                : column.uid === 'restaurant' ? <Home size={15} /> 
+                                : column.uid === 'coutLivraison' ? <Cherry size={15} /> 
+                                : column.uid === 'coutCommande' ? <SquareMenu size={15} /> 
+                                : column.uid === 'statut' ? <ToggleRight size={15} /> 
+                                : <></>}
+                                {column.name}
+                            </div>
                         </TableColumn>
                     )}
                 </TableHeader>

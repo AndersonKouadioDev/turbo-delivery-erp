@@ -48,10 +48,10 @@ import { Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 import { Appercu } from '@/components/dashboard/apercu/apercu';
 import { RelevePaie } from '@/components/dashboard/releve-de-paie/releve-paie';
 
-export default function Content({ items }: { items: { label: string; value: number }[] }) {
+export default function Content({ items }: { items: Record<string, any> }) {
     const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
     const tabs = [
-        { id: 'apercu', label: 'Aperçu', children: <Appercu dates={dates} /> },
+        { id: 'apercu', label: 'Aperçu', children: <Appercu items={items} dates={dates} /> },
         { id: 'releve', label: 'Relevé de paie', children: <RelevePaie /> },
         { id: 'bilan', label: 'Bilan de paie' },
         { id: 'partenaire', label: 'Bilan des partenaire' },
