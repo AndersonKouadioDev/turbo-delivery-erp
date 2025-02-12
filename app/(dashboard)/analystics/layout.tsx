@@ -19,9 +19,10 @@ export default function AnalysticsLayout({ children }: { children: React.ReactNo
         { id: '/analystics/emprunts', href: '/analystics/pay-slip', label: 'Emprunts' },
         { id: '/analystics/cautions', href: '/analystics/pay-slip', label: 'Cautions' },
     ];
+    const currentTab = tabs.find((tab) => pathname.startsWith(tab.id) && tab.id !== '/analystics');
 
     return (
-        <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname} className="w-full">
+        <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/analystics' ? '/analystics' : currentTab ? currentTab.id : ''} className="w-full">
             {(item) => {
                 return (
                     <Tab key={item.id} as={Link} href={item.href} title={item.label}>

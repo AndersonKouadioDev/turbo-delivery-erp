@@ -160,7 +160,7 @@ export function DetailContent({ data }: Props) {
                     <div className={"flex items-center justify-end"}>
                         <div className={"flex gap-4 items-center"}>
                             <DataTable.SearchInput />
-                            <div className="flex justify-end cursor-pointer text-red-500"><MoveLeft className="mr-2" /><Link href={"/"}>Retour à la liste</Link></div>
+                            <div className="flex justify-end cursor-pointer text-red-500"><MoveLeft className="mr-2" /><Link href={"/analystics/pay-slip"}>Retour à la liste</Link></div>
                         </div>
                     </div>
                     <DataTable.Table />

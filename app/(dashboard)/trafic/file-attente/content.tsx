@@ -11,14 +11,8 @@ import { Search, Map } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { Input } from '@nextui-org/react';
-import { FilleAttenteHistoriqueVM } from '@/types/file-attente.model';
 import { useFileAttenteController } from '@/components/dashboard/trafic/file-attente/file-attente.controller';
 
-interface Props {
-    fileAttentes: FilleAttenteHistoriqueVM[];
-    refreshData: () => void;
-    isLoading: boolean;
-}
 export default function RestaurantContent() {
     const { fileAttentes, refreshData, isLoading } = useFileAttenteController();
 
