@@ -12,6 +12,7 @@ interface SelectWithCheckboxProps {
     setSelected: (selected: any) => void;
     confirmer?: () => void;
 }
+
 export function SelectWithCheckbox(props: SelectWithCheckboxProps) {
     const toggleSelection = (name: any) => {
         props.setSelected((prev: any) => (prev.includes(name) ? prev.filter((n: any) => n !== name) : [...prev, name]));
