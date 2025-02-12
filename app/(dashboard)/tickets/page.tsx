@@ -1,10 +1,11 @@
 import Loading from '@/components/layouts/loading';
 import React, { Suspense } from 'react';
+import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
 import Content from './content';
-import { getTraficLivreurs } from '@/src/actions/trafic.actions';
 
 export default async function Page() {
-    const data = (await getTraficLivreurs()) ?? [];
+    const data = (await getBonLivraisonAll()).data ?? [];
+
     return (
         <Suspense fallback={<Loading />}>
             <Content data={data} />

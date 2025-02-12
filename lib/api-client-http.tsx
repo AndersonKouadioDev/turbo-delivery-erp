@@ -1,7 +1,11 @@
 import axios, { AxiosInstance, AxiosHeaders, AxiosRequestConfig, AxiosError } from 'axios';
 import { auth } from '@/auth';
 
-class ApiClientBackend {
+export type ServiceType = 'erp' | 'restaurant' | 'livreur' | 'client' | 'backend';
+
+
+
+class ApiClientHttp {
     private axiosInstance: AxiosInstance;
 
     constructor(baseUrl: string) {
@@ -54,7 +58,36 @@ class ApiClientBackend {
         return headers;
     }
 
-    async request<T = any>({ endpoint, method, data, params, config }: { endpoint: string; method: string; data?: any; params?: Record<string, string>; config?: AxiosRequestConfig }): Promise<T> {
+    async request<T = any>({
+        endpoint,
+        method,
+        data,
+        params,
+        service,
+        config,
+    }: {
+        endpoint: string;
+        method: string;
+        data?: any;
+        params?: Record<string, string>;
+        service?: ServiceType;
+        config?: AxiosRequestConfig;
+    }): Promise<T> {
+        if (service) {
+            const baseUrl =
+                service == 'erp'
+                    ? process.env.NEXT_PUBLIC_API_ERP_URL || ''
+                    : service == 'restaurant'
+                      ? process.env.NEXT_PUBLIC_API_RESTO_URL || ''
+                      : service == 'livreur'
+                        ? process.env.NEXT_PUBLIC_API_DELIVERY_URL || ''
+                        : service == 'client'
+                          ? process.env.NEXT_PUBLIC_API_CLIENT_URL || ''
+                          : process.env.NEXT_PUBLIC_API_BACKEND_URL || '';
+
+            config = { ...config, baseURL: baseUrl };
+        }
+
         try {
             const queryString = new URLSearchParams(params).toString();
             const url = `${endpoint.trim()}${queryString ? `?${queryString}` : ''}`;
@@ -77,4 +110,4 @@ class ApiClientBackend {
     }
 }
 
-export const apiClientBackend = new ApiClientBackend(process.env.NEXT_PUBLIC_API_BACKEND_URL || '');
+export const apiClientHttp = new ApiClientHttp(process.env.NEXT_PUBLIC_API_BACKEND_URL || '');

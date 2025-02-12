@@ -20,7 +20,7 @@ const TypePlatAdd = () => {
 
     const [state, formAction] = useFormState(
         async (prevState: any, formData: FormData) => {
-            const result = await createTypePlat(prevState, formData);
+            const result = await createTypePlat(formData);
 
             if (result.status === 'success') {
                 toast.success(result.message || 'Bravo ! vous avez réussi');

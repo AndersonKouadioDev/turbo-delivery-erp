@@ -1,102 +1,115 @@
 'use server';
 
-import { apiClient } from '@/lib/api-client';
 import { ActionResult, PaginatedResponse } from '@/types/index.d';
 
 import { DeliveryMan, LivreurDisponible } from '@/types/models';
-import deliveryMenEndpoints from '@/src/endpoints/delivbery-men.endpoint';
-import { apiClientBackend } from '@/lib/api-client-backend';
+import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
 const BASE_URL = '/api/erp/livreur';
+const BASE_URL_2 = '/api/erp/validation/livreur';
 
-const livreursEndpoints = {
+const deliveryMenEndpoints = {
     getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
+    getAll: { endpoint: `${BASE_URL_2}/validate/opsmanager/0`, method: 'GET' },
+    getAllValidated: { endpoint: `${BASE_URL_2}/validate/authserv/0`, method: 'GET' },
+    getAllNoValidated: { endpoint: `${BASE_URL_2}/not/validated/0`, method: 'GET' },
+    validateAuth: { endpoint: (id: string) => `${BASE_URL_2}/enable/authserv/${id}`, method: 'GET' },
+    validateOps: { endpoint: (id: string) => `${BASE_URL_2}/enable/opsmanager/${id}`, method: 'GET' },
+    info: { endpoint: (id: string) => `${BASE_URL_2}/get/info/${id}`, method: 'GET' },
 };
 
 export async function getLivreursDisponible(): Promise<LivreurDisponible[]> {
     try {
-        const response = await apiClientBackend.request({
-            endpoint: livreursEndpoints.getLivreursDisponible.endpoint,
-            method: livreursEndpoints.getLivreursDisponible.method,
+        const data = await apiClientHttp.request<LivreurDisponible[]>({
+            endpoint: deliveryMenEndpoints.getLivreursDisponible.endpoint,
+            method: deliveryMenEndpoints.getLivreursDisponible.method,
+            service: 'backend',
         });
 
-        return response.data;
+        return data;
     } catch (error) {
-        console.error('Error fetching paginate course externe:', error);
         return [];
     }
 }
 
 export async function getDeliveryMen(): Promise<PaginatedResponse<DeliveryMan> | null> {
-    const response = await apiClient.get(deliveryMenEndpoints.getAll);
-    if (!response.ok) {
+    try {
+        const data = await apiClientHttp.request<PaginatedResponse<DeliveryMan>>({
+            endpoint: deliveryMenEndpoints.getAll.endpoint,
+            method: deliveryMenEndpoints.getAll.method,
+            service: 'erp',
+        });
+        return data;
+    } catch (error) {
         return null;
     }
-    const result = await response.json();
-    return result;
 }
 
 export async function getDeliveryMenValidated(): Promise<PaginatedResponse<DeliveryMan> | null> {
-    const response = await apiClient.get(deliveryMenEndpoints.getAllValidated);
-    if (!response.ok) {
+    try {
+        const data = await apiClientHttp.request<PaginatedResponse<DeliveryMan>>({
+            endpoint: deliveryMenEndpoints.getAllValidated.endpoint,
+            method: deliveryMenEndpoints.getAllValidated.method,
+            service: 'erp',
+        });
+        return data;
+    } catch (error) {
         return null;
     }
-    const result = await response.json();
-    return result;
 }
 
 export async function getDeliveryMenNoValidated(): Promise<PaginatedResponse<DeliveryMan> | null> {
-    const response = await apiClient.get(deliveryMenEndpoints.getAllNoValidated);
-    if (!response.ok) {
+    try {
+        const data = await apiClientHttp.request<PaginatedResponse<DeliveryMan>>({
+            endpoint: deliveryMenEndpoints.getAllNoValidated.endpoint,
+            method: deliveryMenEndpoints.getAllNoValidated.method,
+            service: 'erp',
+        });
+        return data;
+    } catch (error) {
         return null;
     }
-    const result = await response.json();
-    return result;
 }
 
 export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops' | 'no-body'): Promise<ActionResult<DeliveryMan>> {
     if (validateBy == 'auth') {
-        const response = await apiClient.get(deliveryMenEndpoints.validateAuth(id));
-        let message = '';
         try {
-            const result = await response.json();
-            message = result.message;
-        } catch (error) {
-            const result = await response.text();
-            message = result;
-        }
-        if (!response.ok) {
+            const data = await apiClientHttp.request<DeliveryMan>({
+                endpoint: deliveryMenEndpoints.validateAuth.endpoint(id),
+                method: deliveryMenEndpoints.validateAuth.method,
+                service: 'erp',
+            });
+            return {
+                status: 'success',
+                message: 'Livreur activé avec succès',
+                data: data,
+            };
+        } catch (error: any) {
             return {
                 status: 'error',
-                message: message ?? "Erreur lors de l'activation du livreur",
+                message: "Erreur lors de l'activation du livreur",
             };
         }
-        return {
-            status: 'success',
-            message: 'Livreur activé avec succès',
-        };
     }
     if (validateBy == 'ops') {
-        const response = await apiClient.get(deliveryMenEndpoints.validateOps(id));
-        let message = '';
         try {
-            const result = await response.json();
-            message = result.message;
-        } catch (error) {
-            const result = await response.text();
-            message = result;
-        }
-        if (!response.ok) {
+            const data = await apiClientHttp.request<DeliveryMan>({
+                endpoint: deliveryMenEndpoints.validateOps.endpoint(id),
+                method: deliveryMenEndpoints.validateOps.method,
+                service: 'erp',
+            });
+            return {
+                status: 'success',
+                message: 'Livreur activé avec succès',
+                data: data,
+            };
+        } catch (error: any) {
             return {
                 status: 'error',
-                message: message ?? "Erreur lors de l'activation du livreur",
+                message: "Erreur lors de l'activation du livreur",
             };
         }
-        return {
-            status: 'success',
-            message: 'Livreur activé avec succès',
-        };
     }
     return {
         status: 'error',

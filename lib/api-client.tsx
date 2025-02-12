@@ -41,8 +41,8 @@ class ApiClient {
             // tentative de rafraîchir le token
             const session = await this.getSession();
             if (session && response.status === 401) {
-                if (typeof window === undefined) {
-                    await signOut(); ``
+                if (typeof window === 'undefined') {
+                    await signOut();
                 }
             }
         }
@@ -100,8 +100,8 @@ class ApiClient {
             requestInit?: RequestInit;
             type?: 'json' | 'formData';
         } = {
-                type: 'json',
-            },
+            type: 'json',
+        },
     ) {
         return this.fetch(
             endpoint,

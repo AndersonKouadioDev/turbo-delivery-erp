@@ -4,25 +4,19 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
     size?: number;
 };
 
-export interface ActionResult<T> {
+export interface ActionResult<T = any> {
     data?: T | null;
     message?: string;
     errors?: {
         [key: string]: string;
     };
     status?: 'idle' | 'loading' | 'success' | 'error';
-    code?: ErrorDefaultCode | number;
+    code?: string | number;
 }
 
 export interface ErrorCode {
-    code: ErrorDefaultCode;
+    code: string | number;
     message: string;
-}
-
-export enum ErrorDefaultCode {
-    exception = '400',
-    permission = '42501',
-    auth = '401',
 }
 
 export interface PaginatedResponse<T> {

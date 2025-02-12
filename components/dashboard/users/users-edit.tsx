@@ -15,8 +15,8 @@ const UsersEdit = ({ user, open, setOpen }: { user: User; open: boolean; setOpen
     const { pending } = useFormStatus();
 
     const [state, formAction] = useFormState(
-        async (prevState: any, formData: FormData) => {
-            // const result = await changePassword(prevState, formData);
+        async (_: any, formData: FormData) => {
+            // const result = await changePassword(formData);
 
             // if (result.status === 'success') {
             //     toast.success(result.message || 'Bravo ! vous avez réussi');
@@ -26,7 +26,7 @@ const UsersEdit = ({ user, open, setOpen }: { user: User; open: boolean; setOpen
             // }
 
             // return result;
-            return prevState;
+            return _;
         },
         {
             data: null,

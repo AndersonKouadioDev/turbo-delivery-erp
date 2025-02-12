@@ -21,8 +21,8 @@ const UsersAdd = () => {
     const router = useRouter();
 
     const [state, formAction] = useFormState(
-        async (prevState: any, formData: FormData) => {
-            const result = await createUser(prevState, formData);
+        async (_: any, formData: FormData) => {
+            const result = await createUser(formData);
 
             if (result.status === 'success') {
                 toast.success(result.message || 'Bravo ! vous avez réussi');

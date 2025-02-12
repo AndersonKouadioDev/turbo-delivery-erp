@@ -9,22 +9,31 @@ import { LivreurTimeline } from '@/components/dashboard/trafic/LivreurTimeline';
 import { LivreursListBottom } from '@/components/dashboard/trafic/LivreursListBottom';
 import { Button, Card, CardBody, CardHeader } from '@nextui-org/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, LayoutDashboard, X } from 'lucide-react';
+import { ChevronDown, LayoutDashboard } from 'lucide-react';
 
 export default function Content({ data }: { data: LivreurDisponible[] }) {
     const [selectedCourierId, setSelectedCourierId] = useState<string | null>(null);
     const [updatedData, setUpdatedData] = useState<LivreurDisponible[]>(data);
     const [openDashboard, setOpenDashboard] = useState<boolean>(false);
-    const {} = useRealTime({ data: updatedData, setData: setUpdatedData });
+    const { isConnected } = useRealTime({ data: updatedData, setData: setUpdatedData });
 
     const handleCourierSelect = (courierId: string) => {
         setSelectedCourierId(courierId);
     };
-
+  
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
-                <SearchBar coursiers={updatedData.filter((deliver) => deliver.position && deliver.position.latitude && deliver.position.longitude)} handleCourierSelect={handleCourierSelect} />
+                <div className="flex items-center gap-2">
+                    <div className="relative top-1 flex h-3 w-3 ltr:-right-1 rtl:-left-1">
+                        <span
+                            className={`absolute -top-[3px] inline-flex h-full w-full animate-ping rounded-full ${isConnected ? 'bg-green-500/50' : 'bg-red-500/50'}  opacity-75 ltr:-left-[3px] rtl:-right-[3px]`}
+                        ></span>
+                        <span className={`relative inline-flex h-[6px] w-[6px] rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                    </div>{' '}
+                    Actuellement Connectés :
+                    <SearchBar coursiers={updatedData.filter((deliver) => deliver.position && deliver.position.latitude && deliver.position.longitude)} handleCourierSelect={handleCourierSelect} />
+                </div>
             </div>
             <div className="relative">
                 <MapContainer

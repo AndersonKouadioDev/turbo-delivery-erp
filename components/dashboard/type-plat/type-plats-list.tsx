@@ -9,7 +9,7 @@ import TypePlatsTools from './type-plats-tools';
 import createUrlFile from '@/utils/createUrlFile';
 import TypePlatAdd from './type-plats-add';
 
-const TypePlatsList = ({ typePlats }: { typePlats: Collection[] | null }) => {
+const TypePlatsList = ({ typePlats }: { typePlats: Collection[] }) => {
     const [search, setSearch] = useState<string>('');
     const filteredItems = typePlats?.filter((typePlat) => typePlat.libelle.toLowerCase().includes(search.toLowerCase())) || [];
 

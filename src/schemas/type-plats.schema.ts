@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 // Add Collection
 export const createTypePlatSchema = z.object({
-    // libelle: z.string(),
-    // description: z.string(),
+    libelle: z.string(),
+    description: z.string(),
     // picture: z
     //     .instanceof(File)
     //     .refine((file) => file.size > 0, "L'image est requis")

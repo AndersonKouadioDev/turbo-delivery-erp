@@ -1,68 +1,64 @@
 
-"use client"
+"use client";
+import { useState } from "react";
+import { Button } from "@nextui-org/button";
+import { Card } from "@nextui-org/card";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { ChevronDown } from "lucide-react";
 
-import * as React from "react"
-import { addDays, format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { DateRange } from "react-day-picker"
+export function DatePickers() {
+    const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+        new Date(),
+        new Date(),
+    ]);
+    const [startDate, endDate] = dateRange;
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+    const formatDate = (date: Date | null) =>
+        date ? format(date, "dd MMM yyyy", { locale: fr }) : "";
 
-export function DatePicker({
-    className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-    const [date, setDate] = React.useState<DateRange | undefined>()
 
     return (
-        <div className={cn("grid gap-2", className)}>
-            <Popover>
-                <PopoverTrigger asChild>
-                    <Button
-                        id="date"
-                        variant={"outline"}
-                        className={cn(
-                            "w-[300px] justify-beteen text-left font-normal",
-                            !date && "text-muted-foreground"
-                        )}
-                    >
-
-                        {date?.from ? (
-                            date.to ? (
-                                <>
-                                    {format(date.from, "LLL dd, y")} -{" "}
-                                    {format(date.to, "LLL dd, y")}
-                                </>
-                            ) : (
-                                format(date.from, "LLL dd, y")
-                            )
-                        ) : (
-                            <span>Selectionnée une période</span>
-                        )}
-                        <CalendarIcon className="ml-2" />
+        <div className="mb-4">
+            <Popover placement="bottom" >
+                <PopoverTrigger>
+                    <Button className="w-64 bg-white border rounded-full border-gray-300 text-gray-700">
+                        <span className="flex gap-4">
+                            {startDate && endDate
+                                ? `${formatDate(startDate)} - ${formatDate(endDate)}`
+                                : "Sélectionner une période"}
+                            <ChevronDown />
+                        </span>
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                        initialFocus
-                        mode="range"
-                        defaultMonth={date?.from}
-                        selected={date}
-                        onSelect={(dateReange) => {
-                            console.log("dateReange", dateReange)
-                            setDate(dateReange)
-                        }}
-                        numberOfMonths={2}
-                    />
+                <PopoverContent>
+                    <Card className="p-4 w-72 shadow-lg border border-red-300">
+                        <h3 className="text-red-500 font-semibold mb-2">Dates enregistrées</h3>
+                        <DatePicker
+                            selected={startDate as any}
+                            onChange={(dates) => setDateRange(dates as any)}
+                            startDate={startDate}
+                            endDate={endDate}
+                            selectsRange
+                            inline
+                            locale={fr}
+                            className="w-full"
+                        />
+                        <Button variant="light" className="w-full mt-3">
+                            Afficher toutes les dates
+                        </Button>
+                        <div className="flex justify-between mt-4">
+                            <Button variant="flat" color="default" onClick={() => setDateRange([null, null])}>
+                                Annuler
+                            </Button>
+                            <Button color="danger">Appliquer</Button>
+                        </div>
+                    </Card>
                 </PopoverContent>
             </Popover>
         </div>
-    )
+    );
 }
-
