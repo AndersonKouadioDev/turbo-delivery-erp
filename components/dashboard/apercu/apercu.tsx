@@ -18,7 +18,7 @@ export function Appercu({ dates, items }: Props) {
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
                 <Card className="p-6 flex flex-col justify-between bg-[#1e98e9] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
-                        <div className="text-base font-medium">Commande Total Terminée</div>
+                        <div className="text-base font-medium">Total Commande Terminée</div>
                         {/* <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date: any) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
@@ -40,7 +40,7 @@ export function Appercu({ dates, items }: Props) {
 
                 <Card className="p-6  flex flex-col justify-between  bg-[#E91E63] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
-                        <div className="text-base font-medium">commandeTotalEnAttente</div>
+                        <div className="text-base font-medium">Total Commande en Attente</div>
                         {/* <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date: any) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
@@ -62,7 +62,7 @@ export function Appercu({ dates, items }: Props) {
 
                 <Card className="p-6  flex flex-col justify-between  bg-[#1F2937] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
-                        <div className="text-base font-medium">fraisLivraisonTotalTermine</div>
+                        <div className="text-base font-medium">Total Frais Livraison Terminée</div>
                         {/* <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date: any) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
@@ -84,7 +84,7 @@ export function Appercu({ dates, items }: Props) {
                 </Card>
                 <Card className="p-6  flex flex-col justify-between bg-[#fffb0e] shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
-                        <div className="text-base font-medium">fraisLivraisonTotalEnAttente</div>
+                        <div className="text-base font-medium">Total Frais Livraison en Attente</div>
                         {/* <Select className="max-w-xs" defaultSelectedKeys={['current']}>
                             {dates.map((date: any) => (
                                 <SelectItem key={date.key}>{date.label}</SelectItem>
