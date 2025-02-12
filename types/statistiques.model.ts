@@ -1,4 +1,3 @@
-import { Restaurant } from './models';
 
 export interface ChiffreAffaire {
     commandeTotalTermine: number;
@@ -7,4 +6,7 @@ export interface ChiffreAffaire {
     commandeTotalEnAttente: number;
 }
 
-export type ChiffreAffaireRestaurant = Restaurant & ChiffreAffaire;
+export interface ChiffreAffaireRestaurant extends ChiffreAffaire {
+    restaurantId: string;
+    restaurant: string;
+}

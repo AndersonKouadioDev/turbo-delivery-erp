@@ -1,13 +1,13 @@
 'use client';
 
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react';
-import { title } from '@/components/primitives';
-import { BonLivraison } from '@/types/bon-livraison.model';
+import { subtitle } from '@/components/primitives';
 import { Calendar, Cherry, CircleFadingPlus, Home, SquareMenu, ToggleRight, User } from 'lucide-react';
 import useRestaurantListCtx from './useRestaurantListCtx';
+import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 
 interface ContentProps {
-    data: BonLivraison[] | null;
+    data: ChiffreAffaireRestaurant[];
 }
 
 export default function RestaurantList({ data }: ContentProps) {
@@ -16,7 +16,7 @@ export default function RestaurantList({ data }: ContentProps) {
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
-                <h1 className={title({ size: 'h3', class: 'text-primary' })}>Gestions des tickets</h1>
+                <h1 className={subtitle({class: 'font-semibold' })}>Chiffre d&apos;affaire par restaurant</h1>
             </div>
             <Table aria-label="Example table with custom cells">
                 <TableHeader columns={columns}>
@@ -46,7 +46,7 @@ export default function RestaurantList({ data }: ContentProps) {
                     )}
                 </TableHeader>
                 <TableBody items={data ?? []} emptyContent={'No rows to display.'}>
-                    {(item) => <TableRow key={item.commandeId}>{(columnKey) => <TableCell>{renderCell(item, columnKey as keyof BonLivraison) as React.ReactNode}</TableCell>}</TableRow>}
+                    {(item) => <TableRow key={item.restaurantId}>{(columnKey) => <TableCell>{renderCell(item, columnKey as keyof ChiffreAffaireRestaurant) as React.ReactNode}</TableCell>}</TableRow>}
                 </TableBody>
             </Table>
         </div>

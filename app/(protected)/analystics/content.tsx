@@ -7,9 +7,9 @@ import DashboardChart from '@/components/dashboard/apercu/DashboardChart';
 import SourcesCard from '@/components/dashboard/apercu/SourcesCard';
 import StatsOverview from '@/components/dashboard/apercu/StatsOverview';
 import { formatNumber } from '@/utils/formatNumber';
-import { BonLivraison } from '@/types/bon-livraison.model';
 import { Select, SelectItem } from '@nextui-org/react';
 import RestaurantList from '@/components/dashboard/apercu/RestaurantList';
+import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 
 export default function Content({ items }: { items: Record<string, any> }) {
     const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
@@ -118,7 +118,7 @@ export default function Content({ items }: { items: Record<string, any> }) {
                 </div>
             </div>
             <div className="grid gap-6">
-                <RestaurantList data={items?.tikect as BonLivraison[]} />
+                <RestaurantList data={items?.chiffresAffairesRestaurants as ChiffreAffaireRestaurant[]} />
             </div>
         </div>
     );
