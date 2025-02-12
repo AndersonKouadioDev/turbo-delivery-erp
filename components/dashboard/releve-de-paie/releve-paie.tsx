@@ -3,9 +3,8 @@ import { DatePickers } from '@/components/ui/date-piker';
 import { Tab, Tabs } from '@nextui-org/react';
 import { ListeDesLivraisons } from './liste-des-livraisons/liste-des-livraisons';
 import { colorMap } from '@/src/schemas/utilitise';
-import { useState } from 'react';
+
 export function RelevePaie() {
-    const [bgColor, setBgColor] = useState("")
     const tabs = [
         { id: '1', nomComplet: 'Krah éric', montant: "125000" },
         { id: '2', nomComplet: 'N\'ndri Jena', montant: "13500" },
@@ -18,8 +17,6 @@ export function RelevePaie() {
         { id: '9', nomComplet: 'Siriki Yao', montant: "1680000" },
         { id: '10', nomComplet: 'Brou Kouamé', montant: "1580000" },
     ];
-
-
 
     return (
         <>

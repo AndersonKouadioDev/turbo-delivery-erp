@@ -1,6 +1,5 @@
 
 import { SelectField } from "@/components/commons/form/select-field";
-import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ArrowUp, Calendar, Circle, ClipboardList, Edit, Home, Printer, User } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,7 +8,6 @@ import { SelectWithCheckbox } from "@/components/commons/form/select-with-checkb
 import Link from "next/link";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useState } from "react";
-
 
 const data: any = [
     { id: "1", date: "01/08/2024", partenaire: "LE SMASH", cout: "11 000 FCFA" },
