@@ -4,11 +4,11 @@ import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
 import Content from './content';
 
 export default async function Page() {
-    const data = await getBonLivraisonAll();
-
+    const data = await getBonLivraisonAll(1,10);
+    if (data === null) return <Loading />;
     return (
         <Suspense fallback={<Loading />}>
-            <Content data={data} />
+            <Content initialData={data} />
         </Suspense>
     );
 }

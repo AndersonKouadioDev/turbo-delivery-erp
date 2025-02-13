@@ -1,13 +1,13 @@
 'use server';
 
 import { apiClientHttp } from '@/lib/api-client-http';
-import { FilleAttenteHistoriqueVM } from '@/types/file-attente.model';
-import { ChiffreAffaire } from '@/types/statistiques.model';
+import { ChiffreAffaire, ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 
 const BASE_URL = '/api/erp/file-attente';
 
 const statistiquesEndpoints = {
     getAllChiffreAffaire: { endpoint: `/api/erp/chiffre-affaire/tous`, method: 'GET' },
+    getAllRestaurantChiffreAffaire: { endpoint: `/api/erp/chiffre-affaire/restaurant`, method: 'GET' },
     getRestaurantChiffreAffaire: { endpoint: (restaurantID: string) => `/api/erp/chiffre-affaire/restaurant/${restaurantID}`, method: 'GET' },
 };
 
@@ -22,6 +22,19 @@ export async function getAllChiffreAffaire(): Promise<ChiffreAffaire | null> {
         return data;
     } catch (error) {
         return null;
+    }
+}
+export async function getAllRestaurantChiffreAffaire(): Promise<ChiffreAffaireRestaurant[]> {
+    try {
+        const data = await apiClientHttp.request<ChiffreAffaireRestaurant[]>({
+            endpoint: statistiquesEndpoints.getAllRestaurantChiffreAffaire.endpoint,
+            method: statistiquesEndpoints.getAllRestaurantChiffreAffaire.method,
+            service: 'backend',
+        });
+
+        return data;
+    } catch (error) {
+        return [];
     }
 }
 

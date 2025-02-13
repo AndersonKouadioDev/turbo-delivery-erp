@@ -1,6 +1,6 @@
 'use server';
 
-import { ActionResult, PaginatedResponse } from '@/types/index.d';
+import { ActionResult, PaginatedResponse } from '@/types';
 
 import { DeliveryMan, LivreurDisponible } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';

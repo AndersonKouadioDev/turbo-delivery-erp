@@ -1,8 +1,11 @@
 'use client';
 
+import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
+import { PaginatedResponse } from '@/types';
 import { BonLivraison } from '@/types/bon-livraison.model';
 import { Switch } from '@nextui-org/react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const columns = [
     { name: 'Référence', uid: 'reference' },
@@ -14,7 +17,31 @@ export const columns = [
     { name: 'Authentif', uid: 'statut' },
 ];
 
-export default function useContentCtx() {
+interface Props {
+    initialData: PaginatedResponse<BonLivraison> | null;
+}
+
+export default function useContentCtx({ initialData }: Props) {
+    const [isLoading, setIsLoading] = useState(!initialData);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize] = useState(10);
+    const [data, setData] = useState<PaginatedResponse<BonLivraison> | null>(initialData);
+
+    // Fonction de récupération des données
+    const fetchData = async (page: number) => {
+        setCurrentPage(page);
+        setIsLoading(true);
+        try {
+            const newData = await getBonLivraisonAll(page - 1, pageSize);
+            setData(newData);
+        } catch (error) {
+            toast.error('Erreur lors de la récupération des données');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const renderCell = useCallback((bonLivraison: BonLivraison, columnKey: keyof BonLivraison) => {
         const cellValue = bonLivraison[columnKey];
         switch (columnKey) {
@@ -23,33 +50,7 @@ export default function useContentCtx() {
             case 'coutCommande':
                 return <p>{String(cellValue) + ' FCFA'}</p>;
             case 'statut':
-                return cellValue == 'TERMINER' ? <Switch size="sm" color="primary" readOnly defaultSelected /> : <Switch size="sm" readOnly />;
-            //   case "status":
-            //     return (
-            //       <Chip className="capitalize" color={statusColorMap[bonLivraison.status]} size="sm" variant="flat">
-            //         {cellValue}
-            //       </Chip>
-            //     );
-            //   case "actions":
-            //     return (
-            //       <div className="relative flex items-center gap-2">
-            //         <Tooltip content="Details">
-            //           <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-            //             <EyeIcon />
-            //           </span>
-            //         </Tooltip>
-            //         <Tooltip content="Edit bonLivraison">
-            //           <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-            //             <EditIcon />
-            //           </span>
-            //         </Tooltip>
-            //         <Tooltip color="danger" content="Delete bonLivraison">
-            //           <span className="text-lg text-danger cursor-pointer active:opacity-50">
-            //             <DeleteIcon />
-            //           </span>
-            //         </Tooltip>
-            //       </div>
-            //     );
+                return cellValue == 'TERMINER' ? <Switch size="sm" color="primary" readOnly isSelected /> : <Switch size="sm" isSelected={false} readOnly />;
             default:
                 return cellValue;
         }
@@ -58,5 +59,9 @@ export default function useContentCtx() {
     return {
         renderCell,
         columns,
+        data,
+        fetchData,
+        currentPage,
+        isLoading,
     };
 }

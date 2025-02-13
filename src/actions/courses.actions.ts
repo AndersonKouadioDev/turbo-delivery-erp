@@ -1,7 +1,8 @@
 'use server';
 
 import { ActionResult } from '@/types';
-import { CourseExterne, PaginatedResponse } from '@/types/models';
+import { CourseExterne } from '@/types/models';
+import { PaginatedResponse } from '@/types';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration

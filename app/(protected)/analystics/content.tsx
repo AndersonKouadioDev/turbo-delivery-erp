@@ -7,22 +7,31 @@ import DashboardChart from '@/components/dashboard/apercu/DashboardChart';
 import SourcesCard from '@/components/dashboard/apercu/SourcesCard';
 import StatsOverview from '@/components/dashboard/apercu/StatsOverview';
 import { formatNumber } from '@/utils/formatNumber';
-import { Select, SelectItem } from '@nextui-org/react';
+import { Select, SelectItem, DateRangePicker } from '@nextui-org/react';
 import RestaurantList from '@/components/dashboard/apercu/RestaurantList';
 import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 import DatabaseCards from '@/components/dashboard/apercu/DatabaseCards';
+import useContentCtx from './useContentCtx';
 
 export default function Content({ items }: { items: Record<string, any> }) {
-    const dates = [{ key: 'current', label: '31 Juin 2024 - 31 Juillet 2024' }];
+    const { periods, period, setPeriod } = useContentCtx({ items });
     return (
         <div className="flex flex-col gap-6">
+            <div className='flex gap-2'>
+                <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
+                    {periods.map((period: { key: string; label: string }) => (
+                        <SelectItem key={period.key}>{period.label}</SelectItem>
+                    ))}
+                </Select>
+                <DateRangePicker className="max-w-xs"/>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
                 <Card className="p-6 flex flex-col justify-between bg-[#1e98e9] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Total Commande Terminée</div>
-                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
-                            {dates.map((date: any) => (
-                                <SelectItem key={date.key}>{date.label}</SelectItem>
+                        <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
+                            {periods.map((period: { key: string; label: string }) => (
+                                <SelectItem key={period.key}>{period.label}</SelectItem>
                             ))}
                         </Select>
                     </div>
@@ -42,9 +51,9 @@ export default function Content({ items }: { items: Record<string, any> }) {
                 <Card className="p-6  flex flex-col justify-between  bg-[#E91E63] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Total Commande en Attente</div>
-                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
-                            {dates.map((date: any) => (
-                                <SelectItem key={date.key}>{date.label}</SelectItem>
+                        <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
+                            {periods.map((period: { key: string; label: string }) => (
+                                <SelectItem key={period.key}>{period.label}</SelectItem>
                             ))}
                         </Select>
                     </div>
@@ -64,9 +73,9 @@ export default function Content({ items }: { items: Record<string, any> }) {
                 <Card className="p-6  flex flex-col justify-between  bg-[#1F2937] text-white shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Total Frais Livraison Terminée</div>
-                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
-                            {dates.map((date: any) => (
-                                <SelectItem key={date.key}>{date.label}</SelectItem>
+                        <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
+                            {periods.map((period: { key: string; label: string }) => (
+                                <SelectItem key={period.key}>{period.label}</SelectItem>
                             ))}
                         </Select>
                     </div>
@@ -86,9 +95,9 @@ export default function Content({ items }: { items: Record<string, any> }) {
                 <Card className="p-6  flex flex-col justify-between bg-[#fffb0e] shadow-lg">
                     <div className="flex flex-col gap-2 mb-4">
                         <div className="text-base font-medium">Total Frais Livraison en Attente</div>
-                        <Select className="max-w-xs" defaultSelectedKeys={['current']}>
-                            {dates.map((date: any) => (
-                                <SelectItem key={date.key}>{date.label}</SelectItem>
+                        <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
+                            {periods.map((period: { key: string; label: string }) => (
+                                <SelectItem key={period.key}>{period.label}</SelectItem>
                             ))}
                         </Select>
                     </div>

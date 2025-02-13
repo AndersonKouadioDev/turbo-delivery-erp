@@ -1,6 +1,7 @@
 'use client';
 import { title } from '@/components/primitives';
-import { CourseExterne, LivreurDisponible, PaginatedResponse, Restaurant } from '@/types/models';
+import { CourseExterne, LivreurDisponible, Restaurant } from '@/types/models';
+import { PaginatedResponse } from '@/types';
 import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { Button, Card, CardBody, CardHeader, Input, Chip, Divider, Pagination, Skeleton, Select, SelectItem } from '@nextui-org/react';
 import { IconPlus } from '@tabler/icons-react';
@@ -297,7 +298,6 @@ export default function Content({ initialData, delivers }: Props) {
                             </Card>
                         ))}
                     </div>
-
                     <div className="flex h-fit z-10 justify-center mt-8 fixed bottom-4">
                         <div className="bg-gray-200 absolute inset-0 w-full h-full blur-sm opacity-50"></div>
                         <Pagination total={data?.totalPages ?? 1} page={currentPage} onChange={fetchData} showControls color="primary" variant="bordered" isDisabled={isLoading} />

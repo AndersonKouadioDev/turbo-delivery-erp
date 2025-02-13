@@ -10,7 +10,7 @@ import IconTwitter from '@/components/icon/icon-twitter';
 import IconUserPlus from '@/components/icon/icon-user-plus';
 import React, { useState } from 'react';
 import { DeliveryMan } from '@/types/models';
-import { PaginatedResponse } from '@/types/index';
+import { PaginatedResponse } from '@/types';
 import DeliveryMenTools from './delivery-men-tools';
 import { Chip } from '@nextui-org/react';
 

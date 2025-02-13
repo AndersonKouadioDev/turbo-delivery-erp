@@ -5,7 +5,7 @@ import IconListCheck from '@/components/icon/icon-list-check';
 import IconSearch from '@/components/icon/icon-search';
 import React, { useState } from 'react';
 import { Restaurant } from '@/types/models';
-    import { PaginatedResponse } from '@/types/index';
+    import { PaginatedResponse } from '@/types';
 import RestaurantTools from './restaurant-tools';
 import { Chip } from '@nextui-org/react';
 

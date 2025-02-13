@@ -1,6 +1,7 @@
 'use client';
 import { title } from '@/components/primitives';
-import { CourseExterne, LivreurDisponible, PaginatedResponse, Restaurant } from '@/types/models';
+import { CourseExterne, LivreurDisponible, Restaurant } from '@/types/models';
+import { PaginatedResponse } from '@/types';
 import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { Button, Card, CardBody, CardHeader, Input, Chip, Divider, Pagination, Skeleton, Select, SelectItem, Avatar } from '@nextui-org/react';
 import { IconPlus } from '@tabler/icons-react';
@@ -131,18 +132,20 @@ export default function Content({ initialData, delivers }: Props) {
 
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
                 <ScrollArea className="w-full whitespace-nowrap pb-2">
-                    {courses_statuses_filters.filter((status)=>status.id !="EN_ATTENTE").map((category) => (
-                        <Button
-                            key={category.id}
-                            className="flex-shrink-0 mx-2"
-                            variant={statusFilter === category.id ? 'solid' : 'flat'}
-                            color={statusFilter === category.id ? 'primary' : 'default'}
-                            onPress={() => handleFilter(category.id)}
-                            size="sm"
-                        >
-                            {category.name}
-                        </Button>
-                    ))}
+                    {courses_statuses_filters
+                        .filter((status) => status.id != 'EN_ATTENTE')
+                        .map((category) => (
+                            <Button
+                                key={category.id}
+                                className="flex-shrink-0 mx-2"
+                                variant={statusFilter === category.id ? 'solid' : 'flat'}
+                                color={statusFilter === category.id ? 'primary' : 'default'}
+                                onPress={() => handleFilter(category.id)}
+                                size="sm"
+                            >
+                                {category.name}
+                            </Button>
+                        ))}
                     <ScrollBar orientation="horizontal" className="h-0" />
                 </ScrollArea>
 
@@ -208,11 +211,7 @@ export default function Content({ initialData, delivers }: Props) {
                                 <CardBody>
                                     <div className="space-y-4">
                                         <div className="flex items-center gap-2">
-                                            {delivery?.restaurant?.logo_Url ? (
-                                                <Avatar src={createUrlFile(delivery?.restaurant?.logo_Url, 'restaurant')} />
-                                            ) : (
-                                                <Store className="text-default-500" />
-                                            )}
+                                            {delivery?.restaurant?.logo_Url ? <Avatar src={createUrlFile(delivery?.restaurant?.logo_Url, 'restaurant')} /> : <Store className="text-default-500" />}
 
                                             <div>
                                                 <p className="text-default-700">{delivery?.restaurant?.nomEtablissement}</p>

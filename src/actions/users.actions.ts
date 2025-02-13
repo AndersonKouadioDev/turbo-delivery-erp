@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { signOut as signOutAuth } from '@/auth';
 
 import { processFormData } from '@/utils/formdata-zod.utilities';
-import { ActionResult, PaginatedResponse } from '@/types/index.d';
+import { ActionResult, PaginatedResponse } from '@/types';
 import { _createUserSchema, changePasswordSchema, createUserSchema, loginSchema } from '../schemas/users.schema';
 import { signIn } from '@/auth';
 import { revalidatePath } from 'next/cache';

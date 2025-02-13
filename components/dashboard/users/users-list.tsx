@@ -5,7 +5,7 @@ import IconListCheck from '@/components/icon/icon-list-check';
 import IconSearch from '@/components/icon/icon-search';
 import React, { useState } from 'react';
 import { User } from '@/types/models';
-import { PaginatedResponse } from '@/types/index';
+import { PaginatedResponse } from '@/types';
 
 import UsersAdd from './users-add';
 import UsersTools from './users-tools';
