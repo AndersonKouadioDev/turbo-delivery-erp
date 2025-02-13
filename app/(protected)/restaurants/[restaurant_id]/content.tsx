@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { useRouter } from 'next/navigation';
 import { Restaurant } from '@/types/models';
 import createUrlFile from '@/utils/createUrlFile';

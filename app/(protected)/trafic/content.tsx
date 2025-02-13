@@ -7,7 +7,7 @@ import useRealTime from './useRealTime';
 import SearchBar from './searchBar';
 import { LivreurTimeline } from '@/components/dashboard/trafic/LivreurTimeline';
 import { LivreursListBottom } from '@/components/dashboard/trafic/LivreursListBottom';
-import { Button, Card, CardBody, CardHeader } from '@nextui-org/react';
+import { Button, Card, CardBody, CardHeader } from "@heroui/react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, LayoutDashboard } from 'lucide-react';
 

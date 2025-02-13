@@ -7,7 +7,7 @@ import DashboardChart from '@/components/dashboard/apercu/DashboardChart';
 import SourcesCard from '@/components/dashboard/apercu/SourcesCard';
 import StatsOverview from '@/components/dashboard/apercu/StatsOverview';
 import { formatNumber } from '@/utils/formatNumber';
-import { Select, SelectItem, DateRangePicker } from '@nextui-org/react';
+import { Select, SelectItem, DateRangePicker } from "@heroui/react";
 import RestaurantList from '@/components/dashboard/apercu/RestaurantList';
 import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 import DatabaseCards from '@/components/dashboard/apercu/DatabaseCards';

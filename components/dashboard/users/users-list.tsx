@@ -9,7 +9,7 @@ import { PaginatedResponse } from '@/types';
 
 import UsersAdd from './users-add';
 import UsersTools from './users-tools';
-import { Chip } from '@nextui-org/react';
+import { Chip } from "@heroui/react";
 
 const UsersList = ({ users }: { users: PaginatedResponse<User> | null }) => {
     const [value, setValue] = useState<'list' | 'grid'>('list');

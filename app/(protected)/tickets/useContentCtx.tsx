@@ -3,7 +3,7 @@
 import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
 import { PaginatedResponse } from '@/types';
 import { BonLivraison } from '@/types/bon-livraison.model';
-import { Switch } from '@nextui-org/react';
+import { Switch } from "@heroui/react";
 import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 

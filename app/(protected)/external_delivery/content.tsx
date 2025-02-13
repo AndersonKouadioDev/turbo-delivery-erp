@@ -3,7 +3,7 @@ import { title } from '@/components/primitives';
 import { CourseExterne, LivreurDisponible, Restaurant } from '@/types/models';
 import { PaginatedResponse } from '@/types';
 import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { Button, Card, CardBody, CardHeader, Input, Chip, Divider, Pagination, Skeleton, Select, SelectItem } from '@nextui-org/react';
+import { Button, Card, CardBody, CardHeader, Input, Chip, Divider, Pagination, Skeleton, Select, SelectItem } from "@heroui/react";
 import { IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 import Link from 'next/link';

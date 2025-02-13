@@ -1,4 +1,4 @@
-import { Tab, Tabs } from '@nextui-org/react';
+import { Tab, Tabs } from "@heroui/react";
 import { ListeRestaurants } from './liste-restaurant/liste-restaurant';
 import { ListTree } from 'lucide-react';
 import { FilleAttenteHistoriqueVM } from '@/types/file-attente.model';

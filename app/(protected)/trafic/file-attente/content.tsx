@@ -10,7 +10,7 @@ import { RestaurantsTab } from './restaurant-tab/restaurant-tab';
 import { Search, Map } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import { Input } from '@nextui-org/react';
+import { Input } from "@heroui/react";
 import { useFileAttenteController } from '@/components/dashboard/trafic/file-attente/file-attente.controller';
 
 export default function RestaurantContent() {

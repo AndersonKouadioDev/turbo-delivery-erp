@@ -3,7 +3,7 @@
 import { LineChart, Line, XAxis, ResponsiveContainer, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Printer } from 'lucide-react';
-import { Tab, Tabs } from '@nextui-org/react';
+import { Tab, Tabs } from "@heroui/react";
 
 const data = [
     { name: 'Lun', revenue: 14000000, expenses: 12000000 },

@@ -3,7 +3,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from '@nextui-org/react';
+import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from "@heroui/react";
 import createUrlFile from '@/utils/createUrlFile';
 import { DeliveryMan } from '@/types/models';
 

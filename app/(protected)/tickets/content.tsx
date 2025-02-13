@@ -1,6 +1,6 @@
 'use client';
 
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from '@nextui-org/react';
+import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from "@heroui/react";
 import { title } from '@/components/primitives';
 import { BonLivraison } from '@/types/bon-livraison.model';
 import useContentCtx from './useContentCtx';

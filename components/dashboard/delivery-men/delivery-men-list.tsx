@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import { DeliveryMan } from '@/types/models';
 import { PaginatedResponse } from '@/types';
 import DeliveryMenTools from './delivery-men-tools';
-import { Chip } from '@nextui-org/react';
+import { Chip } from "@heroui/react";
 
 const DeliveryMenList = ({ deliveryMen, validateBy = 'no-body' }: { deliveryMen: PaginatedResponse<DeliveryMan> | null; validateBy: 'auth' | 'ops' | 'no-body' }) => {
     const [value, setValue] = useState<'list' | 'grid'>('list');

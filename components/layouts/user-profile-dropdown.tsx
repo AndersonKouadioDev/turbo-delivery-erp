@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react';
+import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/react";
 import Link from 'next/link';
 import { IconCalendar, IconHeart, IconHelpCircle, IconLogout, IconMessageCircle2, IconSettings, IconHome } from '@tabler/icons-react';
 import Image from 'next/image';

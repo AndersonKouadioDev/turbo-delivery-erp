@@ -1,6 +1,6 @@
 import { title } from '@/components/primitives';
 import { formatNumber } from '@/utils/formatNumber';
-import { Divider } from '@nextui-org/react';
+import { Divider } from "@heroui/react";
 
 export default function DatabaseCards({ items }: { items: { label: string; value: number }[] }) {
     return (

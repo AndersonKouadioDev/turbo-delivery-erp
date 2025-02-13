@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Restaurant } from '@/types/models';
     import { PaginatedResponse } from '@/types';
 import RestaurantTools from './restaurant-tools';
-import { Chip } from '@nextui-org/react';
+import { Chip } from "@heroui/react";
 
 const RestaurantList = ({ restaurants, validateBy = 'no-body' }: { restaurants: PaginatedResponse<Restaurant> | null; validateBy: 'auth' | 'ops' | 'no-body' }) => {
     const [value, setValue] = useState<'list' | 'grid'>('list');

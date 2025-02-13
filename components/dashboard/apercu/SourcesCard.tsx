@@ -2,7 +2,7 @@
 
 import { Card } from '@/components/ui/card';
 // import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress, Tab, Tabs } from '@nextui-org/react';
+import { Progress, Tab, Tabs } from "@heroui/react";
 import { Info } from 'lucide-react';
 
 const sources = [

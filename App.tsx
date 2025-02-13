@@ -6,7 +6,7 @@ import { toggleRTL, toggleTheme, toggleMenu, toggleLayout, toggleAnimation, togg
 import Loading from '@/components/layouts/loading';
 import { getTranslation } from '@/i18n';
 import { I18nProvider } from '@react-aria/i18n';
-import { NextUIProvider } from '@nextui-org/react';
+import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, Bounce } from 'react-toastify';
@@ -33,7 +33,7 @@ function App({ children }: PropsWithChildren) {
     }, [dispatch, initLocale, themeConfig.theme, themeConfig.menu, themeConfig.layout, themeConfig.rtlClass, themeConfig.animation, themeConfig.navbar, themeConfig.locale, themeConfig.semidark]);
 
     return (
-        <NextUIProvider navigate={router.push}>
+        <HeroUIProvider navigate={router.push}>
             <NextThemesProvider attribute="class" defaultTheme={'light'}>
                 <I18nProvider locale={themeConfig.locale}>
                     <div
@@ -63,7 +63,7 @@ function App({ children }: PropsWithChildren) {
                     </div>
                 </I18nProvider>
             </NextThemesProvider>
-        </NextUIProvider>
+        </HeroUIProvider>
     );
 }
 

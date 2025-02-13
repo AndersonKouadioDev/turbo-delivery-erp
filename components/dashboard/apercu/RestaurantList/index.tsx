@@ -1,6 +1,6 @@
 'use client';
 
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react';
+import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/react";
 import { subtitle } from '@/components/primitives';
 import { Calendar, Cherry, CircleFadingPlus, Home, SquareMenu, ToggleRight, User } from 'lucide-react';
 import useRestaurantListCtx from './useRestaurantListCtx';
