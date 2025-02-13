@@ -7,23 +7,30 @@ import DashboardChart from '@/components/dashboard/apercu/DashboardChart';
 import SourcesCard from '@/components/dashboard/apercu/SourcesCard';
 import StatsOverview from '@/components/dashboard/apercu/StatsOverview';
 import { formatNumber } from '@/utils/formatNumber';
-import { Select, SelectItem, DateRangePicker } from "@heroui/react";
+import { Select, SelectItem, DateRangePicker } from '@heroui/react';
 import RestaurantList from '@/components/dashboard/apercu/RestaurantList';
 import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 import DatabaseCards from '@/components/dashboard/apercu/DatabaseCards';
 import useContentCtx from './useContentCtx';
+import {parseAbsoluteToLocal} from "@internationalized/date";
+import { useState } from 'react';
 
 export default function Content({ items }: { items: Record<string, any> }) {
     const { periods, period, setPeriod } = useContentCtx({ items });
+    let [date, setDate] = useState({
+        start: parseAbsoluteToLocal("2021-04-01T18:45:22Z"),
+        end: parseAbsoluteToLocal("2021-04-14T19:15:22Z"),
+      });
+    
     return (
         <div className="flex flex-col gap-6">
-            <div className='flex gap-2'>
+            <div className="flex gap-2">
                 <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
                     {periods.map((period: { key: string; label: string }) => (
                         <SelectItem key={period.key}>{period.label}</SelectItem>
                     ))}
                 </Select>
-                <DateRangePicker className="max-w-xs"/>
+                <DateRangePicker value={date} onChange={setDate} className="max-w-xs relative" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
                 <Card className="p-6 flex flex-col justify-between bg-[#1e98e9] text-white shadow-lg">
