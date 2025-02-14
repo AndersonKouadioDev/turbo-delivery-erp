@@ -14,7 +14,7 @@ export const columns = [
     { name: 'Restaurant', uid: 'restaurant' },
     { name: 'Coût livraison', uid: 'coutLivraison' },
     { name: 'Coût commande', uid: 'coutCommande' },
-    { name: 'Authentif', uid: 'statut' },
+    { name: 'Terminé', uid: 'statut' },
 ];
 
 interface Props {
