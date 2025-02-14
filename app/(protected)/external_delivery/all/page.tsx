@@ -8,6 +8,8 @@ export default async function DeliveryPage() {
     const data = await getPaginationCourseExterneAutreStatus(0, 5);
     const delivers = await getLivreursDisponible() ?? [];
 
+    if(!data) return <Loading/>
+    
     return (
         <Suspense fallback={<Loading />}>
             <Content initialData={data} delivers={delivers} />

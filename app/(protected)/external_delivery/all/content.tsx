@@ -1,18 +1,18 @@
 'use client';
 import { title } from '@/components/primitives';
-import { CourseExterne, LivreurDisponible, Restaurant } from '@/types/models';
+import { CourseExterne, LivreurDisponible } from '@/types/models';
 import { PaginatedResponse } from '@/types';
-import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { Button, Card, CardBody, CardHeader, Input, Chip, Divider, Pagination, Skeleton, Select, SelectItem, Avatar } from "@heroui/react";
-import { IconPlus } from '@tabler/icons-react';
+import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button, Card, CardBody, CardHeader, Chip, Divider, Pagination, Skeleton, Avatar } from "@heroui/react";
 import { useState } from 'react';
 import Link from 'next/link';
 import { SORT_OPTIONS } from '@/data';
 import DeliveryTools from '../component/deliveryTools';
-import { getPaginationCourseExterneEnAttente } from '@/src/actions/courses.actions';
+import { getPaginationCourseExterneAutreStatus } from '@/src/actions/courses.actions';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { courses_statuses_filters } from '@/data';
 import createUrlFile from '@/utils/createUrlFile';
+import IconPlus from '@/components/icon/icon-plus';
 
 type SortOption = (typeof SORT_OPTIONS)[keyof typeof SORT_OPTIONS];
 
@@ -64,7 +64,7 @@ const getStatusBorderClass = (statut: string) => {
 };
 
 interface Props {
-    initialData: PaginatedResponse<CourseExterne> | null;
+    initialData: PaginatedResponse<CourseExterne>;
     delivers: LivreurDisponible[];
 }
 
@@ -76,7 +76,7 @@ export default function Content({ initialData, delivers }: Props) {
     const [expandedDelivery, setExpandedDelivery] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(5);
-    const [data, setData] = useState<PaginatedResponse<CourseExterne> | null>(initialData);
+    const [data, setData] = useState<PaginatedResponse<CourseExterne>>(initialData);
     const [dataFilter, setDataFilter] = useState<CourseExterne[]>(data?.content ?? []);
     const [isLoading, setIsLoading] = useState(!initialData);
 
@@ -99,7 +99,7 @@ export default function Content({ initialData, delivers }: Props) {
         setCurrentPage(page);
         setIsLoading(true);
         try {
-            const newData = await getPaginationCourseExterneEnAttente(page - 1, pageSize);
+            const newData = await getPaginationCourseExterneAutreStatus(page - 1, pageSize);
             setData(newData);
             setDataFilter(newData?.content ?? []);
             setStatusFilter('all');
