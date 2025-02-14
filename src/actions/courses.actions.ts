@@ -60,8 +60,8 @@ export async function getPaginationCourseExterneEnAttente(page: number = 0, size
             endpoint: courseEndpoints.getPaginationCourseExterneEnAttente.endpoint,
             method: courseEndpoints.getPaginationCourseExterneEnAttente.method,
             params: {
-                page: page.toString(),
-                size: size.toString(),
+                page: String(page),
+                size: String(size),
             },
             service: 'backend',
         });
@@ -77,8 +77,8 @@ export async function getPaginationCourseExterneAutreStatus(page: number = 0, si
             endpoint: courseEndpoints.getPaginationCourseExterneAutreStatus.endpoint,
             method: courseEndpoints.getPaginationCourseExterneAutreStatus.method,
             params: {
-                page: page.toString(),
-                size: size.toString(),
+                page: String(page),
+                size: String(size),
             },
             service: 'backend',
         });

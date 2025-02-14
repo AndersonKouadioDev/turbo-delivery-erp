@@ -100,7 +100,7 @@ export default function Content({ initialData, delivers }: Props) {
         setIsLoading(true);
         try {
             const newData = await getPaginationCourseExterneAutreStatus(page - 1, pageSize);
-            setData(newData);
+            setData(newData?newData:data);
             setDataFilter(newData?.content ?? []);
             setStatusFilter('all');
         } catch (error) {
