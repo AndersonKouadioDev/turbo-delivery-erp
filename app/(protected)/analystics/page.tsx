@@ -13,11 +13,11 @@ export default async function Page() {
     const restaurants = await getRestaurants();
     const typePlats = await getTypePlats();
     const users = await getUsers();
-    const chiffreAffaire = await getAllChiffreAffaire();
 
+    const chiffreAffaire = await getAllChiffreAffaire();
     const chiffresAffairesRestaurants: ChiffreAffaireRestaurant[] = await getAllRestaurantChiffreAffaire();
 
-    const items = {
+    const initialItems = {
         deliveryMen,
         restaurants,
         typePlats,
@@ -28,7 +28,7 @@ export default async function Page() {
 
     return (
         <Suspense fallback={<Loading />}>
-            <Content items={items} />
+            <Content initialItems={initialItems} />
         </Suspense>
     );
 }
