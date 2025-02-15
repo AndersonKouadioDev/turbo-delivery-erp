@@ -27,7 +27,7 @@ export function DemandeAssignation({ searchKey }: Props) {
 
                                 <td className="px-6 py-4">
                                     <Button variant={"save"} onClick={() => ctrl.toggleConfirm(item.id)} className="h-8">
-                                        Accepter
+                                        <span className="flex gap-2"><Check /> Accepter</span>
                                     </Button>
                                 </td>
                                 <td className="px-6 py-4 flex gap-2">

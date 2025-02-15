@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Check, PencilIcon, XIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useTurboAssigneController } from "./controller";
+import { Tooltip } from "@nextui-org/react";
 
 interface Props {
     searchKey: string;
@@ -43,7 +44,10 @@ export function TurboysAssignes({ searchKey }: Props) {
                                 </td>
                                 <td className="px-6 py-4 flex gap-2">
                                     <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-primary cursor-pointer">
-                                        <PencilIcon className="h-5 w-5 " size={20} />
+                                        <Tooltip content="Modifier un turboys">
+                                            <PencilIcon className="h-5 w-5 " size={20} />
+                                        </Tooltip>
+                                        <Tooltip title="Modifier un turboys" />
                                     </span>
                                     <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-primary cursor-pointer" >
                                         <XIcon className=" h-5 w-5" />
