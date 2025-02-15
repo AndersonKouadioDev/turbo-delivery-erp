@@ -96,25 +96,22 @@ export function useTousTurboysController({ searchKey }: Props) {
         }
     }, [searchKey]);
 
-    console.log(selectValue)
-
     const statutColor = (status: string) => {
         switch (status) {
             case "active":
-                return "bg-green-500 border-none";
+                return "bg-green-300 border-none";
             case "rejete":
-                return "bg-red-500 border-none";
+                return "bg-red-300 border-none";
             case "valide":
-                return "bg-red-500 border-none";
+                return "bg-red-300 border-none";
             case "en_attente":
-                return "bg-warning-400 border-none";
+                return "bg-warning-300 border-none";
             case "assigne":
-                return "bg-purple-500 border-none";
+                return "bg-purple-300 border-none";
             case "bird":
-                return "bg-blue-500 border-none";
-
+                return "bg-blue-300 border-none";
             default:
-                return "bg-blue-500 border-none";
+                return "bg-blue-300 border-none";
         }
     }
 
@@ -128,9 +125,7 @@ export function useTousTurboysController({ searchKey }: Props) {
                 return (
                     <div className="flex justify-between w-full">
                         <div className="flex items-center gap-4">
-                            <div
-                                className={`w-8 h-8 flex items-center justify-center rounded-full text-white font-bold ${bgColor}`}
-                            >
+                            <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white font-bold ${bgColor}`}>
                                 {initial}
                             </div>
                             <div className="text-gray-800 font-medium">{user.nomPrenom}</div>
@@ -139,11 +134,11 @@ export function useTousTurboysController({ searchKey }: Props) {
                 );
             case "etatCompte":
                 return (
-                    <Badge className={`${statutColor(user.compteStatus)} text-md cursor-pointer`}>{user.etatCompte}</Badge>
+                    <Badge className={`${statutColor(user.compteStatus)} text-md cursor-pointer text-gray-500`} variant={"square"}>{user.etatCompte}</Badge>
                 );
             case "identification":
                 return (
-                    <Badge className={`${statutColor(user.status)} text-md cursor-pointer`}>{user.identification}</Badge>
+                    <Badge className={`${statutColor(user.status)} text-md cursor-pointer text-gray-500`} variant={"square"}>{user.identification}</Badge>
                 );
             case "proprietaire":
                 return (
