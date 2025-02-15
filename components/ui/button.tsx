@@ -21,7 +21,9 @@ const buttonVariants = cva(
         icon: "",
         success: "bg-green-500 text-white hover:bg-green-300",
         "outline-destructive": "border-red solid border-2 hover:bg-red-300",
-        slate: "bg-slate-300 rounded-md hover:bg-slate-200 "
+        slate: "bg-slate-300 rounded-md hover:bg-slate-200 ",
+        "confirm-success": "px-4 py-1 rounded-lg text-white bg-green-200 text-green-500 font-bold hover:bg-green-300",
+        "save": "px-4 py-1 rounded-lg text-white bg-red-400 hover:bg-red-300"
       },
       size: {
         default: "h-10 px-4 py-2",

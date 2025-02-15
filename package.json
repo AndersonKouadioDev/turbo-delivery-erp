@@ -20,6 +20,7 @@
         "@googlemaps/js-api-loader": "^1.16.8",
         "@headlessui/react": "^2.1.2",
         "@heroui/select": "^2.4.10",
+        "@heroui/table": "^2.2.9",
         "@hookform/resolvers": "^3.9.1",
         "@internationalized/date": "^3.5.6",
         "@mantine/core": "^5.10.4",

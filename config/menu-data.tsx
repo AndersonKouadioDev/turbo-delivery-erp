@@ -68,6 +68,16 @@ const menuData: IMenuData[] = [
                 path: '/type-plat',
             },
             {
+                icon: IconUser,
+                title: 'coursiers',
+                path: "/coursiers"
+                // children: [
+                //     { icon: IconBuildingSkyscraper, title: 'validated', path: '/restaurants' },
+                //     { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/restaurants/valide' },
+                //     { icon: IconBuildingSkyscraper, title: 'not_validated', path: '/restaurants/not-valide' },
+                // ],
+            },
+            {
                 icon: IconBuildingSkyscraper,
                 title: 'restaurants',
                 children: [
