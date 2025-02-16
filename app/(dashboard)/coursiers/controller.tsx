@@ -1,5 +1,5 @@
-import { useState } from "react";
 
+import { useState } from "react";
 
 export function useCoursiersController() {
     const [searchKey, setSearchKey] = useState("");
@@ -113,7 +113,8 @@ export function useCoursiersController() {
                     name: 'Isabella Doe',
                     status: 'En attente'
                 }
-            ]
+            ],
+            decompte: <span className="bg-primary text-white font-bold pl-2 pr-2 p-1 rounded-full text-sm w-5 h-5">3</span>
         },
 
     ]
