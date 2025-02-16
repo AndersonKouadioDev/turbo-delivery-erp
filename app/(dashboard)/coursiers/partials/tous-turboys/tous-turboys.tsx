@@ -25,8 +25,8 @@ export function TousTurboys({ searchKey }: Props) {
                     isCompact
                     showControls
                     showShadow
-                    color="secondary"
-                    page={2}
+                    color="primary"
+                    page={1}
                     total={10}
                     onChange={(page) => ""}
                 />

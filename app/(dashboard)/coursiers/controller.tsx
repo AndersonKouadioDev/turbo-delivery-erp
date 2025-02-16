@@ -114,7 +114,7 @@ export function useCoursiersController() {
                     status: 'En attente'
                 }
             ],
-            decompte: <span className="bg-primary text-white font-bold pl-2 pr-2 p-1 rounded-full text-sm w-5 h-5">3</span>
+            decompte: <span className="bg-primary text-white font-bold pl-2 pr-2  rounded-full text-ms w-4 h-4">3</span>
         },
 
     ]

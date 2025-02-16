@@ -13,7 +13,7 @@ export const columns = [
     { uid: "nomPrenom", name: "Prénom et nom", icon: User },
     { uid: "phone", name: "Telephone", icon: Phone },
     { uid: "etatCompte", name: "Etatde compte" },
-    { uid: "identification", name: "IdentificationFinalLivreur" },
+    { uid: "identification", name: "Identification du livreur" },
     { uid: "proprietaire", name: "Propriétaire" },
 ];
 
