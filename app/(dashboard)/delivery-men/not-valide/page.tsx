@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 export default async function DeliveryMen() {
     const deliveryMen = await getDeliveryMenNoValidated();
+    console.log("Delivery Men", deliveryMen)
     return (
         <Suspense fallback={<Loading />}>
             <DeliveryMenList deliveryMen={deliveryMen} validateBy="auth" />

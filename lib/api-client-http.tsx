@@ -78,12 +78,12 @@ class ApiClientHttp {
                 service == 'erp'
                     ? process.env.NEXT_PUBLIC_API_ERP_URL || ''
                     : service == 'restaurant'
-                      ? process.env.NEXT_PUBLIC_API_RESTO_URL || ''
-                      : service == 'livreur'
-                        ? process.env.NEXT_PUBLIC_API_DELIVERY_URL || ''
-                        : service == 'client'
-                          ? process.env.NEXT_PUBLIC_API_CLIENT_URL || ''
-                          : process.env.NEXT_PUBLIC_API_BACKEND_URL || '';
+                        ? process.env.NEXT_PUBLIC_API_RESTO_URL || ''
+                        : service == 'livreur'
+                            ? process.env.NEXT_PUBLIC_API_DELIVERY_URL || ''
+                            : service == 'client'
+                                ? process.env.NEXT_PUBLIC_API_CLIENT_URL || ''
+                                : process.env.NEXT_PUBLIC_API_BACKEND_URL || '';
 
             config = { ...config, baseURL: baseUrl };
         }
