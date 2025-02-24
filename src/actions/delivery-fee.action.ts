@@ -21,7 +21,7 @@ export async function getAllDeliveryFee(): Promise<DeliveryFee[]> {
         const data = await apiClientHttp.request<DeliveryFee[]>({
             endpoint: deliveryFeeEndpoints.getAllDeliveryFee.endpoint,
             method: deliveryFeeEndpoints.getAllDeliveryFee.method,
-            service: "backend",
+            service: 'backend',
         });
 
         return data;
