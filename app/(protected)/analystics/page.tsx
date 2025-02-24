@@ -13,7 +13,6 @@ export default async function Page() {
     const restaurants = await getRestaurants();
     const typePlats = await getTypePlats();
     const users = await getUsers();
-
     const chiffreAffaire = await getAllChiffreAffaire();
     const chiffresAffairesRestaurants: ChiffreAffaireRestaurant[] = await getAllRestaurantChiffreAffaire();
 

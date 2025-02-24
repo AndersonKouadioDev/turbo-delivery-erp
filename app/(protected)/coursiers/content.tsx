@@ -3,7 +3,7 @@
 import { CardHeader } from "@/components/commons/card-header";
 import { SearchField } from "@/components/commons/form/search-field";
 import { PageWrapper } from "@/components/commons/page-wrapper";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import { useCoursiersController } from "./controller";
 import { TousTurboys } from "./partials/tous-turboys/tous-turboys";
 import { TurboysAssignes } from "./partials/turboys-assigne/turboys-assigne";

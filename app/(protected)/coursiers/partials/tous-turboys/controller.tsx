@@ -1,6 +1,6 @@
 import { SelectField } from "@/components/commons/select-field";
 import { Badge } from "@/components/ui/badge";
-import { colorMap } from "@/src/schemas/utilitise";
+import { colorMap } from "@/data";
 import { Phone, User } from "lucide-react";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -79,7 +79,6 @@ export const options = [
     { key: "libre-identifier-le", label: "Libre, identifier-le" },
     { key: "peut-etre-utilise", label: "Peut-être utilisé partout" },
     { key: "restaurant-agha", label: "Restaurant AGAHA" },
-
 ];
 export function useTousTurboysController({ searchKey }: Props) {
     const [selectValue, setSelectValue] = useState("");

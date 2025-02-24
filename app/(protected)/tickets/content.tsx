@@ -1,6 +1,6 @@
 'use client';
 
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from "@heroui/react";
+import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from '@heroui/react';
 import { title } from '@/components/primitives';
 import { BonLivraison } from '@/types/bon-livraison.model';
 import useContentCtx from './useContentCtx';
@@ -47,7 +47,7 @@ export default function Content({ initialData }: ContentProps) {
                     )}
                 </TableHeader>
                 <TableBody items={data?.content ?? []} emptyContent={'No rows to display.'}>
-                    {(item) => <TableRow key={item.commandeId}>{(columnKey) => <TableCell>{renderCell(item, columnKey as keyof BonLivraison) as React.ReactNode}</TableCell>}</TableRow>}
+                    {(item) => <TableRow key={item.commandeId}>{(columnKey) => <TableCell>{renderCell(item, columnKey) as React.ReactNode}</TableCell>}</TableRow>}
                 </TableBody>
             </Table>
             <div className="flex h-fit z-10 justify-center mt-8 fixed bottom-4">

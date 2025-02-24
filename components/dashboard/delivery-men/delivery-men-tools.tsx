@@ -22,15 +22,14 @@ const DeliveryMenTools = ({ deliveryMan, validateBy }: { deliveryMan: DeliveryMa
                     <DropdownItem as={Link} href={`/delivery-men/${deliveryMan.id}`} key="details">
                         Détails
                     </DropdownItem>
-                    <DropdownSection showDivider title="Actions">
-                        {validateBy !== 'no-body' ? (
-                            <DropdownItem key="edit" onClick={() => setOpen(true)}>
-                                Valider
-                            </DropdownItem>
-                        ) : (
-                            <></>
-                        )}
-                    </DropdownSection>
+
+                    {validateBy !== 'no-body' ? (
+                        <DropdownItem key="edit" onClick={() => setOpen(true)}>
+                            Valider
+                        </DropdownItem>
+                    ) : (
+                        <></>
+                    )}
                 </DropdownMenu>
             </Dropdown>
             <DeliveryMenValidate deliveryMan={deliveryMan} open={open} setOpen={setOpen} validateBy={validateBy} />

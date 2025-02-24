@@ -9,7 +9,7 @@ import {
     TableRow,
     TableCell,
 } from "@heroui/table";
-import { Pagination } from "@nextui-org/react";
+import { Pagination } from "@heroui/react";
 import { columns, useTousTurboysController } from "./controller";
 
 interface Props {

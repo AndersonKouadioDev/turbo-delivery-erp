@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Check, PencilIcon, XIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useTurboAssigneController } from "./controller";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 
 interface Props {
     searchKey: string;

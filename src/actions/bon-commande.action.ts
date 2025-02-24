@@ -17,15 +17,16 @@ const bonLivraisonEndpoints = {
 
 export async function getBonLivraisonAll(page: number, size: number): Promise<PaginatedResponse<BonLivraison> | null> {
     try {
-        const data = await apiClientHttp.request<PaginatedResponse<BonLivraison>>({
+        const data = await apiClientHttp.request({
             endpoint: bonLivraisonEndpoints.getBonLivraisonAll.endpoint,
             method: bonLivraisonEndpoints.getBonLivraisonAll.method,
             params: { page: String(page), size: String(size) },
             service: 'backend',
         });
-
+        console.log({ data });
         return data;
     } catch (error: any) {
+        console.log({error});
         return null;
     }
 }

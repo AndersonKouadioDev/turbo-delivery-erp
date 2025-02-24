@@ -4,7 +4,7 @@ import { getBonLivraisonAll } from '@/src/actions/bon-commande.action';
 import { PaginatedResponse } from '@/types';
 import { BonLivraison } from '@/types/bon-livraison.model';
 import { Switch } from "@heroui/react";
-import { useCallback, useState } from 'react';
+import { Key, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export const columns = [
@@ -42,8 +42,8 @@ export default function useContentCtx({ initialData }: Props) {
         }
     };
 
-    const renderCell = useCallback((bonLivraison: BonLivraison, columnKey: keyof BonLivraison) => {
-        const cellValue = bonLivraison[columnKey];
+    const renderCell = useCallback((bonLivraison: BonLivraison, columnKey:Key) => {
+        const cellValue = bonLivraison[columnKey as keyof BonLivraison];
         switch (columnKey) {
             case 'coutLivraison':
                 return <p>{String(cellValue) + ' FCFA'}</p>;

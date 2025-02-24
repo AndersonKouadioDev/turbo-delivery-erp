@@ -18,7 +18,7 @@ import {
     IconUsersGroup,
 } from '@tabler/icons-react';
 import { HandPlatter, SquareUser, Ticket } from 'lucide-react';
-import { TbTruckDelivery } from 'react-icons/tb';
+import { TbMoneybag, TbTruckDelivery } from 'react-icons/tb';
 
 export interface IMenuData {
     isHeader?: boolean;
@@ -47,6 +47,7 @@ const menuData: IMenuData[] = [
             { icon: TbTruckDelivery, title: 'external_delivery_all', path: '/external_delivery/all' },
         ],
     },
+    { icon: TbMoneybag, title: 'delivery_fee', path: '/delivery-fee' },
     // {
     //     icon: IconMotorbike,
     //     title: 'queue',
@@ -70,11 +71,11 @@ const menuData: IMenuData[] = [
             {
                 icon: IconUser,
                 title: 'coursiers',
-                path: "/coursiers"
+                path: '/coursiers',
                 // children: [
                 //     { icon: IconBuildingSkyscraper, title: 'validated', path: '/restaurants' },
                 //     { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/restaurants/valide' },
-                //     { icon: IconBuildingSkyscraper, title: 'not_validated', path: '/restaurants/not-valide' },
+                //     { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
                 // ],
             },
             {
@@ -83,7 +84,7 @@ const menuData: IMenuData[] = [
                 children: [
                     { icon: IconBuildingSkyscraper, title: 'validated', path: '/restaurants' },
                     { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/restaurants/valide' },
-                    { icon: IconBuildingSkyscraper, title: 'not_validated', path: '/restaurants/not-valide' },
+                    { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
                 ],
             },
             {
@@ -92,7 +93,7 @@ const menuData: IMenuData[] = [
                 children: [
                     { icon: IconBuildingSkyscraper, title: 'validated', path: '/delivery-men' },
                     { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/delivery-men/valide' },
-                    { icon: IconBuildingSkyscraper, title: 'not_validated', path: '/delivery-men/not-valide' },
+                    { icon: IconBuildingSkyscraper, title: 'new', path: '/delivery-men/not-valide' },
                 ],
             },
         ],
