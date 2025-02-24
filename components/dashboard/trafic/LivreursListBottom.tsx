@@ -2,7 +2,7 @@
 
 import { LivreurDisponible } from '@/types/models';
 import createUrlFile from '@/utils/createUrlFile';
-import { Avatar, Divider } from '@nextui-org/react';
+import { Avatar, Divider } from "@heroui/react";
 
 interface LivreursListProps {
     livreurs: LivreurDisponible[];

@@ -113,7 +113,7 @@
     "delivery_men": "Livreurs",
     "validated": "Validés",
     "partially_validated": "Partiellement validés",
-    "not_validated": "Non validés",
+    "new": "Nouveaux",
     "external_delivery": "Courses Externes",
     "external_delivery_new":"Nouvelles Courses",
     "external_delivery_all":"Toutes Courses",
@@ -121,5 +121,6 @@
     "queue":"File d'Attente",
     "maps":"Maps",
     "ticket":"Gestion des Tickets",
-    "coursiers":"Coursiers"
+    "coursiers":"Coursiers",
+    "delivery_fee":"Frais de livraison"
 }

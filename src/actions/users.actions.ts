@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { signOut as signOutAuth } from '@/auth';
 
 import { processFormData } from '@/utils/formdata-zod.utilities';
-import { ActionResult, PaginatedResponse } from '@/types/index.d';
+import { ActionResult, PaginatedResponse } from '@/types';
 import { _createUserSchema, changePasswordSchema, createUserSchema, loginSchema } from '../schemas/users.schema';
 import { signIn } from '@/auth';
 import { revalidatePath } from 'next/cache';
@@ -27,14 +27,14 @@ const usersEndpoints = {
 };
 
 export async function loginUser(formData: FormData): Promise<ActionResult<any>> {
-    const { success, data: formdata } = processFormData(loginSchema, formData, {
+    const { success, data: formdata,errorsInArray } = processFormData(loginSchema, formData, {
         useDynamicValidation: true,
     });
 
-    if (!success) {
+    if (!success && errorsInArray) {
         return {
             status: 'error',
-            message: 'Email mal formaté',
+            message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
         };
     }
 
@@ -79,14 +79,14 @@ export async function loginUser(formData: FormData): Promise<ActionResult<any>> 
 }
 
 export async function changePassword(formData: FormData): Promise<ActionResult<any>> {
-    const { success, data: formdata } = processFormData(changePasswordSchema, formData, {
+    const { success, data: formdata,errorsInArray } = processFormData(changePasswordSchema, formData, {
         useDynamicValidation: true,
     });
 
-    if (!success) {
+    if (!success && errorsInArray) {
         return {
             status: 'error',
-            message: 'Mot de passe mal formaté',
+            message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
         };
     }
 
@@ -152,14 +152,14 @@ export async function getUsers(): Promise<PaginatedResponse<User> | null> {
 }
 
 export async function createUser(formData: FormData): Promise<ActionResult<{ password: string; user: User }>> {
-    const { success, data: formdata } = processFormData(createUserSchema, formData, {
+    const { success, data: formdata,errorsInArray } = processFormData(createUserSchema, formData, {
         useDynamicValidation: true,
     });
 
-    if (!success) {
+    if (!success && errorsInArray) {
         return {
             status: 'error',
-            message: 'Erreur lors de la validation des données',
+            message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
         };
     }
     try {

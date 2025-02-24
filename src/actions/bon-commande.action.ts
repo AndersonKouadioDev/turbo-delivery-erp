@@ -3,6 +3,7 @@
 import { apiClientHttp } from '@/lib/api-client-http';
 import { ActionResult } from '@/types';
 import { BonLivraison } from '@/types/bon-livraison.model';
+import { PaginatedResponse } from '@/types';
 
 // Configuration
 const BASE_URL = '/api/erp/bon-livraison';
@@ -14,21 +15,18 @@ const bonLivraisonEndpoints = {
     },
 };
 
-export async function getBonLivraisonAll(): Promise<ActionResult<BonLivraison[]>> {
+export async function getBonLivraisonAll(page: number, size: number): Promise<PaginatedResponse<BonLivraison> | null> {
     try {
-        const data = await apiClientHttp.request<BonLivraison[]>({
+        const data = await apiClientHttp.request({
             endpoint: bonLivraisonEndpoints.getBonLivraisonAll.endpoint,
             method: bonLivraisonEndpoints.getBonLivraisonAll.method,
+            params: { page: String(page), size: String(size) },
+            service: 'backend',
         });
-
-        return {
-            status: 'success',
-            data,
-        };
+        console.log({ data });
+        return data;
     } catch (error: any) {
-        return {
-            status: 'error',
-            message: error?.response?.data?.message,
-        };
+        console.log({error});
+        return null;
     }
 }

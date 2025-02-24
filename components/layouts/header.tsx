@@ -17,7 +17,7 @@ import { Icone } from '../icons';
 import ToolsList from './ToolsList';
 import menuData, { IMenuData } from '@/config/menu-data';
 import UserProfileDropdown from '../layouts/user-profile-dropdown';
-import { Button } from '@nextui-org/react';
+import { Button } from "@heroui/react";
 import { User } from '@/types/models';
 import { DashboardUserDropdown } from '../dashboard/dashboard-user-dropdown';
 

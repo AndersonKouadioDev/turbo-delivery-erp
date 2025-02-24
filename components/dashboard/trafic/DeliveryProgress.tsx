@@ -3,7 +3,7 @@ import { Receipt, Store, CheckCircle2, XCircle, CircleDot, MessageCircle } from 
 import { LivreurDisponible } from '@/types/models';
 import Image from 'next/image';
 import createUrlFile from '@/utils/createUrlFile';
-import { Divider } from '@nextui-org/react';
+import { Divider } from "@heroui/react";
 import { motion } from 'framer-motion';
 
 interface DeliveryProgressProps {

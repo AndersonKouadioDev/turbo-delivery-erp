@@ -33,14 +33,14 @@ export async function getTypePlats(): Promise<Collection[]> {
 
 export async function createTypePlat(formData: FormData): Promise<ActionResult<Collection>> {
     try {
-        const { success, data: formdata } = processFormData(createTypePlatSchema, formData, {
+        const { success, data: formdata,errorsInArray } = processFormData(createTypePlatSchema, formData, {
             useDynamicValidation: true,
         });
 
-        if (!success) {
+        if (!success && errorsInArray) {
             return {
                 status: 'error',
-                message: 'Erreur lors de la validation des données',
+                message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
             };
         }
 
@@ -73,12 +73,15 @@ export async function createTypePlat(formData: FormData): Promise<ActionResult<C
 
 export async function updateTypePlat(formData: FormData, id: string): Promise<ActionResult<Collection>> {
     try {
-        const { success, data: formdata } = processFormData(createTypePlatSchema, formData, {
+        const { success, data: formdata,errorsInArray } = processFormData(createTypePlatSchema, formData, {
             useDynamicValidation: true,
         });
 
-        if (!success) {
-            return { status: 'error', message: 'Erreur lors de la validation des données' };
+        if (!success && errorsInArray) {
+            return {
+                status: 'error',
+                message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
+            };
         }
         const sendFormData = createFormData(formdata);
 

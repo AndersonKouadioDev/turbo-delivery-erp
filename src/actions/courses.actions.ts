@@ -1,7 +1,8 @@
 'use server';
 
 import { ActionResult } from '@/types';
-import { CourseExterne, PaginatedResponse } from '@/types/models';
+import { CourseExterne } from '@/types/models';
+import { PaginatedResponse } from '@/types';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
@@ -59,8 +60,8 @@ export async function getPaginationCourseExterneEnAttente(page: number = 0, size
             endpoint: courseEndpoints.getPaginationCourseExterneEnAttente.endpoint,
             method: courseEndpoints.getPaginationCourseExterneEnAttente.method,
             params: {
-                page: page.toString(),
-                size: size.toString(),
+                page: String(page),
+                size: String(size),
             },
             service: 'backend',
         });
@@ -76,8 +77,8 @@ export async function getPaginationCourseExterneAutreStatus(page: number = 0, si
             endpoint: courseEndpoints.getPaginationCourseExterneAutreStatus.endpoint,
             method: courseEndpoints.getPaginationCourseExterneAutreStatus.method,
             params: {
-                page: page.toString(),
-                size: size.toString(),
+                page: String(page),
+                size: String(size),
             },
             service: 'backend',
         });

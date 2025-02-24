@@ -9,7 +9,7 @@
 //   } from "@heroui/table";
 // import { User } from "lucide-react";
 // import { Badge } from "../ui/badge";
-// import { Tooltip } from "@nextui-org/react";
+// import { Tooltip } from "@heroui/react";
 
 // export const columns = [
 //   {name: "NAME", uid: "name"},

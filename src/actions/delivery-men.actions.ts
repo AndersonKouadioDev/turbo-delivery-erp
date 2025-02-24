@@ -1,6 +1,6 @@
 'use server';
 
-import { ActionResult, PaginatedResponse } from '@/types/index.d';
+import { ActionResult, PaginatedResponse } from '@/types';
 
 import { DeliveryMan, LivreurDisponible } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
@@ -45,12 +45,16 @@ export async function getLivreursDisponible(): Promise<LivreurDisponible[]> {
     }
 }
 
-export async function getDeliveryMen(): Promise<PaginatedResponse<DeliveryMan> | null> {
+export async function getDeliveryMen(page: number = 0, size: number = 10): Promise<PaginatedResponse<DeliveryMan> | null> {
     try {
         const data = await apiClientHttp.request<PaginatedResponse<DeliveryMan>>({
             endpoint: deliveryMenEndpoints.getAll.endpoint,
             method: deliveryMenEndpoints.getAll.method,
             service: 'backend',
+            params: {
+                page: String(page),
+                size: String(size),
+            },
         });
         return data;
     } catch (error) {
@@ -58,12 +62,17 @@ export async function getDeliveryMen(): Promise<PaginatedResponse<DeliveryMan> |
     }
 }
 
-export async function getDeliveryMenValidated(): Promise<PaginatedResponse<DeliveryMan> | null> {
+export async function getDeliveryMenValidated(page: number = 0, size: number = 10): Promise<PaginatedResponse<DeliveryMan> | null> {
     try {
         const data = await apiClientHttp.request<PaginatedResponse<DeliveryMan>>({
             endpoint: deliveryMenEndpoints.getAllValidated.endpoint,
             method: deliveryMenEndpoints.getAllValidated.method,
             service: 'backend',
+            service: 'erp',
+            params: {
+                page: String(page),
+                size: String(size),
+            },
         });
         return data;
     } catch (error) {
@@ -73,7 +82,7 @@ export async function getDeliveryMenValidated(): Promise<PaginatedResponse<Deliv
 
 export async function getDeliveryMenNoValidated(page: number = 0, size: number = 10): Promise<PaginatedResponse<DeliveryMan> | null> {
     try {
-        const data = await apiClientHttp.request({
+        const data = await apiClientHttp.request<PaginatedResponse<DeliveryMan>>({
             endpoint: deliveryMenEndpoints.getAllNoValidated.endpoint,
             method: deliveryMenEndpoints.getAllNoValidated.method,
             service: 'backend',
