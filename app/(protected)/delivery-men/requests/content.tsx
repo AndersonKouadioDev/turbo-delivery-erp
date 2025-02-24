@@ -1,10 +1,10 @@
 'use client';
 
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from '@heroui/react';
-import useContentCtx from './useContentCtx';
 import { PaginatedResponse } from '@/types';
 import { DeliveryMan } from '@/types/models';
 import EmptyDataTable from '@/components/commons/EmptyDataTable';
+import useContentCtx from './useContentCtx';
 
 interface ContentProps {
     initialData: PaginatedResponse<DeliveryMan> | null;

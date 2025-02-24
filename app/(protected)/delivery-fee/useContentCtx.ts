@@ -1,67 +1,69 @@
 'use client';
 import { useState } from 'react';
-import { DeliveryFee, DeliveryFeeFormData, DeliveryFeesViewModel } from '@/types/delivery-fee.model';
+import { DeliveryFee } from '@/types/delivery-fee.model';
+import { useFormState } from 'react-dom';
+import { changePassword, loginUser } from '@/src/actions/users.actions';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { createDeliveryFee, deleteDeliveryFee, updateDeliveryFee } from '@/src/actions/delivery-fee.action';
 
-export default function useContentCtx(): DeliveryFeesViewModel {
-    const [fees, setFees] = useState<DeliveryFee[]>([]);
+export interface DeliveryFeesViewModel {
+    fees: DeliveryFee[];
+    isLoading: boolean;
+    error: string | null;
+    selectedFee: DeliveryFee | null;
+    createOrUpdateState: any;
+    createOrUpdateFee: (payload: FormData) => void;
+    deleteFee: (id: string) => Promise<void>;
+    selectFee: (fee: DeliveryFee | null) => void;
+}
+
+export default function useContentCtx({ initialData }: { initialData: DeliveryFee[] }): DeliveryFeesViewModel {
+    const router = useRouter();
+    const [fees, setFees] = useState<DeliveryFee[]>(initialData);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedFee, setSelectedFee] = useState<DeliveryFee | null>(null);
 
-    const createFee = async (data: DeliveryFeeFormData) => {
-        try {
-            setIsLoading(true);
+    const [createOrUpdateState, createOrUpdateFee, isCreatePending] = useFormState(
+        async (_: any, data: FormData) => {
             setError(null);
-            const response = await fetch('/api/erp/frais-livraison', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (!response.ok) throw new Error('Erreur lors de la création');
-            const newFee = await response.json();
-            setFees([...fees, newFee]);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Une erreur est survenue');
-        } finally {
-            setIsLoading(false);
-        }
-    };
+            let result;
+            if (selectedFee) {
+                data.set('id', selectedFee.id);
+                result = await updateDeliveryFee(data);
+            } else {
+                result = await createDeliveryFee(data);
+            }
 
-    const updateFee = async (id: string, data: DeliveryFeeFormData) => {
-        try {
-            setIsLoading(true);
-            setError(null);
-            const response = await fetch(`/api/erp/frais-livraison/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            if (!response.ok) throw new Error('Erreur lors de la mise à jour');
-            const updatedFee = await response.json();
-            setFees(fees.map((fee) => (fee.id === id ? updatedFee : fee)));
-            setSelectedFee(null);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Une erreur est survenue');
-        } finally {
-            setIsLoading(false);
-        }
-    };
+            if (result.status === 'success') {
+                toast.success(result.message || 'Bravo ! vous avez réussi');
+                router.refresh();
+            } else {
+                setError(result.message ?? 'Une erreur est survenue');
+            }
+            return _;
+        },
+        {
+            zone: selectedFee?.zone || '',
+            distanceDebut: selectedFee?.distanceDebut || 0,
+            distanceFin: selectedFee?.distanceFin || 0,
+            prix: selectedFee?.prix || 0,
+        },
+    );
 
     const deleteFee = async (id: string) => {
-        try {
-            setIsLoading(true);
-            setError(null);
-            const response = await fetch(`/api/erp/frais-livraison/${id}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) throw new Error('Erreur lors de la suppression');
-            setFees(fees.filter((fee) => fee.id !== id));
-            if (selectedFee?.id === id) setSelectedFee(null);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Une erreur est survenue');
-        } finally {
-            setIsLoading(false);
+        setError(null);
+
+        const result = await deleteDeliveryFee(id);
+
+        if (result.status === 'success') {
+            toast.success(result.message || 'Bravo ! vous avez réussi');
+            router.refresh();
+        } else {
+            setError(result.message ?? 'Une erreur est survenue');
         }
+        setIsLoading(false);
     };
 
     const selectFee = (fee: DeliveryFee | null) => {
@@ -69,12 +71,12 @@ export default function useContentCtx(): DeliveryFeesViewModel {
     };
 
     return {
-        fees,
-        isLoading,
+        isLoading: isCreatePending || isLoading,
         error,
+        fees,
         selectedFee,
-        createFee,
-        updateFee,
+        createOrUpdateState,
+        createOrUpdateFee,
         deleteFee,
         selectFee,
     };

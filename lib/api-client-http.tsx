@@ -14,7 +14,7 @@ class ApiClientHttp {
 
     constructor(service: ServiceType) {
         this.service = service;
-        
+
         // Définir la baseUrl initiale
         this.setBaseUrl();
 
@@ -71,13 +71,14 @@ class ApiClientHttp {
     }
 
     private setBaseUrl(): void {
-        const baseUrl = {
-            erp: process.env.NEXT_PUBLIC_API_ERP_URL,
-            restaurant: process.env.NEXT_PUBLIC_API_RESTO_URL,
-            livreur: process.env.NEXT_PUBLIC_API_DELIVERY_URL,
-            client: process.env.NEXT_PUBLIC_API_CLIENT_URL,
-            backend: process.env.NEXT_PUBLIC_API_BACKEND_URL,
-        }[this.service] || '';
+        const baseUrl =
+            {
+                erp: process.env.NEXT_PUBLIC_API_ERP_URL,
+                restaurant: process.env.NEXT_PUBLIC_API_RESTO_URL,
+                livreur: process.env.NEXT_PUBLIC_API_DELIVERY_URL,
+                client: process.env.NEXT_PUBLIC_API_CLIENT_URL,
+                backend: process.env.NEXT_PUBLIC_API_BACKEND_URL,
+            }[this.service] || '';
 
         if (!baseUrl) {
             throw new Error(`URL non définie pour le service ${this.service}`);
@@ -96,13 +97,13 @@ class ApiClientHttp {
     private setFullUrl(value: string, service: ServiceType, params?: Record<string, string>): void {
         // Mettre à jour le service
         this.service = service;
-        
+
         // Mettre à jour la baseUrl avec le nouveau service
         this.setBaseUrl();
-        
+
         // Créer l'endpoint
         this.setEndpoint(value, params);
-        
+
         // Créer l'url complète
         this.fullUrl = `${this.baseUrl}${this.endpoint}`;
     }
@@ -139,7 +140,12 @@ class ApiClientHttp {
             }
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.error('Erreur API:', error.response?.data);
+                console.error('Erreur API:', {
+                    data: error.response?.data,
+                    status: error.response?.status,
+                    baseURL:error.response?.config?.baseURL,
+                    url:error.response?.config?.url,
+                });
             }
             throw error;
         }
