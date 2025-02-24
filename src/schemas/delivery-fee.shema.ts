@@ -18,7 +18,7 @@ export const deliveryFeeUpdateSchema = z.object({
     distanceFin: z.number().min(0, 'La distance de fin doit être supérieur ou égal à 0'),
     prix: z.number().min(0, 'Le prix doit être supérieur ou égal à 0'),
     commission: z.number().min(0, 'La commission doit être supérieur ou égal à 0'),
-    id: z.string().min(0, "L'identifiant doit être requis"),
+    id: z.string().min(0, "L'identifiant doit être requis").optional(),
 });
 
 export type _deliveryFeeUpdateSchema = z.infer<typeof deliveryFeeUpdateSchema>;

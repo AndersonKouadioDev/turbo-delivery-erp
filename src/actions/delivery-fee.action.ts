@@ -12,7 +12,7 @@ const deliveryFeeEndpoints = {
     createDeliveryFee: { endpoint: `${BASE_URL}`, method: 'POST' },
     updateDeliveryFee: { endpoint: `${BASE_URL}`, method: 'PUT' },
     getAllDeliveryFee: { endpoint: `${BASE_URL}/tous`, method: 'GET' },
-    getPaginationDeliveryFee: { endpoint: `${BASE_URL}/paginate`, method: 'GET' },
+    getPaginationDeliveryFee: { endpoint: `${BASE_URL}/pagination`, method: 'GET' },
     deleteDeliveryFee: { endpoint: (fraisLivraisonId: string) => `${BASE_URL}/${fraisLivraisonId}`, method: 'DELETE' },
 };
 
@@ -21,7 +21,7 @@ export async function getAllDeliveryFee(): Promise<DeliveryFee[]> {
         const data = await apiClientHttp.request<DeliveryFee[]>({
             endpoint: deliveryFeeEndpoints.getAllDeliveryFee.endpoint,
             method: deliveryFeeEndpoints.getAllDeliveryFee.method,
-            service: 'backend',
+            service: "backend",
         });
 
         return data;

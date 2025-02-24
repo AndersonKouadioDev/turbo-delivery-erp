@@ -8,7 +8,7 @@ import { title } from '@/components/primitives';
 import { DeliveryFee } from '@/types/delivery-fee.model';
 
 export default function Content({ initialData }: { initialData: DeliveryFee[] }) {
-    const { fees, selectFee, createOrUpdateFee, createOrUpdateState, deleteFee, error, isLoading } = useContentCtx({ initialData });
+    const { fees, selectFee, selectedFee, createOrUpdateFee, deleteFee, error, isLoading } = useContentCtx({ initialData });
 
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
@@ -28,7 +28,7 @@ export default function Content({ initialData }: { initialData: DeliveryFee[] })
                 </div>
 
                 <div>
-                    <DeliveryFeeForm onSubmit={createOrUpdateFee} state={createOrUpdateState} isEdit={!!selectFee} />
+                    <DeliveryFeeForm onSubmit={createOrUpdateFee} select={selectedFee} />
                 </div>
             </div>
         </div>

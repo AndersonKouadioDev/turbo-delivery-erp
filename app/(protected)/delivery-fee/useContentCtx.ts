@@ -2,17 +2,16 @@
 import { useState } from 'react';
 import { DeliveryFee } from '@/types/delivery-fee.model';
 import { useFormState } from 'react-dom';
-import { changePassword, loginUser } from '@/src/actions/users.actions';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { createDeliveryFee, deleteDeliveryFee, updateDeliveryFee } from '@/src/actions/delivery-fee.action';
+import { _deliveryFeeUpdateSchema } from '@/src/schemas/delivery-fee.shema';
 
 export interface DeliveryFeesViewModel {
     fees: DeliveryFee[];
     isLoading: boolean;
     error: string | null;
     selectedFee: DeliveryFee | null;
-    createOrUpdateState: any;
     createOrUpdateFee: (payload: FormData) => void;
     deleteFee: (id: string) => Promise<void>;
     selectFee: (fee: DeliveryFee | null) => void;
@@ -25,7 +24,7 @@ export default function useContentCtx({ initialData }: { initialData: DeliveryFe
     const [error, setError] = useState<string | null>(null);
     const [selectedFee, setSelectedFee] = useState<DeliveryFee | null>(null);
 
-    const [createOrUpdateState, createOrUpdateFee, isCreatePending] = useFormState(
+    const [state, createOrUpdateFee, isCreatePending] = useFormState(
         async (_: any, data: FormData) => {
             setError(null);
             let result;
@@ -45,10 +44,11 @@ export default function useContentCtx({ initialData }: { initialData: DeliveryFe
             return _;
         },
         {
-            zone: selectedFee?.zone || '',
-            distanceDebut: selectedFee?.distanceDebut || 0,
-            distanceFin: selectedFee?.distanceFin || 0,
-            prix: selectedFee?.prix || 0,
+            data: null,
+            message: '',
+            errors: {},
+            status: 'idle',
+            code: undefined,
         },
     );
 
@@ -68,6 +68,7 @@ export default function useContentCtx({ initialData }: { initialData: DeliveryFe
 
     const selectFee = (fee: DeliveryFee | null) => {
         setSelectedFee(fee);
+        console.log(fee);
     };
 
     return {
@@ -75,7 +76,6 @@ export default function useContentCtx({ initialData }: { initialData: DeliveryFe
         error,
         fees,
         selectedFee,
-        createOrUpdateState,
         createOrUpdateFee,
         deleteFee,
         selectFee,

@@ -71,6 +71,7 @@ class ApiClientHttp {
     }
 
     private setBaseUrl(): void {
+      
         const baseUrl =
             {
                 erp: process.env.NEXT_PUBLIC_API_ERP_URL,
@@ -79,7 +80,6 @@ class ApiClientHttp {
                 client: process.env.NEXT_PUBLIC_API_CLIENT_URL,
                 backend: process.env.NEXT_PUBLIC_API_BACKEND_URL,
             }[this.service] || '';
-
         if (!baseUrl) {
             throw new Error(`URL non définie pour le service ${this.service}`);
         }
