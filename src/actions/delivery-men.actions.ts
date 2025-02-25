@@ -38,7 +38,6 @@ export async function getLivreursDisponible(): Promise<LivreurDisponible[]> {
             method: deliveryMenEndpoints.getLivreursDisponible.method,
             service: 'backend',
         });
-
         return data;
     } catch (error) {
         return [];
@@ -52,10 +51,11 @@ export async function getDeliveryMen(page: number = 0, size: number = 10): Promi
             method: deliveryMenEndpoints.getAll.method,
             service: 'backend',
             params: {
-                page: String(page),
-                size: String(size),
+                page: page.toString(),
+                size: size.toString(),
             },
         });
+        console.log(data)
         return data;
     } catch (error) {
         return null;
@@ -68,7 +68,6 @@ export async function getDeliveryMenValidated(page: number = 0, size: number = 1
             endpoint: deliveryMenEndpoints.getAllValidated.endpoint,
             method: deliveryMenEndpoints.getAllValidated.method,
             service: 'backend',
-            service: 'erp',
             params: {
                 page: String(page),
                 size: String(size),

@@ -13,11 +13,11 @@ export default function DeliveryMenLayout({ children }: { children: React.ReactN
         href: string;
         label: string;
     }[] = [
-        { id: '/delivery-men', href: '/delivery-men', label: 'Tous' },
-        { id: '/delivery-men/assigned', href: '/delivery-men/assigned', label: 'Assignés' },
-        { id: '/delivery-men/birds', href: '/delivery-men/birds', label: 'Birds' },
-        { id: '/delivery-men/requests', href: '/delivery-men/requests', label: 'Demandes' },
-    ];
+            { id: '/delivery-men', href: '/delivery-men', label: 'Tous' },
+            { id: '/delivery-men/assigned', href: '/delivery-men/assigned', label: 'Assignés' },
+            { id: '/delivery-men/birds', href: '/delivery-men/birds', label: 'Birds' },
+            { id: '/delivery-men/requests', href: '/delivery-men/requests', label: 'Demandes' },
+        ];
     const currentTab = tabs.find((tab) => pathname.startsWith(tab.id) && tab.id !== '/delivery-men');
 
     return (

@@ -71,7 +71,7 @@ class ApiClientHttp {
     }
 
     private setBaseUrl(): void {
-
+        console.log("this.service", this.service)
         const baseUrl =
             {
                 erp: process.env.NEXT_PUBLIC_API_ERP_URL,
@@ -80,6 +80,13 @@ class ApiClientHttp {
                 client: process.env.NEXT_PUBLIC_API_CLIENT_URL,
                 backend: process.env.NEXT_PUBLIC_API_BACKEND_URL,
             }[this.service] || '';
+        console.log("testtttttt", {
+            erp: process.env.NEXT_PUBLIC_API_ERP_URL,
+            restaurant: process.env.NEXT_PUBLIC_API_RESTO_URL,
+            livreur: process.env.NEXT_PUBLIC_API_DELIVERY_URL,
+            client: process.env.NEXT_PUBLIC_API_CLIENT_URL,
+            backend: process.env.NEXT_PUBLIC_API_BACKEND_URL,
+        });
         if (!baseUrl) {
             throw new Error(`URL non définie pour le service ${this.service}`);
         }
@@ -143,8 +150,8 @@ class ApiClientHttp {
                 console.error('Erreur API:', {
                     data: error.response?.data,
                     status: error.response?.status,
-                    baseURL:error.response?.config?.baseURL,
-                    url:error.response?.config?.url,
+                    baseURL: error.response?.config?.baseURL,
+                    url: error.response?.config?.url,
                 });
             }
             throw error;
