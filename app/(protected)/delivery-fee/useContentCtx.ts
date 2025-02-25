@@ -68,7 +68,6 @@ export default function useContentCtx({ initialData }: { initialData: DeliveryFe
 
     const selectFee = (fee: DeliveryFee | null) => {
         setSelectedFee(fee);
-        console.log(fee);
     };
 
     return {

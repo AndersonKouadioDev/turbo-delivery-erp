@@ -78,7 +78,10 @@ export async function createDeliveryFee(formData: FormData): Promise<ActionResul
             service: 'backend',
         });
 
-        return { data };
+        return {
+            status: 'success',
+            data,
+        };
     } catch (error: any) {
         return {
             status: 'error',
@@ -117,7 +120,10 @@ export async function updateDeliveryFee(formData: FormData): Promise<ActionResul
             service: 'backend',
         });
 
-        return { data };
+        return {
+            status: 'success',
+            data,
+        };
     } catch (error: any) {
         return {
             status: 'error',

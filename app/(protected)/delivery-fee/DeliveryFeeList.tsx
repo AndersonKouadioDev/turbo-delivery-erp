@@ -31,9 +31,9 @@ export function DeliveryFeeList({ fees, onEdit, onDelete, isLoading }: Props) {
                         <TableCell>{fee.commission.toFixed(2)} XOF</TableCell>
                         <TableCell>
                             <div className="flex justify-end gap-2">
-                                <Button isIconOnly color="primary" variant="light" onPress={() => onEdit(fee)} isDisabled={isLoading}>
+                                {/* <Button isIconOnly color="primary" variant="light" onPress={() => onEdit(fee)} isDisabled={isLoading}>
                                     <Pencil size={20} />
-                                </Button>
+                                </Button> */}
                                 <Button isIconOnly color="danger" variant="light" onPress={() => onDelete(fee.id)} isDisabled={isLoading}>
                                     <Trash2 size={20} />
                                 </Button>
