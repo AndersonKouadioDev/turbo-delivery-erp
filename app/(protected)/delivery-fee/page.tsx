@@ -12,7 +12,6 @@ export default async function DeliveryMen() {
     const deliveryFees = await getAllDeliveryFee();
     const deliveryFeesPagination = await getPaginationDeliveryFee(0, 10);
 
-    console.log(deliveryFees);
     return (
         <Suspense fallback={<Loading />}>
             <Content initialData={deliveryFees} />
