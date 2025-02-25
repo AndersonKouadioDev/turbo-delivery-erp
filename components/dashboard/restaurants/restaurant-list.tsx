@@ -82,7 +82,7 @@ const RestaurantList = ({ restaurants, validateBy = 'no-body' }: { restaurants: 
                                                 )}
                                             </td>
                                             <td>
-                                                <RestaurantTools restaurant={restaurant} value="list" validateBy={validateBy} />
+                                                <RestaurantTools restaurant={restaurant} validateBy={validateBy} />
                                             </td>
                                         </tr>
                                     );
@@ -121,7 +121,7 @@ const RestaurantList = ({ restaurants, validateBy = 'no-body' }: { restaurants: 
                                             </div>
                                         </div>
                                     </div>
-                                    <RestaurantTools restaurant={restaurant} value="grid" validateBy={validateBy} />
+                                    <RestaurantTools restaurant={restaurant} validateBy={validateBy} />
                                 </div>
                             </div>
                         );
