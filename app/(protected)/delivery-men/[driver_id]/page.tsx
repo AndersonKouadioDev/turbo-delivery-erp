@@ -12,20 +12,18 @@ export const metadata: Metadata = {
 export default async function DeliveryManPage({ params }: { params: { driver_id: string } }) {
     let deliveryMen = await getDeliveryMen();
     let driver = deliveryMen && deliveryMen?.content?.find((dri) => dri.id == params.driver_id);
-
     if (!driver) {
         deliveryMen = await getDeliveryMenNoValidated();
         driver = deliveryMen && deliveryMen?.content?.find((dri) => dri.id == params.driver_id);
-
         if (!driver) {
             deliveryMen = await getDeliveryMenValidated();
             driver = deliveryMen && deliveryMen?.content?.find((dri) => dri.id == params.driver_id);
-
             if (!driver) {
                 return NotFound();
             }
         }
     }
+
 
     return (
         <Suspense fallback={<Loading />}>
