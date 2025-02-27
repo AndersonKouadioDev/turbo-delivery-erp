@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Restaurants() {
-    const restaurants = await getRestaurants();
+    const restaurants = await getRestaurants(0, 10);
 
     return (
         <Suspense fallback={<Loading />}>

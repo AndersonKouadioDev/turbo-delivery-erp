@@ -60,12 +60,16 @@ export async function getDetailRestaurant(idRestaurant: string): Promise<Restaur
     }
 }
 
-export async function getRestaurants(): Promise<PaginatedResponse<Restaurant> | null> {
+export async function getRestaurants(page: number, size: number): Promise<PaginatedResponse<Restaurant> | null> {
     try {
         const data = await apiClientHttp.request<PaginatedResponse<Restaurant>>({
             endpoint: restaurantEndpoints.getAll.endpoint,
             method: restaurantEndpoints.getAll.method,
             service: 'erp',
+            params: {
+                page: String(page),
+                size: String(size),
+            },
         });
 
         return data;

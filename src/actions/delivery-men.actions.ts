@@ -11,11 +11,11 @@ const BASE_URL = '/api/erp/livreur';
 
 const deliveryMenEndpoints = {
     getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
-    getAll: { endpoint: `${BASE_URL}/erp/valid/opsmanager`, method: 'GET' },
-    getAllValidated: { endpoint: `${BASE_URL}/erp/valid/authserv`, method: 'GET' },
-    getAllNoValidated: { endpoint: `${BASE_URL}/erp/invalid`, method: 'GET' },
-    validateAuth: { endpoint: (id: string) => `${BASE_URL}/erp/enable/authserv/${id}`, method: 'GET' },
-    validateOps: { endpoint: (id: string) => `${BASE_URL}/erp/enable/opsmanager/${id}`, method: 'GET' },
+    getAll: { endpoint: `${BASE_URL}/valid/opsmanager`, method: 'GET' },
+    getAllValidated: { endpoint: `${BASE_URL}/valid/authserv`, method: 'GET' },
+    getAllNoValidated: { endpoint: `${BASE_URL}/invalid`, method: 'GET' },
+    validateAuth: { endpoint: (id: string) => `${BASE_URL}/enable/authserv/${id}`, method: 'GET' },
+    validateOps: { endpoint: (id: string) => `${BASE_URL}/enable/opsmanager/${id}`, method: 'GET' },
     info: { endpoint: (id: string) => `${BASE_URL}/get/info/${id}`, method: 'GET' },
 };
 
