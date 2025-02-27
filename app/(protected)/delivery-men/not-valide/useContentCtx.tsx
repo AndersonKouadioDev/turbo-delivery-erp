@@ -69,7 +69,7 @@ export default function useContentCtx({ initialData }: Props) {
                 );
 
             case 'actions':
-                return <DeliveryMenTools deliveryMan={livreur} validateBy="ops" />;
+                return <DeliveryMenTools deliveryMan={livreur} validateBy="auth" />;
 
             default:
                 return cellValue;
