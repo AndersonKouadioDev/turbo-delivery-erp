@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Restaurants({ params }: { params: { restaurant_id: string } }) {
-    let restaurants = await getRestaurants();
+    let restaurants = await getRestaurants(0, 10);
     let restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
 
     if (!restaurant) {

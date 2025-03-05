@@ -7,25 +7,13 @@ import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
 const BASE_URL = '/api/erp/livreur';
-// const BASE_URL_2 = '/api/erp/validation/livreur';
-
-// const deliveryMenEndpoints = {
-//     getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
-//     // getAll: { endpoint: `${BASE_URL_2}/validate/opsmanager/0`, method: 'GET' },
-//     getAll: { endpoint: `${BASE_URL_2}/erp/valid/opsmanager`, method: 'GET' },
-//     getAllValidated: { endpoint: `${BASE_URL}/erp/valid/authserv`, method: 'GET' },
-//     getAllNoValidated: { endpoint: `${BASE_URL_2}/not/validated/0`, method: 'GET' },
-//     validateAuth: { endpoint: (id: string) => `${BASE_URL_2}/enable/authserv/${id}`, method: 'GET' },
-//     validateOps: { endpoint: (id: string) => `${BASE_URL_2}/enable/opsmanager/${id}`, method: 'GET' },
-//     info: { endpoint: (id: string) => `${BASE_URL_2}/get/info/${id}`, method: 'GET' },
-// };/api/erp/livreur/erp/invalid
 
 
 const deliveryMenEndpoints = {
     getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
-    getAll: { endpoint: `${BASE_URL}/erp/valid/opsmanager`, method: 'GET' },
-    getAllValidated: { endpoint: `${BASE_URL}/erp/valid/authserv`, method: 'GET' },
-    getAllNoValidated: { endpoint: `${BASE_URL}/erp/invalid`, method: 'GET' },
+    getAll: { endpoint: `${BASE_URL}/valid/opsmanager`, method: 'GET' },
+    getAllValidated: { endpoint: `${BASE_URL}/valid/authserv`, method: 'GET' },
+    getAllNoValidated: { endpoint: `${BASE_URL}/invalid`, method: 'GET' },
     validateAuth: { endpoint: (id: string) => `${BASE_URL}/enable/authserv/${id}`, method: 'GET' },
     validateOps: { endpoint: (id: string) => `${BASE_URL}/enable/opsmanager/${id}`, method: 'GET' },
     info: { endpoint: (id: string) => `${BASE_URL}/get/info/${id}`, method: 'GET' },

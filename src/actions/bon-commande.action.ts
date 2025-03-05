@@ -23,10 +23,8 @@ export async function getBonLivraisonAll(page: number, size: number): Promise<Pa
             params: { page: String(page), size: String(size) },
             service: 'backend',
         });
-        console.log({ data });
         return data;
     } catch (error: any) {
-        console.log({error});
         return null;
     }
 }

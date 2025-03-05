@@ -10,7 +10,7 @@ import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 
 export default async function Page() {
     const deliveryMen = await getDeliveryMen();
-    const restaurants = await getRestaurants();
+    const restaurants = await getRestaurants(0, 10);
     const typePlats = await getTypePlats();
     const users = await getUsers();
     const chiffreAffaire = await getAllChiffreAffaire();
