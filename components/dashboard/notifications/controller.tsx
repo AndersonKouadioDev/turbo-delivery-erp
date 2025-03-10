@@ -1,13 +1,14 @@
 
+import { auth } from "@/auth";
 import { socket } from "@/socket";
 import { fetchAllNotifcation, fetchNotifcationNonLu, updateNotifcation } from "@/src/actions/notifcation.action";
 import { NotificationVM } from "@/types/notifcation.model";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export function useNotificationController() {
+export  function useNotificationController() {
     const session = useSession();
-    const utilisateurId = session.data?.user?.id;
+    const utilisateurId = session.data?.user.id
     const [notifications, setNotifications] = useState<NotificationVM[]>([]);
     const [notificationNonLus, setNotificationNonLus] = useState<NotificationVM[]>([]);
     const [realTimeData, setRealTimeData] = useState<any>({});

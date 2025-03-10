@@ -6,19 +6,14 @@ import IconInfoCircle from '@/components/icon/icon-info-circle';
 import { Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { NotificationVM } from '@/types/notifcation.model';
+import { useNotificationController } from './controller';
 
-const Content = ({ className, notifications, notificationNonLus, voirTout, toutMarqueCommeLus, isConnected, voirMoins }: {
-    className?: string,
-    notifications: NotificationVM[],
-    notificationNonLus: NotificationVM[];
-    voirTout: () => void,
-    toutMarqueCommeLus: () => void,
-    voirMoins: boolean
-    isConnected: boolean;
+const Content = ({ className }: {
+    isConnected?: boolean;
+    className?: string
 }) => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl';
- 
+  const ctrl =  useNotificationController();
     return (
         <div className={`dropdown shrink-0 ${className}`}>
             <Dropdown
@@ -31,7 +26,7 @@ const Content = ({ className, notifications, notificationNonLus, voirTout, toutM
                         <span className="absolute top-0 flex h-3 w-3 ltr:right-0 rtl:left-0">
                             <span className="absolute -top-[3px] inline-flex h-full w-full animate-ping rounded-full bg-success/50 opacity-75 ltr:-left-[3px] rtl:-right-[3px]"></span>
                             <span className={`relative inline-flex h-[6px] w-[6px] rounded-full bg-success p-1`}>
-                                <span className=' rounded-full text-red-500 font-bold'> {notificationNonLus.length}</span>
+                                <span className=' rounded-full text-red-500 font-bold'> {ctrl.notificationNonLus.length}</span>
                             </span>
                         </span>
                     </span>
@@ -41,20 +36,20 @@ const Content = ({ className, notifications, notificationNonLus, voirTout, toutM
                     <li onClick={(e) => e.stopPropagation()}>
                         <div className="flex-wrap lg:flex xl:flex items-center justify-between px-4 py-2 font-semibold">
                             <h4 className="text-lg text-red-500 font-bold">Notification</h4>
-                            <span className='text-gray-500 cursor-pointer hover:text-gray-800' onClick={toutMarqueCommeLus}>Tous marquer comme lus</span>
+                            <span className='text-gray-500 cursor-pointer hover:text-gray-800' onClick={ctrl.toutMarqueCommeLus}>Tous marquer comme lus</span>
                         </div>
                     </li>
                     <li className='mt-5 border-none'> <span className='border-b-3 border-b-red-500 mb-5 font-bold pb-1 ml-5 '>Tous 1</span></li>
-                    {notifications.length > 0 ? (
+                    {ctrl.notifications.length > 0 ? (
                         <>
-                            {notifications.map((notification) => {
+                            {ctrl.notifications.map((notification) => {
                                 return (
                                     <div key={notification.id}>
                                         <li className="dark:text-white-light/90 p-2 w-full  hover:bg-primary/10 mt-5" onClick={(e) => e.stopPropagation()}>
                                             <div className="group flex items-center px-4 py-2">
                                                 <div className="grid place-content-center rounded">
                                                     <div className=" h-12 w-12 rounded-full flex items-center">
-                                                        <span className={`absolute  block h-2 w-2 rounded-full ${isConnected ? "bg-success": " bg-red-500" }`}></span>
+                                                        <span className={`absolute  block h-2 w-2 rounded-full ${ctrl.isConnected ? "bg-success": " bg-red-500" }`}></span>
                                                         <img className="h-12 w-12 rounded-full object-cover ml-2" alt="profile" src={`/assets/images/avata.png`} />
                                                     </div>
                                                 </div>
@@ -92,17 +87,17 @@ const Content = ({ className, notifications, notificationNonLus, voirTout, toutM
                             })}
                             <div className="p-4 text-center">
                                 {
-                                    voirMoins ?
+                                    ctrl.voirMoins ?
                                     <span className=" font-bold text-md text-primary  w-full pl-2 pr-2 p-1 rounded-full cursor-pointer hover:bg-primary/30"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        voirTout();
+                                        ctrl.voirTout();
                                     }}>Voir moins</span>
                                     :
                                     <span className=" font-bold text-md text-primary  w-full pl-2 pr-2 p-1 rounded-full cursor-pointer hover:bg-primary/30"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        voirTout();
+                                        ctrl.voirTout();
                                     }}>Voir tous</span>
                                 }
                                
@@ -115,7 +110,7 @@ const Content = ({ className, notifications, notificationNonLus, voirTout, toutM
                                 <div className="mx-auto mb-4 rounded-full ring-4 ring-primary/30">
                                     <IconInfoCircle fill={true} className="h-10 w-10 text-primary" />
                                 </div>
-                                Aucun notification trouvé !
+                                Aucune notification trouvé !
                             </button>
                         </li>
                     )}

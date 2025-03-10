@@ -1,17 +1,14 @@
 
-"use client"
-import { useDetailNotificationController } from "./controller";
 import { Suspense } from "react";
 import Loading from "@/components/layouts/loading";
 import { DetailNotification } from "./content";
-import { useParams } from "next/navigation";
+import { fetchDetailNotifcation } from "@/src/actions/notifcation.action";
 
-export default async function Page(){
-    const params = useParams();
-    const ctrl = await useDetailNotificationController(params.id as any)
+export default async function Page({ params }: { params: { id: string } }){
+      const notifcationDetail = await fetchDetailNotifcation(params.id  ?? "");
     return(
         <Suspense fallback={<Loading />}>
-            <DetailNotification detailNotification={ctrl.notifcationDetail} />
+            <DetailNotification detailNotification={notifcationDetail} />
         </Suspense>
     )
 }
