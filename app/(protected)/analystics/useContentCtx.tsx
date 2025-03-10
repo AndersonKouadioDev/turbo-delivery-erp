@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState } from 'react';
 import { CalendarDate, RangeValue } from '@heroui/react';
-import {DateValue} from "@internationalized/date";
+import { DateValue } from '@internationalized/date';
 import { getAllChiffreAffaire, getAllRestaurantChiffreAffaire } from '@/src/actions/statistiques.action';
 
 interface PeriodOption {
@@ -21,30 +21,30 @@ export default function useContentCtx({ initialItems }: { initialItems: Record<s
     const [items, setItems] = useState(initialItems);
 
     const [period, setPeriod] = useState(new Set(['customized']));
-    
-    const [dates, setDates] = useState<RangeValue<Date|null>>({
-        start: null,
-        end: null
-    });
 
+    const [dates, setDates] = useState<RangeValue<Date | null>>({
+        start: null,
+        end: null,
+    });
+    
     const handleDateChange = (value: RangeValue<CalendarDate>) => {
-        setDates(
-            {
-                start: value.start ? new Date(value.start.toString()):null,
-                end: value.end ? new Date(value.end.toString()):null,
-            }
-        );
-    }
+        setDates({
+            start: value.start ? new Date(value.start.toString()) : null,
+            end: value.end ? new Date(value.end.toString()) : null,
+        });
+    };
 
     const handleFetchData = async () => {
-         const chiffreAffaire = await getAllChiffreAffaire();
+        const chiffreAffaire = await getAllChiffreAffaire();
         const chiffresAffairesRestaurants = await getAllRestaurantChiffreAffaire();
 
-        setItems((state)=>{return {...state, chiffreAffaire, chiffresAffairesRestaurants}});
-    }
+        setItems((state) => {
+            return { ...state, chiffreAffaire, chiffresAffairesRestaurants };
+        });
+    };
 
     useEffect(() => {
-            handleFetchData();
+        handleFetchData();
     }, [dates, period]);
 
     return {
@@ -53,6 +53,6 @@ export default function useContentCtx({ initialItems }: { initialItems: Record<s
         period,
         setPeriod,
         dates,
-        handleDateChange
+        handleDateChange,
     };
 }

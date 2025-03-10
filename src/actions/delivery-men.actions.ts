@@ -43,7 +43,6 @@ export async function getDeliveryMen(page: number = 0, size: number = 10): Promi
                 size: size.toString(),
             },
         });
-        console.log(data)
         return data;
     } catch (error) {
         return null;

@@ -1,5 +1,6 @@
 
 "use client"
+
 import { useDetailNotificationController } from "./controller";
 import { Suspense } from "react";
 import Loading from "@/components/layouts/loading";
