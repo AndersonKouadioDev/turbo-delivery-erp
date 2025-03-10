@@ -1,6 +1,5 @@
 
 
-import { useNotificationController } from './controller';
 import Content from './content';
 import { Suspense } from 'react';
 import Loading from '@/app/loading';

@@ -19,7 +19,5 @@ export function useDetailNotificationController(id: string) {
 
     useEffect(()=>{
         lireNotification()
-    },[id]);
-
-  
+    },[id]); 
 }
