@@ -15,7 +15,7 @@ export default async function DeliveryMen() {
 
     return (
         <Suspense fallback={<Loading />}>
-            <Content initialData={deliveryMen} />
+            <Content />
         </Suspense>
     );
 }
