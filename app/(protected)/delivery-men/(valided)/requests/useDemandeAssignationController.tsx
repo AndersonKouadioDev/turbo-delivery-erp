@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 
 
@@ -10,18 +12,15 @@ const initialData = [
 ];
 
 
-interface Props {
-    searchKey: string;
-}
-export function useDemandeAssignationController({ searchKey }: Props) {
+export function useDemandeAssignationController() {
     const [data, setData] = useState(initialData);
     const [selectValue, setSelectValue] = useState("");
 
     useEffect(() => {
-        if (searchKey) {
+        if (selectValue) {
             setData(initialData.filter(item =>
-                item.name?.toLowerCase().includes(searchKey?.toLowerCase()) ||
-                item.restaurant?.toLowerCase().includes(searchKey?.toLowerCase())));
+                item.name?.toLowerCase().includes(selectValue?.toLowerCase()) ||
+                item.restaurant?.toLowerCase().includes(selectValue?.toLowerCase())));
         } else {
             setData(initialData);
         }
