@@ -4,7 +4,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export default function useRealTime({ data, setData }: { data: LivreurDisponible[]; setData: Dispatch<SetStateAction<LivreurDisponible[]>> }) {
     const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
-
     useEffect(() => {
         function onConnect() {
             setIsConnected(true);
@@ -16,7 +15,7 @@ export default function useRealTime({ data, setData }: { data: LivreurDisponible
 
         function onTraficLivreurEvent(value: any) {
             const newDeliver = JSON.parse(value) as LivreurDisponible;
-            console.log({nouvelle_position:newDeliver});
+            console.log({ nouvelle_position: newDeliver });
             setData((prevData) => {
                 const isExist = prevData.find((d) => d.livreurId === newDeliver.livreurId);
                 if (isExist) {

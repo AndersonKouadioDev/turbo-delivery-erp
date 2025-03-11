@@ -5,8 +5,10 @@ import Dropdown from '@/components/dropdown';
 import IconInfoCircle from '@/components/icon/icon-info-circle';
 import { Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNotificationController } from './controller';
 
 const Notifications = ({ className }: { className?: string }) => {
+    // const ctrl = useNotificationController()
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl';
     const notifications = [
         {
@@ -106,7 +108,7 @@ const Notifications = ({ className }: { className?: string }) => {
                                 <div className="mx-auto mb-4 rounded-full ring-4 ring-primary/30">
                                     <IconInfoCircle fill={true} className="h-10 w-10 text-primary" />
                                 </div>
-                                Acun notification trouvé !
+                                Aucune notification trouvé !
                             </button>
                         </li>
                     )}
