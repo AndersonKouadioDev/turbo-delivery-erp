@@ -26,7 +26,6 @@ function createUrlFile(path: string, service: 'restaurant' | 'erp' | 'delivery' 
         base_url = process.env.NEXT_PUBLIC_API_BACKEND_URL ?? '';
         url = base_url + `/api/upload/${fileName}`;
     }
-    console.log(url);
     return url;
 }
 
