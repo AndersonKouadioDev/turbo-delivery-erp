@@ -1,6 +1,4 @@
-import Loading from '@/components/layouts/loading';
 import { Metadata } from 'next';
-import React, { Suspense } from 'react';
 import Content from './content';
 import NotFound from '@/app/not-found';
 import { getDeliveryMen, getDeliveryMenNoValidated, getDeliveryMenValidated } from '@/src/actions/delivery-men.actions';
@@ -26,8 +24,6 @@ export default async function DeliveryManPage({ params }: { params: { driver_id:
 
 
     return (
-        <Suspense fallback={<Loading />}>
-            <Content driver={driver} />
-        </Suspense>
+        <Content driver={driver} />
     );
 }

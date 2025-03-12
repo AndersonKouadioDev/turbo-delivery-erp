@@ -3,7 +3,7 @@
 import { apiClientHttp } from '@/lib/api-client-http';
 import { ActionResult, PaginatedResponse } from '@/types';
 import { processFormData } from '@/utils/formdata-zod.utilities';
-import { deliveryFeeCreateSchema } from '../schemas/delivery-fee.shema';
+import { _deliveryFeeCreateSchema, _deliveryFeeUpdateSchema, deliveryFeeCreateSchema } from '../schemas/delivery-fee.shema';
 import { DeliveryFee } from '@/types/delivery-fee.model';
 
 const BASE_URL = '/api/erp/frais-livraison';
@@ -48,7 +48,7 @@ export async function getPaginationDeliveryFee(page: number, size: number): Prom
     }
 }
 
-export async function createDeliveryFee(formData: FormData): Promise<ActionResult<DeliveryFee>> {
+export async function createDeliveryFee(formData: _deliveryFeeCreateSchema): Promise<ActionResult<DeliveryFee>> {
     const {
         success,
         data: formdata,
@@ -60,15 +60,20 @@ export async function createDeliveryFee(formData: FormData): Promise<ActionResul
             distanceFin: (value) => Number(value),
             prix: (value) => Number(value),
             commission: (value) => Number(value),
+            longitude: (value) => Number(value),
+            latitude: (value) => Number(value),
         },
     });
-
-    if (!success && errorsInArray) {
-        return {
-            status: 'error',
-            message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
-        };
-    }
+    console.log(formData);
+    return {
+        status: 'error',
+    };
+    // if (!success && errorsInArray) {
+    //     return {
+    //         status: 'error',
+    //         message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
+    //     };
+    // }
 
     try {
         const data = await apiClientHttp.request<DeliveryFee>({
@@ -90,7 +95,7 @@ export async function createDeliveryFee(formData: FormData): Promise<ActionResul
     }
 }
 
-export async function updateDeliveryFee(formData: FormData): Promise<ActionResult<DeliveryFee>> {
+export async function updateDeliveryFee(formData: _deliveryFeeUpdateSchema): Promise<ActionResult<DeliveryFee>> {
     const {
         success,
         data: formdata,
@@ -104,13 +109,16 @@ export async function updateDeliveryFee(formData: FormData): Promise<ActionResul
             commission: (value) => Number(value),
         },
     });
-
-    if (!success && errorsInArray) {
-        return {
-            status: 'error',
-            message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
-        };
-    }
+    console.log(formdata);
+    return {
+        status: 'error',
+    };
+    // if (!success && errorsInArray) {
+    //     return {
+    //         status: 'error',
+    //         message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
+    //     };
+    // }
 
     try {
         const data = await apiClientHttp.request<DeliveryFee>({

@@ -1,7 +1,5 @@
-import Loading from '@/components/layouts/loading';
 import { getDeliveryMenValidated } from '@/src/actions/delivery-men.actions';
 import { Metadata } from 'next';
-import React, { Suspense } from 'react';
 import Content from './content';
 export const metadata: Metadata = {
     title: 'Delivery Men',
@@ -9,9 +7,5 @@ export const metadata: Metadata = {
 
 export default async function DeliveryMen() {
     const deliveryMen = await getDeliveryMenValidated(0, 5);
-    return (
-        <Suspense fallback={<Loading />}>
-            <Content initialData={deliveryMen} />
-        </Suspense>
-    );
+    return <Content initialData={deliveryMen} />;
 }

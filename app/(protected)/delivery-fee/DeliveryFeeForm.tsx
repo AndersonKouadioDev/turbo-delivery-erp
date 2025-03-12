@@ -4,28 +4,68 @@ import { Card, CardBody, CardHeader, Input, Divider } from '@heroui/react';
 import { SubmitButton } from '@/components/ui/form-ui/submit-button';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { _deliveryFeeCreateSchema, deliveryFeeCreateSchema } from '@/src/schemas/delivery-fee.shema';
+import { _deliveryFeeCreateSchema, _deliveryFeeUpdateSchema, deliveryFeeCreateSchema } from '@/src/schemas/delivery-fee.shema';
 import { DeliveryFee } from '@/types/delivery-fee.model';
+import { useCallback, useState } from 'react';
+
+import { autocomplete, placeDetails } from '@/lib/googlemaps-server';
+import { PlaceAutocompleteResult } from '@googlemaps/google-maps-services-js';
 
 interface Props {
-    onSubmit: (payload: FormData) => void;
+    onSubmit: (payload: _deliveryFeeUpdateSchema) => void;
     select: DeliveryFee | null;
 }
 
 export function DeliveryFeeForm({ onSubmit, select }: Props) {
+    const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const handleInputChange = useCallback(async (value: string) => {
+        if (value.length > 2 && !loading) {
+            try {
+                const result = await autocomplete(value);
+                setSuggestions(result);
+            } catch (error) {
+                console.error('Error fetching autocomplete suggestions:', error);
+            }
+        } else {
+            setSuggestions([]);
+        }
+    }, []);
+
     const {
         formState: { errors },
         control,
+        getValues,
+        setValue,
     } = useForm<_deliveryFeeCreateSchema>({
         resolver: zodResolver(deliveryFeeCreateSchema),
         defaultValues: {
+            restaurantId: select?.restaurantId || '',
             zone: select?.zone || '',
+            longitude: select?.longitude || 0,
+            latitude: select?.latitude || 0,
             distanceDebut: select?.distanceDebut || 0,
             distanceFin: select?.distanceFin || 0,
             prix: select?.prix || 0,
             commission: select?.commission || 0,
         },
     });
+
+    const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
+        setLoading(true);
+        setValue('zone', suggestion.description, { shouldValidate: true });
+        setSuggestions([]);
+        try {
+            const details = await placeDetails(suggestion.place_id);
+            setValue('longitude', details.result.geometry?.location.lng ?? 0, { shouldValidate: true });
+            setValue('latitude', details.result.geometry?.location.lat ?? 0, { shouldValidate: true });
+        } catch (error) {
+            console.error('Error fetching place details:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <Card>
@@ -36,28 +76,47 @@ export function DeliveryFeeForm({ onSubmit, select }: Props) {
             </CardHeader>
             <Divider />
             <CardBody>
-                <form action={onSubmit} className="flex flex-col gap-4">
+                <form
+                    onSubmit={async (e) => {
+                        e.preventDefault();
+                        onSubmit(getValues());
+                    }}
+                    className="flex flex-col gap-4"
+                >
                     <Controller
                         control={control}
                         name="zone"
                         render={({ field }) => (
-                            <Input
-                                {...field}
-                                value={field.value ?? ''}
-                                type="text"
-                                label="Zone"
-                                variant="bordered"
-                                isRequired
-                                required
-                                aria-invalid={errors.zone ? 'true' : 'false'}
-                                aria-label="zone input"
-                                errorMessage={errors.zone?.message ?? ''}
-                                isInvalid={!!errors.zone}
-                                name="zone"
-                                radius="sm"
-                            />
+                            <div className="relative">
+                                <Input
+                                    {...field}
+                                    isRequired
+                                    aria-invalid={errors.zone ? 'true' : 'false'}
+                                    aria-label="zone input"
+                                    errorMessage={errors.zone?.message ?? ''}
+                                    isInvalid={!!errors.zone}
+                                    label="Zone"
+                                    name="zone"
+                                    placeholder="Entrez une adresse"
+                                    type="text"
+                                    value={field.value || ''}
+                                    onValueChange={handleInputChange}
+                                    variant="bordered"
+                                    radius="sm"
+                                />
+                                {!loading && suggestions && suggestions.length > 0 && (
+                                    <ul className="absolute z-50 w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg">
+                                        {suggestions.map((suggestion) => (
+                                            <li key={suggestion.place_id} className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleSuggestionClick(suggestion)}>
+                                                {suggestion.description}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
                         )}
                     />
+
                     <Controller
                         control={control}
                         name="distanceDebut"

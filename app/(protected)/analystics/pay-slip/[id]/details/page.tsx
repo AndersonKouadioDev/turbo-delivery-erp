@@ -1,5 +1,3 @@
-import Loading from '@/components/layouts/loading';
-import { Suspense } from 'react';
 import { DetailContent } from './content';
 const data = [
     {
@@ -22,9 +20,5 @@ const data = [
 ];
 
 export default async function Page({ params: { id } }: { params: { id: string } }) {
-    return (
-        <Suspense fallback={<Loading />}>
-            <DetailContent data={data} />
-        </Suspense>
-    );
+    return <DetailContent data={data} />;
 }

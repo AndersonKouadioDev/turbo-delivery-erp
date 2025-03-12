@@ -5,14 +5,14 @@ import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { createDeliveryFee, deleteDeliveryFee, updateDeliveryFee } from '@/src/actions/delivery-fee.action';
-import { _deliveryFeeUpdateSchema } from '@/src/schemas/delivery-fee.shema';
+import { _deliveryFeeCreateSchema, _deliveryFeeUpdateSchema } from '@/src/schemas/delivery-fee.shema';
 
 export interface DeliveryFeesViewModel {
     fees: DeliveryFee[];
     isLoading: boolean;
     error: string | null;
     selectedFee: DeliveryFee | null;
-    createOrUpdateFee: (payload: FormData) => void;
+    createOrUpdateFee: (payload: _deliveryFeeUpdateSchema) => void;
     deleteFee: (id: string) => Promise<void>;
     selectFee: (fee: DeliveryFee | null) => void;
 }
@@ -25,11 +25,11 @@ export default function useContentCtx({ initialData }: { initialData: DeliveryFe
     const [selectedFee, setSelectedFee] = useState<DeliveryFee | null>(null);
 
     const [state, createOrUpdateFee, isCreatePending] = useFormState(
-        async (_: any, data: FormData) => {
+        async (_: any, data: _deliveryFeeUpdateSchema) => {
             setError(null);
             let result;
             if (selectedFee) {
-                data.set('id', selectedFee.id);
+                data = { ...data, id: selectedFee.id };
                 result = await updateDeliveryFee(data);
             } else {
                 result = await createDeliveryFee(data);
