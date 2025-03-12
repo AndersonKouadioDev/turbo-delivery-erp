@@ -78,6 +78,7 @@ type MapContainerProps = {
 };
 
 export default function MapContainer({ couriers, selectedCourierId, onMarkerClick }: MapContainerProps) {
+  
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const { theme } = useTheme();
     const isDark = theme === 'dark';
@@ -134,8 +135,8 @@ export default function MapContainer({ couriers, selectedCourierId, onMarkerClic
                 }}
             >
                 {couriers.map((courier) => {
-                    const iconPromise = createMarkerIcon(createUrlFile(courier.avatarUrl, 'delivery'), courier.nomComplet, isDark);
-
+                    const iconPromise = createMarkerIcon(createUrlFile(courier.avatarUrl, "backend"), courier.nomComplet, isDark);
+                    
                     return (
                         <MarkerAsync
                             key={courier.livreurId}
