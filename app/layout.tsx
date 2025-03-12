@@ -5,8 +5,6 @@ import { Lato } from 'next/font/google';
 import NextAuthSessionProvider from '@/providers/next-auth-session.provider';
 import ProviderComponent from '@/components/layouts/provider-component';
 
-import { auth } from '@/auth';
-
 export const metadata: Metadata = {
     title: {
         template: '%s | Turbo Delivery - management platform',
