@@ -48,7 +48,8 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                                                     </span>
                                                 </Button>
                                     }
-                                    <span className={`text-white p-1 pb-0 bg-gray-400  rounded-full hover:bg-primary ${item.statutDemandeAssignation === "REJETER" ? "cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
+                                    <span className={`text-white p-1 pb-0 bg-gray-400  rounded-full hover:bg-primary
+                                     ${item.statutDemandeAssignation === "REJETER" ? "cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
                                         onClick={() => demandeCtrl.retirer(item.id)}>
                                         <XIcon className=" h-5 w-5" />
                                     </span>
