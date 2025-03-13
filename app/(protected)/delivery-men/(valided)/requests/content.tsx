@@ -18,42 +18,47 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                     <tbody>
                         {demandeCtrl.data.map((item) => (
                             <tr key={item.id} className="border-b hover:bg-gray-100">
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
-                                        <span> {item.nomComplet}</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">{demandeCtrl.recupererStatut(item.statutDemandeAssignation)}</td>
-                                <td className="px-6 py-4">{item.date}</td>
-                                <td className="px-6 py-4 flex gap-4">
-                                    {
-                                        item.statutDemandeAssignation === "REJETER" ?
-                                            <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-8" disabled>
-                                                <span className="flex gap-2"  >
-                                                    <Check size={15} /> Accepter
-                                                </span>
-                                            </Button>
-                                            :
-                                            (item.statutDemandeAssignation !== "VALIDE" && !item.autoriser) ?
-                                                <Button onClick={() => demandeCtrl.openAutoriserDialog(item)} className="h-8 bg-orange-500">
-                                                    <span className="flex gap-2" >
-                                                        <Check size={15} /> Accorder
-                                                    </span>
-                                                </Button>
-                                                :
-                                                <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-7">
-                                                    <span className="flex gap-2 items-center"  >
-                                                        <Check size={15} /> Accepter
-                                                    </span>
-                                                </Button>
-                                    }
-                                    <span className={`text-white p-1 pb-0 bg-gray-400  rounded-full hover:bg-primary
+                                {
+                                    item.statutDemandeAssignation !== "VALIDE" &&
+                                    <>
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-2">
+                                                <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
+                                                <span> {item.nomComplet}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">{demandeCtrl.recupererStatut(item.statutDemandeAssignation)}</td>
+                                        <td className="px-6 py-4">{item.date}</td>
+                                        <td className="px-6 py-4 flex gap-4">
+                                            {
+                                                item.statutDemandeAssignation === "REJETER" ?
+                                                    <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-8" disabled>
+                                                        <span className="flex gap-2"  >
+                                                            <Check size={15} /> Accepter
+                                                        </span>
+                                                    </Button>
+                                                    :
+                                                    !item.autoriser ?
+                                                        <Button onClick={() => demandeCtrl.openAutoriserDialog(item)} className="h-8 bg-orange-500">
+                                                            <span className="flex gap-2" >
+                                                                <Check size={15} /> Accorder
+                                                            </span>
+                                                        </Button>
+                                                        :
+                                                        <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-7">
+                                                            <span className="flex gap-2 items-center"  >
+                                                                <Check size={15} /> Accepter
+                                                            </span>
+                                                        </Button>
+                                            }
+                                            <span className={`text-white p-1 pb-0 bg-gray-400  rounded-full hover:bg-primary
                                      ${item.statutDemandeAssignation === "REJETER" ? "cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
-                                        onClick={() => demandeCtrl.retirer(item.id)}>
-                                        <XIcon className=" h-5 w-5" />
-                                    </span>
-                                </td>
+                                                onClick={() => demandeCtrl.retirer(item.id)}>
+                                                <XIcon className=" h-5 w-5" />
+                                            </span>
+                                        </td>
+                                    </>
+                                }
                             </tr>
                         ))}
                     </tbody>
