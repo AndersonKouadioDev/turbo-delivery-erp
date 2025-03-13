@@ -1,6 +1,4 @@
-import Loading from '@/components/layouts/loading';
 import { Metadata } from 'next';
-import React, { Suspense } from 'react';
 import Content from './content';
 import { getRestaurants, getRestaurantsNoValidated, getRestaurantsValidated } from '@/src/actions/restaurants.actions';
 import NotFound from '@/app/not-found';
@@ -28,8 +26,6 @@ export default async function Restaurants({ params }: { params: { restaurant_id:
     }
 
     return (
-        <Suspense fallback={<Loading />}>
-            <Content restaurant={restaurant} />
-        </Suspense>
+        <Content restaurant={restaurant} />
     );
 }

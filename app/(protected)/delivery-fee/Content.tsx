@@ -18,7 +18,7 @@ export default function Content({ initialData }: { initialData: DeliveryFee[] })
 
             {error && (
                 <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
-                    <p className="text-sm text-red-600">{error}</p>
+                    <p className="text-sm text-primary">{error}</p>
                 </div>
             )}
 

@@ -1,6 +1,4 @@
-import Loading from '@/components/layouts/loading';
 import { Metadata } from 'next';
-import React, { Suspense } from 'react';
 import { getDeliveryMen } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
 import { DeliveryMan } from '@/types/models';
@@ -15,8 +13,6 @@ export default async function DeliveryMen() {
 
 
     return (
-        <Suspense fallback={<Loading />}>
-            <Content />
-        </Suspense>
+        <Content />
     );
 }

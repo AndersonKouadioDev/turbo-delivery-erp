@@ -25,9 +25,5 @@ export default async function Page() {
         chiffresAffairesRestaurants,
     };
 
-    return (
-        <Suspense fallback={<Loading />}>
-            <Content initialItems={initialItems} />
-        </Suspense>
-    );
+    return <Content initialItems={initialItems} />;
 }

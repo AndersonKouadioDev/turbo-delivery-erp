@@ -1,4 +1,3 @@
-import React, { Suspense } from 'react';
 import Content from './content';
 import Loading from '@/components/layouts/loading';
 import { getPaginationCourseExterneAutreStatus } from '@/src/actions/courses.actions';
@@ -11,8 +10,6 @@ export default async function DeliveryPage() {
     if(!data) return <Loading/>
     
     return (
-        <Suspense fallback={<Loading />}>
-            <Content initialData={data} delivers={delivers} />
-        </Suspense>
+        <Content initialData={data} delivers={delivers} />
     );
 }
