@@ -13,7 +13,7 @@ export default function Content() {
 
     return (
         <div className="container mx-auto p-6 pt-0 flex-wrap">
-             <SearchField searchKey={selectValue} onChange={setSelectValue} />
+            <SearchField searchKey={selectValue} onChange={setSelectValue} />
             <div className="bg-white rounded-lg overflow-x-auto lg:overflow-hidden xl:overflow-hidden md:overflow-x-auto ms:overflow-x-auto">
                 <div className="border-b-2 m-4 w-full  flex-1">Aujourd&apos;hui</div>
                 <table className="min-w-full border-collapse w-full">

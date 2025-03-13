@@ -46,7 +46,7 @@ const restaurantEndpoints = {
         method: 'GET',
     },
     allRestaurants: {
-        endpoint: `${BASE_URL}/restaurants`,
+        endpoint: `${BASE_URL}`,
         method: 'GET',
 
     }
@@ -163,9 +163,10 @@ export async function allRestaurants(): Promise<Restaurant[]> {
             endpoint: restaurantEndpoints.allRestaurants.endpoint,
             method: restaurantEndpoints.allRestaurants.method,
         });
-
+        console.log("data", data)
         return data;
     } catch (error) {
+        console.log("errrrrrrrrrrr+++++++++++", error);
         return [] as Restaurant[];
     }
 }
