@@ -27,7 +27,11 @@ const usersEndpoints = {
 };
 
 export async function loginUser(formData: FormData): Promise<ActionResult<any>> {
-    const { success, data: formdata,errorsInArray } = processFormData(loginSchema, formData, {
+    const {
+        success,
+        data: formdata,
+        errorsInArray,
+    } = processFormData(loginSchema, formData, {
         useDynamicValidation: true,
     });
 
@@ -39,7 +43,7 @@ export async function loginUser(formData: FormData): Promise<ActionResult<any>> 
     }
 
     try {
-       await apiClientHttp.request({
+        await apiClientHttp.request({
             endpoint: usersEndpoints.login.endpoint,
             method: usersEndpoints.login.method,
             data: {
@@ -58,7 +62,7 @@ export async function loginUser(formData: FormData): Promise<ActionResult<any>> 
             message: 'Connexion réussie',
         };
     } catch (error: any) {
-        if (error?.response.status === 401) {
+        if (error?.response?.status === 401) {
             if (error?.response?.data?.code == 'LOG10') {
                 return {
                     status: 'success',
@@ -79,7 +83,11 @@ export async function loginUser(formData: FormData): Promise<ActionResult<any>> 
 }
 
 export async function changePassword(formData: FormData): Promise<ActionResult<any>> {
-    const { success, data: formdata,errorsInArray } = processFormData(changePasswordSchema, formData, {
+    const {
+        success,
+        data: formdata,
+        errorsInArray,
+    } = processFormData(changePasswordSchema, formData, {
         useDynamicValidation: true,
     });
 
@@ -152,7 +160,11 @@ export async function getUsers(): Promise<PaginatedResponse<User> | null> {
 }
 
 export async function createUser(formData: FormData): Promise<ActionResult<{ password: string; user: User }>> {
-    const { success, data: formdata,errorsInArray } = processFormData(createUserSchema, formData, {
+    const {
+        success,
+        data: formdata,
+        errorsInArray,
+    } = processFormData(createUserSchema, formData, {
         useDynamicValidation: true,
     });
 
@@ -173,7 +185,7 @@ export async function createUser(formData: FormData): Promise<ActionResult<{ pas
         return {
             status: 'success',
             message: 'Utilisateur créé avec succès',
-            data
+            data,
         };
     } catch (error: any) {
         return {

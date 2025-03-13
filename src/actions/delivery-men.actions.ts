@@ -2,33 +2,24 @@
 
 import { ActionResult, PaginatedResponse } from '@/types';
 
-import { DeliveryMan, LivreurDisponible } from '@/types/models';
+import { DeliveryMan, DemandeAssignationVM, LivreurDisponible, ValiderDemandeAssignationCommande } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
+import { method } from 'lodash';
 
 // Configuration
-const BASE_URL = '/api/erp/livreur';
-// const BASE_URL_2 = '/api/erp/validation/livreur';
-
-// const deliveryMenEndpoints = {
-//     getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
-//     // getAll: { endpoint: `${BASE_URL_2}/validate/opsmanager/0`, method: 'GET' },
-//     getAll: { endpoint: `${BASE_URL_2}/erp/valid/opsmanager`, method: 'GET' },
-//     getAllValidated: { endpoint: `${BASE_URL}/erp/valid/authserv`, method: 'GET' },
-//     getAllNoValidated: { endpoint: `${BASE_URL_2}/not/validated/0`, method: 'GET' },
-//     validateAuth: { endpoint: (id: string) => `${BASE_URL_2}/enable/authserv/${id}`, method: 'GET' },
-//     validateOps: { endpoint: (id: string) => `${BASE_URL_2}/enable/opsmanager/${id}`, method: 'GET' },
-//     info: { endpoint: (id: string) => `${BASE_URL_2}/get/info/${id}`, method: 'GET' },
-// };/api/erp/livreur/erp/invalid
-
+const BASE_URL = '/api/erp';
 
 const deliveryMenEndpoints = {
-    getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
-    getAll: { endpoint: `${BASE_URL}/erp/valid/opsmanager`, method: 'GET' },
-    getAllValidated: { endpoint: `${BASE_URL}/erp/valid/authserv`, method: 'GET' },
-    getAllNoValidated: { endpoint: `${BASE_URL}/erp/invalid`, method: 'GET' },
-    validateAuth: { endpoint: (id: string) => `${BASE_URL}/enable/authserv/${id}`, method: 'GET' },
-    validateOps: { endpoint: (id: string) => `${BASE_URL}/enable/opsmanager/${id}`, method: 'GET' },
-    info: { endpoint: (id: string) => `${BASE_URL}/get/info/${id}`, method: 'GET' },
+    getLivreursDisponible: { endpoint: `${BASE_URL}/livreur/disponible`, method: 'GET' },
+    getAll: { endpoint: `${BASE_URL}/valid/livreur/opsmanager`, method: 'GET' },
+    getAllValidated: { endpoint: `${BASE_URL}/livreur/valid/authserv`, method: 'GET' },
+    getAllNoValidated: { endpoint: `${BASE_URL}/livreur/invalid`, method: 'GET' },
+    validateAuth: { endpoint: (id: string) => `${BASE_URL}/livreur/enable/authserv/${id}`, method: 'GET' },
+    validateOps: { endpoint: (id: string) => `${BASE_URL}/livreur/enable/opsmanager/${id}`, method: 'GET' },
+    info: { endpoint: (id: string) => `${BASE_URL}/livreur/get/info/${id}`, method: 'GET' },
+    getAllemandeAssignation: { endpoint: `${BASE_URL}/demande-assignation`, method: "GET" },
+    validerDemandeAssignations: { endpoint: `${BASE_URL}/demande-assignation`, method: 'POST' },
+    rejeterDemandeAssignations: { endpoint: (id: string) => `${BASE_URL}/demande-assignation/${id}/rejeter`, method: "PUT" }
 };
 
 export async function getLivreursDisponible(): Promise<LivreurDisponible[]> {
@@ -55,7 +46,6 @@ export async function getDeliveryMen(page: number = 0, size: number = 10): Promi
                 size: size.toString(),
             },
         });
-        console.log(data)
         return data;
     } catch (error) {
         return null;
@@ -139,4 +129,58 @@ export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops'
         status: 'error',
         message: 'Méthode de validation invalide',
     };
+}
+
+export async function getAllDemandeAssignations(): Promise<DemandeAssignationVM[]> {
+    try {
+        const data = await apiClientHttp.request<DemandeAssignationVM[]>({
+            endpoint: deliveryMenEndpoints.getAllemandeAssignation.endpoint,
+            method: deliveryMenEndpoints.getAllemandeAssignation.method,
+            service: 'backend',
+        });
+        return data;
+    } catch (error) {
+        return [] as DemandeAssignationVM[]
+    }
+}
+
+export async function validerDemandeAssignations(commande: ValiderDemandeAssignationCommande): Promise<any> {
+    try {
+        const data = await apiClientHttp.request<void>({
+            endpoint: deliveryMenEndpoints.validerDemandeAssignations.endpoint,
+            method: deliveryMenEndpoints.validerDemandeAssignations.method,
+            service: 'backend',
+            data: commande
+        });
+        return {
+            status: 'success',
+            message: 'Demande d\'assignation validée avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        return {
+            status: 'error',
+            message: error.message || 'Erreur lors de la création de la demande d\'assignation'
+        }
+    }
+}
+
+export async function rejeterDemandeAssignations(id: string): Promise<any> {
+    try {
+        const data = await apiClientHttp.request<void>({
+            endpoint: deliveryMenEndpoints.rejeterDemandeAssignations.endpoint(id),
+            method: deliveryMenEndpoints.rejeterDemandeAssignations.method,
+            service: 'backend',
+        });
+        return {
+            status: 'success',
+            message: 'Demande d\'assignation rejeté avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        return {
+            status: 'error',
+            message: "Erreur lors du rejet de la demande d'assignation",
+        };
+    }
 }

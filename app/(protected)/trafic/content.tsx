@@ -7,7 +7,7 @@ import useRealTime from './useRealTime';
 import SearchBar from './searchBar';
 import { LivreurTimeline } from '@/components/dashboard/trafic/LivreurTimeline';
 import { LivreursListBottom } from '@/components/dashboard/trafic/LivreursListBottom';
-import { Button, Card, CardBody, CardHeader } from "@heroui/react";
+import { Button, Card, CardBody, CardHeader } from '@heroui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, LayoutDashboard } from 'lucide-react';
 
@@ -20,7 +20,7 @@ export default function Content({ data }: { data: LivreurDisponible[] }) {
     const handleCourierSelect = (courierId: string) => {
         setSelectedCourierId(courierId);
     };
-  
+
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">

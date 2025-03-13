@@ -34,7 +34,7 @@ export function useCoursiersController() {
             ]
         }, {
             restaurantId: 2,
-            restaurant: 'Les turbos ASSIGES',
+            restaurant: 'Les turbos Assignés',
             date: '2022-01-02',
             course: 'Course 2',
             status: 'En attente',

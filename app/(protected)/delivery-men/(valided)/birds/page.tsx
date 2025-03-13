@@ -13,9 +13,10 @@ export const metadata: Metadata = {
 export default async function DeliveryMen() {
     const deliveryMen: PaginatedResponse<DeliveryMan> | null = await getDeliveryMen(0, 5);
 
+
     return (
         <Suspense fallback={<Loading />}>
-            <Content initialData={deliveryMen} />
+            <Content />
         </Suspense>
     );
 }

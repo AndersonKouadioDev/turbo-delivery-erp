@@ -45,6 +45,11 @@ const restaurantEndpoints = {
         endpoint: (idRestaurant: string) => `${BASE_URL_2}/info/${idRestaurant}`,
         method: 'GET',
     },
+    allRestaurants: {
+        endpoint: `${BASE_URL}/restaurants`,
+        method: 'GET',
+
+    }
 };
 
 export async function getDetailRestaurant(idRestaurant: string): Promise<Restaurant | null> {
@@ -60,17 +65,16 @@ export async function getDetailRestaurant(idRestaurant: string): Promise<Restaur
     }
 }
 
-export async function getRestaurants(page?: number, size?: number): Promise<PaginatedResponse<Restaurant> | null> {
+export async function getRestaurants(page: number, size: number): Promise<PaginatedResponse<Restaurant> | null> {
     try {
         const data = await apiClientHttp.request<PaginatedResponse<Restaurant>>({
             endpoint: restaurantEndpoints.getAll.endpoint,
             method: restaurantEndpoints.getAll.method,
             service: 'erp',
             params: {
-                page: page?.toString() ?? "0",
-                size: size?.toString() ?? "10",
+                page: String(page),
+                size: String(size),
             },
-
         });
 
         return data;
@@ -150,4 +154,18 @@ export async function validateRestaurant(id: string, validateBy: 'auth' | 'ops' 
         status: 'error',
         message: 'Méthode de validation invalide',
     };
+}
+
+
+export async function allRestaurants(): Promise<Restaurant[]> {
+    try {
+        const data = await apiClientHttp.request<Restaurant[]>({
+            endpoint: restaurantEndpoints.allRestaurants.endpoint,
+            method: restaurantEndpoints.allRestaurants.method,
+        });
+
+        return data;
+    } catch (error) {
+        return [] as Restaurant[];
+    }
 }

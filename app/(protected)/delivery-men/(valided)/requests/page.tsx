@@ -1,21 +1,20 @@
 import Loading from '@/components/layouts/loading';
 import { Metadata } from 'next';
 import React, { Suspense } from 'react';
-import { getDeliveryMen } from '@/src/actions/delivery-men.actions';
-import { PaginatedResponse } from '@/types';
-import { DeliveryMan } from '@/types/models';
+import { getAllDemandeAssignations } from '@/src/actions/delivery-men.actions';
 import Content from './content';
+import { allRestaurants } from '@/src/actions/restaurants.actions';
 
 export const metadata: Metadata = {
     title: 'Delivery Men',
 };
 
 export default async function DeliveryMen() {
-    const deliveryMen: PaginatedResponse<DeliveryMan> | null = await getDeliveryMen(0, 5);
-
+    const demandeAssignations = await getAllDemandeAssignations();
+    const allRestaurant = await allRestaurants();
     return (
         <Suspense fallback={<Loading />}>
-            <Content initialData={deliveryMen} />
+            <Content demandeAssignations={demandeAssignations} allRestaurant={allRestaurant} />
         </Suspense>
     );
 }

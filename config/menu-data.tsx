@@ -17,7 +17,7 @@ import {
     IconUsers,
     IconUsersGroup,
 } from '@tabler/icons-react';
-import { HandPlatter, SquareUser, Ticket } from 'lucide-react';
+import { Bell, HandPlatter, SquareUser, Ticket } from 'lucide-react';
 import { TbMoneybag, TbTruckDelivery } from 'react-icons/tb';
 
 export interface IMenuData {
@@ -48,6 +48,8 @@ const menuData: IMenuData[] = [
         ],
     },
     { icon: TbMoneybag, title: 'delivery_fee', path: '/delivery-fee' },
+    { icon: Bell, title: 'notification', path: '/notification' },
+
     // {
     //     icon: IconMotorbike,
     //     title: 'queue',
@@ -68,16 +70,7 @@ const menuData: IMenuData[] = [
                 title: 'type_plats',
                 path: '/type-plat',
             },
-            {
-                icon: IconUser,
-                title: 'coursiers',
-                path: '/coursiers',
-                // children: [
-                //     { icon: IconBuildingSkyscraper, title: 'validated', path: '/restaurants' },
-                //     { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/restaurants/valide' },
-                //     { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
-                // ],
-            },
+           
             {
                 icon: IconBuildingSkyscraper,
                 title: 'restaurants',
