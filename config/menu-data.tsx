@@ -49,12 +49,14 @@ const menuData: IMenuData[] = [
     },
     { icon: TbMoneybag, title: 'delivery_fee', path: '/delivery-fee' },
     { icon: Bell, title: 'notification', path: '/notification' },
+    { icon: Bell, title: 'grille tarifaire', path: '/price-list' },
 
     // {
     //     icon: IconMotorbike,
     //     title: 'queue',
     //     path: '/file-attente',
     // },
+
     {
         isHeader: true,
         title: 'database',
