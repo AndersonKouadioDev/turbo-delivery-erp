@@ -1,18 +1,19 @@
 import { Metadata } from 'next';
-import { getDeliveryMen } from '@/src/actions/delivery-men.actions';
+import { getDeliveryMen, getToutLivreurStatusNonAssigners } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
-import { DeliveryMan } from '@/types/models';
+import { DeliveryMan, LivreurStatutVM } from '@/types/models';
 import Content from './content';
+import { allRestaurants, resetRestaurantDefaulValue } from '@/src/actions/restaurants.actions';
 
 export const metadata: Metadata = {
     title: 'Delivery Men',
 };
 
 export default async function DeliveryMen() {
-    const deliveryMen: PaginatedResponse<DeliveryMan> | null = await getDeliveryMen(0, 5);
-
-
+    const toutStatutLivreurNonAssignes: PaginatedResponse<LivreurStatutVM[]> | null = await getToutLivreurStatusNonAssigners(0, 5);
+    const allRestaurant = await allRestaurants();
+    const restaurants = await resetRestaurantDefaulValue(toutStatutLivreurNonAssignes, allRestaurant)
     return (
-        <Content />
+        <Content initialData={toutStatutLivreurNonAssignes} restaurants={restaurants} />
     );
 }

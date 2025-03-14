@@ -1,7 +1,7 @@
 'use server';
 
 import { ActionResult, PaginatedResponse } from '@/types';
-import { Restaurant } from '@/types/models';
+import { LivreurStatutVM, Restaurant } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
@@ -163,10 +163,22 @@ export async function allRestaurants(): Promise<Restaurant[]> {
             endpoint: restaurantEndpoints.allRestaurants.endpoint,
             method: restaurantEndpoints.allRestaurants.method,
         });
-        console.log("data", data)
-        return data;
+        const isDefaultInList = data.some(r => r.nomEtablissement === "Libre,indentifiez-le");
+        const newData: any = isDefaultInList ? data : [...data, { id: "default", nomEtablissement: "Libre,indentifiez-le" }];
+        return newData;
     } catch (error) {
-        console.log("errrrrrrrrrrr+++++++++++", error);
         return [] as Restaurant[];
     }
+}
+
+
+export async function resetRestaurantDefaulValue(livreurs: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
+    const content = livreurs && livreurs.content;
+    content?.forEach((ct: any) => {
+        const existeRestaurant = restaurants && restaurants.find(r => r.nomEtablissement === ct.restaurantLibelle);
+        if (!existeRestaurant && restaurants) {
+            return [...restaurants, { id: "default", nomEtablissement: "Libre,indentifiez-le" }] as any;
+        }
+    })
+    return restaurants
 }

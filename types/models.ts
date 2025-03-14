@@ -245,6 +245,24 @@ export interface ValiderDemandeAssignationCommande {
     demandeAssignationId: string
     restaurantId?: string
 }
+
+export interface LivreurStatutVM {
+    livreurId?: string;
+    nomPrenom?: string;
+    telephone?: string;
+    status?: number;
+    type?: TypeEnum;
+    restaurantLibelle?: string;
+    dateInscription?: string;
+}
+
+export interface ChangerStatutLivreurCommande {
+    typeLivreur: TypeEnum;
+    livreurId: string;
+    restaurantId?: string;
+
+}
+
 export enum StatutDemandeAssignationEnum {
     EN_ATTENTE = "EN_ATTENTE", VALIDE = "VALIDE", REJETER = "REJETER"
 }

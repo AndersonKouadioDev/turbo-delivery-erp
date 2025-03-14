@@ -3,28 +3,31 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from '@heroui/react';
 import useContentCtx from './useContentCtx';
 import { PaginatedResponse } from '@/types';
-import { DeliveryMan } from '@/types/models';
-import EmptyDataTable from '@/components/commons/EmptyDataTable';
+import { LivreurStatutVM, Restaurant } from '@/types/models';
+import { SearchField } from '@/components/commons/form/search-field';
 
 interface ContentProps {
-    initialData: PaginatedResponse<DeliveryMan> | null;
+    initialData: PaginatedResponse<LivreurStatutVM[]> | null;
+    restaurants: Restaurant[] | null
 }
 
-export default function Content({ initialData }: ContentProps) {
-    const { columns, renderCell, renderCols, data, fetchData, currentPage, isLoading } = useContentCtx({ initialData });
-
+export default function Content({ initialData, restaurants }: ContentProps) {
+    const { columns, renderCell, renderCols, data, fetchData, currentPage, isLoading, searchKey, setSearchKey } = useContentCtx({ initialData, restaurants });
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
-            <Table aria-label="Example table with custom cells">
-                <TableHeader columns={columns}>
-                    {(column) => (
+            <SearchField searchKey={searchKey} onChange={setSearchKey} />
+            <Table aria-label="Example table with dynamic content">
+                <TableHeader>
+                    {columns.map((column) =>
                         <TableColumn key={column.uid} align={'start'}>
                             {renderCols(column)}
                         </TableColumn>
                     )}
                 </TableHeader>
-                <TableBody items={data?.content ?? []} emptyContent={<EmptyDataTable title="Aucun Livreur" />}>
-                    {(item) => <TableRow key={item.id}>{(columnKey) => <TableCell>{renderCell(item, columnKey) as React.ReactNode}</TableCell>}</TableRow>}
+                <TableBody>
+                    {(data?.content || []).map((row: any) =>
+                        <TableRow key={row.id}>{(columnKey) => <TableCell>{renderCell(row, columnKey) as React.ReactNode}</TableCell>}</TableRow>
+                    )}
                 </TableBody>
             </Table>
             <div className="flex h-fit z-10 justify-center mt-8 fixed bottom-4">

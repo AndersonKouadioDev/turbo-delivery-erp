@@ -2,148 +2,86 @@
 
 import { SelectField } from '@/components/commons/select-field';
 import { Button } from '@/components/ui/button';
-import { Check, PencilIcon, XIcon } from 'lucide-react';
+import { PencilIcon, XIcon } from 'lucide-react';
 import React from 'react';
 import { useTurboAssigneController } from './useTurboAssigneController';
-import { Tooltip } from '@heroui/react';
 import { SearchField } from '@/components/commons/form/search-field';
+import { PaginatedResponse } from '@/types';
+import { LivreurStatutVM, Restaurant } from '@/types/models';
+import { UpdateDeliveryDialog } from '../../update-delivery/update-delivery';
+import EmptyDataTable from '@/components/commons/EmptyDataTable';
+import { ConfirmDialog } from '@/components/commons/confirm-dialog';
 
-export default function Content() {
-    const { data, toggleConfirm, options, selectValue, setSelectValue } = useTurboAssigneController();
+interface Props {
+    initialData: PaginatedResponse<LivreurStatutVM[]> | null;
+    restaurants: Restaurant[] | null
+}
+export default function Content({ initialData, restaurants }: Props) {
+    const livreurAssigneCtrl = useTurboAssigneController(initialData, restaurants);
 
     return (
         <div className="container mx-auto p-6 pt-0 flex-wrap">
-            <SearchField searchKey={selectValue} onChange={setSelectValue} />
+            <SearchField searchKey={livreurAssigneCtrl.searchKey} onChange={livreurAssigneCtrl.setSearchKey} />
             <div className="bg-white rounded-lg overflow-x-auto lg:overflow-hidden xl:overflow-hidden md:overflow-x-auto ms:overflow-x-auto">
-                <div className="border-b-2 m-4 w-full  flex-1">Aujourd&apos;hui</div>
-                <table className="min-w-full border-collapse w-full">
-                    <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id} className="border-b hover:bg-gray-100">
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
-                                        <span> {item.name}</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">{item.date}</td>
-                                <td className="px-6 py-4">
-                                    <SelectField options={options} setSelectValue={setSelectValue} />
-                                </td>
-                                <td className="px-6 py-4">
-                                    {item.confirmed ? (
-                                        <Button variant={'confirm-success'} onClick={() => toggleConfirm(item.id)} className="h-8">
-                                            <span className="flex items-center gap-2">
-                                                <Check />
-                                                Confirmé
-                                            </span>
-                                        </Button>
-                                    ) : (
-                                        <Button variant={'save'} onClick={() => toggleConfirm(item.id)} className="h-8">
-                                            Enregistrer
-                                        </Button>
-                                    )}
-                                </td>
-                                <td className="px-6 py-4 flex gap-2">
-                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-primary cursor-pointer">
-                                        <Tooltip content="Modifier un turboys">
-                                            <PencilIcon className="h-5 w-5 " size={20} />
-                                        </Tooltip>
-                                        <Tooltip title="Modifier un turboys" />
-                                    </span>
-                                    <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-primary cursor-pointer">
-                                        <XIcon className=" h-5 w-5" />
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                {
+                    livreurAssigneCtrl.data && livreurAssigneCtrl.data.length === 0 ?
+                        <div className="text-center py-6 text-primary font-bold mt-10 text-xl">
+                            <EmptyDataTable title='Aucun Resultat' />
+                        </div>
+                        :
+                        <>
+                            <div className="border-b-2 m-4 w-full  flex-1">Aujourd&apos;hui</div>
+                            <table className="min-w-full border-collapse w-full">
+                                <tbody>
+                                    {(livreurAssigneCtrl.data || [])?.map((item: any) => {
+                                        return (
 
-                <div className="border-b-2 m-4 w-full  flex-1">Hier</div>
-                <table className="min-w-full border-collapse w-full">
-                    <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id} className="border-b hover:bg-gray-100">
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
-                                        <span> {item.name}</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">{item.date}</td>
-                                <td className="px-6 py-4">
-                                    <SelectField options={options} setSelectValue={setSelectValue} />
-                                </td>
-                                <td className="px-6 py-4">
-                                    {item.confirmed ? (
-                                        <Button variant={'confirm-success'} onClick={() => toggleConfirm(item.id)} className="h-8">
-                                            <span className="flex items-center gap-2">
-                                                <Check />
-                                                Confirmé
-                                            </span>
-                                        </Button>
-                                    ) : (
-                                        <Button variant={'save'} onClick={() => toggleConfirm(item.id)} className="h-8">
-                                            Enregistrer
-                                        </Button>
-                                    )}
-                                </td>
-                                <td className="px-6 py-4 flex gap-2">
-                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-gray-300 cursor-pointer">
-                                        <PencilIcon className="h-5 w-5 " size={20} />
-                                    </span>
-                                    <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-gray-300 cursor-pointer">
-                                        <XIcon className=" h-5 w-5" />
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                            <tr key={item.id} className="border-b hover:bg-gray-100">
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
+                                                        <span> {item.nomPrenom}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4">{item.dateInscription}</td>
+                                                <td className="px-6 py-4">
+                                                    <SelectField options={restaurants || []}
+                                                        selectValue={item.restaurantLibelle}
+                                                        setSelectValue={livreurAssigneCtrl.setSelectValue} label={'nomEtablissement'} />
+                                                </td>
+                                                <td className="px-6 py-4 flex gap-4">
+                                                    <Button variant={'confirm-success'} onClick={() => livreurAssigneCtrl.onConfirmStatut(item, item.type)} className="h-8">
+                                                        <span className="flex items-center gap-2">
+                                                            Confirmer
+                                                        </span>
+                                                    </Button>
+                                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer"
+                                                        onClick={() => livreurAssigneCtrl.modifier(item)}>
+                                                        <PencilIcon className="h-5 w-5 " size={20} />
+                                                    </span>
+                                                    <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-red-500 cursor-pointer"
+                                                        onClick={() => livreurAssigneCtrl.onConfirmStatut(item, "WAITING")}>
+                                                        <XIcon className=" h-5 w-5" />
+                                                    </span>
 
-                <div className="border-b-2 m-4 w-full  flex-1">01/02/2025</div>
-                <table className="min-w-full border-collapse w-full">
-                    <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id} className="border-b hover:bg-gray-100">
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
-                                        <span> {item.name}</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">{item.date}</td>
-                                <td className="px-6 py-4">
-                                    <SelectField options={options} setSelectValue={setSelectValue} />
-                                </td>
-                                <td className="px-6 py-4">
-                                    {item.confirmed ? (
-                                        <Button variant={'confirm-success'} onClick={() => toggleConfirm(item.id)} className="h-8">
-                                            <span className="flex items-center gap-2">
-                                                <Check />
-                                                Confirmé
-                                            </span>
-                                        </Button>
-                                    ) : (
-                                        <Button variant={'save'} onClick={() => toggleConfirm(item.id)} className="h-8">
-                                            Enregistrer
-                                        </Button>
-                                    )}
-                                </td>
-                                <td className="px-6 py-4 flex gap-2">
-                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-primary cursor-pointer">
-                                        <PencilIcon className="h-5 w-5 " size={20} />
-                                    </span>
-                                    <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-primary cursor-pointer">
-                                        <XIcon className=" h-5 w-5" />
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                                </td>
+
+                                            </tr>
+
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                            <UpdateDeliveryDialog
+                                onClose={livreurAssigneCtrl.onClose}
+                                isOpen={livreurAssigneCtrl.isOpen}
+                                livreur={livreurAssigneCtrl.livreur}
+                                restaurants={restaurants} />
+                        </>
+                }
             </div>
+            <ConfirmDialog {...livreurAssigneCtrl.confirm} />
+
         </div>
     );
 }

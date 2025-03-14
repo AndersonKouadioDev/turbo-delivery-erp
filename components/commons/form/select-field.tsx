@@ -12,15 +12,18 @@ interface SelectFieldProps {
     optionValue?: string,
     value?: any,
     setValue?: (value: any) => void,
-    label?: string;
+    label: string;
     disabled?: boolean;
 }
 export function SelectField(props: SelectFieldProps) {
+    const handleChange = (event: any) => {
+        props.setValue && props.setValue(event.target.value);
+    }
     return (
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-            <Select className="max-w-xs " label="Selectionnée une période" >
+            <Select className="max-w-lg " label={""} aria-label={props.label} onChange={handleChange} placeholder={props.placeholder}>
                 {props.options.map((item) => (
-                    <SelectItem key={item.key} aria-placeholder="selectionnée une période">{item.label}</SelectItem>
+                    <SelectItem key={item.id} aria-placeholder="selectionnée une période" value={item.id}>{item[props.label]}</SelectItem>
                 ))}
             </Select>
         </div>

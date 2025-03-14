@@ -1,23 +1,20 @@
 'use client';
 
-import DeliveryMenTools from '@/components/dashboard/delivery-men/delivery-men-tools';
-import { getDeliveryMen } from '@/src/actions/delivery-men.actions';
+import { SelectField } from '@/components/commons/select-field';
+import { getToutLivreurStatus } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
-import { DeliveryMan } from '@/types/models';
-import createUrlFile from '@/utils/createUrlFile';
-import { Avatar, Chip, Select, SelectItem } from '@heroui/react';
-import { Key, useCallback, useState } from 'react';
+import { LivreurStatutVM, Restaurant } from '@/types/models';
+import { Chip, Select, SelectItem } from '@heroui/react';
+import { Key, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export const columns = [
-    { name: 'Matricule', uid: 'matricule' },
-    { name: 'Prénoms & Nom', uid: 'nom' },
+    { name: 'Prénoms & Nom', uid: 'nomPrenom' },
     { name: 'Téléphone', uid: 'telephone' },
     { name: 'État du compte', uid: 'status' },
-    { name: 'Identification du livreur', uid: 'category' },
-    { name: 'Propriétaire', uid: 'owner' },
-    { name: 'Actions', uid: 'actions' },
-];
+    { name: 'Identification du livreur', uid: 'type' },
+    { name: 'Propriétaire', uid: 'patenaire' },
+]
 
 export const options = [
     { key: 'libre', label: 'Libre, identifier-le' },
@@ -25,41 +22,79 @@ export const options = [
     { key: 'restaurant-agha', label: 'Restaurant AGAHA' },
 ];
 
+interface IRestaurant {
+    id?: string;
+    key?: string;
+    libelle?: string;
+}
 interface Props {
-    initialData: PaginatedResponse<DeliveryMan> | null;
+    initialData: PaginatedResponse<LivreurStatutVM[]> | null;
+    restaurants: Restaurant[] | null
 }
 
-export default function useContentCtx({ initialData }: Props) {
+export default function useContentCtx({ initialData, restaurants }: Props) {
     const [isLoading, setIsLoading] = useState(!initialData);
-
+    const [searchKey, setSearchKey] = useState('');
+    const [selectValue, setSelectValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
-    const [data, setData] = useState<PaginatedResponse<DeliveryMan> | null>(initialData);
+    const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
+
+
+    useEffect(() => {
+        if (searchKey && initialData && initialData.content) {
+            const data = (initialData.content || []).filter((item: any) =>
+                item.nomPrenom?.toLowerCase().includes(searchKey?.toLowerCase()));
+            setData({ ...initialData, content: data });
+        } else {
+            setData(initialData);
+        }
+    }, [searchKey]);
+
 
     // Fonction de récupération des données
     const fetchData = async (page: number) => {
         setCurrentPage(page);
         setIsLoading(true);
         try {
-            const newData = await getDeliveryMen(page - 1, pageSize);
-            setData(newData);
-        } catch (error) {
-            toast.error('Erreur lors de la récupération des données');
+            const newData = await getToutLivreurStatus(page - 1, pageSize);
+            newData && setData(newData);
+        } catch (error: any) {
+            toast.error(error.message || 'Erreur lors de la récupération des données');
         } finally {
             setIsLoading(false);
         }
     };
 
-    const renderCell = useCallback((livreur: DeliveryMan, columnKey: Key) => {
-        const cellValue = livreur[columnKey as keyof DeliveryMan];
+    const getInitials = (nomPrenom?: string) => {
+        return nomPrenom?.charAt(0).toUpperCase();
+    };
+
+    const getColorFromInitial = (initial: string) => {
+        const colors = [
+            "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#A133FF", "#33FFF3",
+            "#FFC733", "#FF5733", "#75FF33", "#FF3385", "#33A1FF", "#F333FF"
+        ];
+        const index = initial.charCodeAt(0) % colors.length;
+        return colors[index];
+    };
+    const renderCell = useCallback((livreur: LivreurStatutVM | null, columnKey?: Key) => {
+        const cellValue = livreur && livreur[columnKey as keyof LivreurStatutVM];
+        const initial = livreur && getInitials(livreur.nomPrenom);
+        const bgColor = getColorFromInitial(initial ?? "");
 
         switch (columnKey) {
-            case 'nom':
+            case 'nomPrenom':
                 return (
                     <div className="flex items-center gap-4">
-                        <Avatar src={createUrlFile(livreur?.avatarUrl ?? '', 'delivery')} />
+                        <div
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-3 shadow-md"
+                            style={{ backgroundColor: bgColor }}
+                        >
+                            {initial}
+                        </div>
                         <div className="font-medium capitalize">
-                            {livreur.prenoms} {livreur.nom}
+                            {livreur?.nomPrenom}
                         </div>
                     </div>
                 );
@@ -69,19 +104,19 @@ export default function useContentCtx({ initialData }: Props) {
                         {cellValue == 4 ? 'Validé' : 'Inconnu'}
                     </Chip>
                 );
-            case 'category':
+            case 'type':
                 return (
                     <Chip size="sm" color={cellValue == 'TURBOYS' ? 'warning' : 'secondary'}>
                         {cellValue == 'TURBOYS' ? 'TURBOYS' : 'BIRD'}
                     </Chip>
                 );
-            case 'actions':
-                return <DeliveryMenTools deliveryMan={livreur} validateBy="no-body" />;
-            case 'owner':
+            case 'patenaire':
                 return (
-                    <Select className="max-w-xs" items={options} defaultSelectedKeys={['libre']}>
-                        {(option) => <SelectItem>{option.label}</SelectItem>}
-                    </Select>
+                    <div className="font-medium capitalize">
+                        <SelectField options={restaurants || []} selectValue={livreur?.restaurantLibelle ?? ""} setSelectValue={setSelectValue}
+                            label='nomEtablissement' />
+
+                    </div>
                 );
             default:
                 return cellValue;
@@ -100,5 +135,7 @@ export default function useContentCtx({ initialData }: Props) {
         fetchData,
         currentPage,
         isLoading,
+        searchKey,
+        setSearchKey,
     };
 }
