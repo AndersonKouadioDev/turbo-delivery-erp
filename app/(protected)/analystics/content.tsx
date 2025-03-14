@@ -13,9 +13,10 @@ import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 import DatabaseCards from '@/components/dashboard/apercu/DatabaseCards';
 import useContentCtx from './useContentCtx';
 import { TbArrowUpRight, TbChartBar } from 'react-icons/tb';
+import Loading from '@/components/layouts/loading';
 
 export default function Content({ initialItems }: { initialItems: Record<string, any> }) {
-    const { items, periods, period, setPeriod, dates, handleDateChange } = useContentCtx({ initialItems });
+    const { items, periods, period, setPeriod, dates, handleDateChange, loader } = useContentCtx({ initialItems });
 
     return (
         <div className="flex flex-col gap-6">

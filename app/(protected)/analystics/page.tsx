@@ -14,7 +14,7 @@ export default async function Page() {
     const typePlats = await getTypePlats();
     const users = await getUsers();
     const chiffreAffaire = await getAllChiffreAffaire();
-    const chiffresAffairesRestaurants: ChiffreAffaireRestaurant[] = await getAllRestaurantChiffreAffaire();
+    const chiffresAffairesRestaurants: ChiffreAffaireRestaurant[] = await getAllRestaurantChiffreAffaire({ dates: { start: null, end: null } });
 
     const initialItems = {
         deliveryMen,
