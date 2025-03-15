@@ -10,8 +10,9 @@ interface Props {
     initialData: RestaurantDefini[];
 }
 
-export default function Content({ initialData }: Props) {
-    const { columns, selectedKey, tabs, tabsRef, deliveryFees, renderCell, handleMoveScrool, handleChangeSelectedKey } = useContent({ initialData });
+export default function Content() {
+    const { columns, selectedKey, tabs, tabsRef, deliveryFees,isLoading, renderCell, handleMoveScrool, handleChangeSelectedKey } = useContent();
+
     return (
         <div className="flex flex-col">
             <div className="relative flex items-center gap-4 border shadow rounded-xl py-1 px-1">
@@ -35,6 +36,7 @@ export default function Content({ initialData }: Props) {
                     <IconChevronRight />
                 </Button>
             </div>
+            {isLoading && <div className="flex justify-center items-center h-96">Chargement...</div>}
             {/* Tableau de frais de livraison */}
             <Table aria-label="Tableau de Frais de livraison">
                 <TableHeader columns={columns}>
