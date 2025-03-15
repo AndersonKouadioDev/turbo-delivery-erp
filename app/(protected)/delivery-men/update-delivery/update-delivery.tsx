@@ -27,7 +27,7 @@ export function UpdateDeliveryDialog({ restaurants, isOpen, onClose, livreur }: 
             <Modal isOpen={isOpen} size={"lg"} onClose={onClose}>
                 <ModalContent>
                     <>
-                        <ModalHeader className="flex gap-2">Changer le statut du <b className="text-primary">{livreur?.nomPrenom}</b></ModalHeader>
+                        <ModalHeader className="flex gap-2">Changer le statut du livreur : <b className="text-primary">{livreur?.nomPrenom}</b></ModalHeader>
                         <ModalBody>
                             <div className="">
                                 <SelectField options={[
@@ -37,7 +37,7 @@ export function UpdateDeliveryDialog({ restaurants, isOpen, onClose, livreur }: 
                                 ]} placeholder="Selectionnée un type" value={ctrl.typeLivreur} setValue={ctrl.setTypeLivreur} label="label" />
                                 <SelectField options={restaurants || []}
                                     value={ctrl.restaurantSelected}
-                                    setValue={ctrl.setRestuarantSelect} label="nomEtablissement" placeholder="Selectionnée un etablissement" />
+                                    setValue={ctrl.setRestuarantSelect} label="nomEtablissement" placeholder="Selectionnée un restaurant" />
                             </div>
                         </ModalBody>
                         <ModalFooter>

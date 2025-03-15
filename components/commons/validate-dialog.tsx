@@ -74,16 +74,16 @@ export default function ValidateDialog({
     isOpen, onClose, nomComplet, restaurants,
     setRestaurantId, valider, rejeter, demandeAssignationId, estAccorder }: ValidateDialogProps) {
     return (
-        <Modal isOpen={isOpen} size={"sm"} onClose={onClose}>
+        <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
             <ModalContent>
-                <ModalBody>
+                <ModalBody className="p-5">
                     <h2 className="text-red-600 text-lg font-bold">Demande d’assignation</h2>
                     {
                         estAccorder ?
                             <p className="text-gray-700">Autoriser le livreur <span className="font-semibold">{nomComplet}</span> </p>
                             :
                             <>
-                                <p className="text-gray-700">Attribuer le livreur <span className="font-semibold">{nomComplet}</span> en tant que :</p>
+                                <p className="text-gray-700 mt-3 mb-2">Attribuer le livreur <span className="font-semibold">{nomComplet}</span> en tant que :</p>
                                 <Select label="Selectionnée un restaurant" size="sm">
                                     {restaurants.map((item) => (
                                         <SelectItem key={item.id} className="h-8" onChange={(event: any) => setRestaurantId(event.target.value)}>{item.nomEtablissement}</SelectItem>

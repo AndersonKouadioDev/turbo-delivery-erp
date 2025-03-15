@@ -25,7 +25,7 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                                 <div>
                                     {
                                         demandeCtrl.data.map((item) => (
-                                            <tr key={item.id} className="border-b hover:bg-gray-100">
+                                            <tr key={item.id} className="border-b hover:bg-gray-100 flex justify-between">
                                                 <>
                                                     <td className="px-6 py-4">
                                                         <div className="flex items-center gap-2">
@@ -37,25 +37,19 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                                                     <td className="px-6 py-4">{item.date}</td>
                                                     <td className="px-6 py-4 flex gap-4">
                                                         {
-                                                            item.statutDemandeAssignation === "REJETER" ?
-                                                                <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-8" disabled>
-                                                                    <span className="flex gap-2"  >
-                                                                        <Check size={15} /> Accepter
+
+                                                            !item.autoriser ?
+                                                                <Button onClick={() => demandeCtrl.openAutoriserDialog(item)} className="h-8 bg-orange-500">
+                                                                    <span className="flex gap-2" >
+                                                                        <Check size={15} /> Accorder
                                                                     </span>
                                                                 </Button>
                                                                 :
-                                                                !item.autoriser ?
-                                                                    <Button onClick={() => demandeCtrl.openAutoriserDialog(item)} className="h-8 bg-orange-500">
-                                                                        <span className="flex gap-2" >
-                                                                            <Check size={15} /> Accorder
-                                                                        </span>
-                                                                    </Button>
-                                                                    :
-                                                                    <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-7">
-                                                                        <span className="flex gap-2 items-center"  >
-                                                                            <Check size={15} /> Accepter
-                                                                        </span>
-                                                                    </Button>
+                                                                <Button variant={'save'} onClick={() => demandeCtrl.onOpenDialog(item)} className="h-7">
+                                                                    <span className="flex gap-2 items-center"  >
+                                                                        <Check size={15} /> Accepter
+                                                                    </span>
+                                                                </Button>
                                                         }
                                                         <span className={`text-white p-1 pb-0 bg-gray-400  rounded-full hover:bg-primary
                                              ${item.statutDemandeAssignation === "REJETER" ? "cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}

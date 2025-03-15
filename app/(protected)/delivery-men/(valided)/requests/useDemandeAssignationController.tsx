@@ -27,18 +27,19 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
         }
     }, [selectValue])
 
-    const recupererStatut = (sttatutDemandeAssignation?: StatutDemandeAssignationEnum) => {
+    const recupererStatut = (sttatutDemandeAssignation?: string) => {
         switch (sttatutDemandeAssignation) {
-            case StatutDemandeAssignationEnum.EN_ATTENTE:
-                return <Badge className="bg-info rounded-lg pl-2 pr-2  text-sm">En attente</Badge>;
-            case StatutDemandeAssignationEnum.VALIDE:
-                return <Badge className="bg-green-500 rounded-lg pl-2 pr-2  text-sm">Validé</Badge>;
-            case StatutDemandeAssignationEnum.REJETER:
+            case "EN_ATTENTE":
+                return <Badge className="bg-info rounded-lg pl-2 pr-2 text-sm">En attente</Badge>;
+            case "VALIDE":
+                return <Badge className="bg-green-500 rounded-lg pl-2 pr-2 text-sm">Validé</Badge>;
+            case "REJETER":
                 return <Badge className="bg-primary rounded-lg pl-2 pr-2 text-sm">Rejeté</Badge>;
             default:
-                return "";
+                return "Inconu";
         }
-    }
+    };
+
 
     const onOpenDialog = (item: DemandeAssignationVM) => {
         setNomComplet(item.nomComplet ?? "");

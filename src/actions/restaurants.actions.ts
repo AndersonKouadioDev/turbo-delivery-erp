@@ -172,7 +172,7 @@ export async function allRestaurants(): Promise<Restaurant[]> {
 }
 
 
-export async function resetRestaurantDefaulValue(livreurs: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
+export async function ajouterValeurParDefautAuxRestaurant(livreurs: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
     const content = livreurs && livreurs.content;
     content?.forEach((ct: any) => {
         const existeRestaurant = restaurants && restaurants.find(r => r.nomEtablissement === ct.restaurantLibelle);

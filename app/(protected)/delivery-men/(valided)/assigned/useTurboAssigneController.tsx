@@ -1,7 +1,7 @@
 'use client';
 
 import useConfirm from '@/components/commons/use-confirm-dialog';
-import { changerStatusLivreur } from '@/src/actions/delivery-men.actions';
+import { changerStatusLivreur, getToutLivreurStatusAssigners } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
@@ -15,7 +15,9 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
     const [searchKey, setSearchKey] = useState('');
     const [livreur, setLivreur] = useState<LivreurStatutVM | undefined>({})
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const [pageSize] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (searchKey && initialData && initialData.content) {
@@ -61,8 +63,20 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         confirm.openConfirmDialog(confirmAndSend);
     }
 
+    const fetchData = async (page: number) => {
+        setCurrentPage(page);
+        setIsLoading(true);
+        try {
+            const newData = await getToutLivreurStatusAssigners(page - 1, pageSize);
+            newData && setData(newData);
+        } catch (error: any) {
+            toast.error(error.message || 'Erreur lors de la récupération des données');
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return {
-        data: data?.content,
+        data,
         selectValue,
         setSelectValue,
         initialData,
@@ -74,6 +88,11 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         onOpen,
         onClose,
         onConfirmStatut,
-        confirm
+        confirm,
+        fetchData,
+        currentPage,
+        pageSize,
+        isLoading,
+        restaurants,
     };
 }
