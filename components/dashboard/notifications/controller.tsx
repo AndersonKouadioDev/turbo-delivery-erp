@@ -6,7 +6,7 @@ import { NotificationVM } from "@/types/notifcation.model";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export  function useNotificationController() {
+export function useNotificationController() {
     const session = useSession();
     const utilisateurId = session.data?.user.id
     const [notifications, setNotifications] = useState<NotificationVM[]>([]);
@@ -15,19 +15,19 @@ export  function useNotificationController() {
     const [toutNotifications, setToutNotifications] = useState<NotificationVM[]>([]);
     const [isConnected, setIsConnected] = useState(false);
     const [voirMoins, setVoirMoins] = useState(false);
-  
+
     useEffect(() => {
         const setNotification = (data: any) => {
             const jsonData = data && JSON.parse(data) as NotificationVM;
             setRealTimeData(jsonData)
         }
-        socket.on('connect', ()=> setIsConnected(true))
-        socket.on('disconnect', ()=> setIsConnected(false))
+        socket.on('connect', () => setIsConnected(true))
+        socket.on('disconnect', () => setIsConnected(false))
         socket.on(`/notification/erp/${utilisateurId}`, setNotification);
         return () => {
             socket.off(`/notification/erp/${utilisateurId}`, setNotification);
-            socket.off('connect', ()=> setIsConnected(true))
-            socket.off('disconnect', ()=> setIsConnected(false))
+            socket.off('connect', () => setIsConnected(true))
+            socket.off('disconnect', () => setIsConnected(false))
         };
     }, [utilisateurId]);
 
@@ -62,29 +62,29 @@ export  function useNotificationController() {
 
     const voirTout = () => {
         if (toutNotifications.length > 0) {
-            if(voirMoins){
+            if (voirMoins) {
                 setVoirMoins(false)
                 setNotifications(notificationNonLus)
-            }else{
+            } else {
                 setNotifications(toutNotifications);
                 setVoirMoins(true)
             }
-           
+
         }
     }
 
     const toutMarqueCommeLus = async () => {
-        if(notificationNonLus && notificationNonLus.length > 0){
+        if (notificationNonLus && notificationNonLus.length > 0) {
             try {
-                notificationNonLus.map( async(item: any) => {
+                notificationNonLus.map(async (item: any) => {
                     await updateNotifcation({
                         utilisateurId: utilisateurId ?? "",
                         notificationId: item.id
                     })
-            })
-            fetchAllNotifications();
-            fetchAllNotificationNonLus();
-            } catch (error) {}
+                })
+                fetchAllNotifications();
+                fetchAllNotificationNonLus();
+            } catch (error) { }
         }
     }
 

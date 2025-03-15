@@ -2,21 +2,31 @@
 
 import { ActionResult, PaginatedResponse } from '@/types';
 
-import { DeliveryMan, LivreurDisponible } from '@/types/models';
+import { ChangerStatutLivreurCommande, DeliveryMan, DemandeAssignationVM, LivreurDisponible, LivreurStatutVM, Restaurant, ValiderDemandeAssignationCommande } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
-const BASE_URL = '/api/erp/livreur';
-
+const BASE_URL = '/api/erp';
 
 const deliveryMenEndpoints = {
-    getLivreursDisponible: { endpoint: `${BASE_URL}/disponible`, method: 'GET' },
-    getAll: { endpoint: `${BASE_URL}/valid/opsmanager`, method: 'GET' },
-    getAllValidated: { endpoint: `${BASE_URL}/valid/authserv`, method: 'GET' },
-    getAllNoValidated: { endpoint: `${BASE_URL}/invalid`, method: 'GET' },
-    validateAuth: { endpoint: (id: string) => `${BASE_URL}/enable/authserv/${id}`, method: 'GET' },
-    validateOps: { endpoint: (id: string) => `${BASE_URL}/enable/opsmanager/${id}`, method: 'GET' },
-    info: { endpoint: (id: string) => `${BASE_URL}/get/info/${id}`, method: 'GET' },
+    getLivreursDisponible: { endpoint: `${BASE_URL}/livreur/disponible`, method: 'GET' },
+    getAll: { endpoint: `${BASE_URL}/valid/livreur/opsmanager`, method: 'GET' },
+    getAllValidated: { endpoint: `${BASE_URL}/livreur/valid/authserv`, method: 'GET' },
+    getAllNoValidated: { endpoint: `${BASE_URL}/livreur/invalid`, method: 'GET' },
+    validateAuth: { endpoint: (id: string) => `${BASE_URL}/livreur/enable/authserv/${id}`, method: 'GET' },
+    validateOps: { endpoint: (id: string) => `${BASE_URL}/livreur/enable/opsmanager/${id}`, method: 'GET' },
+    info: { endpoint: (id: string) => `${BASE_URL}/livreur/get/info/${id}`, method: 'GET' },
+
+    //Demande d'assignation
+    getAllemandeAssignation: { endpoint: `${BASE_URL}/demande-assignation`, method: "GET" },
+    validerDemandeAssignations: { endpoint: `${BASE_URL}/demande-assignation`, method: 'POST' },
+    rejeterDemandeAssignations: { endpoint: (id: string) => `${BASE_URL}/demande-assignation/${id}/rejeter`, method: "PUT" },
+
+    //Statut livreur
+    getToutLivreurStatus: { endpoint: `${BASE_URL}/livreur/statut/tous`, method: "GET" },
+    getToutLivreurStatusAssigners: { endpoint: `${BASE_URL}/livreur/statut/tous-assigne`, method: "GET" },
+    getToutLivreurStatusNonAssigners: { endpoint: `${BASE_URL}/livreur/statut/tous-non-assigne`, method: "GET" },
+    changerStatusLivreur: { endpoint: `${BASE_URL}/livreur/statut/changer`, method: "PUT" },
 };
 
 export async function getLivreursDisponible(): Promise<LivreurDisponible[]> {
@@ -126,4 +136,144 @@ export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops'
         status: 'error',
         message: 'Méthode de validation invalide',
     };
+}
+
+//Demande d'assignation
+export async function getAllDemandeAssignations(): Promise<DemandeAssignationVM[]> {
+    try {
+        const data = await apiClientHttp.request<DemandeAssignationVM[]>({
+            endpoint: deliveryMenEndpoints.getAllemandeAssignation.endpoint,
+            method: deliveryMenEndpoints.getAllemandeAssignation.method,
+            service: 'backend',
+        });
+        return data;
+    } catch (error) {
+        return [] as DemandeAssignationVM[]
+    }
+}
+
+export async function validerDemandeAssignations(commande: ValiderDemandeAssignationCommande): Promise<any> {
+    try {
+        const data = await apiClientHttp.request<void>({
+            endpoint: deliveryMenEndpoints.validerDemandeAssignations.endpoint,
+            method: deliveryMenEndpoints.validerDemandeAssignations.method,
+            service: 'backend',
+            data: commande
+        });
+        return {
+            status: 'success',
+            message: 'Demande d\'assignation validée avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        return {
+            status: 'error',
+            message: error.message || 'Erreur lors de la création de la demande d\'assignation'
+        }
+    }
+}
+
+export async function rejeterDemandeAssignations(id: string): Promise<any> {
+    try {
+        const data = await apiClientHttp.request<void>({
+            endpoint: deliveryMenEndpoints.rejeterDemandeAssignations.endpoint(id),
+            method: deliveryMenEndpoints.rejeterDemandeAssignations.method,
+            service: 'backend',
+        });
+        return {
+            status: 'success',
+            message: 'Demande d\'assignation rejeté avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        return {
+            status: 'error',
+            message: "Erreur lors du rejet de la demande d'assignation",
+        };
+    }
+}
+
+
+//Statut livreurs
+export async function getToutLivreurStatus(page: number = 0, size: number = 10): Promise<PaginatedResponse<LivreurDisponible[]> | null> {
+    try {
+        const data = await apiClientHttp.request<PaginatedResponse<LivreurDisponible[]> | null>({
+            endpoint: deliveryMenEndpoints.getToutLivreurStatus.endpoint,
+            method: deliveryMenEndpoints.getToutLivreurStatus.method,
+            service: 'backend',
+            params: {
+                page: page.toString(),
+                size: size.toString()
+            }
+        });
+        return data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function getToutLivreurStatusAssigners(page: number = 0, size: number = 10): Promise<PaginatedResponse<LivreurDisponible[]> | null> {
+    try {
+        const data = await apiClientHttp.request<PaginatedResponse<LivreurDisponible[]> | null>({
+            endpoint: deliveryMenEndpoints.getToutLivreurStatusAssigners.endpoint,
+            method: deliveryMenEndpoints.getToutLivreurStatusAssigners.method,
+            service: 'backend',
+            params: {
+                page: page.toString(),
+                size: size.toString()
+            }
+        });
+        return data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function changerStatusLivreur(commande: ChangerStatutLivreurCommande): Promise<any> {
+    console.log(commande)
+    try {
+        const data = await apiClientHttp.request<any>({
+            endpoint: deliveryMenEndpoints.changerStatusLivreur.endpoint,
+            method: deliveryMenEndpoints.changerStatusLivreur.method,
+            service: 'backend',
+            data: commande
+        });
+        return {
+            status: 'success',
+            message: 'Statut du livreur modifié avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        console.log("error", error);
+        if (error.response && error.response?.data.message) {
+            return {
+                status: 'error',
+                message: error.response?.data.message
+            }
+        } else {
+            return {
+                status: 'error',
+                message: error.message || 'Erreur lors du changement de statut du livreur'
+            }
+        }
+
+    }
+}
+
+export async function getToutLivreurStatusNonAssigners(page: number, size: number): Promise<PaginatedResponse<LivreurDisponible[]> | null> {
+    try {
+        const data = await apiClientHttp.request<PaginatedResponse<LivreurDisponible[]> | null>({
+            endpoint: deliveryMenEndpoints.getToutLivreurStatusNonAssigners.endpoint,
+            method: deliveryMenEndpoints.getToutLivreurStatusNonAssigners.method,
+            service: 'backend',
+            params: {
+                page: page.toString(),
+                size: size.toString()
+            }
+        });
+        return data;
+    } catch (error) {
+        console.log("error", error);
+        return null;
+    }
 }

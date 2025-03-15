@@ -1,7 +1,7 @@
 'use server';
 
 import { ActionResult, PaginatedResponse } from '@/types';
-import { Restaurant } from '@/types/models';
+import { LivreurStatutVM, Restaurant } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
@@ -45,6 +45,11 @@ const restaurantEndpoints = {
         endpoint: (idRestaurant: string) => `${BASE_URL_2}/info/${idRestaurant}`,
         method: 'GET',
     },
+    allRestaurants: {
+        endpoint: `${BASE_URL}`,
+        method: 'GET',
+
+    }
 };
 
 export async function getDetailRestaurant(idRestaurant: string): Promise<Restaurant | null> {
@@ -149,4 +154,31 @@ export async function validateRestaurant(id: string, validateBy: 'auth' | 'ops' 
         status: 'error',
         message: 'Méthode de validation invalide',
     };
+}
+
+
+export async function allRestaurants(): Promise<Restaurant[]> {
+    try {
+        const data = await apiClientHttp.request<Restaurant[]>({
+            endpoint: restaurantEndpoints.allRestaurants.endpoint,
+            method: restaurantEndpoints.allRestaurants.method,
+        });
+        const isDefaultInList = data.some(r => r.nomEtablissement === "Libre,indentifiez-le");
+        const newData: any = isDefaultInList ? data : [...data, { id: "default", nomEtablissement: "Libre,indentifiez-le" }];
+        return newData;
+    } catch (error) {
+        return [] as Restaurant[];
+    }
+}
+
+
+export async function ajouterValeurParDefautAuxRestaurant(livreurs: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
+    const content = livreurs && livreurs.content;
+    content?.forEach((ct: any) => {
+        const existeRestaurant = restaurants && restaurants.find(r => r.nomEtablissement === ct.restaurantLibelle);
+        if (!existeRestaurant && restaurants) {
+            return [...restaurants, { id: "default", nomEtablissement: "Libre,indentifiez-le" }] as any;
+        }
+    })
+    return restaurants
 }

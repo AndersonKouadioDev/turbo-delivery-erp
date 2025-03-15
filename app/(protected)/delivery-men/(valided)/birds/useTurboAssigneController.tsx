@@ -1,37 +1,90 @@
 'use client';
 
+import useConfirm from '@/components/commons/use-confirm-dialog';
+import { changerStatusLivreur, getToutLivreurStatusNonAssigners } from '@/src/actions/delivery-men.actions';
+import { PaginatedResponse } from '@/types';
+import { LivreurStatutVM } from '@/types/models';
+import { useDisclosure } from '@heroui/react';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-const initialData = [
-    { id: 1, name: 'Judicahéle yao', date: 'Inscrit le : 13/03/2024', restaurant: 'KFC', confirmed: true },
-    { id: 2, name: 'Laurant pechou', date: 'Inscrit le : 15/03/2024', restaurant: 'TSUNAMI', confirmed: true },
-    { id: 3, name: 'Theodore koffie', date: 'Inscrit le : 15/03/2024', restaurant: 'KFC', confirmed: true },
-    { id: 4, name: 'Baptiste froment', date: 'Inscrit le : 17/03/2024', restaurant: 'TSUNAMI', confirmed: true },
-    { id: 5, name: 'Maurice coulange', date: 'Inscrit le : 18/03/2024', restaurant: 'KFC', confirmed: true },
-];
+export function useTurboysBirdController(initialData: PaginatedResponse<LivreurStatutVM[]> | null) {
+    const confirm = useConfirm()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
+    const [searchKey, setSearchKey] = useState<string>("");
+    const [livreur, setLivreur] = useState<LivreurStatutVM | undefined>({});
+    const [pageSize] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
 
-
-export function useTurboysBirdController() {
-    const [data, setData] = useState(initialData);
-    const [selectValue, setSelectValue] = useState('');
 
     useEffect(() => {
-        if (selectValue) {
-            setData(initialData.filter((item) => item.name?.toLowerCase().includes(selectValue?.toLowerCase()) || item.restaurant?.toLowerCase().includes(selectValue?.toLowerCase())));
+        if (searchKey && initialData && initialData.content) {
+            const data = (initialData.content || []).filter((item: any) =>
+                item.nomPrenom?.toLowerCase().includes(searchKey?.toLowerCase()));
+            setData({ ...initialData, content: data });
         } else {
             setData(initialData);
         }
-    });
+    }, [searchKey]);
 
-    const toggleConfirm = (id: any) => {
-        setData((prevData) => prevData.map((item) => (item.id === id ? { ...item, confirmed: !item.confirmed } : item)));
+
+    const modifier = (livreur: LivreurStatutVM) => {
+        setLivreur(livreur);
+        onOpen()
+    }
+
+    const onConfirmStatut = (livreur: LivreurStatutVM, typeLivreur: any) => {
+        const confirmAndSend = async () => {
+            if (!livreur) {
+                toast.error("Veuillez choisir un statut")
+                return false;
+            }
+            try {
+                const result = await changerStatusLivreur({
+                    livreurId: livreur?.livreurId ?? "",
+                    restaurantId: "",
+                    typeLivreur: typeLivreur
+                })
+                if (result.status === "success") {
+                    toast.success(result.message);
+                } else {
+                    toast.error(result.message);
+                }
+            } catch (error) {
+                toast.error("Une erreur s'est produite")
+            }
+        }
+        confirm.openConfirmDialog(confirmAndSend);
+    }
+
+    const fetchData = async (page: number) => {
+        setCurrentPage(page);
+        setIsLoading(true);
+        try {
+            const newData = await getToutLivreurStatusNonAssigners(page - 1, pageSize);
+            newData && setData(newData);
+        } catch (error: any) {
+            toast.error(error.message || 'Erreur lors de la récupération des données');
+        } finally {
+            setIsLoading(false);
+        }
     };
-
     return {
         data,
-        toggleConfirm,
-        selectValue,
-        setSelectValue,
+        searchKey,
+        setSearchKey,
         initialData,
+        modifier,
+        livreur,
+        isOpen,
+        onClose,
+        onConfirmStatut,
+        confirm,
+        fetchData,
+        currentPage,
+        pageSize,
+        isLoading,
     };
 }
