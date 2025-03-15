@@ -19,14 +19,14 @@ export const periods: PeriodOption[] = [
 
 export default function useContentCtx({ initialItems }: { initialItems: Record<string, any> }) {
     const [items, setItems] = useState(initialItems);
-
+    const [loader, setLoader] = useState<boolean>(false);
     const [period, setPeriod] = useState(new Set(['customized']));
 
     const [dates, setDates] = useState<RangeValue<Date | null>>({
         start: null,
         end: null,
     });
-    
+
     const handleDateChange = (value: RangeValue<CalendarDate>) => {
         setDates({
             start: value.start ? new Date(value.start.toString()) : null,
@@ -35,12 +35,19 @@ export default function useContentCtx({ initialItems }: { initialItems: Record<s
     };
 
     const handleFetchData = async () => {
+        setLoader(true);
         const chiffreAffaire = await getAllChiffreAffaire();
-        const chiffresAffairesRestaurants = await getAllRestaurantChiffreAffaire();
+        const chiffresAffairesRestaurants = await getAllRestaurantChiffreAffaire({
+            dates: {
+                start: dates.start,
+                end: dates.end,
+            },
+        });
 
         setItems((state) => {
             return { ...state, chiffreAffaire, chiffresAffairesRestaurants };
         });
+        setLoader(false);
     };
 
     useEffect(() => {
@@ -54,5 +61,6 @@ export default function useContentCtx({ initialItems }: { initialItems: Record<s
         setPeriod,
         dates,
         handleDateChange,
+        loader,
     };
 }

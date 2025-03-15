@@ -20,7 +20,7 @@ export interface RestaurantDefini {
     nomEtablissement: string;
     longitude: number;
     latitude: number;
-    typeCommission: 'POURCENTAGE';
+    typeCommission: 'POURCENTAGE' | 'FIXE';
     commission: number;
     position: {
         longitude: number;
