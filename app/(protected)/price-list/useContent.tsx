@@ -1,11 +1,10 @@
 'use client';
 
-import { getPriceListByRestaurant, getRestaurantDefined } from '@/src/price-list/price-list.action';
+import { getPriceListByRestaurant } from '@/src/price-list/price-list.action';
 import { PaginatedResponse } from '@/types';
 import { DeliveryFee, RestaurantDefini } from '@/types/price-list';
 import { Tooltip } from '@heroui/react';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Props {
@@ -19,17 +18,12 @@ export const columns = [
     { name: 'Action', uid: 'actions' },
 ];
 
-export default function useContent() {
-
-    const {data:initialData, isLoading} = useQuery({
-        queryKey: ['getRestaurantDefined'],
-        queryFn: getRestaurantDefined,
-    })
-    const tabs = initialData?.map((resto) => ({ id: resto.id, nomComplet: resto.nomEtablissement }));
+export default function useContent({ initialData }: Props) {
+    const tabs = initialData.map((resto) => ({ id: resto.id, nomComplet: resto.nomEtablissement }));
 
     const tabsRef = useRef<HTMLDivElement>(null);
     const [deliveryFees, setDeliveryFees] = useState<PaginatedResponse<DeliveryFee> | null>(null);
-    const [selectedKey, setSelectedKey] = useState<string | null>(initialData?.length !== 0 ? initialData![0].id : null);
+    const [selectedKey, setSelectedKey] = useState<string | null>(initialData.length !== 0 ? initialData[0].id : null);
 
     const handleChangeSelectedKey = (key: string) => {
         setSelectedKey(key);
@@ -99,6 +93,5 @@ export default function useContent() {
         handleFetchDeliveryFee,
         handleChangeSelectedKey,
         renderCell,
-        isLoading
     };
 }
