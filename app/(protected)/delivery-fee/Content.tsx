@@ -2,7 +2,6 @@
 
 import React from 'react';
 import useContentCtx from './useContentCtx';
-import { DeliveryFeeList } from './DeliveryFeeList';
 import { DeliveryFeeForm } from './DeliveryFeeForm';
 import { title } from '@/components/primitives';
 import { DeliveryFee } from '@/types/delivery-fee.model';
@@ -23,10 +22,6 @@ export default function Content({ initialData }: { initialData: DeliveryFee[] })
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2">
-                    <DeliveryFeeList fees={fees} onEdit={selectFee} onDelete={deleteFee} isLoading={isLoading} />
-                </div>
-
                 <div>
                     <DeliveryFeeForm onSubmit={createOrUpdateFee} select={selectedFee} />
                 </div>
