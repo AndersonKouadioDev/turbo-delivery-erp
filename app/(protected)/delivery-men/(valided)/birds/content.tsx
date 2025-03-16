@@ -23,9 +23,8 @@ export default function Content({ initialData, restaurants }: Props) {
     return (
         <div className="container mx-auto p-6 pt-0 flex-wrap">
             <SearchField searchKey={livreurNonAssingeCtrl.searchKey} onChange={livreurNonAssingeCtrl.setSearchKey} />
-
             <div className="bg-white rounded-lg overflow-x-auto lg:overflow-hidden xl:overflow-hidden md:overflow-x-auto ms:overflow-x-auto">
-                <table className="min-w-full border-collapse w-full">
+                <table className="min-w-full border-collapse w-full card shadown">
                     <tbody>
                         {
                             livreurNonAssingeCtrl.data && livreurNonAssingeCtrl.data.content.length === 0 ?
@@ -47,17 +46,17 @@ export default function Content({ initialData, restaurants }: Props) {
 
                                                 <Button variant={'confirm-success'} className="h-8">
                                                     <span className="flex items-center gap-2">
-                                                        <Check />
+                                                        <Check size={18} />
                                                         Confirmé
                                                     </span>
                                                 </Button>
                                                 <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer"
                                                     onClick={() => livreurNonAssingeCtrl.modifier(item)}>
-                                                    <PencilIcon className="h-5 w-5 " size={20} />
+                                                    <PencilIcon className="h-4 w-4 " />
                                                 </span>
                                                 <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-red-500 cursor-pointer"
                                                     onClick={() => livreurNonAssingeCtrl.onConfirmStatut(item, "WAITING")}>
-                                                    <XIcon className=" h-5 w-5" />
+                                                    <XIcon className=" h-4 w-4" />
                                                 </span>
                                             </td>
                                         </tr>

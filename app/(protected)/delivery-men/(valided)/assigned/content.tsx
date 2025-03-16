@@ -50,23 +50,24 @@ export default function Content({ initialData, restaurants }: Props) {
                                                         selectValue={item.restaurantLibelle}
                                                         setSelectValue={livreurAssigneCtrl.setSelectValue} label={'nomEtablissement'} />
                                                 </td>
-                                                <td className="px-6 py-4 flex gap-4">
+                                                <td className="px-6 py-4 flex gap-4 items-center">
+
                                                     <Button variant={'confirm-success'} className="h-8">
                                                         <span className="flex items-center gap-2">
-                                                            <Check />
+                                                            <Check size={18} />
                                                             Confirmé
                                                         </span>
                                                     </Button>
-                                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer h-8"
+                                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer"
                                                         onClick={() => livreurAssigneCtrl.modifier(item)}>
-                                                        <PencilIcon className="h-5 w-5 " size={20} />
+                                                        <PencilIcon className="h-5 w-5 " />
                                                     </span>
-                                                    <span className="text-white p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer h-8"
+                                                    <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-red-500 cursor-pointer"
                                                         onClick={() => livreurAssigneCtrl.onConfirmStatut(item, "WAITING")}>
                                                         <XIcon className=" h-5 w-5" />
                                                     </span>
-
                                                 </td>
+                                                {/* </td> */}
 
                                             </tr>
 
