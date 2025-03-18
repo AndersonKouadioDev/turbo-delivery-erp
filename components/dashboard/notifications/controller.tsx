@@ -58,7 +58,7 @@ export function useNotificationController() {
     useEffect(() => {
         fetchAllNotificationNonLus();
         fetchAllNotifications();
-    }, []);
+    }, [utilisateurId]);
 
     const voirTout = () => {
         if (toutNotifications.length > 0) {
