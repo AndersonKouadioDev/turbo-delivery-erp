@@ -227,7 +227,7 @@ export function ListeDesLivraisons() {
             </div>
             <div className="flex gap-4 mt-10 items-center">
                 <SelectWithCheckbox options={options} selected={selected} setSelected={setSelected} confirmer={confirmer} />
-                <SelectField options={oprions2} />
+                <SelectField options={oprions2} label="Période" />
             </div>
         </>
     );
