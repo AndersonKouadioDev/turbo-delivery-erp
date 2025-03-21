@@ -14,6 +14,7 @@ export const columns = [
     { name: 'État du compte', uid: 'status' },
     { name: 'Identification du livreur', uid: 'type' },
     { name: 'Propriétaire', uid: 'patenaire' },
+    { name: 'Identification final du livreur', uid: 'identificationFinal' },
 ]
 
 export const options = [

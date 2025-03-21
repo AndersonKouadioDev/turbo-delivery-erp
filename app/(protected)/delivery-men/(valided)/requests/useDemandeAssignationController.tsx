@@ -17,6 +17,7 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
     const [restaurantSelectedId, setRestaurantSelectId] = useState<string | null>(null);
     const [demandeAssignationId, setDemandeAssignation] = useState<string>("");
     const [isAccorder, setIsAccorder] = useState(false)
+    const [typeLivreur, setTypeLivreur] = useState<any>("")
 
     useEffect(() => {
         if (selectValue) {
@@ -46,6 +47,7 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
         setDemandeAssignation(item.id ?? "")
         onOpen();
         setIsAccorder(false)
+        setTypeLivreur(item.type ?? "")
 
     }
 
@@ -66,15 +68,16 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
             try {
                 const result = await validerDemandeAssignations({
                     demandeAssignationId: demandeAssignationId,
-                    restaurantId: restaurantSelectedId ?? "",
+                    restaurantId: restaurantSelectedId ?? ""
                 })
-                if (result.success === "success") {
+                if (result.status === "success") {
                     toast.success(result.message);
                 } else {
                     toast.error(result.message);
                 }
                 onClose();
             } catch (error: any) {
+                console.log("error.message", error.message)
                 toast.error(error.message || "Une erreur s'est produite !");
             }
         }

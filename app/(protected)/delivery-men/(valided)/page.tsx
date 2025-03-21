@@ -4,6 +4,7 @@ import { PaginatedResponse } from '@/types';
 import { DeliveryMan, LivreurStatutVM } from '@/types/models';
 import Content from './content';
 import { allRestaurants, ajouterValeurParDefautAuxRestaurant } from '@/src/actions/restaurants.actions';
+import { auth } from '@/auth';
 
 export const metadata: Metadata = {
     title: 'Delivery Men',

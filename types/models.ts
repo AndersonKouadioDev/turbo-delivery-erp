@@ -243,7 +243,7 @@ export interface DemandeAssignationVM {
 
 export interface ValiderDemandeAssignationCommande {
     demandeAssignationId: string
-    restaurantId?: string
+    restaurantId?: string;
 }
 
 export interface LivreurStatutVM {

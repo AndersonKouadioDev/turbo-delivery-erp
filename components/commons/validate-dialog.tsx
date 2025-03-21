@@ -73,6 +73,9 @@ interface ValidateDialogProps {
 export default function ValidateDialog({
     isOpen, onClose, nomComplet, restaurants,
     setRestaurantId, valider, rejeter, demandeAssignationId, estAccorder }: ValidateDialogProps) {
+    const handleChange = (event: any): void => {
+        setRestaurantId(event.target.value)
+    }
     return (
         <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
             <ModalContent>
@@ -84,9 +87,9 @@ export default function ValidateDialog({
                             :
                             <>
                                 <p className="text-gray-700 mt-3 mb-2">Attribuer le livreur <span className="font-semibold">{nomComplet}</span> en tant que :</p>
-                                <Select label="Selectionnée un restaurant" size="sm">
+                                <Select label="Selectionnée un restaurant" size="sm" onChange={handleChange}>
                                     {restaurants.map((item) => (
-                                        <SelectItem key={item.id} className="h-8" onChange={(event: any) => setRestaurantId(event.target.value)}>{item.nomEtablissement}</SelectItem>
+                                        <SelectItem key={item.id} className="h-8" >{item.nomEtablissement}</SelectItem>
                                     ))}
                                 </Select>
                             </>

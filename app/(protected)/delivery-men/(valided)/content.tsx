@@ -12,6 +12,7 @@ interface ContentProps {
 }
 
 export default function Content({ initialData, restaurants }: ContentProps) {
+    console.log(initialData)
     const { columns, renderCell, renderCols, data, fetchData, currentPage, isLoading, searchKey, setSearchKey } = useContentCtx({ initialData, restaurants });
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">

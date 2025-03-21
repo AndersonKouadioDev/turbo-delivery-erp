@@ -8,6 +8,7 @@ import { DemandeAssignationVM, Restaurant } from '@/types/models';
 import ValidateDialog from '@/components/commons/validate-dialog';
 import { ConfirmDialog } from '@/components/commons/confirm-dialog';
 import EmptyDataTable from '@/components/commons/EmptyDataTable';
+import { Chip, Select, SelectItem } from '@heroui/react';
 
 export default function Content({ demandeAssignations, allRestaurant }: { demandeAssignations: DemandeAssignationVM[], allRestaurant: Restaurant[] }) {
     const demandeCtrl = useDemandeAssignationController(demandeAssignations);
@@ -34,6 +35,7 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">{demandeCtrl.recupererStatut(item.statutDemandeAssignation)}</td>
+                                                    <td className="px-6 py-4"><Chip color={item.type === 'TURBOYS' as any ? 'warning' : 'secondary'}>{item.type}</Chip></td>
                                                     <td className="px-6 py-4">{item.date}</td>
                                                     <td className="px-6 py-4 flex gap-4">
                                                         {
