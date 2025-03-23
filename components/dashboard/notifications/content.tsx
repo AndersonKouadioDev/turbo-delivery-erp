@@ -13,7 +13,7 @@ const Content = ({ className }: {
     className?: string
 }) => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl';
-  const ctrl =  useNotificationController();
+    const ctrl = useNotificationController();
     return (
         <div className={`dropdown shrink-0 ${className}`}>
             <Dropdown
@@ -49,7 +49,7 @@ const Content = ({ className }: {
                                             <div className="group flex items-center px-4 py-2">
                                                 <div className="grid place-content-center rounded">
                                                     <div className=" h-12 w-12 rounded-full flex items-center">
-                                                        <span className={`absolute  block h-2 w-2 rounded-full ${ctrl.isConnected ? "bg-success": " bg-red-500" }`}></span>
+                                                        <span className={`absolute  block h-2 w-2 rounded-full ${ctrl.isConnected ? "bg-success" : " bg-red-500"}`}></span>
                                                         <img className="h-12 w-12 rounded-full object-cover ml-2" alt="profile" src={`/assets/images/avata.png`} />
                                                     </div>
                                                 </div>
@@ -85,23 +85,12 @@ const Content = ({ className }: {
                                     </div>
                                 );
                             })}
-                            <div className="p-4 text-center">
-                                {
-                                    ctrl.voirMoins ?
+                            <Link href={"/notification"}>
+                                <div className="p-4 text-center">
                                     <span className=" font-bold text-md text-primary  w-full pl-2 pr-2 p-1 rounded-full cursor-pointer hover:bg-primary/30"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        ctrl.voirTout();
-                                    }}>Voir moins</span>
-                                    :
-                                    <span className=" font-bold text-md text-primary  w-full pl-2 pr-2 p-1 rounded-full cursor-pointer hover:bg-primary/30"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        ctrl.voirTout();
-                                    }}>Voir tous</span>
-                                }
-                               
-                            </div>
+                                    >Voir tous</span>
+
+                                </div></Link>
 
                         </>
                     ) : (

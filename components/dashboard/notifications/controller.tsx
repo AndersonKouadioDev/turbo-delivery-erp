@@ -52,7 +52,8 @@ export function useNotificationController() {
     }
 
     useEffect(() => {
-        setNotificationNonLus([...notificationNonLus, realTimeData])
+        setNotificationNonLus([...notificationNonLus, realTimeData]);
+        setNotifications([...notifications, realTimeData]);
     }, [realTimeData])
 
     useEffect(() => {
