@@ -1,5 +1,6 @@
 'use server';
 
+
 import { Client } from '@googlemaps/google-maps-services-js';
 
 const client = new Client();
@@ -114,7 +115,8 @@ export async function calculateRoute(origin: LatLng, destination: LatLng, travel
  * @returns La distance en mètres
  */
 export async function calculateDistance(point1: LatLng, point2: LatLng): Promise<number> {
-    return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(point1.lat, point1.lng), new google.maps.LatLng(point2.lat, point2.lng));
+    return 4
+    // return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(point1.lat, point1.lng), new google.maps.LatLng(point2.lat, point2.lng));
 }
 
 /**
@@ -249,3 +251,15 @@ export async function getUserLocation(): Promise<LatLng> {
 export async function addMapEventListener(map: google.maps.Map, eventName: string, handler: (...args: any[]) => void): Promise<void> {
     map.addListener(eventName, handler);
 }
+
+
+
+
+
+// export function calculateDistance(point1: LatLng, point2: LatLng): number {
+//     // getDistance attend des objets avec les propriétés 'latitude' et 'longitude'
+//     return getDistance(
+//         { latitude: point1.lat, longitude: point1.lng },
+//         { latitude: point2.lat, longitude: point2.lng }
+//     );
+// }
