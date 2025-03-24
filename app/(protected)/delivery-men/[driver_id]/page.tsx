@@ -22,7 +22,6 @@ export default async function DeliveryManPage({ params }: { params: { driver_id:
         }
     }
 
-
     return (
         <Content driver={driver} />
     );
