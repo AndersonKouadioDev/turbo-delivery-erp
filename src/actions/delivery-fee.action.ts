@@ -48,52 +48,52 @@ export async function getPaginationDeliveryFee(page: number, size: number): Prom
     }
 }
 
-export async function createDeliveryFee(formData: _deliveryFeeCreateSchema): Promise<ActionResult<DeliveryFee>> {
-    const {
-        success,
-        data: formdata,
-        errorsInArray,
-    } = processFormData(deliveryFeeCreateSchema, formData, {
-        useDynamicValidation: true,
-        transformations: {
-            distanceDebut: (value) => Number(value),
-            distanceFin: (value) => Number(value),
-            prix: (value) => Number(value),
-            commission: (value) => Number(value),
-            longitude: (value) => Number(value),
-            latitude: (value) => Number(value),
-        },
-    });
-    console.log(formData);
-    return {
-        status: 'error',
-    };
-    // if (!success && errorsInArray) {
-    //     return {
-    //         status: 'error',
-    //         message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
-    //     };
-    // }
+// export async function createDeliveryFee(formData: _deliveryFeeCreateSchema): Promise<ActionResult<DeliveryFee>> {
+//     const {
+//         success,
+//         data: formdata,
+//         errorsInArray,
+//     } = processFormData(deliveryFeeCreateSchema, formData, {
+//         useDynamicValidation: true,
+//         transformations: {
+//             distanceDebut: (value) => Number(value),
+//             distanceFin: (value) => Number(value),
+//             prix: (value) => Number(value),
+//             commission: (value) => Number(value),
+//             longitude: (value) => Number(value),
+//             latitude: (value) => Number(value),
+//         },
+//     });
+//     console.log(formData);
+//     return {
+//         status: 'error',
+//     };
+//     // if (!success && errorsInArray) {
+//     //     return {
+//     //         status: 'error',
+//     //         message: errorsInArray[0].message ?? 'Données manquantes ou mal formatées',
+//     //     };
+//     // }
 
-    try {
-        const data = await apiClientHttp.request<DeliveryFee>({
-            endpoint: deliveryFeeEndpoints.createDeliveryFee.endpoint,
-            method: deliveryFeeEndpoints.createDeliveryFee.method,
-            data: formdata,
-            service: 'backend',
-        });
+//     try {
+//         const data = await apiClientHttp.request<DeliveryFee>({
+//             endpoint: deliveryFeeEndpoints.createDeliveryFee.endpoint,
+//             method: deliveryFeeEndpoints.createDeliveryFee.method,
+//             data: formdata,
+//             service: 'backend',
+//         });
 
-        return {
-            status: 'success',
-            data,
-        };
-    } catch (error: any) {
-        return {
-            status: 'error',
-            message: error.response.data.message ?? 'Une erreur est survenue',
-        };
-    }
-}
+//         return {
+//             status: 'success',
+//             data,
+//         };
+//     } catch (error: any) {
+//         return {
+//             status: 'error',
+//             message: error.response.data.message ?? 'Une erreur est survenue',
+//         };
+//     }
+// }
 
 export async function updateDeliveryFee(formData: _deliveryFeeUpdateSchema): Promise<ActionResult<DeliveryFee>> {
     const {

@@ -73,6 +73,16 @@ const menuData: IMenuData[] = [
                 title: 'type_plats',
                 path: '/type-plat',
             },
+               
+            {
+                icon: IconUser,
+                title: 'Cousiers',
+                children: [
+                    { icon: IconBuildingSkyscraper, title: 'slot', path: '/slot' },
+                    { icon: IconBuildingSkyscraper, title: 'slot-calendar', path: '/slot/slot-calendar' },
+                    // { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
+                ],
+            },
            
             {
                 icon: IconBuildingSkyscraper,

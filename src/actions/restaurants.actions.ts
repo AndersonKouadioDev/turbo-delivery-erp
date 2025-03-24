@@ -25,6 +25,10 @@ const restaurantEndpoints = {
         endpoint: `${BASE_URL_2}/validated/opsmanager/0`,
         method: 'GET',
     },
+    getAlls: {
+        endpoint: BASE_URL,
+        method: 'GET',
+    },
     getAllValidated: {
         endpoint: `${BASE_URL_2}/validated/authservice/0`,
         method: 'GET',
@@ -77,6 +81,22 @@ export async function getRestaurants(page: number, size: number): Promise<Pagina
         return null;
     }
 }
+
+export async function getAllRestaurants(): Promise<Restaurant[]> {
+    try {
+        const data = await apiClientHttp.request({
+            endpoint: restaurantEndpoints.getAlls.endpoint,
+            method: restaurantEndpoints.getAlls.method,
+            service: 'backend',
+         
+        });
+
+        return data;
+    } catch (error) {
+        return [];
+    }
+}
+
 
 export async function getRestaurantsValidated(): Promise<PaginatedResponse<Restaurant> | null> {
     try {
