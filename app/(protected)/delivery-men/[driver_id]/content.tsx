@@ -33,7 +33,7 @@ export default function Content({ driver }: { driver: DeliveryMan }) {
                 <div className="space-y-6">
                     <div className="flex justify-center mb-8">
                         <div className="relative w-32 h-32 rounded-full overflow-hidden">
-                            <Image src={createUrlFile(driver?.avatarUrl ?? '', 'delivery')} alt="Photo du livreur" fill className="object-cover" />
+                            <Image src={createUrlFile(driver?.avatarUrl ?? '', "backend")} alt="Photo du livreur" fill className="object-cover" />
                         </div>
                     </div>
 
@@ -61,8 +61,8 @@ export default function Content({ driver }: { driver: DeliveryMan }) {
                                 <p className="text-sm font-medium mb-2">Photo de la pièce</p>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-                                        <Image src={createUrlFile(driver?.cniUrlR ?? '', 'delivery')} alt={`Photo de la pièce Recto`} fill className="object-cover" />
-                                        <Image src={createUrlFile(driver?.cniUrlV ?? '', 'delivery')} alt={`Photo de la pièce Verso`} fill className="object-cover" />
+                                        <Image src={createUrlFile(driver?.cniUrlR ?? '', 'backend')} alt={`Photo de la pièce Recto`} fill className="object-cover" />
+                                        <Image src={createUrlFile(driver?.cniUrlV ?? '', 'backend')} alt={`Photo de la pièce Verso`} fill className="object-cover" />
                                     </div>
                                 </div>
                             </div>
