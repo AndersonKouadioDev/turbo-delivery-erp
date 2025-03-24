@@ -48,7 +48,6 @@ const menuData: IMenuData[] = [
             { icon: TbTruckDelivery, title: 'external_delivery_all', path: '/external_delivery/all' },
         ],
     },
-    { icon: TbMoneybag, title: 'delivery_fee', path: '/delivery-fee' },
     { icon: AiOutlineDollarCircle, title: 'price-list', path: '/price-list' },
     { icon: Bell, title: 'notification', path: '/notification' },
 
