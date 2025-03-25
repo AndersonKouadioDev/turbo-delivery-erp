@@ -2,13 +2,15 @@
 
 import useConfirm from "@/components/commons/use-confirm-dialog";
 import { Badge } from "@/components/ui/badge";
-import { changerStatusLivreur, rejeterDemandeAssignations, validerDemandeAssignations } from "@/src/actions/delivery-men.actions";
-import { DemandeAssignationVM, LivreurStatutVM, StatutDemandeAssignationEnum } from "@/types/models";
+import { rejeterDemandeAssignations, validerDemandeAssignations } from "@/src/actions/delivery-men.actions";
+import { DemandeAssignationVM } from "@/types/models";
 import { useDisclosure } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export function useDemandeAssignationController(demandeAssignations: DemandeAssignationVM[]) {
+    const router = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure();
     const confirm = useConfirm()
     const [data, setData] = useState(demandeAssignations);
@@ -16,7 +18,6 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
     const [nomComplet, setNomComplet] = useState<string>("")
     const [restaurantSelectedId, setRestaurantSelectId] = useState<string | null>(null);
     const [demandeAssignationId, setDemandeAssignation] = useState<string>("");
-    const [typeLivreur, setTypeLivreur] = useState<any>("")
 
     useEffect(() => {
         if (selectValue) {
@@ -45,7 +46,6 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
         setNomComplet(item.nomComplet ?? "");
         setDemandeAssignation(item.id ?? "")
         onOpen();
-        setTypeLivreur(item.type ?? "")
 
     }
 
@@ -62,15 +62,14 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
             })
             if (result.status === "success") {
                 toast.success(result.message);
+                router.refresh();
             } else {
                 toast.error(result.message);
             }
             onClose();
         } catch (error: any) {
-            console.log("error.message", error.message)
             toast.error(error.message || "Une erreur s'est produite !");
         }
-        // }
     }
 
     const rejeter = async () => {
@@ -78,6 +77,7 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
             const result = await rejeterDemandeAssignations(demandeAssignationId);
             if (result.success === "success") {
                 toast.success(result.message);
+                router.refresh();
             } else {
                 toast.error(result.message);
             }
@@ -94,12 +94,13 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
     }
 
     const retirer = (id?: string) => {
-        const confirmAndArchive = async () => {
-
+        confirm.setMessage("Êtes-vous sûr de vouloir retirer ce livreur ? ")
+        const confirmAndRemove = async () => {
             try {
                 const result = await rejeterDemandeAssignations(id ?? "");
                 if (result.success === "sucess") {
                     toast.success(result.message);
+                    router.refresh();
                 } else {
                     toast.error(result.message);
                 }
@@ -108,7 +109,7 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
                 toast.error(error.message || "Une erreur s'est produite !");
             }
         };
-        confirm.openConfirmDialog(confirmAndArchive);
+        confirm.openConfirmDialog(confirmAndRemove);
     };
 
     const accortder = async (livreur: DemandeAssignationVM) => {
@@ -116,18 +117,25 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
             toast.error("Une erreur s'est produite !")
             return false;
         }
-        try {
-            const result = await validerDemandeAssignations({
-                demandeAssignationId: livreur?.id ?? "",
-                restaurantId: "",
-            })
-            if (result.status === "success") {
-                toast.success(result.message);
-            } else {
-                toast.error(result.message);
+        confirm.setMessage("Êtes-vous sûr de vouloir accorder cette demande ? ")
+        const confirmAndAccorder = async () => {
+            try {
+                const result = await validerDemandeAssignations({
+                    demandeAssignationId: livreur?.id ?? "",
+                    restaurantId: "",
+                })
+                if (result.status === "success") {
+                    toast.success(result.message);
+                    router.refresh();
+                } else {
+                    toast.error(result.message);
+                }
+            } catch (error) {
+                toast.error("Une erreur s'est produite")
+            } finally {
+                confirm.setMessage("")
             }
-        } catch (error) {
-            toast.error("Une erreur s'est produite")
+            confirm.openConfirmDialog(confirmAndAccorder);
         }
 
     }

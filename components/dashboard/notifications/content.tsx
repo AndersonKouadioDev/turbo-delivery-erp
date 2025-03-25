@@ -52,7 +52,7 @@ const Content = ({ className }: {
                                                 <div className="grid place-content-center rounded">
                                                     <div className=" h-12 w-12 rounded-full flex items-center">
                                                         <span className={`absolute  block h-2 w-2 rounded-full ${ctrl.isConnected ? "bg-success" : " bg-red-500"}`}></span>
-                                                        <img className="h-12 w-12 rounded-full object-cover ml-2" alt="profile" src={`/assets/images/avata.png`} />
+                                                        <Bell />
                                                     </div>
                                                 </div>
                                                 <div className="flex w-full  justify-between ltr:pl-3 rtl:pr-3 ml-2">
@@ -60,7 +60,7 @@ const Content = ({ className }: {
                                                         <h6 className={`${"font-bold"}`}>{notification.titre}</h6>
                                                         {notification.message && <p className={`${!notification.lu && "font-semibold"}`}>{notification.message}</p>}
                                                         {
-                                                            notification.lu &&
+                                                            notification.lien &&
                                                             <div className='flex justify-between items-center'>
                                                                 <Button className='h-8 mt-2 mb-2 py-2 rounded-full bg-gradient-to-r from-red-600 to-red-500'>
                                                                     <Link href={notification.lien ? notification.lien : "#"}>

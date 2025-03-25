@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'Delivery Men',
 };
 
+
 export default async function DeliveryMen() {
     const demandeAssignations = await getAllDemandeAssignations();
     const allRestaurant = await allRestaurants();

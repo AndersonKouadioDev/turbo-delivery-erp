@@ -5,6 +5,7 @@ import EmptyDataTable from "@/components/commons/EmptyDataTable";
 import { PageWrapper } from "@/components/commons/page-wrapper";
 import { NotificationVM } from "@/types/notifcation.model";
 import { Button, Card, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
+import { Bell } from "lucide-react";
 import Link from "next/link";
 
 export function NotificationContent({ intialNotification }: { intialNotification: NotificationVM[] }) {
@@ -21,7 +22,7 @@ export function NotificationContent({ intialNotification }: { intialNotification
                                         <div className=" flex items-center px-4 py-2">
                                             <div className="flex w-full justify-between  ml-2 flex-wrap sm:flex-nowrap">
                                                 <div className="h-12 w-12 rounded-full mr-5">
-                                                    <img className="h-12 w-12 rounded-full object-cover ml-2" alt="profile" src={`/assets/images/avatar.png`} />
+                                                    <Bell />
                                                 </div>
 
                                                 <div className="ltr:pr-3 rtl:pl-3 flex-1">

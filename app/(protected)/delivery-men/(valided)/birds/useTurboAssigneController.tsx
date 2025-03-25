@@ -7,8 +7,10 @@ import { LivreurStatutVM } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export function useTurboysBirdController(initialData: PaginatedResponse<LivreurStatutVM[]> | null) {
+    const router = useRouter()
     const confirm = useConfirm()
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
@@ -37,6 +39,7 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
     }
 
     const onConfirmStatut = (livreur: LivreurStatutVM, typeLivreur: any) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir changer ce livreur ? ")
         const confirmAndSend = async () => {
             if (!livreur) {
                 toast.error("Veuillez choisir un statut")
@@ -50,11 +53,14 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
                 })
                 if (result.status === "success") {
                     toast.success(result.message);
+                    router.refresh();
                 } else {
                     toast.error(result.message);
                 }
             } catch (error) {
                 toast.error("Une erreur s'est produite")
+            } finally {
+                confirm.setMessage("")
             }
         }
         confirm.openConfirmDialog(confirmAndSend);
@@ -74,6 +80,7 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
     };
 
     const supprimerLivreur = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir retirer ce livreur ? ")
         const confirmAndSend = async () => {
             if (!livreur) {
                 toast.error("Veuillez choisir un statut")
@@ -87,11 +94,14 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
                 })
                 if (result.status === "success") {
                     toast.success(result.message);
+                    router.refresh();
                 } else {
                     toast.error(result.message);
                 }
             } catch (error) {
                 toast.error("Une erreur s'est produite")
+            } finally {
+                confirm.setMessage("")
             }
         }
         confirm.openConfirmDialog(confirmAndSend);

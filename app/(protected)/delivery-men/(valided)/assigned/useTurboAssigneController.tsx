@@ -5,10 +5,13 @@ import { changerStatusLivreur, getToutLivreurStatusAssigners } from '@/src/actio
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { conformToMask } from 'react-text-mask';
 import { toast } from 'react-toastify';
 
 export function useTurboAssigneController(initialData: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
+    const router = useRouter();
     const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
     const confirm = useConfirm()
     const [selectValue, setSelectValue] = useState('');
@@ -54,6 +57,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
                 })
                 if (result.status === "success") {
                     toast.success(result.message);
+                    router.refresh();
                 } else {
                     toast.error(result.message);
                 }
@@ -78,6 +82,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
     };
 
     const supprimerLivreur = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir retirer ce livreur ? ")
         const confirmAndSend = async () => {
             if (!livreur) {
                 toast.error("Veuillez choisir un statut")
@@ -91,11 +96,14 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
                 })
                 if (result.status === "success") {
                     toast.success(result.message);
+                    router.refresh();
                 } else {
                     toast.error(result.message);
                 }
             } catch (error) {
                 toast.error("Une erreur s'est produite")
+            } finally {
+                confirm.setMessage("");
             }
         }
         confirm.openConfirmDialog(confirmAndSend);

@@ -6,50 +6,50 @@ const client = new Client();
 
 // Type pour les coordonnées géographiques
 type LatLng = {
-    lat: number;
-    lng: number;
+  lat: number;
+  lng: number;
 };
 
 // Type pour les options de la carte
 type MapOptions = google.maps.MapOptions;
 
 export const autocomplete = async (input: string): Promise<any[]> => {
-    if (!input || input.trim() === '') {
-        throw new Error("L'entrée pour l'autocomplétion est vide.");
+  if (!input || input.trim() === '') {
+    throw new Error("L'entrée pour l'autocomplétion est vide.");
+  }
+  try {
+    const response = await client.placeAutocomplete({
+      params: {
+        input,
+        language: 'fr',
+        key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+      },
+    });
+    if (response.data.status !== 'OK') {
+      throw new Error(`Erreur Google Maps API: ${response.data.status}`);
     }
-    try {
-        const response = await client.placeAutocomplete({
-            params: {
-                input,
-                language: 'fr',
-                key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-            },
-        });
-        if (response.data.status !== 'OK') {
-            throw new Error(`Erreur Google Maps API: ${response.data.status}`);
-        }
-        return response.data.predictions;
-    } catch (error) {
-        console.error('Erreur lors de l’autocomplétion:', error);
-        throw error;
-    }
+    return response.data.predictions;
+  } catch (error) {
+    console.error('Erreur lors de l’autocomplétion:', error);
+    throw error;
+  }
 };
 
 export const placeDetails = async (placeId: string) => {
-    try {
-        const response = await client.placeDetails({
-            params: {
-                place_id: placeId,
-                fields: ['geometry', 'place_id', 'plus_code'],
-                key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-            },
-        });
-        console.log(JSON.stringify(response.data, null, 2));
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
+  try {
+    const response = await client.placeDetails({
+      params: {
+        place_id: placeId,
+        fields: ['geometry', 'place_id', 'plus_code'],
+        key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+      },
+    });
+    console.log(JSON.stringify(response.data, null, 2));
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 /**
@@ -59,7 +59,7 @@ export const placeDetails = async (placeId: string) => {
  * @returns Une instance de la carte Google Maps
  */
 export async function initMap(element: HTMLElement, options: MapOptions): Promise<google.maps.Map> {
-    return new google.maps.Map(element, options);
+  return new google.maps.Map(element, options);
 }
 
 /**
@@ -70,7 +70,7 @@ export async function initMap(element: HTMLElement, options: MapOptions): Promis
  * @returns Une instance du marqueur
  */
 export async function addMarker({ map, position, title }: google.maps.marker.AdvancedMarkerElementOptions): Promise<google.maps.marker.AdvancedMarkerElement> {
-    return new google.maps.marker.AdvancedMarkerElement({ map, position, title });
+  return new google.maps.marker.AdvancedMarkerElement({ map, position, title });
 }
 
 /**
@@ -79,16 +79,16 @@ export async function addMarker({ map, position, title }: google.maps.marker.Adv
  * @returns Une promesse contenant les résultats de la recherche
  */
 export async function searchPlaces(query: string): Promise<google.maps.places.PlaceResult[]> {
-    const service = new google.maps.places.PlacesService(document.createElement('div'));
-    return new Promise((resolve, reject) => {
-        service.textSearch({ query }, (results, status) => {
-            if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-                resolve(results);
-            } else {
-                reject(new Error('La recherche de lieu a échoué'));
-            }
-        });
+  const service = new google.maps.places.PlacesService(document.createElement('div'));
+  return new Promise((resolve, reject) => {
+    service.textSearch({ query }, (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+        resolve(results);
+      } else {
+        reject(new Error('La recherche de lieu a échoué'));
+      }
     });
+  });
 }
 
 /**
@@ -99,12 +99,12 @@ export async function searchPlaces(query: string): Promise<google.maps.places.Pl
  * @returns Une promesse contenant le résultat de l'itinéraire
  */
 export async function calculateRoute(origin: LatLng, destination: LatLng, travelMode: google.maps.TravelMode): Promise<google.maps.DirectionsResult> {
-    const directionsService = new google.maps.DirectionsService();
-    return directionsService.route({
-        origin,
-        destination,
-        travelMode,
-    });
+  const directionsService = new google.maps.DirectionsService();
+  return directionsService.route({
+    origin,
+    destination,
+    travelMode,
+  });
 }
 
 /**
@@ -114,7 +114,15 @@ export async function calculateRoute(origin: LatLng, destination: LatLng, travel
  * @returns La distance en mètres
  */
 export async function calculateDistance(point1: LatLng, point2: LatLng): Promise<number> {
-    return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(point1.lat, point1.lng), new google.maps.LatLng(point2.lat, point2.lng));
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${point1.lat},${point1.lng}&destinations=${point2.lat},${point2.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+  const response = await fetch(url);
+  const data = await response.json();
+
+  const distance: number = data.rows[0].elements[0].distance.value;
+  const enKm = Number((distance / 1000).toFixed(1));
+  return enKm;
+
+  // return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(point1.lat, point1.lng), new google.maps.LatLng(point2.lat, point2.lng));
 }
 
 /**
@@ -123,9 +131,9 @@ export async function calculateDistance(point1: LatLng, point2: LatLng): Promise
  * @param directionsResult - Le résultat de l'itinéraire à afficher
  */
 export async function displayRoute(map: google.maps.Map, directionsResult: google.maps.DirectionsResult): Promise<void> {
-    const directionsRenderer = new google.maps.DirectionsRenderer();
-    directionsRenderer.setMap(map);
-    directionsRenderer.setDirections(directionsResult);
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
+  directionsRenderer.setDirections(directionsResult);
 }
 
 /**
@@ -136,16 +144,16 @@ export async function displayRoute(map: google.maps.Map, directionsResult: googl
  * @returns Une instance du cercle
  */
 export async function addCircle(map: google.maps.Map, center: LatLng, radius: number): Promise<google.maps.Circle> {
-    return new google.maps.Circle({
-        map,
-        center,
-        radius,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-    });
+  return new google.maps.Circle({
+    map,
+    center,
+    radius,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+  });
 }
 
 /**
@@ -155,15 +163,15 @@ export async function addCircle(map: google.maps.Map, center: LatLng, radius: nu
  * @returns Une instance du polygone
  */
 export async function addPolygon(map: google.maps.Map, paths: LatLng[]): Promise<google.maps.Polygon> {
-    return new google.maps.Polygon({
-        map,
-        paths,
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-    });
+  return new google.maps.Polygon({
+    map,
+    paths,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+  });
 }
 
 /**
@@ -172,16 +180,16 @@ export async function addPolygon(map: google.maps.Map, paths: LatLng[]): Promise
  * @returns Une promesse contenant le résultat du géocodage
  */
 export async function geocodeAddress(address: string): Promise<google.maps.GeocoderResult> {
-    const geocoder = new google.maps.Geocoder();
-    return new Promise((resolve, reject) => {
-        geocoder.geocode({ address }, (results, status) => {
-            if (status === google.maps.GeocoderStatus.OK && results && results[0]) {
-                resolve(results[0]);
-            } else {
-                reject(new Error('Le géocodage a échoué'));
-            }
-        });
+  const geocoder = new google.maps.Geocoder();
+  return new Promise((resolve, reject) => {
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK && results && results[0]) {
+        resolve(results[0]);
+      } else {
+        reject(new Error('Le géocodage a échoué'));
+      }
     });
+  });
 }
 
 /**
@@ -191,8 +199,8 @@ export async function geocodeAddress(address: string): Promise<google.maps.Geoco
  * @param content - Le contenu HTML de l'infobulle
  */
 export async function addInfoWindow(map: google.maps.Map, marker: google.maps.Marker, content: string): Promise<void> {
-    const infoWindow = new google.maps.InfoWindow({ content });
-    marker.addListener('click', () => infoWindow.open(map, marker));
+  const infoWindow = new google.maps.InfoWindow({ content });
+  marker.addListener('click', () => infoWindow.open(map, marker));
 }
 
 /**
@@ -201,9 +209,9 @@ export async function addInfoWindow(map: google.maps.Map, marker: google.maps.Ma
  * @param position - La position initiale pour Street View
  */
 export async function enableStreetView(map: google.maps.Map, position: LatLng): Promise<void> {
-    const panorama = map.getStreetView();
-    panorama.setPosition(position);
-    panorama.setVisible(true);
+  const panorama = map.getStreetView();
+  panorama.setPosition(position);
+  panorama.setVisible(true);
 }
 
 /**
@@ -213,7 +221,7 @@ export async function enableStreetView(map: google.maps.Map, position: LatLng): 
  * @param position - La position du contrôle sur la carte
  */
 export async function addCustomControl(map: google.maps.Map, controlDiv: HTMLElement, position: google.maps.ControlPosition): Promise<void> {
-    map.controls[position].push(controlDiv);
+  map.controls[position].push(controlDiv);
 }
 
 /**
@@ -221,23 +229,23 @@ export async function addCustomControl(map: google.maps.Map, controlDiv: HTMLEle
  * @returns Une promesse contenant les coordonnées de l'utilisateur
  */
 export async function getUserLocation(): Promise<LatLng> {
-    return new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    resolve({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    });
-                },
-                (error) => {
-                    reject(error);
-                },
-            );
-        } else {
-            reject(new Error("La géolocalisation n'est pas supportée par ce navigateur."));
-        }
-    });
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          reject(error);
+        },
+      );
+    } else {
+      reject(new Error("La géolocalisation n'est pas supportée par ce navigateur."));
+    }
+  });
 }
 
 /**
@@ -247,5 +255,5 @@ export async function getUserLocation(): Promise<LatLng> {
  * @param handler - La fonction à exécuter lorsque l'événement se produit
  */
 export async function addMapEventListener(map: google.maps.Map, eventName: string, handler: (...args: any[]) => void): Promise<void> {
-    map.addListener(eventName, handler);
+  map.addListener(eventName, handler);
 }

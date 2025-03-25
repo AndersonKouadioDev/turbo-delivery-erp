@@ -123,22 +123,21 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
                 return (
                     <div className="font-medium capitalize">
                         {
-                            (livreur?.type && livreur?.type === "FREE" as any) ? <Button size='sm' onPress={() => {
-                                setLivreur(livreur);
-                                birdDisclosure.onOpen()
-                            }}>Peut être utilisé partout</Button>
+                            (livreur?.type && livreur?.type === "FREE" as any) ?
+                                <span  >Peut être utilisé partout</span>
                                 :
-                                (livreur?.type && livreur?.type === "WAITING" as any) ? <span onClick={() => {
-                                    setLivreur(livreur);
-                                    birdDisclosure.onOpen()
-                                }} className='cursor-pointer'>Libre, identifiez le</span>
+                                (livreur?.type && livreur?.type === "WAITING" as any) ?
+                                    <Button size='sm' onPress={() => {
+                                        setLivreur(livreur);
+                                        birdDisclosure.onOpen()
+                                    }} className='cursor-pointer'>Libre, identifiez le</Button>
                                     :
                                     livreur?.restaurantLibelle
                         }
                     </div>
                 );
             case 'actions':
-                return <DeliveryMenStatusTools deliveryMan={livreur} validateBy="ops" />;
+                return <DeliveryMenStatusTools deliveryMan={livreur} validateBy={`${livreur?.type === "WATTING" ? "auth" : "ops"}`} />;
             default:
                 return cellValue;
         }

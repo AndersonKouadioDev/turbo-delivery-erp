@@ -64,7 +64,7 @@ export default function Content({ initialData, restaurants }: Props) {
                                             <div className='flex justify-end'>
                                                 {
                                                     livreurNonAssingeCtrl.updateLivreurId === item.livreurId &&
-                                                    <Button variant={'outline'} className='text-sm h-8' onClick={() => livreurNonAssingeCtrl.modifier(item)} >Modifier le turbo en bird</Button>
+                                                    <Button variant={'outline'} className='text-sm h-8' onClick={() => livreurNonAssingeCtrl.modifier(item)} >Modifier le turbo en turboy</Button>
                                                 }
                                             </div>
                                         </>

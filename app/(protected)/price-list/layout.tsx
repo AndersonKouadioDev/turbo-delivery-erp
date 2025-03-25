@@ -1,9 +1,10 @@
 "use client"
 import React from 'react';
 import { Tabs, Tab, Card, CardBody } from '@heroui/react';
-import HeaderList from './headerList';
+import HeaderList from '../../../components/dashboard/price-liste/header';
 import {usePathname } from 'next/navigation';
 import Link from 'next/link';
+import SectionHeader from '../../../components/dashboard/price-liste/SectionHeader';
 
 export default function PriceListLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
@@ -19,7 +20,8 @@ export default function PriceListLayout({ children }: { children: React.ReactNod
     
     return (
         <div>
-            <HeaderList />
+            <SectionHeader/>
+            {/* <HeaderList initialData={initialData}/> */}
             <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/price-list' ? '/price-list' : pathname == '/price-list/restaurants-undefined'?'/price-list/restaurants-undefined':''} className="w-full">
             {(item) => {
                 return (

@@ -22,12 +22,12 @@ const DeliveryMenStatusTools = ({ deliveryMan, validateBy }: { deliveryMan: Livr
                     <DropdownItem as={Link} href={`/delivery-men/${deliveryMan && deliveryMan.livreurId}`} key="details">
                         Détails
                     </DropdownItem>
-                    {deliveryMan && deliveryMan.status === 2 ?
+                    {validateBy === "auth" ?
                         <DropdownItem key="edit" onClick={() => setOpen(true)}>
                             Valider
                         </DropdownItem>
                         :
-                        deliveryMan && deliveryMan.status === 3 ?
+                        validateBy === "ops" ?
                             <DropdownItem key="edit" onClick={() => setOpen(true)}>
                                 Activer
                             </DropdownItem>

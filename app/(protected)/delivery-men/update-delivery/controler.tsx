@@ -2,10 +2,11 @@ import { changerStatusLivreur } from "@/src/actions/delivery-men.actions";
 import { LivreurStatutVM, TypeEnum } from "@/types/models";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from 'next/navigation';
 
 export function useUpdateDeliveryManController(livreur?: LivreurStatutVM, typeLivreur?: string, onClose?: () => void) {
     const [restaurantSelected, setRestuarantSelect] = useState("");
-
+    const router = useRouter();
     const changerStatut = async () => {
         if (!restaurantSelected) {
             toast.error("Veuillez choisir un restaurant")
@@ -19,6 +20,7 @@ export function useUpdateDeliveryManController(livreur?: LivreurStatutVM, typeLi
             })
             if (result.status === "success") {
                 toast.success(result.message);
+                router.refresh();
                 setRestuarantSelect("")
             } else {
                 toast.error(result.message);

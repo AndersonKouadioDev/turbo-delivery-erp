@@ -1,9 +1,19 @@
-import {Tabs, Tab, Card, CardBody} from "@heroui/react";
+import { Metadata } from "next";
 
-export default function RestaurantUndefined() {
+import { getRestaurantUndefined } from "@/src/price-list/price-list.action";
+import Content from "./Content";
+import { RestaurantDefini } from "@/types/price-list";
+
+
+export const metadata: Metadata = {
+  title: "Restaurants n'ayant pas des livraisons définies",
+  description: "La liste des restaurants qui n'ont pas de livraisons définies.",
+};
+
+export default async function PageContent() {
+  const initialData:RestaurantDefini[] = await getRestaurantUndefined()
+  
   return (
-    <div className="flex w-full flex-col">
-      liste des restaurent indefinie
-    </div>
+    <Content initialData={initialData} />
   );
 }

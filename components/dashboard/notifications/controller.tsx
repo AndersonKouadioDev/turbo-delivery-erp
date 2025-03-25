@@ -4,6 +4,7 @@ import { socket } from "@/socket";
 import { fetchAllNotifcation, fetchNotifcationNonLu, updateNotifcation } from "@/src/actions/notifcation.action";
 import { NotificationVM } from "@/types/notifcation.model";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function useNotificationController() {
@@ -15,6 +16,7 @@ export function useNotificationController() {
     const [toutNotifications, setToutNotifications] = useState<NotificationVM[]>([]);
     const [isConnected, setIsConnected] = useState(false);
     const [voirMoins, setVoirMoins] = useState(false);
+    const router = useRouter()
 
     useEffect(() => {
         const setNotification = (data: any) => {
@@ -35,7 +37,15 @@ export function useNotificationController() {
     const fetchAllNotifications = async () => {
         try {
             const result = await fetchAllNotifcation(utilisateurId ?? "")
-            setToutNotifications(result);
+            setToutNotifications(() => {
+                return result.filter((item) => {
+                    if (!item.titre && !item.message) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+            });
         } catch (error) {
             console.error(error);
         }
@@ -51,8 +61,19 @@ export function useNotificationController() {
     }
 
     useEffect(() => {
-        setNotificationNonLus([...notificationNonLus, realTimeData]);
-        setNotifications([...notifications, realTimeData]);
+        if (realTimeData) {
+            const data = [...notificationNonLus, realTimeData]
+            setNotificationNonLus(() => {
+                return data.filter((item) => {
+                    if (!item.titre && !item.message) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+            });
+            setNotifications([...notifications, realTimeData]);
+        }
     }, [realTimeData])
 
     useEffect(() => {
@@ -84,6 +105,7 @@ export function useNotificationController() {
                 })
                 fetchAllNotifications();
                 fetchAllNotificationNonLus();
+                router.refresh()
             } catch (error) { }
         }
     }

@@ -48,7 +48,6 @@ const menuData: IMenuData[] = [
             { icon: TbTruckDelivery, title: 'external_delivery_all', path: '/external_delivery/all' },
         ],
     },
-    { icon: TbMoneybag, title: 'delivery_fee', path: '/delivery-fee' },
     { icon: AiOutlineDollarCircle, title: 'price-list', path: '/price-list' },
     { icon: Bell, title: 'notification', path: '/notification' },
 
@@ -75,6 +74,16 @@ const menuData: IMenuData[] = [
             },
 
             {
+                icon: IconUser,
+                title: 'Cousiers',
+                children: [
+                    { icon: IconBuildingSkyscraper, title: 'slot', path: '/slot' },
+                    { icon: IconBuildingSkyscraper, title: 'slot-calendar', path: '/slot/slot-calendar' },
+                    // { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
+                ],
+            },
+
+            {
                 icon: IconBuildingSkyscraper,
                 title: 'restaurants',
                 children: [
@@ -88,8 +97,8 @@ const menuData: IMenuData[] = [
                 title: 'delivery_men',
                 children: [
                     { icon: IconBuildingSkyscraper, title: 'validated', path: '/delivery-men' },
-                    { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/delivery-men/valide' },
-                    { icon: IconBuildingSkyscraper, title: 'new', path: '/delivery-men/not-valide' },
+                    // { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/delivery-men/valide' },
+                    // { icon: IconBuildingSkyscraper, title: 'new', path: '/delivery-men/not-valide' },
                 ],
             },
         ],
