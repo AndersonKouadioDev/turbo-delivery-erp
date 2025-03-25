@@ -17,6 +17,7 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const [updateLivreurId, setUpdateLivreurId] = useState("")
 
 
     useEffect(() => {
@@ -71,6 +72,30 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
             setIsLoading(false);
         }
     };
+
+    const supprimerLivreur = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+        const confirmAndSend = async () => {
+            if (!livreur) {
+                toast.error("Veuillez choisir un statut")
+                return false;
+            }
+            try {
+                const result = await changerStatusLivreur({
+                    livreurId: livreur?.livreurId ?? "",
+                    restaurantId: "",
+                    typeLivreur: typeLivreur
+                })
+                if (result.status === "success") {
+                    toast.success(result.message);
+                } else {
+                    toast.error(result.message);
+                }
+            } catch (error) {
+                toast.error("Une erreur s'est produite")
+            }
+        }
+        confirm.openConfirmDialog(confirmAndSend);
+    }
     return {
         data,
         searchKey,
@@ -86,5 +111,8 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
         currentPage,
         pageSize,
         isLoading,
+        updateLivreurId,
+        setUpdateLivreurId,
+        supprimerLivreur
     };
 }

@@ -172,13 +172,13 @@ export async function allRestaurants(): Promise<Restaurant[]> {
 }
 
 
-export async function ajouterValeurParDefautAuxRestaurant(livreurs: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
-    const content = livreurs && livreurs.content;
-    content?.forEach((ct: any) => {
-        const existeRestaurant = restaurants && restaurants.find(r => r.nomEtablissement === ct.restaurantLibelle);
-        if (!existeRestaurant && restaurants) {
-            return [...restaurants, { id: "default", nomEtablissement: "Libre,indentifiez-le" }] as any;
-        }
-    })
-    return restaurants
-}
+// export async function ajouterValeurParDefautAuxRestaurant(livreurs: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
+//     const content = livreurs && livreurs.content;
+//     content?.forEach((ct: any) => {
+//         const existeRestaurant = restaurants && restaurants.find(r => r.nomEtablissement === ct.restaurantLibelle);
+//         if (!existeRestaurant && restaurants) {
+//             return [...restaurants, { id: "default", nomEtablissement: "Libre,indentifiez-le" }] as any;
+//         }
+//     })
+//     return restaurants
+// }

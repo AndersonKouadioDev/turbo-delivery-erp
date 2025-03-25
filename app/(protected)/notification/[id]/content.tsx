@@ -24,7 +24,7 @@ export function DetailNotification({ detailNotification }: DetailNotificationPro
                     <div>Objet : </div>
                     <div className="text-gray-500">{detailNotification.titre}</div>
                 </div>
-                <Link href="/">
+                <Link href="/notification">
                     <div className="flex justify-end">
                         <span className="flex items-center gap-2 mr-4 text-blue-500">
                             <MoveLeft className="cursor-pointer" />

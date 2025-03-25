@@ -13,8 +13,16 @@ import { getProfile } from '@/src/actions/users.actions';
 import { FormChangePassword } from '@/components/auth/form-change-password';
 import { auth } from '@/auth';
 
+
+const profile = {
+    id: 1,
+    username: "kra",
+    changePassword: true
+
+} as any
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const profile = await getProfile();
+    // const profile = await getProfile();
     const session = await auth();
     if (!profile) redirect('/auth');
     console.log(session);
@@ -42,7 +50,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                         {/* BEGIN FOOTER */}
                         <Footer />
                         {/* END FOOTER */}
-                        
+
                         <Portals />
                     </div>
                 </MainContainer>

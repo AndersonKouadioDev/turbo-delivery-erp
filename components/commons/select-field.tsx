@@ -10,6 +10,8 @@ interface Props {
     selectValue?: string;
     setSelectValue?: (event?: any) => void;
     asDefaulValue?: boolean;
+    livreur?: any;
+    setLivreur?: (livreur?: any) => void;
 }
 
 export function SelectField(props: Props) {
@@ -27,6 +29,7 @@ export function SelectField(props: Props) {
         setSelectedValue(newValue);
         const newLabel = props.options?.find(option => option.id === newValue)?.[props.label] ?? "";
         props.setSelectValue && props.setSelectValue(newLabel);
+        props.setLivreur && props.setLivreur(props.livreur)
     };
 
     return (

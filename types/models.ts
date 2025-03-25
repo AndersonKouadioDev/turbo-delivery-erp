@@ -236,9 +236,8 @@ export interface DemandeAssignationVM {
     id?: string;
     nomComplet?: string;
     statutDemandeAssignation?: StatutDemandeAssignationEnum
-    type?: TypeEnum;
+    type?: string;
     date?: string;
-    autoriser: boolean;
 }
 
 export interface ValiderDemandeAssignationCommande {
@@ -251,13 +250,13 @@ export interface LivreurStatutVM {
     nomPrenom?: string;
     telephone?: string;
     status?: number;
-    type?: TypeEnum;
+    type?: string;
     restaurantLibelle?: string;
     dateInscription?: string;
 }
 
 export interface ChangerStatutLivreurCommande {
-    typeLivreur: TypeEnum;
+    typeLivreur: string;
     livreurId: string;
     restaurantId?: string;
 

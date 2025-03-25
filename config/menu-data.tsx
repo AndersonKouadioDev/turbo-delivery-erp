@@ -73,7 +73,7 @@ const menuData: IMenuData[] = [
                 title: 'type_plats',
                 path: '/type-plat',
             },
-           
+
             {
                 icon: IconBuildingSkyscraper,
                 title: 'restaurants',

@@ -7,6 +7,8 @@ import { Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useNotificationController } from './controller';
+import EmptyDataTable from '@/components/commons/EmptyDataTable';
+import { DropdownMenuContent, DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Content = ({ className }: {
     isConnected?: boolean;
@@ -40,12 +42,12 @@ const Content = ({ className }: {
                         </div>
                     </li>
                     <li className='mt-5 border-none'> <span className='border-b-3 border-b-red-500 mb-5 font-bold pb-1 ml-5 '>Tous 1</span></li>
-                    {ctrl.notifications.length > 0 ? (
-                        <>
-                            {ctrl.notifications.map((notification) => {
+                    {ctrl.notificationNonLus.length > 0 ? (
+                        <div className='max-h-[500px] overflow-auto'>
+                            {ctrl.notificationNonLus.map((notification) => {
                                 return (
                                     <div key={notification.id}>
-                                        <li className="dark:text-white-light/90 p-2 w-full  hover:bg-primary/10 mt-5" onClick={(e) => e.stopPropagation()}>
+                                        <li className="dark:text-white-light/90 p-2 w-full  hover:bg-primary/10 mt-5 " onClick={(e) => e.stopPropagation()}>
                                             <div className="group flex items-center px-4 py-2">
                                                 <div className="grid place-content-center rounded">
                                                     <div className=" h-12 w-12 rounded-full flex items-center">
@@ -58,26 +60,31 @@ const Content = ({ className }: {
                                                         <h6 className={`${"font-bold"}`}>{notification.titre}</h6>
                                                         {notification.message && <p className={`${!notification.lu && "font-semibold"}`}>{notification.message}</p>}
                                                         {
-                                                            !notification.lu ?
-                                                                <div className='flex justify-between items-center'>
-                                                                    <Button className='h-8 mt-2 mb-2 py-2 rounded-full bg-gradient-to-r from-red-600 to-red-500'>
-                                                                        <Link href={notification.lien ? notification.lien : "#"}>
-                                                                            {notification.type?.toString()
-                                                                                .toLocaleLowerCase()
-                                                                                .replace(/_/g, " ")
-                                                                                .replace(/\b\w/g, char => char.toUpperCase())}</Link>
-                                                                    </Button>
-                                                                    <Link href={"/notification/" + notification.id} className='text-blue-500 cursor-pointer -mr-10 hover:text-blue-800'>detail</Link>
-                                                                </div>
-                                                                :
-                                                                <div className='flex justify-end'>
-                                                                    <Link href={"/notification/" + notification.id} className='text-blue-500 cursor-pointer -mr-10 hover:text-blue-800 p-1'>detail</Link>
-                                                                </div>
+                                                            notification.lu &&
+                                                            <div className='flex justify-between items-center'>
+                                                                <Button className='h-8 mt-2 mb-2 py-2 rounded-full bg-gradient-to-r from-red-600 to-red-500'>
+                                                                    <Link href={notification.lien ? notification.lien : "#"}>
+                                                                        {notification.type?.toString()
+                                                                            .toLocaleLowerCase()
+                                                                            .replace(/_/g, " ")
+                                                                            .replace(/\b\w/g, char => char.toUpperCase())}</Link>
+                                                                </Button>
+                                                            </div>
                                                         }
                                                     </div>
 
                                                     <div className='flex-col gap-0 items-center'>
                                                         <span className="block text-xs font-normal dark:text-gray-500">{notification.tempsPasse}</span>
+                                                        <DropdownMenu >
+                                                            <DropdownMenuTrigger asChild>
+                                                                <Button variant="outline" onPointerDown={(e) => e.stopPropagation()}>...</Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent className="w-16" onMouseDown={(e) => e.stopPropagation()}>
+                                                                <DropdownMenuItem onMouseDown={(e) => e.stopPropagation()}>
+                                                                    <Link href={"/notification/" + notification.id} >Detail</Link>
+                                                                </DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,19 +96,13 @@ const Content = ({ className }: {
                                 <div className="p-4 text-center">
                                     <span className=" font-bold text-md text-primary  w-full pl-2 pr-2 p-1 rounded-full cursor-pointer hover:bg-primary/30"
                                     >Voir tous</span>
-
                                 </div></Link>
 
-                        </>
+                        </div>
                     ) : (
-                        <li onClick={(e) => e.stopPropagation()}>
-                            <button type="button" className="!grid min-h-[200px] place-content-center text-lg hover:!bg-transparent">
-                                <div className="mx-auto mb-4 rounded-full ring-4 ring-primary/30">
-                                    <IconInfoCircle fill={true} className="h-10 w-10 text-primary" />
-                                </div>
-                                Aucune notification trouvé !
-                            </button>
-                        </li>
+                        <div className="text-center py-6 text-primary font-bold mt-10 text-xl">
+                            <EmptyDataTable title='Aucun Resultat' />
+                        </div>
                     )}
                 </ul>
             </Dropdown>

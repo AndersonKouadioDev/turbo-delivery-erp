@@ -1,10 +1,12 @@
 'use client';
 
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination } from '@heroui/react';
+import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination, Modal, ModalContent, ModalHeader, ModalBody, Button, ModalFooter } from '@heroui/react';
 import useContentCtx from './useContentCtx';
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant } from '@/types/models';
 import { SearchField } from '@/components/commons/form/search-field';
+import { ConfirmDialog } from '@/components/commons/confirm-dialog';
+import { UpdateDeliveryDialog } from '../update-delivery/update-delivery';
 
 interface ContentProps {
     initialData: PaginatedResponse<LivreurStatutVM[]> | null;
@@ -12,8 +14,8 @@ interface ContentProps {
 }
 
 export default function Content({ initialData, restaurants }: ContentProps) {
-    console.log(initialData)
-    const { columns, renderCell, renderCols, data, fetchData, currentPage, isLoading, searchKey, setSearchKey } = useContentCtx({ initialData, restaurants });
+    console.log("initialData", initialData)
+    const { columns, renderCell, renderCols, data, fetchData, currentPage, isLoading, searchKey, setSearchKey, birdDisclosure, freeDisclosure, confirm, changerStatus, livreur } = useContentCtx({ initialData, restaurants });
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <SearchField searchKey={searchKey} onChange={setSearchKey} />
@@ -35,6 +37,36 @@ export default function Content({ initialData, restaurants }: ContentProps) {
                 <div className="bg-gray-200 absolute inset-0 w-full h-full blur-sm opacity-50"></div>
                 <Pagination total={data?.totalPages ?? 1} page={currentPage} onChange={fetchData} showControls color="primary" variant="bordered" isDisabled={isLoading} />
             </div>
+
+            <Modal isOpen={birdDisclosure.isOpen} size={"sm"} onClose={birdDisclosure.onClose}>
+                <ModalContent>
+                    <>
+                        <ModalHeader className="text-sm">Changer le statut du livreur</ModalHeader>
+                        <ModalBody>
+                            <div className='flex justify-around'>
+                                <Button color="primary" size='sm' variant='light' onPress={changerStatus}>
+                                    Dévenir un bird
+                                </Button>
+                                <Button color="danger" size='sm' variant='light' onPress={freeDisclosure.onOpen}>
+                                    Devenir un liveur assigné
+                                </Button>
+                            </div>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="danger" onPress={birdDisclosure.onClose} size='sm'>
+                                Annuler
+                            </Button>
+                        </ModalFooter>
+                    </>
+                </ModalContent>
+            </Modal>
+            <UpdateDeliveryDialog
+                onClose={freeDisclosure.onClose}
+                isOpen={freeDisclosure.isOpen}
+                livreur={livreur}
+                typeLiveur="TURBO"
+                restaurants={restaurants} />
+            <ConfirmDialog {...confirm} />
         </div>
     );
 }

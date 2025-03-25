@@ -230,7 +230,7 @@ export async function getToutLivreurStatusAssigners(page: number = 0, size: numb
 }
 
 export async function changerStatusLivreur(commande: ChangerStatutLivreurCommande): Promise<any> {
-    console.log(commande)
+
     try {
         const data = await apiClientHttp.request<any>({
             endpoint: deliveryMenEndpoints.changerStatusLivreur.endpoint,

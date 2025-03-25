@@ -7,8 +7,7 @@ import { SearchField } from '@/components/commons/form/search-field';
 import { DemandeAssignationVM, Restaurant } from '@/types/models';
 import ValidateDialog from '@/components/commons/validate-dialog';
 import { ConfirmDialog } from '@/components/commons/confirm-dialog';
-import EmptyDataTable from '@/components/commons/EmptyDataTable';
-import { Chip, Select, SelectItem } from '@heroui/react';
+import EmptyDataTable from '@/components/commons/EmptyDataTable';;
 
 export default function Content({ demandeAssignations, allRestaurant }: { demandeAssignations: DemandeAssignationVM[], allRestaurant: Restaurant[] }) {
     const demandeCtrl = useDemandeAssignationController(demandeAssignations);
@@ -35,13 +34,12 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">{demandeCtrl.recupererStatut(item.statutDemandeAssignation)}</td>
-                                                    <td className="px-6 py-4"><Chip color={item.type === 'TURBOYS' as any ? 'warning' : 'secondary'}>{item.type}</Chip></td>
                                                     <td className="px-6 py-4">{item.date}</td>
                                                     <td className="px-6 py-4 flex gap-4">
                                                         {
 
-                                                            !item.autoriser ?
-                                                                <Button onClick={() => demandeCtrl.openAutoriserDialog(item)} className="h-8 bg-orange-500">
+                                                            item.type === "FREE" ?
+                                                                <Button onClick={() => demandeCtrl.accortder(item)} className="h-8 bg-orange-500">
                                                                     <span className="flex gap-2" >
                                                                         <Check size={15} /> Accorder
                                                                     </span>
@@ -76,8 +74,7 @@ export default function Content({ demandeAssignations, allRestaurant }: { demand
                 setRestaurantId={demandeCtrl.setRestaurantSelectId}
                 valider={demandeCtrl.valider}
                 rejeter={demandeCtrl.rejeter}
-                demandeAssignationId={demandeCtrl.demandeAssignationId}
-                estAccorder={demandeCtrl.isAccorder} />
+                demandeAssignationId={demandeCtrl.demandeAssignationId} />
             <ConfirmDialog {...demandeCtrl.confirm} />
         </div>
     );

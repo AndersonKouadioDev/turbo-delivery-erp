@@ -23,7 +23,7 @@ export default function DeliveryMenLayout({ children }: { children: React.ReactN
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
-                <h1 className={title({ size: 'h3', class: 'text-primary' })}>Livreurs</h1>
+                <h1 className={title({ size: 'h3', class: 'text-primary' })}>Coursiers</h1>
             </div>
             <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/delivery-men' ? '/delivery-men' : currentTab ? currentTab.id : ''} className="w-full">
                 {(item) => {

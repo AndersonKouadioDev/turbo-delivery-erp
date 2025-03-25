@@ -2,12 +2,12 @@
 
 import { SelectField } from '@/components/commons/select-field';
 import { Button } from '@/components/ui/button';
-import { Check, PencilIcon, XIcon } from 'lucide-react';
+import { Check, PencilIcon, Save, XIcon } from 'lucide-react';
 import React from 'react';
 import { useTurboAssigneController } from './useTurboAssigneController';
 import { SearchField } from '@/components/commons/form/search-field';
 import { PaginatedResponse } from '@/types';
-import { LivreurStatutVM, Restaurant } from '@/types/models';
+import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { UpdateDeliveryDialog } from '../../update-delivery/update-delivery';
 import EmptyDataTable from '@/components/commons/EmptyDataTable';
 import { ConfirmDialog } from '@/components/commons/confirm-dialog';
@@ -19,7 +19,7 @@ interface Props {
 }
 export default function Content({ initialData, restaurants }: Props) {
     const livreurAssigneCtrl = useTurboAssigneController(initialData, restaurants);
-
+    console.log("livreurAssigneCtrl", livreurAssigneCtrl.livreur)
     return (
         <div className="container mx-auto p-6 pt-0 flex-wrap">
             <SearchField searchKey={livreurAssigneCtrl.searchKey} onChange={livreurAssigneCtrl.setSearchKey} />
@@ -36,40 +36,63 @@ export default function Content({ initialData, restaurants }: Props) {
                                 <tbody>
                                     {(livreurAssigneCtrl.data?.content || [])?.map((item: any) => {
                                         return (
+                                            <>
+                                                <tr key={item.id} className="border-b hover:bg-gray-100 flex justify-between">
+                                                    <td className="px-6 py-4">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
+                                                            <span> {item.nomPrenom}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-6 py-4 ">{item.dateInscription}</td>
+                                                    <td className="w-[300px] py-4 " onClick={() => livreurAssigneCtrl.setLivreur(item)}>
+                                                        <SelectField options={restaurants || []}
+                                                            selectValue={item.restaurantLibelle}
+                                                            livreur={item}
+                                                            setLivreur={livreurAssigneCtrl.setLivreur}
+                                                            setSelectValue={livreurAssigneCtrl.setSelectValue} label={'nomEtablissement'} />
+                                                    </td>
+                                                    <td className="px-6 py-4 flex gap-4 items-center">
+                                                        {
+                                                            (livreurAssigneCtrl.livreur?.livreurId &&
+                                                                livreurAssigneCtrl.selectValue !== item.restaurantLibelle &&
+                                                                livreurAssigneCtrl.livreur.livreurId === item.livreurId) ? (
+                                                                <Button variant={'destructive'} className="h-8" onClick={() => livreurAssigneCtrl.onConfirmStatut(item, item.type)}>
+                                                                    <span className="flex items-center gap-2">
+                                                                        <Save size={18} />
+                                                                        Engregistrer
+                                                                    </span>
+                                                                </Button>
+                                                            ) : (
+                                                                <Button variant={'confirm-success'} className="h-8">
+                                                                    <span className="flex items-center gap-2">
+                                                                        <Check size={18} />
+                                                                        Confirmé
+                                                                    </span>
+                                                                </Button>
+                                                            )
+                                                        }
 
-                                            <tr key={item.id} className="border-b hover:bg-gray-100 flex justify-between">
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
-                                                        <span> {item.nomPrenom}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 ">{item.dateInscription}</td>
-                                                <td className="w-[300px] py-4 ">
-                                                    <SelectField options={restaurants || []}
-                                                        selectValue={item.restaurantLibelle}
-                                                        setSelectValue={livreurAssigneCtrl.setSelectValue} label={'nomEtablissement'} />
-                                                </td>
-                                                <td className="px-6 py-4 flex gap-4 items-center">
 
-                                                    <Button variant={'confirm-success'} className="h-8">
-                                                        <span className="flex items-center gap-2">
-                                                            <Check size={18} />
-                                                            Confirmé
+                                                        <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer"
+                                                            onClick={() => livreurAssigneCtrl.setUpdateLivreurId(item.livreurId)}>
+                                                            <PencilIcon className="h-5 w-5 " />
                                                         </span>
-                                                    </Button>
-                                                    <span className="text-white  p-1 bg-gray-400  rounded-full hover:bg-red-500 cursor-pointer"
-                                                        onClick={() => livreurAssigneCtrl.modifier(item)}>
-                                                        <PencilIcon className="h-5 w-5 " />
-                                                    </span>
-                                                    <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-red-500 cursor-pointer"
-                                                        onClick={() => livreurAssigneCtrl.onConfirmStatut(item, "WAITING")}>
-                                                        <XIcon className=" h-5 w-5" />
-                                                    </span>
-                                                </td>
-                                                {/* </td> */}
+                                                        <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-red-500 cursor-pointer"
+                                                            onClick={() => livreurAssigneCtrl.supprimerLivreur(item, TypeEnum.WAITING)}>
+                                                            <XIcon className=" h-5 w-5" />
+                                                        </span>
+                                                    </td>
+                                                    {/* </td> */}
 
-                                            </tr>
+                                                </tr>
+                                                <div className='flex justify-end'>
+                                                    {
+                                                        livreurAssigneCtrl.updateLivreurId === item.livreurId &&
+                                                        <Button variant={'outline'} className='text-sm h-8' onClick={() => livreurAssigneCtrl.onConfirmStatut(item, "FREE")} >Modifier le turbo en bird</Button>
+                                                    }
+                                                </div>
+                                            </>
 
                                         )
                                     })}
@@ -79,7 +102,9 @@ export default function Content({ initialData, restaurants }: Props) {
                                 onClose={livreurAssigneCtrl.onClose}
                                 isOpen={livreurAssigneCtrl.isOpen}
                                 livreur={livreurAssigneCtrl.livreur}
-                                restaurants={restaurants} />
+                                restaurants={restaurants}
+                                typeLiveur="TURBO"
+                            />
                         </>
                 }
             </div>

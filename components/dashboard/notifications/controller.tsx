@@ -44,7 +44,6 @@ export function useNotificationController() {
     const fetchAllNotificationNonLus = async () => {
         try {
             const result = await fetchNotifcationNonLu(utilisateurId ?? "")
-            setNotificationNonLus(result);
             setNotifications(result);
         } catch (error) {
             console.error(error);
@@ -95,7 +94,8 @@ export function useNotificationController() {
         voirTout,
         toutMarqueCommeLus,
         isConnected,
-        voirMoins
+        voirMoins,
+        toutNotifications
     }
 
 }

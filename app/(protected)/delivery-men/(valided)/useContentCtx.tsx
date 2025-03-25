@@ -1,10 +1,12 @@
 'use client';
 
 import { SelectField } from '@/components/commons/select-field';
-import { getToutLivreurStatus } from '@/src/actions/delivery-men.actions';
+import useConfirm from '@/components/commons/use-confirm-dialog';
+import DeliveryMenStatusTools from '@/components/dashboard/delivery-men/delivery-men-status-tools';
+import { changerStatusLivreur, getToutLivreurStatus } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
-import { LivreurStatutVM, Restaurant } from '@/types/models';
-import { Chip, Select, SelectItem } from '@heroui/react';
+import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
+import { Button, Chip, useDisclosure } from '@heroui/react';
 import { Key, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -14,7 +16,8 @@ export const columns = [
     { name: 'État du compte', uid: 'status' },
     { name: 'Identification du livreur', uid: 'type' },
     { name: 'Propriétaire', uid: 'patenaire' },
-    { name: 'Identification final du livreur', uid: 'identificationFinal' },
+    // { name: 'Identification final du livreur', uid: 'identificationFinal' },
+    { name: 'Actions', uid: 'actions' },
 ]
 
 export const options = [
@@ -23,23 +26,28 @@ export const options = [
     { key: 'restaurant-agha', label: 'Restaurant AGAHA' },
 ];
 
-interface IRestaurant {
-    id?: string;
-    key?: string;
-    libelle?: string;
-}
+// interface IRestaurant {
+//     id?: string;
+//     key?: string;
+//     libelle?: string;
+// };
+
 interface Props {
     initialData: PaginatedResponse<LivreurStatutVM[]> | null;
     restaurants: Restaurant[] | null
 }
 
 export default function useContentCtx({ initialData, restaurants }: Props) {
+    const confirm = useConfirm()
+    const birdDisclosure = useDisclosure();
+    const freeDisclosure = useDisclosure();
     const [isLoading, setIsLoading] = useState(!initialData);
     const [searchKey, setSearchKey] = useState('');
     const [selectValue, setSelectValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
     const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
+    const [livreur, setLivreur] = useState<LivreurStatutVM | undefined>(undefined)
 
 
     useEffect(() => {
@@ -50,8 +58,7 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
         } else {
             setData(initialData);
         }
-    }, [searchKey]);
-
+    }, []);
 
     // Fonction de récupération des données
     const fetchData = async (page: number) => {
@@ -83,7 +90,6 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
         const cellValue = livreur && livreur[columnKey as keyof LivreurStatutVM];
         const initial = livreur && getInitials(livreur.nomPrenom);
         const bgColor = getColorFromInitial(initial ?? "");
-
         switch (columnKey) {
             case 'nomPrenom':
                 return (
@@ -100,25 +106,39 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
                     </div>
                 );
             case 'status':
-                return (
-                    <Chip size="sm" color={cellValue == 4 ? 'success' : 'default'}>
-                        {cellValue == 4 ? 'Validé' : 'Inconnu'}
-                    </Chip>
-                );
+                switch (cellValue) {
+                    case 2: return <Chip size="sm" color={'secondary'}>{'En attente'}</Chip>
+                    case 3: return <Chip size="sm" color={'danger'}>{'Validé'}</Chip>
+                    case 4: return <Chip size="sm" color={'success'}>{'Activé'}</Chip>
+                    case 5: return <Chip size="sm" color={'danger'}>{'Rejeté'}</Chip>
+                }
             case 'type':
-                return (
-                    <Chip size="sm" color={cellValue == 'TURBOYS' ? 'warning' : 'secondary'}>
-                        {cellValue == 'TURBOYS' ? 'TURBOYS' : 'BIRD'}
-                    </Chip>
-                );
+                switch (cellValue) {
+                    case "FREE": return <Chip size="sm" className='bg-[#679cf2] text-white pl-2 pr-2'>{'Bird'}</Chip>
+                    case "TURBO": return <Chip size="sm" className='bg-[#770eaf]  pl-2 pr-2 text-white'>{'Assigné'}</Chip>
+                    case "WAITING": return <Chip size="sm" className='bg-orange-200  pl-2 pr-2'>{'En attente'}</Chip>
+                }
+
             case 'patenaire':
                 return (
                     <div className="font-medium capitalize">
-                        <SelectField options={restaurants || []} selectValue={livreur?.restaurantLibelle ?? ""} setSelectValue={setSelectValue}
-                            label='nomEtablissement' />
-
+                        {
+                            (livreur?.type && livreur?.type === "FREE" as any) ? <Button size='sm' onPress={() => {
+                                setLivreur(livreur);
+                                birdDisclosure.onOpen()
+                            }}>Peut être utilisé partout</Button>
+                                :
+                                (livreur?.type && livreur?.type === "WAITING" as any) ? <span onClick={() => {
+                                    setLivreur(livreur);
+                                    birdDisclosure.onOpen()
+                                }} className='cursor-pointer'>Libre, identifiez le</span>
+                                    :
+                                    livreur?.restaurantLibelle
+                        }
                     </div>
                 );
+            case 'actions':
+                return <DeliveryMenStatusTools deliveryMan={livreur} validateBy="ops" />;
             default:
                 return cellValue;
         }
@@ -127,6 +147,31 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
     const renderCols = useCallback((column: { name: string; uid: string }) => {
         return <div className="flex gap-2 text-primary">{column.name}</div>;
     }, []);
+
+    const changerStatus = () => {
+        const confirmAndSend = async () => {
+            if (!livreur) {
+                toast.error("Une erreur s'est produite !")
+                return false;
+            }
+            try {
+                const result = await changerStatusLivreur({
+                    livreurId: livreur?.livreurId ?? "",
+                    restaurantId: "",
+                    typeLivreur: "FREE"
+                })
+                if (result.status === "success") {
+                    toast.success(result.message);
+                    birdDisclosure.onClose()
+                } else {
+                    toast.error(result.message);
+                }
+            } catch (error) {
+                toast.error("Une erreur s'est produite")
+            }
+        }
+        confirm.openConfirmDialog(confirmAndSend);
+    }
 
     return {
         renderCell,
@@ -138,5 +183,10 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
         isLoading,
         searchKey,
         setSearchKey,
+        birdDisclosure,
+        confirm,
+        changerStatus,
+        freeDisclosure,
+        livreur
     };
 }

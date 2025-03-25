@@ -16,13 +16,13 @@ export function FormLogin() {
     const [state, formAction] = useFormState(
         async (_: any, formData: FormData) => {
             const result = await loginUser(formData);
-
-            if (result.status === 'error') {
-                toast.error(result.message);
-            } else {
-                toast.success(result.message);
-                router.push('/');
-            }
+            router.push('/');
+            // if (result.status === 'error') {
+            //     toast.error(result.message);
+            // } else {
+            //     toast.success(result.message);
+            //     router.push('/');
+            // }
 
             return result;
         },
