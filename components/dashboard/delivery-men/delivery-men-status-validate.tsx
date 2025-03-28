@@ -24,8 +24,7 @@ const DeliveryMenStatusValidate = ({
     const { pending } = useFormStatus();
     const router = useRouter();
     const handleSubmit = async () => {
-        console.log("deliveryMan", deliveryMan)
-        const result = await validateDeliveryMan(deliveryMan.id ?? "", validateBy);
+        const result = await validateDeliveryMan(deliveryMan.livreurId ?? "", validateBy);
         if (result.status === 'success') {
             toast.success(result.message || 'Bravo ! vous avez réussi');
             router.refresh();
