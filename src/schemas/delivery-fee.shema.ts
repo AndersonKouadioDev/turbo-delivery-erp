@@ -16,6 +16,7 @@ export type _deliveryFeeCreateSchema = z.infer<typeof deliveryFeeCreateSchema>;
 
 // Schéma pour la mise à jour
 export const deliveryFeeUpdateSchema = z.object({
+    name:z.string(),
     zone: z.string().min(1, 'La zone est requise'),
     latitude: z.number().min(1, 'La latitude est requise'),
     longitude: z.number().min(1, 'La longitude est requise'),

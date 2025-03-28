@@ -59,6 +59,7 @@ export interface Restaurant {
         longitude: number;
         latitude: number;
     };
+    typeCommission: string,
 
 }
 export interface Picture {
