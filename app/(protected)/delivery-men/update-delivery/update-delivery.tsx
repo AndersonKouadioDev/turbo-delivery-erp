@@ -22,6 +22,7 @@ interface Props {
     typeLiveur?: string;
 }
 export function UpdateDeliveryDialog({ restaurants, isOpen, onClose, livreur, typeLiveur }: Props) {
+    console.log("UpdateDeliveryDialog", typeLiveur)
     const ctrl = useUpdateDeliveryManController(livreur, typeLiveur, onClose)
     return (
         <>

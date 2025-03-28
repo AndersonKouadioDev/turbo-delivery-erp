@@ -17,6 +17,12 @@ const deliveryMenEndpoints = {
     validateOps: { endpoint: (id: string) => `${BASE_URL}/livreur/enable/opsmanager/${id}`, method: 'GET' },
     info: { endpoint: (id: string) => `${BASE_URL}/livreur/get/info/${id}`, method: 'GET' },
 
+    //endpoint pour lister tout les liveures
+    getAllDeliveryMan: { endpoint: `${BASE_URL}/livreur/infos`, method: 'GET' },
+    getDeliveryDetail: { endpoint: (id: string) => `${BASE_URL}/livreur/info/${id}`, method: 'GET' },
+    mettreLivreurEnAttente: { endpoint: (id: string) => `${BASE_URL}/statut/${id}/mettre-attente`, method: 'GET' },
+
+
     //Demande d'assignation
     getAllemandeAssignation: { endpoint: `${BASE_URL}/demande-assignation`, method: "GET" },
     validerDemandeAssignations: { endpoint: `${BASE_URL}/demande-assignation`, method: 'POST' },
@@ -94,6 +100,7 @@ export async function getDeliveryMenNoValidated(page: number = 0, size: number =
 }
 
 export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops' | 'no-body'): Promise<ActionResult<DeliveryMan>> {
+    console.log("test++++++++++++++++++++++++", id)
     if (validateBy == 'auth') {
         try {
             const data = await apiClientHttp.request<DeliveryMan>({
@@ -107,9 +114,10 @@ export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops'
                 data: data,
             };
         } catch (error: any) {
+            console.log("error+++++++++++++++++++++++++++", error)
             return {
                 status: 'error',
-                message: "Erreur lors de l'activation du livreur",
+                message: error.message || "Erreur lors de l'activation du livreur",
             };
         }
     }
@@ -230,7 +238,7 @@ export async function getToutLivreurStatusAssigners(page: number = 0, size: numb
 }
 
 export async function changerStatusLivreur(commande: ChangerStatutLivreurCommande): Promise<any> {
-
+    console.log("commande +++++++++++++++++++", commande)
     try {
         const data = await apiClientHttp.request<any>({
             endpoint: deliveryMenEndpoints.changerStatusLivreur.endpoint,
@@ -275,5 +283,53 @@ export async function getToutLivreurStatusNonAssigners(page: number, size: numbe
     } catch (error) {
         console.log("error", error);
         return null;
+    }
+}
+
+export async function getDeliveryDetail(id: string): Promise<LivreurStatutVM | null> {
+    try {
+        const data = await apiClientHttp.request<LivreurStatutVM | null>({
+            endpoint: deliveryMenEndpoints.getDeliveryDetail.endpoint(id),
+            method: deliveryMenEndpoints.getDeliveryDetail.method,
+            service: 'backend',
+        });
+        return data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function getAllDeliveryMan(): Promise<DeliveryMan[]> {
+    try {
+        const data = await apiClientHttp.request<DeliveryMan[]>({
+            endpoint: deliveryMenEndpoints.getAllDeliveryMan.endpoint,
+            method: deliveryMenEndpoints.getDeliveryDetail.method,
+            service: 'backend',
+        });
+        return data;
+    } catch (error) {
+        return [] as DeliveryMan[];
+    }
+}
+
+export async function mettreLivreurEnAttente(livreurId: string): Promise<any> {
+    console.log("livreurId: " + livreurId)
+    try {
+        const data = await apiClientHttp.request<any>({
+            endpoint: deliveryMenEndpoints.mettreLivreurEnAttente.endpoint(livreurId),
+            method: deliveryMenEndpoints.mettreLivreurEnAttente.method,
+            service: 'backend',
+        });
+        return {
+            status: 'success',
+            message: 'Livreur mis en attente avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        console.log("erreur+++++++++", error);
+        return {
+            status: 'error',
+            message: error.message || 'Erreur lors de la mise en attente du livreur'
+        }
     }
 }

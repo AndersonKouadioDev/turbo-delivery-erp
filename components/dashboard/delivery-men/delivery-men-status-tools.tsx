@@ -9,7 +9,6 @@ import DeliveryMenStatusValidate from './delivery-men-status-validate';
 
 const DeliveryMenStatusTools = ({ deliveryMan, validateBy }: { deliveryMan: LivreurStatutVM | null; validateBy: 'auth' | 'ops' | 'no-body' }) => {
     const [open, setOpen] = useState<boolean>(false);
-
     return (
         <>
             <Dropdown>

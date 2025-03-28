@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getDeliveryMen, getToutLivreurStatusNonAssigners } from '@/src/actions/delivery-men.actions';
+import { getAllDeliveryMan, getDeliveryMen, getToutLivreurStatusNonAssigners } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
 import { DeliveryMan, LivreurStatutVM } from '@/types/models';
 import Content from './content';
@@ -11,9 +11,10 @@ export const metadata: Metadata = {
 
 
 export default async function DeliveryMen() {
-    const toutStatutLivreurNonAssignes: PaginatedResponse<LivreurStatutVM[]> | null = await getToutLivreurStatusNonAssigners(0, 5);
+    const toutStatutLivreurs = await getAllDeliveryMan()
+    // const toutStatutLivreurNonAssignes: PaginatedResponse<LivreurStatutVM[]> | null = await getToutLivreurStatusNonAssigners(0, 5);
     const allRestaurant = await allRestaurants();
     return (
-        <Content initialData={toutStatutLivreurNonAssignes} restaurants={allRestaurant} />
+        <Content initialData={toutStatutLivreurs} restaurants={allRestaurant} />
     );
 }

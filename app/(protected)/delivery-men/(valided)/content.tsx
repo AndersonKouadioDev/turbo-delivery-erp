@@ -9,7 +9,7 @@ import { ConfirmDialog } from '@/components/commons/confirm-dialog';
 import { UpdateDeliveryDialog } from '../update-delivery/update-delivery';
 
 interface ContentProps {
-    initialData: PaginatedResponse<LivreurStatutVM[]> | null;
+    initialData: any[];
     restaurants: Restaurant[] | null
 }
 
