@@ -9,8 +9,9 @@ import { PlaceAutocompleteResult } from '@googlemaps/google-maps-services-js';
 import { autocomplete, placeDetails, calculateDistance } from '@/lib/googlemaps-server';
 import { SubmitButton } from '@/components/ui/form-ui/submit-button';
 import { Restaurant } from '@/types/models';
-import useContentCreate from '../../../app/(protected)/price-list/useContentCreate';
+import useContentHeaderPriceListDefined from '../../../app/(protected)/price-list/useContentHeaderPriceListDefined';
 import TextInputToUrl from './searchDelivery';
+import { Label } from 'recharts';
 
 type LatLng = {
   lat: number;
@@ -19,12 +20,12 @@ type LatLng = {
 export default function Header({ initialData }: { initialData: Restaurant[] | null }) {
   const [typeCommission, setTypeCommission] = useState<string>('Type non definie');
   const [id, setId] = useState<string>('');
-  const { createOrUpdateFee, deleteFee, error, isLoading } = useContentCreate(initialData, id);
+  const { createOrUpdateFee, } = useContentHeaderPriceListDefined(initialData, id);
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
 
   const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [resulFinalDistance, setResulFinaleDistance] = useState<number>();
+  const [resulFinalDistance, setResulFinaleDistance] = useState<number>(0);
 
   const [inputCalculate, setInputCalculate] = useState<{
     point1: LatLng;
@@ -47,22 +48,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, []);
 
-  // Calcule la distance entre deux points (en mètres) avec la formule Haversine
-  const calculateDistanceHaversine = (point1: LatLng, point2: LatLng): number => {
-    const R = 6371; // Rayon de la Terre en kilomètres
-    const φ1 = (point1.lat * Math.PI) / 180; // Convertir la latitude en radians
-    const φ2 = (point2.lat * Math.PI) / 180; // Convertir la latitude en radians
-    const Δφ = ((point2.lat - point1.lat) * Math.PI) / 180; // Différence de latitude en radians
-    const Δλ = ((point2.lng - point1.lng) * Math.PI) / 180; // Différence de longitude en radians
-
-    // Calcul de la distance
-    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    // Retourne la distance en kilomètres
-    return R * c;
-  };
-
+  const handlerChangeDistance=()=>{
+    return resulFinalDistance
+  }
+ 
   const {
     formState: { errors },
     watch,
@@ -73,6 +62,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   } = useForm<_deliveryFeeCreateSchema>({
     resolver: zodResolver(deliveryFeeCreateSchema),
     defaultValues: {
+      name:'',
       restaurantId: '',
       zone: '',
       longitude: 0,
@@ -97,6 +87,8 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, [restaurantId]);
 
+
+
   const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
     setLoading(true);
     setValue('zone', suggestion.description, { shouldValidate: true });
@@ -107,6 +99,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
       // setInputCalculate()
       setValue('longitude', details.result.geometry?.location.lng ?? 0, { shouldValidate: true });
       setValue('latitude', details.result.geometry?.location.lat ?? 0, { shouldValidate: true });
+      setValue('distanceFin',resulFinalDistance?? 7 );
+
+      console.log("distanceFin :"+resulFinalDistance);
+      
 
       let longitude = getValues('longitude');
       let latitude = getValues('latitude');
@@ -171,6 +167,31 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                         }}
                         className="flex flex-col gap-4"
                       >
+                       
+                       <Controller
+                          control={control}
+                          name="name"
+                          render={({ field }) => (
+                            <div>
+                                <Input
+                              {...field}
+                              value={field.value.toString() ?? ''}
+                              type="text"
+                              label="name"
+                              variant="bordered"
+                              isRequired
+                              required
+                              aria-invalid={errors.distanceFin ? 'true' : 'false'}
+                              aria-label="name input"
+                              errorMessage={errors.distanceFin?.message ?? ''}
+                              isInvalid={!!errors.distanceFin}
+                              name="name"
+                              radius="sm"
+                            />
+                            </div>
+                          )}
+                        />
+
                         <Controller
                           control={control}
                           name="restaurantId"
@@ -299,7 +320,8 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                           render={({ field }) => (
                             <Input
                               {...field}
-                              value={field.value.toString() ?? ''}
+                              value={resulFinalDistance.toString() ?? ''}
+                              onValueChange={field.onChange}
                               type="hidden"
                               label="Distance fin (km)"
                               variant="bordered"

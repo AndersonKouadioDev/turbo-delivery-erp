@@ -111,6 +111,8 @@
     "collections": "Collections",
     "type_plats": "Type de plats",
     "delivery_men": "Livreurs",
+    "slot":"Créneaux",
+    "slot-calendar":"calendrier créneaux",
     "validated": "Validés",
     "partially_validated": "Partiellement validés",
     "new": "Nouveaux",

@@ -1,3 +1,6 @@
+import Content from "./content";
+
+
 export interface Turboys  {
   id: string;
   nom: string;
@@ -12,7 +15,6 @@ export interface Turboys  {
   nomVehicule: string;
   immatriculationVehicule: string;
 }
-import Content from "./content";
 interface TurboysPageProps {
   params: { id: string }; // Définit explicitement le type
 }

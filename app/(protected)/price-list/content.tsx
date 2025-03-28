@@ -4,7 +4,7 @@ import EmptyDataTable from '@/components/commons/EmptyDataTable';
 import { RestaurantDefini } from '@/types/price-list';
 import { Button, Tab, Tabs, Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@heroui/react';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
-import useContentViewTable from './useContentViewTable';
+import ViewTablePriceLiceDefined from './ViewTablePriceLiceDefined';
 import { Search } from 'lucide-react';
 import { useEffect } from 'react';
 import { getAllDeliveryFee } from '@/src/actions/delivery-fee.action';
@@ -15,9 +15,9 @@ interface Props {
 }
 
 export default function Content({ initialData }: Props) {
-
+    
      
-    const { columns, selectedKey, tabs, tabsRef, deliveryFees, renderCell, handleMoveScrool, handleChangeSelectedKey } = useContentViewTable({ initialData });
+    const { columns, selectedKey, tabs, tabsRef, deliveryFees, renderCell, handleMoveScrool, handleChangeSelectedKey } = ViewTablePriceLiceDefined({ initialData });
     return (
         <div className="flex flex-col">
             <div className="relative flex items-center gap-4 border shadow rounded-xl py-1 px-1">

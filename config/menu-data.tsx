@@ -71,18 +71,7 @@ const menuData: IMenuData[] = [
                 icon: HandPlatter,
                 title: 'type_plats',
                 path: '/type-plat',
-            },
-               
-            {
-                icon: IconUser,
-                title: 'Cousiers',
-                children: [
-                    { icon: IconBuildingSkyscraper, title: 'slot', path: '/slot' },
-                    { icon: IconBuildingSkyscraper, title: 'slot-calendar', path: '/slot/slot-calendar' },
-                    // { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
-                ],
-            },
-           
+            },    
             {
                 icon: IconBuildingSkyscraper,
                 title: 'restaurants',
@@ -96,6 +85,8 @@ const menuData: IMenuData[] = [
                 icon: IconMotorbike,
                 title: 'delivery_men',
                 children: [
+                    { icon: IconBuildingSkyscraper, title: 'slot', path: '/delivery-men/slot' },
+                    { icon: IconBuildingSkyscraper, title: 'slot-calendar', path: '/delivery-men/slot/slot-calendar' },
                     { icon: IconBuildingSkyscraper, title: 'validated', path: '/delivery-men' },
                     { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/delivery-men/valide' },
                     { icon: IconBuildingSkyscraper, title: 'new', path: '/delivery-men/not-valide' },

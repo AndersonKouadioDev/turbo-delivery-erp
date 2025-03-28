@@ -13,7 +13,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
   
 
 
-  export default function App({id,url}:{id:string,url:string}) {
+  export default function dropDownActionAssignes({id}:{id:string}) {
     const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
   
     return (
@@ -27,7 +27,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
           <DropdownSection showDivider title="Actions">
             <DropdownItem
               key="profile"
-              href={`/${url}/${id}`}
+              href={`/delivery-men/profil/turboys-bird/${id}`}
               description="Create a new file"
               startContent={<IconUser className={iconClasses} />}
             >
@@ -42,7 +42,14 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             >
               Voir la position sur la carte
             </DropdownItem>
-            <DropdownItem
+              <DropdownItem
+                key="performance-details"
+                href={`/progression-details/${id}`}
+                description="Allows you to edit the file"
+                startContent={<IconUser className={iconClasses} />}
+            ></DropdownItem>
+
+           <DropdownItem
               key="performance-details"
               href={`/delivery-men/progression-details/${id}`}
               description="Allows you to edit the file"
@@ -52,7 +59,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             </DropdownItem>
             <DropdownItem
               key="performance"
-              href={`performance`}
+              href="/delivery-men/progression/turboys-assignes"
               description="Allows you to edit the file"
               startContent={<IconUser className={iconClasses} />}
             >
