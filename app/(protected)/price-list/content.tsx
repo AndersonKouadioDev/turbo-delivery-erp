@@ -6,9 +6,6 @@ import { Button, Tab, Tabs, Table, TableHeader, TableBody, TableColumn, TableRow
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import ViewTablePriceLiceDefined from './ViewTablePriceLiceDefined';
 import { Search } from 'lucide-react';
-import { useEffect } from 'react';
-import { getAllDeliveryFee } from '@/src/actions/delivery-fee.action';
-import { Restaurant } from '@/types/models';
 
 interface Props {
     initialData: RestaurantDefini[];
