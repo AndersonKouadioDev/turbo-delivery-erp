@@ -238,7 +238,6 @@ export async function getToutLivreurStatusAssigners(page: number = 0, size: numb
 }
 
 export async function changerStatusLivreur(commande: ChangerStatutLivreurCommande): Promise<any> {
-    console.log("commande +++++++++++++++++++", commande)
     try {
         const data = await apiClientHttp.request<any>({
             endpoint: deliveryMenEndpoints.changerStatusLivreur.endpoint,
@@ -286,9 +285,9 @@ export async function getToutLivreurStatusNonAssigners(page: number, size: numbe
     }
 }
 
-export async function getDeliveryDetail(id: string): Promise<LivreurStatutVM | null> {
+export async function getDeliveryDetail(id: string): Promise<DeliveryMan | null> {
     try {
-        const data = await apiClientHttp.request<LivreurStatutVM | null>({
+        const data = await apiClientHttp.request<DeliveryMan | null>({
             endpoint: deliveryMenEndpoints.getDeliveryDetail.endpoint(id),
             method: deliveryMenEndpoints.getDeliveryDetail.method,
             service: 'backend',

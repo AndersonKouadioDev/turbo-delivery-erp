@@ -21,22 +21,6 @@ interface Props {
 }
 
 export const ConfirmDialog = (props: Props) => (
-    // <AlertDialog open={props.isOpen} onOpenChange={() => props.setIsOpen && props.setIsOpen(!props.isOpen)}>
-    //     <AlertDialogContent className="w-[">
-    //         <AlertDialogHeader>
-    //             <AlertDialogTitle>Confirmation ?</AlertDialogTitle>
-    //             <AlertDialogDescription>
-    // {
-    //     props.message ? props.message : "Etes-vous sûr de vouloir faire cette action ?"
-    // }
-    //             </AlertDialogDescription>
-    //         </AlertDialogHeader>
-    //         <AlertDialogFooter>
-    //             <AlertDialogCancel onClick={props.handleCancel}>Non</AlertDialogCancel>
-    //             <AlertDialogAction onClick={props.handleConfirm}>Oui</AlertDialogAction>
-    //         </AlertDialogFooter>
-    //     </AlertDialogContent>
-    // </AlertDialog>
     <Modal isOpen={props.isOpen} size={"sm"} onClose={() => props.setIsOpen && props.setIsOpen(!props.isOpen)}>
         <ModalContent>
             <>

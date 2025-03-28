@@ -7,7 +7,6 @@ import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { conformToMask } from 'react-text-mask';
 import { toast } from 'react-toastify';
 
 export function useTurboAssigneController(initialData: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
@@ -39,6 +38,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
     }
 
     const onConfirmStatut = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir changer le statut de ce livreur en bird?")
         const confirmAndSend = async () => {
             const livreurRestaurant = restaurants?.find((item) => item.nomEtablissement === livreur.restaurantLibelle)
             if (!livreur) {
@@ -57,6 +57,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
                 })
                 if (result.status === "success") {
                     toast.success(result.message);
+                    setUpdateLivreurId("")
                     router.refresh();
                 } else {
                     toast.error(result.message);

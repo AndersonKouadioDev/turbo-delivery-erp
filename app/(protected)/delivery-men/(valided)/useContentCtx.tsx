@@ -137,7 +137,7 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
                     </div>
                 );
             case 'actions':
-                return <DeliveryMenStatusTools deliveryMan={livreur} validateBy={`${livreur?.type === "WATTING" ? "auth" : "ops"}`} />;
+                return <DeliveryMenStatusTools deliveryMan={livreur} validateBy={`${livreur?.status === 2 ? "auth" : "ops"}`} />;
             default:
                 return cellValue;
         }

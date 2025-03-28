@@ -7,9 +7,8 @@ import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from "@
 import createUrlFile from '@/utils/createUrlFile';
 import { DeliveryMan } from '@/types/models';
 
-export default function Content({ driver }: { driver: DeliveryMan }) {
+export default function Content({ driver }: { driver: DeliveryMan | null }) {
     const router = useRouter();
-
     return (
         <div className="min-h-screen">
             <header className="border-b">
@@ -74,7 +73,7 @@ export default function Content({ driver }: { driver: DeliveryMan }) {
                             <h2 className="text-xl font-semibold text-red-600">Informations du véhicule</h2>
                         </CardHeader>
                         <CardBody className="md:grid grid-cols-2 gap-6">
-                            <Select label="Type" labelPlacement="outside" defaultSelectedKeys={[driver.category ?? '']} variant="bordered">
+                            <Select label="Type" labelPlacement="outside" defaultSelectedKeys={[driver?.category ?? '']} variant="bordered">
                                 <SelectItem key="dispatcher" value={driver?.category ?? 'dispatcher'}>
                                     Dispatcher
                                 </SelectItem>
