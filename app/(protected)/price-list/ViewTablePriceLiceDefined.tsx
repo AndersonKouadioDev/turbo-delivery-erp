@@ -9,11 +9,14 @@ import { PlaceAutocompleteResult } from '@googlemaps/google-maps-services-js';
 import FormUpDate from '../../../components/dashboard/price-liste/FormUpDate';
 import PriceListeTools from '@/components/dashboard/price-liste/price-list-tools';
 import { useRouter } from 'next/navigation';
+import { Restaurant } from '@/types/models';
+import { getDetailRestaurant } from '@/src/actions/restaurants.actions';
 
 interface Props {
     initialData: RestaurantDefini[];
 }
 export const columns = [
+    { name: 'Nom', uid: 'name' },
     { name: 'Zone', uid: 'zone' },
     { name: 'Distance', uid: 'distance' },
     { name: 'Coût de livraison', uid: 'prix' },
@@ -21,9 +24,10 @@ export const columns = [
     { name: 'Action', uid: 'actions' },
 ];
 
-export default function useContentViewTable({ initialData }: Props) {    
+export default function ViewTablePriceLiceDefined({ initialData }: Props) {    
     
    
+    const [typeCommission,setTypeCommission] = useState<string|null>(initialData.length !== 0 ? initialData[0].typeCommission : null)
 
 
     const tabs = initialData.map((resto) => ({ id: resto.id, nomComplet: resto.nomEtablissement }));
@@ -61,8 +65,13 @@ export default function useContentViewTable({ initialData }: Props) {
       }, [search, textParam, initialDataPriceList]);
       
 
-    const handleChangeSelectedKey = (key: string) => {
+    const handleChangeSelectedKey = async (key: string) => {
         setSelectedKey(key);
+        const detailRestaurant= await getDetailRestaurant(key)
+        if(detailRestaurant)
+        setTypeCommission(detailRestaurant.typeCommission) 
+         console.log("setTypeCommission :"+typeCommission);
+                 
     };
 
 
@@ -77,7 +86,9 @@ export default function useContentViewTable({ initialData }: Props) {
         // Requete Server Action        
         const data = await getPriceListByRestaurant(restaurantId, 0, 10);
         if(data)
-        setInitialDataPriceList(data?.content);    
+        setInitialDataPriceList(data?.content);   
+        console.log(data);
+         
 
             
     };
@@ -93,6 +104,12 @@ export default function useContentViewTable({ initialData }: Props) {
         setDefaultVal(delieveryFee)
         
         switch (columnKey) {
+            case 'name':
+                return (
+                    <span>                       
+                        {delieveryFee.name}
+                    </span>
+                );
             case 'zone':
                 return (
                     <span>                       
@@ -102,13 +119,17 @@ export default function useContentViewTable({ initialData }: Props) {
             case 'distance':
                 return (
                     <span>
-                        {delieveryFee.distanceDebut}-{delieveryFee.distanceFin} Km
+                        {delieveryFee.distanceFin}  Km
                     </span>
                 );
             case 'prix':
                 return <span>{delieveryFee.prix} (XOF)</span>;
             case 'commission':
-                return <span>{delieveryFee.commission} (XOF)</span>;
+                return <span>
+                    {delieveryFee.commission}
+                    {typeCommission === 'POURCENTAGE' ? '(POURCENTAGE %)' : 
+      typeCommission === 'FIXE' ? '(XOF)' : ' (type Non definie)'}
+                    </span>;
             case 'actions':
                 return (
                     <div className="relative flex items-center gap-2">

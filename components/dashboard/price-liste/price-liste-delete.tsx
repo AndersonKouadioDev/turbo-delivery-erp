@@ -19,9 +19,14 @@ const PriceListeDelete = ({ id, open, setOpen }: { id: string; open: boolean; se
         const result = await deletePriceList(id);
         if (result.status === 'success') {
             toast.success(result.message || 'Bravo ! vous avez réussi');
+            setOpen(false)
             router.refresh();
         } else {
             toast.error(result.message || "Erreur lors de l'envoi de l'email");
+            setOpen(false)
+            router.refresh();
+
+
         }
         return result;
     };

@@ -39,7 +39,7 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
         point2:{lat:0,lng:0}
     })
     
-    const [resulFinalDistance,setResulFinaleDistance]= useState<string>()
+    const [resulFinalDistance,setResulFinaleDistance]= useState<number>()
     const [calculateResultat,setCalculateResultat] = useState<number>()
 
     const searchParams = useSearchParams(); // Récupère les paramètres de recherche de l'URL
@@ -89,6 +89,7 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
     } = useForm<_deliveryFeeUpdateSchema>({
         resolver: zodResolver(deliveryFeeUpdateSchema),
         defaultValues: {
+            name:'',
             restaurantId: '',
             id:initialData?.id ||'',
             zone:initialData?.zone ||'',
@@ -109,6 +110,7 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
         }));
 
  },[])
+
 
 
     useEffect(() => {
@@ -133,19 +135,6 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
     }, [restaurantId, setValue]);
 
 
-    // useEffect(()=>{
-
-    //     const fn = async()=>{
-    //         const calculateDistanceResult= await calculateDistance({lat:27779999,lng:6663333},{lat:1117779999,lng:6663331113})
-    //         // console.log("calculateDistanceResulttt :;;"+ calculateDistanceResult);
-            
-    //     }
-
-    //     fn()
-
-    // },[])
-
-
 
     const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
         setLoading(true);
@@ -161,14 +150,21 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
             let longitude= getValues('longitude')
             let latitude= getValues('latitude')
 
-            setInputCalculate(prev=>({...prev,
-                point2: { lat: latitude, lng: longitude }
-            }))
+            setInputCalculate((prev) => ({ ...prev, point2: { lat: latitude, lng: longitude } }));
+
            
             // const calculateDistanceResult= await calculateDistance(inputCalculate.point1,inputCalculate.point2)
-            const calculateDistanceResult =calculateDistanceHaversine(inputCalculate.point1,inputCalculate.point2)             
-            setCalculateResultat(calculateDistanceResult)
+           
+            // const calculateDistanceResult =calculateDistanceHaversine(inputCalculate.point1,inputCalculate.point2)             
+            // setCalculateResultat(calculateDistanceResult)
             
+             const calculateDistanceR = await calculateDistance(inputCalculate.point1, {
+                    lat: latitude,
+                    lng: longitude,
+                  });
+                  
+                  setResulFinaleDistance(calculateDistanceR);
+
         } catch (error) {
             console.error('Error fetching place details:', error);
         } finally {
@@ -206,10 +202,35 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
                                                         }}
                                                         className="flex flex-col gap-4"
                                                     >
-        
-                                                        {/* <div className='flex items-center justify-center border-2 rounded-lg py-2'>
-                                                            {initialData.id}
-                                                        </div> */}
+                                                                 <Controller
+                                                            control={control}
+                                                            name="name"
+                                                            render={({ field }) => (
+                                                                <Controller
+                                                                control={control}
+                                                                name="name"
+                                                                render={({ field }) => (
+                                                                  <div>
+                                                                      <Input
+                                                                    {...field}
+                                                                    value={field.value.toString() ?? ''}
+                                                                    type="text"
+                                                                    label="name"
+                                                                    variant="bordered"
+                                                                    isRequired
+                                                                    required
+                                                                    aria-invalid={errors.distanceFin ? 'true' : 'false'}
+                                                                    aria-label="name input"
+                                                                    errorMessage={errors.distanceFin?.message ?? ''}
+                                                                    isInvalid={!!errors.distanceFin}
+                                                                    name="name"
+                                                                    radius="sm"
+                                                                  />
+                                                                  </div>
+                                                                )}
+                                                              />
+                                                            )}
+                                                        />
                                                                <Controller
                                                             control={control}
                                                             name="restaurantId"
@@ -299,7 +320,7 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
                                                      <div className='px-2 py-2 border-2 rounded-lg flex flex-col gap-1'>
                                                         <h3>distance totale</h3>
                                                         <p>
-                                                        {calculateDistanceHaversine(inputCalculate.point1,inputCalculate.point2)} km
+                                                        { resulFinalDistance?resulFinalDistance:initialData.distanceFin} km
                                                         </p>
                                                     </div>
                                                         <Controller

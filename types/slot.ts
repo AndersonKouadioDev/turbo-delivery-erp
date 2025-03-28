@@ -9,10 +9,6 @@ export interface TurboysBird {
   };
 
 
-
-
-
-
   export interface TurboysNotSlot{ 
     id: string, 
     nom: string, 
@@ -40,3 +36,43 @@ export interface TurboysBird {
     children: Child[];
   };
   
+
+  export interface  BirdPerformance  {
+    id: string;
+    nomComplet: string;
+    progression: number;
+    jour: {
+      jourTravaille: number;
+      jourNonTravaille: number;
+    };
+    creneauVM: {
+      debut: string; // format "YYYY-MM-DD"
+      fin: string; // format "YYYY-MM-DD"
+    };
+  };
+  
+
+
+
+  interface CreneauVM  {
+    debut: string;
+    fin: string;
+  };
+  
+  interface Jour {
+    jourTravaille: number;
+    jourNonTravaille: number;
+  };
+  
+  interface Livreur  {
+    id: string;
+    nomComplet: string;
+    progression: number;
+    jour: Jour;
+    creneauVM: CreneauVM;
+  };
+  
+export  interface RestaurantTuboProgression  {
+    nonRestaurant: string;
+    livreurs: Livreur[];
+  };

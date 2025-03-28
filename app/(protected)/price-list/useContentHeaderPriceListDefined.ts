@@ -20,7 +20,7 @@ export interface DeliveryFeesViewModel {
     typeCommission:string
 }
 
-export default function useContentCreate(initialData:Restaurant[]|null,id:string): DeliveryFeesViewModel {
+export default function useContentHeaderPriceListDefined(initialData:Restaurant[]|null,id:string): DeliveryFeesViewModel {
     const router = useRouter();
     // const [fees, setFees] = useState<DeliveryFee[]>(initialData);
     const [isLoading, setIsLoading] = useState(false);
