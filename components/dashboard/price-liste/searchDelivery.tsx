@@ -2,7 +2,7 @@ import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const TextInputToUrl = () => {
+const SearchDelivery = () => {
   const { register, setValue } = useForm();
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -10,11 +10,11 @@ const TextInputToUrl = () => {
   useEffect(() => {
     // Récupérer le paramètre 'text' depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
-    const text = urlParams.get('text');
+    const search = urlParams.get('search');
     
-    if (text) {
-      setInputValue(text);
-      setValue('text', text);
+    if (search) {
+      setInputValue(search);
+      setValue('search', search);
     }
   }, [setValue]);
 
@@ -25,7 +25,7 @@ const TextInputToUrl = () => {
 
     // Mettre à jour l'URL avec la nouvelle valeur du champ
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set('text', newText); // Ajouter ou mettre à jour le paramètre 'text'
+    urlParams.set('search', newText); // Ajouter ou mettre à jour le paramètre 'text'
     window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
   };
 
@@ -45,4 +45,4 @@ const TextInputToUrl = () => {
   );
 };
 
-export default TextInputToUrl;
+export default SearchDelivery;

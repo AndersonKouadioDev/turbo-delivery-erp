@@ -1,9 +1,9 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
-import { getRestaurantUndefined } from "@/src/price-list/price-list.action";
-import Content from "./Content";
-import { RestaurantDefini } from "@/types/price-list";
-
+import { getRestaurantUndefined } from '@/src/price-list/price-list.action';
+import Content from './Content';
+import { RestaurantDefini } from '@/types/price-list';
+import SectionHeader from '@/components/dashboard/price-liste/SectionHeader';
 
 export const metadata: Metadata = {
   title: "Restaurants n'ayant pas des livraisons définies",
@@ -11,9 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default async function PageContent() {
-  const initialData:RestaurantDefini[] = await getRestaurantUndefined()
-  
+  const initialData: RestaurantDefini[] = await getRestaurantUndefined();
+
   return (
-    <Content initialData={initialData} />
+    <>
+      <SectionHeader />
+      <Content initialData={initialData} />
+    </>
   );
 }
