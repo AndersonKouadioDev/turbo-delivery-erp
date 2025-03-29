@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Content from './content';
-import { getRestaurants, getRestaurantsNoValidated, getRestaurantsValidated } from '@/src/restaurants/restaurants.actions';
 import NotFound from '@/app/not-found';
+import { getRestaurants, getRestaurantsNoValidated, getRestaurantsValidated } from '@/src/restaurants/restaurants.actions';
 
 export const metadata: Metadata = {
     title: 'Restaurants',

@@ -2,14 +2,13 @@
 import { ArrowLeft } from 'lucide-react';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@heroui/react';
+import {Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { Restaurant } from '@/types/models';
 import createUrlFile from '@/utils/createUrlFile';
 import { formatTime } from '@/lib/date';
-import { updateCommission } from '@/src/restaurants/restaurants.actions';
 import { toast } from 'react-toastify';
+import { updateCommission } from '@/src/restaurants/restaurants.actions';
 
 export default function Content({ restaurant }: { restaurant: Restaurant }) {
   const router = useRouter();

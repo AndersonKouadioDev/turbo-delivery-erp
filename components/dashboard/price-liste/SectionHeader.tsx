@@ -1,7 +1,7 @@
 import { RestaurantDefini } from "@/types/price-list";
 import Header from "./header";
-import { getAllRestaurants } from '@/src/restaurants/restaurants.actions';
 import { Restaurant } from "@/types/models";
+import { getAllRestaurants } from "@/src/restaurants/restaurants.actions";
 
 export const mockRestaurants: RestaurantDefini[] = [
     {
