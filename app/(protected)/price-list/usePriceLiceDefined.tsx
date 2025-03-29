@@ -6,7 +6,7 @@ import { Tooltip } from '@heroui/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import FormUpDate from '@/components/dashboard/price-liste/FormUpDate';
 import PriceListeTools from '@/components/dashboard/price-liste/price-list-tools';
-import { getDetailRestaurant } from '@/src/actions/restaurants.actions';
+import { getDetailRestaurant } from '@/src/restaurants/restaurants.actions';
 import { Restaurant } from '@/types/models';
 
 interface Props {
