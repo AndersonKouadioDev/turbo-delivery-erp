@@ -3,7 +3,7 @@ import { getDeliveryMen, getToutLivreurStatusNonAssigners } from '@/src/actions/
 import { PaginatedResponse } from '@/types';
 import { DeliveryMan, LivreurStatutVM } from '@/types/models';
 import Content from './content';
-import { allRestaurants } from '@/src/actions/restaurants.actions';
+import { allRestaurants } from '@/src/restaurants/restaurants.actions';
 
 export const metadata: Metadata = {
     title: 'Delivery Men',
