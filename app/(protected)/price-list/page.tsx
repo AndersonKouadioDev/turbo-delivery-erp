@@ -4,7 +4,7 @@ import SectionHeader from '@/components/dashboard/price-liste/SectionHeader';
 
 import { RestaurantDefini } from '@/types/price-list';
 import { getRestaurantDefined } from '@/src/price-list/price-list.action';
-import Content from './Content';
+import Content from './content';
 
 export const metadata: Metadata = {
   title: 'Restaurants ayant des livraisons définies ',
