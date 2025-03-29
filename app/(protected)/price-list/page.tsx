@@ -1,18 +1,23 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
+
+import SectionHeader from '@/components/dashboard/price-liste/SectionHeader';
 
 import { RestaurantDefini } from '@/types/price-list';
-import Content from './content';
 import { getRestaurantDefined } from '@/src/price-list/price-list.action';
+import Content from './Content';
 
 export const metadata: Metadata = {
-    title: "Restaurants ayant des livraisons définies ",
-    description: "La liste des restaurants qui sont ont des livraisons définies.",
-  };
-
+  title: 'Restaurants ayant des livraisons définies ',
+  description: 'La liste des restaurants qui sont ont des livraisons définies.',
+};
 
 export default async function Page() {
-    const initialData: RestaurantDefini[] = await getRestaurantDefined();
+  const initialData: RestaurantDefini[] = await getRestaurantDefined();
 
-      
-    return <Content initialData={initialData} />;
+  return (
+    <>
+      <SectionHeader />
+      <Content initialData={initialData} />;
+    </>
+  );
 }
