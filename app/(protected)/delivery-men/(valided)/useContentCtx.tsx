@@ -6,6 +6,7 @@ import { changerStatusLivreur, getToutLivreurStatus } from '@/src/actions/delive
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { Button, Chip, useDisclosure } from '@heroui/react';
+import { useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -37,6 +38,7 @@ interface Props {
 }
 
 export default function useContentCtx({ initialData, restaurants }: Props) {
+  const router = useRouter();
   const confirm = useConfirm();
   const birdDisclosure = useDisclosure();
   const freeDisclosure = useDisclosure();
@@ -69,6 +71,7 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
       toast.error(error.message || 'Erreur lors de la récupération des données');
     } finally {
       setIsLoading(false);
+      router.refresh();
     }
   };
 
@@ -215,6 +218,8 @@ export default function useContentCtx({ initialData, restaurants }: Props) {
         }
       } catch (error) {
         toast.error("Une erreur s'est produite");
+      } finally {
+        router.refresh();
       }
     };
     confirm.openConfirmDialog(confirmAndSend);
