@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 export default async function Restaurants({ params }: { params: { restaurant_id: string } }) {
   const currentRestaurant = await getDetailRestaurant(params.restaurant_id);
-  console.log({currentRestaurant})
   let restaurants = await getRestaurants(0, 10);
   let restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
 
@@ -26,6 +25,7 @@ export default async function Restaurants({ params }: { params: { restaurant_id:
       }
     }
   }
+  console.log(JSON.stringify(restaurant))
 
   return <Content restaurant={restaurant} />;
 }
