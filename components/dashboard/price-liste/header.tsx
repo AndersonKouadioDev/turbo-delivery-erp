@@ -26,7 +26,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [resulFinalDistance, setResulFinaleDistance] = useState<number>(0);
-
   const [inputCalculate, setInputCalculate] = useState<{
     point1: LatLng;
     point2: LatLng;
@@ -34,6 +33,12 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     point1: { lat: 0, lng: 0 },
     point2: { lat: 0, lng: 0 },
   });
+
+
+
+  {typeCommission === 'POURCENTAGE' ? '(POURCENTAGE %)' : 
+    typeCommission === 'FIXE' ? '(XOF)' : ' (type Non definie)'}
+  
 
   const handleInputChange = useCallback(async (value: string) => {
     if (value.length > 2 && !loading) {
@@ -48,9 +53,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, []);
 
-  const handlerChangeDistance=()=>{
-    return resulFinalDistance
-  }
  
   const {
     formState: { errors },
@@ -78,8 +80,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     if (initialData && restaurantId) {
       const restaurantDetail = initialData?.find((item) => item.id === restaurantId);
 
-      console.log(restaurantDetail);
-
       setInputCalculate((prevState) => ({
         ...prevState, // On garde les autres points
         point1: { lat: restaurantDetail?.latitude || 0, lng: restaurantDetail?.longitude || 0 },
@@ -87,7 +87,20 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, [restaurantId]);
 
+  let longitude = getValues('restaurantId');
 
+
+useEffect(()=>{
+ const commussion = initialData?.find(item=>item.id===longitude)
+ let comm='Type non definie'
+ if(commussion)
+
+  comm = commussion.typeCommission === 'POURCENTAGE' ?'Type commussion (En pourcentage %)' : 
+  commussion.typeCommission === 'FIXE' ? 'Type commussion (XOF)' : ' Type commussion (non definie)'
+ 
+  setTypeCommission(comm)
+
+},[longitude])
 
   const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
     setLoading(true);
@@ -99,9 +112,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
       // setInputCalculate()
       setValue('longitude', details.result.geometry?.location.lng ?? 0, { shouldValidate: true });
       setValue('latitude', details.result.geometry?.location.lat ?? 0, { shouldValidate: true });
-      setValue('distanceFin',resulFinalDistance?? 7 );
-
-      console.log("distanceFin :"+resulFinalDistance);
       
 
       let longitude = getValues('longitude');
@@ -113,6 +123,8 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
         lat: latitude,
         lng: longitude,
       });
+
+      setValue('distanceFin',calculateDistanceR?? 0 );      
       
       setResulFinaleDistance(calculateDistanceR);
     } catch (error) {
@@ -127,10 +139,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     setId(w);
   }, [w]);
 
-  // useEffect(() => {
-  //     tryValueCommission()
 
-  // }, [restaurantId])
 
   return (
     <div>
@@ -153,10 +162,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                 Ajouter
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[240px]">
+            <PopoverContent className="w-[400px]">
               {(titleProps) => (
                 <div className="px-1 py-2 w-full">
-                  <Card>
+                  <Card >
                     <CardHeader className="flex gap-3"></CardHeader>
                     <Divider />
                     <CardBody>
@@ -165,7 +174,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                           e.preventDefault();
                           createOrUpdateFee(getValues());
                         }}
-                        className="flex flex-col gap-4"
+                        className="flex flex-col gap-4 "
                       >
                        
                        <Controller
@@ -181,10 +190,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                               variant="bordered"
                               isRequired
                               required
-                              aria-invalid={errors.distanceFin ? 'true' : 'false'}
+                              aria-invalid={errors.name ? 'true' : 'false'}
                               aria-label="name input"
-                              errorMessage={errors.distanceFin?.message ?? ''}
-                              isInvalid={!!errors.distanceFin}
+                              errorMessage={errors.name?.message ?? ''}
+                              isInvalid={!!errors.name}
                               name="name"
                               radius="sm"
                             />
@@ -196,9 +205,12 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                           control={control}
                           name="restaurantId"
                           render={({ field }) => (
-                            <div>
+                            <div  >
                               <Select
+                             
                                 {...field}
+                                isRequired
+                                required
                                 label="sélectionner le restaurant"
                                 placeholder="Exemple restaurant"
                                 onChange={(e) => {
@@ -215,6 +227,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                         <Controller
                           control={control}
                           name="zone"
+                       
                           render={({ field }) => (
                             <div className="relative">
                               <Input
@@ -245,10 +258,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                             </div>
                           )}
                         />
-                        <div className="px-2 py-2 border-2 rounded-lg flex flex-col gap-1">
+                        {/* <div className="px-2 py-2 border-2 rounded-lg flex flex-col gap-1">
                           <h3>distance totale</h3>
                           <p>{resulFinalDistance} km</p>
-                        </div>
+                        </div> */}
 
                         <Controller
                           control={control}
@@ -322,8 +335,8 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                               {...field}
                               value={resulFinalDistance.toString() ?? ''}
                               onValueChange={field.onChange}
-                              type="hidden"
-                              label="Distance fin (km)"
+                              type="number"
+                              label="distance totale"
                               variant="bordered"
                               isRequired
                               required
@@ -339,6 +352,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                         <Controller
                           control={control}
                           name="prix"
+                          rules={{ required: "Ce champ est requis" }}
                           render={({ field }) => (
                             <Input
                               {...field}
