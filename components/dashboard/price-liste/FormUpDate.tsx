@@ -1,9 +1,11 @@
 'use client';
 
-import { Card, CardBody, CardHeader, Divider, Input, Popover, PopoverContent, PopoverTrigger, Select, SelectItem, Tooltip } from '@heroui/react';
-import { IconEdit } from '@tabler/icons-react';
-import { Save } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { getPriceListByRestaurant } from '@/src/price-list/price-list.action';
+import { PaginatedResponse } from '@/types';
+import { Button, Card, CardBody, CardHeader, Divider, Input, Popover, PopoverContent, PopoverTrigger, Select, SelectItem, Tooltip } from '@heroui/react';
+import { IconEdit, IconTrash } from '@tabler/icons-react';
+import { Plus, Save, Search } from 'lucide-react';
+import { use, useCallback, useEffect, useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import useContentCtx from '../../../app/(protected)/price-list/useContentCtx';
 import { _deliveryFeeCreateSchema, _deliveryFeeUpdateSchema, deliveryFeeUpdateSchema } from '@/src/price-list/price-list.schema';
@@ -13,20 +15,19 @@ import { autocomplete, calculateDistance, placeDetails } from '@/lib/googlemaps-
 import { SubmitButton } from '@/components/ui/form-ui/submit-button';
 import { DeliveryFee } from '@/types/price-list';
 import { useSearchParams } from 'next/navigation';
-import { getDetailRestaurant } from '@/src/restaurants/restaurants.actions';
 import { Restaurant } from '@/types/models';
+import { getDetailRestaurant } from '@/src/restaurants/restaurants.actions';
 
 type LatLng = {
     lat: number ;
     lng: number ;
 };
 
-export default function FormUpDate({ initialData,restaurantId }:{initialData:DeliveryFee,restaurantId:string|null}) {
+export default function FormUpDate({ initialData,restaurantId,typeCm }:{initialData:DeliveryFee,restaurantId:string|null,typeCm:string|null}) {
+    const [typeCommission,setTypeCommission] =useState<string>('type commussion (non definie)')
     const { createOrUpdateFee} = useContentCtx(initialData);
     const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [typeCommission, setTypeCommission] = useState<string>('Type non definie');
-    const [restaurantDetail,setRestaurantDetail] = useState<Restaurant | null>(null)
     const [inputCalculate,setInputCalculate] =useState<{
         point1: LatLng;
         point2: LatLng;
@@ -36,10 +37,6 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
     })
     
     const [resulFinalDistance,setResulFinaleDistance]= useState<number>()
-    const [calculateResultat,setCalculateResultat] = useState<number>()
-
-    const searchParams = useSearchParams(); // Récupère les paramètres de recherche de l'URL
-    // const restaurantId = searchParams.get('restaurantId');
 
 
     const handleInputChange = useCallback(async (value: string) => {
@@ -55,25 +52,7 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
         }
     }, []);
 
-
-    // Calcule la distance entre deux points (en mètres) avec la formule Haversine
-    const calculateDistanceHaversine = (point1: LatLng, point2: LatLng): number => {
-        const R = 6371; // Rayon de la Terre en kilomètres
-        const φ1 = (point1.lat * Math.PI) / 180; // Convertir la latitude en radians
-        const φ2 = (point2.lat * Math.PI) / 180; // Convertir la latitude en radians
-        const Δφ = ((point2.lat - point1.lat) * Math.PI) / 180; // Différence de latitude en radians
-        const Δλ = ((point2.lng - point1.lng) * Math.PI) / 180; // Différence de longitude en radians
-      
-        // Calcul de la distance
-        const a =
-          Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-          Math.cos(φ1) * Math.cos(φ2) *
-          Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      
-        // Retourne la distance en kilomètres
-        return R * c;
-      };
+  
 
 
     const {
@@ -99,6 +78,23 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
     });
 
 
+    useEffect(()=>{
+
+        let comm= 'type commussion (non definie)'
+        
+        if(typeCm)
+
+            console.log({typeCm:typeCm});
+            
+
+         comm = typeCm === 'POURCENTAGE' ? 'Type commussion (POURCENTAGE %)' : 
+        typeCm === 'FIXE' ? 'Type commussion (XOF)' : ' (Type de commussion Non definie)'
+        setTypeCommission(comm)
+
+        
+    },[])
+
+
  useEffect(()=>{
     setInputCalculate(prevState => ({
         ...prevState, // On garde les autres points
@@ -114,7 +110,6 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
             setValue('restaurantId', restaurantId);
              const getRestaurantDetail= async()=>{
                 const detailRestaurant= await getDetailRestaurant(restaurantId)
-                setRestaurantDetail(detailRestaurant)
 
                         // Vérifier si detailRestaurant est défini et a les propriétés longitude et latitude
                 if (detailRestaurant?.longitude && detailRestaurant?.latitude) {
@@ -146,13 +141,7 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
             let longitude= getValues('longitude')
             let latitude= getValues('latitude')
 
-            setInputCalculate((prev) => ({ ...prev, point2: { lat: latitude, lng: longitude } }));
-
-           
-            // const calculateDistanceResult= await calculateDistance(inputCalculate.point1,inputCalculate.point2)
-           
-            // const calculateDistanceResult =calculateDistanceHaversine(inputCalculate.point1,inputCalculate.point2)             
-            // setCalculateResultat(calculateDistanceResult)
+            setInputCalculate((prev) => ({ ...prev, point2: { lat: latitude, lng: longitude } }));           
             
              const calculateDistanceR = await calculateDistance(inputCalculate.point1, {
                     lat: latitude,
@@ -168,11 +157,6 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
         }
     };
 
-    // useEffect(() => {
-    //     if (selectedKey) {
-    //         handleFetchDeliveryFee(selectedKey);
-    //     }
-    // }, [selectedKey]);
 
     return (
          <Popover isNonModal={false}  showArrow placement="bottom">
@@ -313,12 +297,12 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
                                                             )}
                                                         />
                                                       
-                                                     <div className='px-2 py-2 border-2 rounded-lg flex flex-col gap-1'>
+                                                     {/* <div className='px-2 py-2 border-2 rounded-lg flex flex-col gap-1'>
                                                         <h3>distance totale</h3>
                                                         <p>
                                                         { resulFinalDistance?resulFinalDistance:initialData.distanceFin} km
                                                         </p>
-                                                    </div>
+                                                    </div> */}
                                                         <Controller
                                                             control={control}
                                                             name="distanceDebut"
@@ -348,9 +332,8 @@ export default function FormUpDate({ initialData,restaurantId }:{initialData:Del
                                                             render={({ field }) => (
                                                                 <Input
                                                                     {...field}
-                                                                    type="hidden"
-                                                                    value={field.value.toString() ?? ''}
-                                                                    // type="number"
+                                                                    value={ resulFinalDistance?.toString() ?? initialData.distanceFin.toString()}
+                                                                    type="number"
                                                                     label="Distance fin (km)"
                                                                     variant="bordered"
                                                                     isRequired
