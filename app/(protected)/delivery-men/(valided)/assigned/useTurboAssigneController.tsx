@@ -1,7 +1,7 @@
 'use client';
 
 import useConfirm from '@/components/commons/use-confirm-dialog';
-import { changerStatusLivreur, getToutLivreurStatusAssigners } from '@/src/actions/delivery-men.actions';
+import { changerStatusLivreur, getToutLivreurStatusAssigners, mettreLivreurEnAttente } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
@@ -82,7 +82,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         }
     };
 
-    const supprimerLivreur = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+    const supprimerLivreur = (livreur: LivreurStatutVM) => {
         confirm.setMessage("Êtes-vous sûr de vouloir retirer ce livreur ? ")
         const confirmAndSend = async () => {
             if (!livreur) {
@@ -90,11 +90,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
                 return false;
             }
             try {
-                const result = await changerStatusLivreur({
-                    livreurId: livreur?.livreurId ?? "",
-                    restaurantId: "",
-                    typeLivreur: typeLivreur
-                })
+                const result = await mettreLivreurEnAttente(livreur?.livreurId ?? "")
                 if (result.status === "success") {
                     toast.success(result.message);
                     router.refresh();

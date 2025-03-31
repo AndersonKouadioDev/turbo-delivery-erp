@@ -214,8 +214,10 @@ export async function getToutLivreurStatus(page: number = 0, size: number = 10):
                 size: size.toString()
             }
         });
+        console.log("data+++", data)
         return data;
     } catch (error) {
+        console.log("error+++++++++++++", error);
         return null;
     }
 }
