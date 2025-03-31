@@ -113,14 +113,12 @@ export const viewport: Viewport = {
     ],
 };
 
-
 const nunito = Lato({
     weight: ['100', '300', '400', '700', '900'],
     subsets: ['latin'],
     display: 'swap',
     variable: '--font-nunito',
 });
-
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
