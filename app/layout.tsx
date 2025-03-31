@@ -113,6 +113,7 @@ export const viewport: Viewport = {
     ],
 };
 
+
 const nunito = Lato({
     weight: ['100', '300', '400', '700', '900'],
     subsets: ['latin'],
