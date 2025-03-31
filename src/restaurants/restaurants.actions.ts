@@ -98,7 +98,6 @@ export async function getAllRestaurants(): Promise<Restaurant[]> {
       method: restaurantEndpoints.getAlls.method,
       service: 'backend',
     });
-    console.log('data++++++++++++++++++++++++++++', data);
     return data;
   } catch (error) {
     return [];

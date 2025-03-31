@@ -190,7 +190,7 @@ export async function rejeterDemandeAssignations(id: string): Promise<any> {
         });
         return {
             status: 'success',
-            message: 'Demande d\'assignation rejeté avec succès',
+            message: "La demande d'identification a été rejetée ",
             data: data,
         };
     } catch (error: any) {
