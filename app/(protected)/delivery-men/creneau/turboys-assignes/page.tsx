@@ -1,7 +1,6 @@
-import { BirdPerformance, TurboysBird,TurboysNotSlot } from "@/types/slot"
 import Content from "./content"
 import { Metadata } from "next";
-import { getAllCreneauPerformanceBird, getAllCreneauPerformanceTurbo } from "@/src/creneau-livreur/creneau-livreur.action";
+import { getAllCreneauPerformanceTurbo } from "@/src/creneau-livreur/creneau-livreur.action";
 
 const  restaurantsData: RestaurantProgressionTurbo[] = [
   {
@@ -109,11 +108,10 @@ const  restaurantsData: RestaurantProgressionTurbo[] = [
 
 
 export default async function Page(){
-
-    // const initialData: RestaurantProgressionTurbo[] = restaurantsData
     
     const initialData = await getAllCreneauPerformanceTurbo()
 
+    
     return <Content initialData={initialData} />
 
 }

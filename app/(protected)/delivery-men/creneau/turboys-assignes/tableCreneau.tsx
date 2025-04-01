@@ -114,7 +114,7 @@ const bird = [
   ];
 
   interface props{
-    initialData: any
+    initialData: Livreur[]
     // RestaurantProgressionTurbo
     
     // Livreur[]
@@ -126,18 +126,18 @@ const bird = [
     
     // const {data} =useContentCtx({initialData})
 
-    console.log({TTTT:initialData});
+    console.log(initialData);
     
     
 
-    const renderCell = React.useCallback((data:any, columnKey:any) => {
+    const renderCell = React.useCallback((data:Livreur, columnKey:any) => {
       const cellValue = rows[columnKey];
 
       switch (columnKey) {
         case "nom":
           return (
           <div>
-            {data.nomComplet??'null'}
+            {data.nomComplet??'Nom du coursier definie'}
           </div>
           );
         case "progression":
@@ -149,19 +149,19 @@ const bird = [
         case "jours":
           return (
             <div>
-              {data.jour ? `${data.jour.jourNonTravaille}/7`:'null'}
+              {data.jour ? `${data.jour.jourNonTravaille}/7`:'Jour indefinie'}
             </div>
           );
           case "debut":
             return (
               <div>
-                {data.creneauVM?.debut??'null'}
+                {data.creneauVM?.debut??'creneauVM indefinie'}
               </div>
             );
           case "fin":
             return (
               <div>
-                {data.creneauVM?.fin??'null'}
+                {data.creneauVM?.fin??'creneauVM indefinie'}
               </div>
             );
   
@@ -172,11 +172,6 @@ const bird = [
 
 
     return (
-
-      //  <div>
-      //   TTTTT
-      //  </div>
-
       <Table aria-label="Example table with custom cells">
       <TableHeader columns={columns}>
         {(column) => (
@@ -185,9 +180,9 @@ const bird = [
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={initialData.livreurs}  emptyContent={<EmptyDataTable title="Aucun  Livreur" />}>
+      <TableBody items={initialData}  emptyContent={<EmptyDataTable title="Aucun  Livreur" />}>
         {(item) => (
-          <TableRow key={String(item)}>
+          <TableRow key={String(item.id)}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
