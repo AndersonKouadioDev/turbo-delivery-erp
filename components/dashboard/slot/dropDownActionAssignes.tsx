@@ -28,7 +28,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             <DropdownItem
               key="profile"
               href={`/delivery-men/profil/turboys-bird/${id}`}
-              description="Create a new file"
+              description="Voir Profile"
               startContent={<IconUser className={iconClasses} />}
             >
              Voir profile
@@ -42,39 +42,41 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             >
               Voir la position sur la carte
             </DropdownItem>
-              <DropdownItem
-                key="performance-details"
+              {/* <DropdownItem
+                key="creneau-details"
                 href={`/progression-details/${id}`}
                 description="Allows you to edit the file"
                 startContent={<IconUser className={iconClasses} />}
-            ></DropdownItem>
+            ></DropdownItem> */}
 
            <DropdownItem
               key="performance-details"
-              href={`/delivery-men/progression-details/${id}`}
-              description="Allows you to edit the file"
+              href={`/delivery-men/creneau-details/${id}`}
+              description="voir les details"
               startContent={<IconUser className={iconClasses} />}
             >
              Afficher les créneaux
             </DropdownItem>
-            <DropdownItem
+            {/* <DropdownItem
               key="performance"
               href="/delivery-men/progression/turboys-assignes"
               description="Allows you to edit the file"
               startContent={<IconUser className={iconClasses} />}
             >
              Afficher ses performances
-            </DropdownItem>
+            </DropdownItem> */}
           </DropdownSection>
           <DropdownSection >
-          <DropdownItem
+            
+          {/* <DropdownItem
               key="edit"
               href={`/turboys-assignes/${id}`}
               description="Allows you to edit the file"
               startContent={<IconUser className={iconClasses} />}
             >
              Modifier ses identifications
-            </DropdownItem>
+            </DropdownItem> */}
+
           <DropdownItem
               key="delete"
               className="text-danger"

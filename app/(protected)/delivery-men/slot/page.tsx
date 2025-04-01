@@ -1,6 +1,7 @@
 import { TurboysBird,TurboysNotSlot } from "@/types/slot"
 import Content from "./content"
 import { Metadata } from "next";
+import { getAllCreneauBird } from "@/src/creneau-livreur/creneau-livreur.action";
 
 const data1=[
     { 
@@ -145,16 +146,15 @@ const data1=[
   ]
   
   export const metadata: Metadata = {
-    title: "Liste des Turboys Bird ",
+    title: "Liste des Turboys Bird ", 
     description: "Liste Turboys Bird.",
   };
 
 
 export default async function Page(){
-    const TurboysBird :TurboysBird[] = data1
-    const TurboysNotSlot :TurboysNotSlot[] = data2
-
-
-    return <Content turboysBird={TurboysBird} turboysNotSlot={TurboysNotSlot}  />
+        const response = await getAllCreneauBird();
+        
+  
+    return <Content initialData={response} />
 
 }

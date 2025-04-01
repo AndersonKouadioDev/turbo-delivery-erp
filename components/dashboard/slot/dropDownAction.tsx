@@ -28,7 +28,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             <DropdownItem
               key="profile"
               href={`/${url}/${id}`}
-              description="Create a new file"
+              description="Voir Profile"
               startContent={<IconUser className={iconClasses} />}
             >
              Voir profile
@@ -44,22 +44,22 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             </DropdownItem>
             <DropdownItem
               key="performance-details"
-              href={`/delivery-men/progression-details/${id}`}
-              description="Allows you to edit the file"
+              href={`/delivery-men/creneau-details/${id}`}
+              description="voir les details"
               startContent={<IconUser className={iconClasses} />}
             >
              Afficher les créneaux
             </DropdownItem>
-            <DropdownItem
+            {/* <DropdownItem
               key="performance"
               href={`performance`}
               description="Allows you to edit the file"
               startContent={<IconUser className={iconClasses} />}
             >
              Afficher ses performances
-            </DropdownItem>
+            </DropdownItem> */}
           </DropdownSection>
-          <DropdownSection >
+          {/* <DropdownSection >
           <DropdownItem
               key="edit"
               href={`/turboys-assignes/${id}`}
@@ -77,7 +77,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             >
               Delete file
             </DropdownItem>
-          </DropdownSection>
+          </DropdownSection> */}
         </DropdownMenu>
       </Dropdown>
     );

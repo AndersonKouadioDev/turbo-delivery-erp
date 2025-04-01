@@ -47,14 +47,22 @@ export default function useContentHeaderPriceListDefined(initialData:Restaurant[
         async (_: any, data: _deliveryFeeUpdateSchema) => {
             setError(null);
             let result;
-          
-                // result = "deliverie create"
-                // result=data
-           result = await createDeliveryFee(data);
-            
-           router.refresh()
-           
+
+        
+            result = await createDeliveryFee(data);
+            if(result.status === 'success'){
+                
+            router.refresh()
+            toast.success(result.message || 'Bravo ! vous avez réussi');
             console.log(result);
+
+            } else{
+                setError(result.message ?? 'Une erreur est survenue');
+            }
+            return _;
+
+        
+            
 
             // if (selectedFee) {
             //     data = { ...data, id: selectedFee.id };
@@ -71,7 +79,7 @@ export default function useContentHeaderPriceListDefined(initialData:Restaurant[
             // } else {
             //     setError(result.message ?? 'Une erreur est survenue');
             // }
-            return _;
+           
         },
         {
             data: null,

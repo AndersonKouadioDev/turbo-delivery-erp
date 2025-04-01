@@ -59,7 +59,6 @@ export default function ViewTablePriceLiceDefined({ initialData }: Props) {
         } else {
           // Si search est vide, restaurer la liste initiale
           setDeliveryFees(initialDataPriceList);
-          console.log("search vide");
         }
       
       }, [search, textParam, initialDataPriceList]);
@@ -87,9 +86,6 @@ export default function ViewTablePriceLiceDefined({ initialData }: Props) {
         const data = await getPriceListByRestaurant(restaurantId, 0, 10);
         if(data)
         setInitialDataPriceList(data?.content);   
-        console.log(data);
-         
-
             
     };
 
@@ -134,7 +130,7 @@ export default function ViewTablePriceLiceDefined({ initialData }: Props) {
                 return (
                     <div className="relative flex items-center gap-2">
                         <Tooltip content="Edit user">
-                            <FormUpDate initialData={delieveryFee} restaurantId={selectedKey} />
+                            <FormUpDate initialData={delieveryFee} restaurantId={selectedKey} typeCm={typeCommission} />
                         </Tooltip>
                         <Tooltip color="danger" content="Delete user">
                        <PriceListeTools id={delieveryFee.id ||''} />
