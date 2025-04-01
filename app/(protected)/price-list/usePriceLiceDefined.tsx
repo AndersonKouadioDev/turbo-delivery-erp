@@ -107,7 +107,7 @@ export default function usePriceLiceDefined({ initialData }: Props) {
           return (
             <div className="relative flex items-center gap-2">
               <Tooltip content="Edit user">
-                <FormUpDate initialData={deliveryFee} restaurantId={selectedKey || ''} />
+                <FormUpDate typeCm={currentRestaurant?.typeCommission??""} initialData={deliveryFee} restaurantId={selectedKey || ''} />
               </Tooltip>
               <Tooltip color="danger" content="Delete user">
                 <PriceListeTools id={deliveryFee.id || ''} />
