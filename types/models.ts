@@ -263,6 +263,11 @@ export interface ChangerStatutLivreurCommande {
 
 }
 
+export interface ChangerRestaurantLivreurCommande {
+    livreurId: string;
+    restaurantId: string;
+}
+
 export enum StatutDemandeAssignationEnum {
     EN_ATTENTE = "EN_ATTENTE", VALIDE = "VALIDE", REJETER = "REJETER"
 }

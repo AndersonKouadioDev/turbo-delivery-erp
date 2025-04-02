@@ -81,8 +81,8 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
       onClose();
     } catch (error: any) {
       toast.error(error.message || "Une erreur s'est produite !");
-    }finally{
-        router.refresh();
+    } finally {
+      router.refresh();
     }
   };
 

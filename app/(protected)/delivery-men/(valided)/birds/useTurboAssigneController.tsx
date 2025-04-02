@@ -1,7 +1,7 @@
 'use client';
 
 import useConfirm from '@/components/commons/use-confirm-dialog';
-import { changerStatusLivreur, getToutLivreurStatusNonAssigners } from '@/src/actions/delivery-men.actions';
+import { changerStatusLivreur, getToutLivreurStatusNonAssigners, mettreLivreurEnAttente } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
@@ -87,11 +87,7 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
                 return false;
             }
             try {
-                const result = await changerStatusLivreur({
-                    livreurId: livreur?.livreurId ?? "",
-                    restaurantId: "",
-                    typeLivreur: typeLivreur
-                })
+                const result = await mettreLivreurEnAttente(livreur?.livreurId ?? "")
                 if (result.status === "success") {
                     toast.success(result.message);
                     router.refresh();
@@ -106,6 +102,7 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
         }
         confirm.openConfirmDialog(confirmAndSend);
     }
+
     return {
         data,
         searchKey,

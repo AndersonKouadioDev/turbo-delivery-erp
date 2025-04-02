@@ -27,7 +27,7 @@ export function SelectField(props: Props) {
     const handleChange = (event: any) => {
         const newValue = event.target.value;
         setSelectedValue(newValue);
-        const newLabel = props.options?.find(option => option.id === newValue)?.[props.label] ?? "";
+        const newLabel = props.options?.find(option => option.id === newValue)?.id ?? "";
         props.setSelectValue && props.setSelectValue(newLabel);
         props.setLivreur && props.setLivreur(props.livreur)
     };
