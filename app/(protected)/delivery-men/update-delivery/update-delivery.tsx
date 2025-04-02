@@ -24,11 +24,6 @@ export function UpdateDeliveryDialog({ restaurants, isOpen, onClose, livreur, ty
             </ModalHeader>
             <ModalBody>
               <div className="">
-                {/* <SelectField options={[
-                                    { label: "WAITING", id: "WAITING" },
-                                    { label: "TURBO", id: "TURBO" },
-                                    { label: "FREE ", id: "FREE " },
-                                ]} placeholder="Selectionnée un type" value={ctrl.typeLivreur} setValue={ctrl.setTypeLivreur} label="label" /> */}
                 <SelectField options={restaurants || []} value={ctrl.restaurantSelected} setValue={ctrl.setRestuarantSelect} label="nomEtablissement" placeholder="Selectionnée un restaurant" />
               </div>
             </ModalBody>
