@@ -33,6 +33,7 @@ export default function Content({ initialData, restaurants }: ContentProps) {
     livreur,
     validateBy,
   } = useContentCtx({ initialData, restaurants });
+  
   return (
     <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
       <SearchField searchKey={searchKey} onChange={setSearchKey} />

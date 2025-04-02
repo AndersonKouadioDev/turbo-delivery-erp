@@ -120,7 +120,6 @@ const nunito = Lato({
     variable: '--font-nunito',
 });
 
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <NextAuthSessionProvider >
