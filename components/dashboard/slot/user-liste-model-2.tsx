@@ -11,7 +11,7 @@ const UserListeModel2 = ({ turboy }:any) => {
           <p className="text-md">HeroUI</p>
         </div>
 
-        <DropDownAction id={turboy.id} url="delivery-men/profil/turboys-bird" />
+        <DropDownAction id={turboy.id}  />
       </CardHeader>
       <CardBody>
       <p className="w-1/2 text-sm text-gray-500">Inscrit le : {turboy.DateinscritLe}</p>

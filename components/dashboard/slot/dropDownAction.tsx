@@ -13,7 +13,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
   
 
 
-  export default function App({id,url}:{id:string,url:string}) {
+  export default function dropDownAction({id}:{id:string}) {
     const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
   
     return (
@@ -27,7 +27,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
           <DropdownSection showDivider title="Actions">
             <DropdownItem
               key="profile"
-              href={`/${url}/${id}`}
+              href={`/delivery-men/profil/${id}`}
               description="Voir Profile"
               startContent={<IconUser className={iconClasses} />}
             >

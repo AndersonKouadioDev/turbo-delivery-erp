@@ -1,30 +1,16 @@
 'use client'
 import RetourButton from "@/components/dashboard/retourButton";
+import { LivreurDetail } from "@/types/livreur";
 import { Button, Card, Input } from "@heroui/react";
 import { Select, SelectItem } from "@heroui/select";
 import { ArrowLeft, Edit } from "lucide-react";
 import Image from "next/image";
 
 
-export interface Turboys  {
-  id: string;
-  nom: string;
-  prenom: string;
-  dateNaissance: string;
-  telephone: string;
-  domicile: string;
-  email: string;
-  typeDocument: string;
-  numeroDocument: string;
-  type: string;
-  nomVehicule: string;
-  immatriculationVehicule: string;
-}
-
-export default function Content({user}:{user:Turboys}){
+export default function Content({user}:{user:LivreurDetail}){
    
     return (
-        <div className="py-6 px-4 lg:px-20 bg-gray-50 min-h-screen">
+        <Card className="py-6 px-4 lg:px-20 bgg-gray-50 min-h-screen">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
 
@@ -32,7 +18,7 @@ export default function Content({user}:{user:Turboys}){
              <div className="flex items-center">
              <RetourButton/>
                 <h1 className="text-xl font-bold text-red-500">
-                    {user.nom} {user.prenom}
+                    {user.nom} {user.prenoms}
                 </h1>
                 </div>
             </div>
@@ -41,7 +27,7 @@ export default function Content({user}:{user:Turboys}){
             </Button>
           </div>
     
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-10">
             <Card className="w-24 h-24 overflow-hidden rounded-md">
               <Image
                 src="/assets/images/illustrations/dashboard/profile.png"
@@ -53,15 +39,16 @@ export default function Content({user}:{user:Turboys}){
           </div>
     
           <form>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gap-x-16 mb-6 ">
+            
               <Input label="Nom" value={user.nom} readOnly />
-              <Input label="Prénom" value={user.prenom} readOnly />
-              <Input label="Date de naissance" value={user.dateNaissance} readOnly />
+              <Input label="Prénom" value={user.prenoms} readOnly />
+              <Input label="Date de naissance" value={user.birthDay} readOnly />
               <Input label="Téléphone" value={`+225 ${user.telephone}`} readOnly />
-              <Input label="Domicile" value={user.domicile} readOnly />
+              <Input label="Domicile" value={user.habitation} readOnly />
               <Input label="Email" value={user.email} readOnly />
     
-              <Select label="Document d'identité" value={user.typeDocument} disabled>
+              <Select label="Photo de la pièce" value={user.immatriculation} disabled>
                 <SelectItem key="CNI" value="Carte d'identité (CNI)">
                  {` Carte d'identité (CNI)`}
                 </SelectItem>
@@ -73,7 +60,7 @@ export default function Content({user}:{user:Turboys}){
                 </SelectItem>
               </Select>
     
-              <Input label="Numéro de la pièce" value={user.numeroDocument} readOnly />
+              <Input label="Numéro de la pièce" value={user.numeroCni} readOnly />
             </div>
     
             <div className="mb-6 flex space-x-4">
@@ -107,19 +94,19 @@ export default function Content({user}:{user:Turboys}){
                   Administrateur
                 </SelectItem>
               </Select>
-              <Input label="Nom du véhicule" value={user.nomVehicule} readOnly />
-              <Input label="Immatriculation" value={user.immatriculationVehicule} readOnly />
+              <Input label="Nom du véhicule"  readOnly />
+              <Input label="Immatriculation" value={user.immatriculation} readOnly />
               <Card className="w-full h-20 bg-gray-100 flex items-center justify-center rounded-md">
                 <span className="text-gray-400">Ajouter une photo</span>
               </Card>
             </div>
     
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <Button className="w-full py-3 bg-pink-400 text-white font-medium rounded-md hover:bg-pink-500 transition duration-200">
                 Enregistrer
               </Button>
-            </div>
+            </div> */}
           </form>
-        </div>
+        </Card>
       );
 }

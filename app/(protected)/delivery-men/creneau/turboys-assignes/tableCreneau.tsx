@@ -137,7 +137,7 @@ const bird = [
         case "nom":
           return (
           <div>
-            {data.nomComplet??'Nom du coursier definie'}
+            {data.nomComplet??'Nom du coursier non definie'}
           </div>
           );
         case "progression":
@@ -149,19 +149,19 @@ const bird = [
         case "jours":
           return (
             <div>
-              {data.jour ? `${data.jour.jourNonTravaille}/7`:'Jour indefinie'}
+              {data.jour ? `${data.jour.jourNonTravaille}/7`:'Jour non definie'}
             </div>
           );
           case "debut":
             return (
               <div>
-                {data.creneauVM?.debut??'creneauVM indefinie'}
+                {data.creneauVM?.debut??'creneauVM non definie'}
               </div>
             );
           case "fin":
             return (
               <div>
-                {data.creneauVM?.fin??'creneauVM indefinie'}
+                {data.creneauVM?.fin??'creneauVM non definie'}
               </div>
             );
   

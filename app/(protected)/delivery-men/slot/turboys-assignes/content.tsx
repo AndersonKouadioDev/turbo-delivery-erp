@@ -1,6 +1,5 @@
 'use client';
 import DropDownAction from '@/components/dashboard/slot/dropDownAction';
-import DropDownActionAssignes from '@/components/dashboard/slot/dropDownActionAssignes';
 import { Restaurant } from '@/types/creneau-turbo';
 import { TurboysAssignes, TurboysNotSlot } from '@/types/slot';
 import { Avatar } from '@heroui/react';
@@ -17,7 +16,6 @@ interface Props {
 export default function Content({ initialData }: Props) {
   const { data } = useContentCtx({ initialData });
 
-  console.log({data:data})
 
   // const restaurants = data?.content ?? [];
 
@@ -94,7 +92,7 @@ export default function Content({ initialData }: Props) {
                               {/* <span> {child.creneauVM.debut} - {child.creneauVM.fin}</span> */}
                             </div>
                             <div className="px-2">
-                              <DropDownActionAssignes id={child.id} />
+                              <DropDownAction id={child.id} />
                             </div>
                           </div>
                         );

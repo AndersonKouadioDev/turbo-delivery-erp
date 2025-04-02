@@ -6,6 +6,7 @@ import { ActionResult, PaginatedResponse } from '@/types';
 import { apiClientHttp } from '@/lib/api-client-http';
 import { Restaurant } from '@/types/creneau-turbo';
 import { Livreur } from '@/types/creneau-bird';
+import { CreneauID } from '@/types/creneau-byId';
 
 // Configuration
 const BASE_URL = '/api/erp/gestion-creneau';
@@ -31,6 +32,10 @@ const creneauEndpoints = {
     },
     getAllCreneauProgressionBird: {
         endpoint: `${BASE_URL}/bird/progression`,
+        method: 'GET',
+    },
+    getCreneauById: {
+        endpoint: (userId: string) => `${BASE_URL}/${userId}`,
         method: 'GET',
     },
 };
@@ -110,5 +115,20 @@ export async function getAllCreneauPerformanceBird(page: number = 0, size: numbe
 }
 
 
+
+export async function getCreneauById(userId: string):Promise<CreneauID[] | null> {
+  
+    try {
+        const data = await apiClientHttp.request<CreneauID[] | null>({
+            endpoint: creneauEndpoints.getCreneauById.endpoint(userId),
+            method: creneauEndpoints.getCreneauById.method,
+            service: 'backend',
+        });
+                
+        return data;
+    } catch (error: any) {
+        return null;
+    }
+}
 
 

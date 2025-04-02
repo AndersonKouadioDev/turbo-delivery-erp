@@ -27,7 +27,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
           <DropdownSection showDivider title="Actions">
             <DropdownItem
               key="profile"
-              href={`/delivery-men/profil/turboys-bird/${id}`}
+              href={`/delivery-men/profil/${id}`}
               description="Voir Profile"
               startContent={<IconUser className={iconClasses} />}
             >

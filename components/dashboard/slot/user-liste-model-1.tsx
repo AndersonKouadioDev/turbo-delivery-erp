@@ -34,7 +34,7 @@ const userListeModel1 = ({ turboy }: props) => {
           {/* {turboy.disponibilite == true ? <IconPointFilled color="#16B84E" size={30} /> : <IconPointFilled color="#FF0000" size={30} />} */}
         </div>
 
-        <DropDownAction id={turboy.id} url="delivery-men/profil/turboys-bird" />
+        <DropDownAction id={turboy.id} />
       </div>
     </div>
   );

@@ -8,6 +8,50 @@ interface props{
   initialData: PaginatedResponse<CreneauProgressionBird> | null
 }
 
+// const bird = [
+//   {
+//     id: "1a2b3c4d-1234-5678-9101-abcdefabcdef",
+//     nomComplet: "Jean Dupont",
+//     progression: 75,
+//     jour: {
+//       jourTravaille: 15,
+//       jourNonTravaille: 5
+//     },
+//     creneauVM: {
+//       debut: "2025-04-01",
+//       fin: "2025-04-15"
+//     }
+//   },
+//   {
+//     id: "1a2b3c1d-1234-5678-9101-abcdefabcdef",
+//     nomComplet: "Jean Dupont",
+//     progression: 65,
+//     jour: {
+//       jourTravaille: 5,
+//       jourNonTravaille: 2
+//     },
+//     creneauVM: {
+//       debut: "2025-04-11",
+//       fin: "2025-04-15"
+//     }
+//   },
+//   {
+//     id: "1a2b3c1d-1234-5678-9109-abcdefabcdef",
+//     nomComplet: "Jean Dupont",
+//     progression: 50,
+//     jour: {
+//       jourTravaille: 5,
+//       jourNonTravaille: 2
+//     },
+//     creneauVM: {
+//       debut: "2025-04-11",
+//       fin: "2025-04-16"
+//     }
+//   },
+  
+ 
+// ];
+
 export default function useContentCtx({initialData}:props){
 
     const searchParams = useSearchParams(); 
@@ -33,7 +77,7 @@ export default function useContentCtx({initialData}:props){
              console.log("search vide");
            }
          
-         }, [search, textParam, initialData]);
+         }, [search, textParam, initialData?.content]);
         
     
 

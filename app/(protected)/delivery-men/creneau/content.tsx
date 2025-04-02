@@ -15,8 +15,6 @@ export default function Content({initialData}:props){
 
 
     const {data}= useContentCtx({initialData})
-
-    console.log({dataaa:data});
     
    
     return (

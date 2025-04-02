@@ -16,7 +16,7 @@ export interface LivreurDetail{
     immatriculation: string,
     matricule: string,
     deleted: boolean,
-    type: StatusType,
+    type: string,
     cniUrlR: string,
     cniUrlV: string,
     status: number
