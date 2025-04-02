@@ -269,6 +269,7 @@ export async function changerStatusLivreur(commande: ChangerStatutLivreurCommand
 }
 
 export async function changerRestaurantLivreur(commande: ChangerRestaurantLivreurCommande): Promise<any> {
+    console.log("commande+++++++++++", commande)
     try {
         const data = await apiClientHttp.request<any>({
             endpoint: deliveryMenEndpoints.changerRestaurantLivreur.endpoint,
@@ -310,7 +311,6 @@ export async function getToutLivreurStatusNonAssigners(page: number, size: numbe
         });
         return data;
     } catch (error) {
-        console.log("error", error);
         return null;
     }
 }

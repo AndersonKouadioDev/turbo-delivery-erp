@@ -81,8 +81,8 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
       onClose();
     } catch (error: any) {
       toast.error(error.message || "Une erreur s'est produite !");
-    }finally{
-        router.refresh();
+    } finally {
+      router.refresh();
     }
   };
 
@@ -112,39 +112,10 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
     router.refresh();
   };
 
-<<<<<<< HEAD
-    const accortder = async (livreur: DemandeAssignationVM) => {
-        if (!livreur) {
-            toast.error("Une erreur s'est produite !")
-            return false;
-        }
-        confirm.setMessage("Êtes-vous sûr de vouloir accorder cette demande ? ")
-        const confirmAndAccorder = async () => {
-            try {
-                const result = await validerDemandeAssignations({
-                    demandeAssignationId: livreur?.id ?? "",
-                    restaurantId: "",
-                })
-                if (result.status === "success") {
-                    toast.success(result.message);
-                    router.refresh();
-                } else {
-                    toast.error(result.message);
-                }
-            } catch (error) {
-                toast.error("Une erreur s'est produite")
-            } finally {
-                confirm.setMessage("")
-            }
-        }
-        confirm.openConfirmDialog(confirmAndAccorder);
-
-=======
   const accortder = async (livreur: DemandeAssignationVM) => {
     if (!livreur) {
       toast.error("Une erreur s'est produite !");
       return false;
->>>>>>> d2363e8c6ba2161bb31f6860879045dde7ddcc01
     }
 
     confirm.setMessage('Êtes-vous sûr de vouloir accorder cette demande ? ');
