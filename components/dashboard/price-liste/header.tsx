@@ -1,3 +1,4 @@
+'use client';
 import { title } from '@/components/primitives';
 import { ArrowDownToLine, Plus, PlusCircle, Save, Search } from 'lucide-react';
 import { Popover, PopoverTrigger, PopoverContent, Button, Input, Card, CardHeader, Divider, CardBody, Select, SelectItem } from '@heroui/react';
@@ -11,7 +12,6 @@ import { SubmitButton } from '@/components/ui/form-ui/submit-button';
 import { Restaurant } from '@/types/models';
 import useContentHeaderPriceListDefined from '../../../app/(protected)/price-list/useContentHeaderPriceListDefined';
 import TextInputToUrl from './searchDelivery';
-import { Label } from 'recharts';
 
 type LatLng = {
   lat: number;
@@ -20,7 +20,7 @@ type LatLng = {
 export default function Header({ initialData }: { initialData: Restaurant[] | null }) {
   const [typeCommission, setTypeCommission] = useState<string>('Type non definie');
   const [id, setId] = useState<string>('');
-  const { createOrUpdateFee, } = useContentHeaderPriceListDefined(initialData, id);
+  const { createOrUpdateFee } = useContentHeaderPriceListDefined(initialData, id);
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
 
   const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
@@ -48,10 +48,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, []);
 
-  const handlerChangeDistance=()=>{
-    return resulFinalDistance
-  }
- 
+  const handlerChangeDistance = () => {
+    return resulFinalDistance;
+  };
+
   const {
     formState: { errors },
     watch,
@@ -62,7 +62,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   } = useForm<_deliveryFeeCreateSchema>({
     resolver: zodResolver(deliveryFeeCreateSchema),
     defaultValues: {
-      name:'',
+      name: '',
       restaurantId: '',
       zone: '',
       longitude: 0,
@@ -87,8 +87,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, [restaurantId]);
 
-
-
   const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
     setLoading(true);
     setValue('zone', suggestion.description, { shouldValidate: true });
@@ -99,10 +97,9 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
       // setInputCalculate()
       setValue('longitude', details.result.geometry?.location.lng ?? 0, { shouldValidate: true });
       setValue('latitude', details.result.geometry?.location.lat ?? 0, { shouldValidate: true });
-      setValue('distanceFin',resulFinalDistance?? 7 );
+      setValue('distanceFin', resulFinalDistance ?? 7);
 
-      console.log("distanceFin :"+resulFinalDistance);
-      
+      console.log('distanceFin :' + resulFinalDistance);
 
       let longitude = getValues('longitude');
       let latitude = getValues('latitude');
@@ -113,7 +110,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
         lat: latitude,
         lng: longitude,
       });
-      
+
       setResulFinaleDistance(calculateDistanceR);
     } catch (error) {
       console.error('Error fetching place details:', error);
@@ -167,27 +164,26 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                         }}
                         className="flex flex-col gap-4"
                       >
-                       
-                       <Controller
+                        <Controller
                           control={control}
                           name="name"
                           render={({ field }) => (
                             <div>
-                                <Input
-                              {...field}
-                              value={field.value.toString() ?? ''}
-                              type="text"
-                              label="name"
-                              variant="bordered"
-                              isRequired
-                              required
-                              aria-invalid={errors.distanceFin ? 'true' : 'false'}
-                              aria-label="name input"
-                              errorMessage={errors.distanceFin?.message ?? ''}
-                              isInvalid={!!errors.distanceFin}
-                              name="name"
-                              radius="sm"
-                            />
+                              <Input
+                                {...field}
+                                value={field.value.toString() ?? ''}
+                                type="text"
+                                label="name"
+                                variant="bordered"
+                                isRequired
+                                required
+                                aria-invalid={errors.distanceFin ? 'true' : 'false'}
+                                aria-label="name input"
+                                errorMessage={errors.distanceFin?.message ?? ''}
+                                isInvalid={!!errors.distanceFin}
+                                name="name"
+                                radius="sm"
+                              />
                             </div>
                           )}
                         />

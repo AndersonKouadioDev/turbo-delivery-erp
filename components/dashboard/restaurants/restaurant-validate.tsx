@@ -8,7 +8,7 @@ import React, { Fragment } from 'react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { validateRestaurant } from '@/src/actions/restaurants.actions';
+import { validateRestaurant } from '@/src/restaurants/restaurants.actions';
 
 const RestaurantValidate = ({
     restaurant,

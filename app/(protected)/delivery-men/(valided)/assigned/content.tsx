@@ -19,7 +19,7 @@ interface Props {
 }
 export default function Content({ initialData, restaurants }: Props) {
     const livreurAssigneCtrl = useTurboAssigneController(initialData, restaurants);
-    console.log("livreurAssigneCtrl", livreurAssigneCtrl.livreur)
+    console.log("initialData", initialData)
     return (
         <div className="container mx-auto p-6 pt-0 flex-wrap">
             <SearchField searchKey={livreurAssigneCtrl.searchKey} onChange={livreurAssigneCtrl.setSearchKey} />
@@ -50,14 +50,14 @@ export default function Content({ initialData, restaurants }: Props) {
                                                             selectValue={item.restaurantLibelle}
                                                             livreur={item}
                                                             setLivreur={livreurAssigneCtrl.setLivreur}
-                                                            setSelectValue={livreurAssigneCtrl.setSelectValue} label={'nomEtablissement'} />
+                                                            setSelectValue={livreurAssigneCtrl.setRestaurantSelected} label={'nomEtablissement'} />
                                                     </td>
                                                     <td className="px-6 py-4 flex gap-4 items-center">
                                                         {
                                                             (livreurAssigneCtrl.livreur?.livreurId &&
-                                                                livreurAssigneCtrl.selectValue !== item.restaurantLibelle &&
+                                                                livreurAssigneCtrl.restaurantSelected !== item.restaurantLibelle &&
                                                                 livreurAssigneCtrl.livreur.livreurId === item.livreurId) ? (
-                                                                <Button variant={'destructive'} className="h-8" onClick={() => livreurAssigneCtrl.onConfirmStatut(item, item.type)}>
+                                                                <Button variant={'destructive'} className="h-8" onClick={() => livreurAssigneCtrl.changerRestaurantLivreurs(item)}>
                                                                     <span className="flex items-center gap-2">
                                                                         <Save size={18} />
                                                                         Engregistrer
@@ -79,7 +79,7 @@ export default function Content({ initialData, restaurants }: Props) {
                                                             <PencilIcon className="h-5 w-5 " />
                                                         </span>
                                                         <span className="text-white p-1 bg-gray-400   rounded-full hover:bg-red-500 cursor-pointer"
-                                                            onClick={() => livreurAssigneCtrl.supprimerLivreur(item, TypeEnum.WAITING)}>
+                                                            onClick={() => livreurAssigneCtrl.supprimerLivreur(item)}>
                                                             <XIcon className=" h-5 w-5" />
                                                         </span>
                                                     </td>

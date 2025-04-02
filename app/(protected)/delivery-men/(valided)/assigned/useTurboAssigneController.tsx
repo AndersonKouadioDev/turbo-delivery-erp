@@ -1,7 +1,7 @@
 'use client';
 
 import useConfirm from '@/components/commons/use-confirm-dialog';
-import { changerStatusLivreur, getToutLivreurStatusAssigners, mettreLivreurEnAttente } from '@/src/actions/delivery-men.actions';
+import { changerRestaurantLivreur, changerStatusLivreur, getToutLivreurStatusAssigners, mettreLivreurEnAttente } from '@/src/actions/delivery-men.actions';
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
@@ -13,7 +13,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
     const router = useRouter();
     const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
     const confirm = useConfirm()
-    const [selectValue, setSelectValue] = useState('');
+    const [restaurantSelected, setRestaurantSelected] = useState('');
     const [searchKey, setSearchKey] = useState('');
     const [livreur, setLivreur] = useState<LivreurStatutVM | undefined>({})
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -69,6 +69,34 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         confirm.openConfirmDialog(confirmAndSend);
     }
 
+    console.log("restaurantSelected", restaurantSelected)
+
+    const changerRestaurantLivreurs = async (livreur: LivreurStatutVM) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir changer le restaurant de ce livreur ?")
+        const confirmAndSend = async () => {
+            if (!restaurantSelected) {
+                toast.error("Veuillez choisir un restaurant")
+                return false;
+            }
+            try {
+                const result = await changerRestaurantLivreur({
+                    livreurId: livreur?.livreurId ?? "",
+                    restaurantId: restaurantSelected,
+                })
+                if (result.status === "success") {
+                    toast.success(result.message);
+                    setUpdateLivreurId("")
+                    router.refresh();
+                } else {
+                    toast.error(result.message);
+                }
+            } catch (error) {
+                toast.error("Une erreur s'est produite")
+            }
+        }
+        confirm.openConfirmDialog(confirmAndSend);
+    }
+
     const fetchData = async (page: number) => {
         setCurrentPage(page);
         setIsLoading(true);
@@ -108,8 +136,8 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
 
     return {
         data,
-        selectValue,
-        setSelectValue,
+        restaurantSelected,
+        setRestaurantSelected,
         initialData,
         modifier,
         setSearchKey,
@@ -128,6 +156,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         updateLivreurId,
         setUpdateLivreurId,
         setLivreur,
-        supprimerLivreur
+        supprimerLivreur,
+        changerRestaurantLivreurs
     };
 }

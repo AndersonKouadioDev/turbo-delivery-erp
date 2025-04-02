@@ -2,7 +2,7 @@
 
 import { ActionResult, PaginatedResponse } from '@/types';
 
-import { ChangerStatutLivreurCommande, DeliveryMan, DemandeAssignationVM, LivreurDisponible, LivreurStatutVM, Restaurant, ValiderDemandeAssignationCommande } from '@/types/models';
+import { ChangerRestaurantLivreurCommande, ChangerStatutLivreurCommande, DeliveryMan, DemandeAssignationVM, LivreurDisponible, LivreurStatutVM, Restaurant, ValiderDemandeAssignationCommande } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
@@ -21,6 +21,7 @@ const deliveryMenEndpoints = {
     getAllDeliveryMan: { endpoint: `${BASE_URL}/livreur/infos`, method: 'GET' },
     getDeliveryDetail: { endpoint: (id: string) => `${BASE_URL}/livreur/info/${id}`, method: 'GET' },
     mettreLivreurEnAttente: { endpoint: (id: string) => `${BASE_URL}/statut/${id}/mettre-attente`, method: 'GET' },
+    changerRestaurantLivreur: { endpoint: `${BASE_URL}/livreur/statut/changer-restaurant `, method: 'PUT' },
 
 
     //Demande d'assignation
@@ -100,7 +101,6 @@ export async function getDeliveryMenNoValidated(page: number = 0, size: number =
 }
 
 export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops' | 'no-body'): Promise<ActionResult<DeliveryMan>> {
-    console.log("test++++++++++++++++++++++++", id)
     if (validateBy == 'auth') {
         try {
             const data = await apiClientHttp.request<DeliveryMan>({
@@ -114,7 +114,6 @@ export async function validateDeliveryMan(id: string, validateBy: 'auth' | 'ops'
                 data: data,
             };
         } catch (error: any) {
-            console.log("error+++++++++++++++++++++++++++", error)
             return {
                 status: 'error',
                 message: error.message || "Erreur lors de l'activation du livreur",
@@ -263,6 +262,35 @@ export async function changerStatusLivreur(commande: ChangerStatutLivreurCommand
             return {
                 status: 'error',
                 message: error.message || 'Erreur lors du changement de statut du livreur'
+            }
+        }
+
+    }
+}
+
+export async function changerRestaurantLivreur(commande: ChangerRestaurantLivreurCommande): Promise<any> {
+    try {
+        const data = await apiClientHttp.request<any>({
+            endpoint: deliveryMenEndpoints.changerRestaurantLivreur.endpoint,
+            method: deliveryMenEndpoints.changerRestaurantLivreur.method,
+            service: 'backend',
+            data: commande
+        });
+        return {
+            status: 'success',
+            message: 'Le restaurant du livreur a été changeé  avec succès',
+            data: data,
+        };
+    } catch (error: any) {
+        if (error.response && error.response?.data.message) {
+            return {
+                status: 'error',
+                message: error.response?.data.message || "Une erreur s'est produite lors du changer du restaurant du livreur"
+            }
+        } else {
+            return {
+                status: 'error',
+                message: error.message || 'Erreur lors du changement du restaurant du livreur'
             }
         }
 

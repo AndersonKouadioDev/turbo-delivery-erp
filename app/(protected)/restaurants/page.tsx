@@ -1,6 +1,6 @@
-import { getRestaurants } from '@/src/actions/restaurants.actions';
 import { Metadata } from 'next';
 import Content from './content';
+import { getRestaurants } from '@/src/restaurants/restaurants.actions';
 
 export const metadata: Metadata = {
     title: 'Restaurants',

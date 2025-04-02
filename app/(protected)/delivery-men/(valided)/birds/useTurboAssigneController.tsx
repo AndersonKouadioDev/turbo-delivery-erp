@@ -102,6 +102,7 @@ export function useTurboysBirdController(initialData: PaginatedResponse<LivreurS
         }
         confirm.openConfirmDialog(confirmAndSend);
     }
+
     return {
         data,
         searchKey,

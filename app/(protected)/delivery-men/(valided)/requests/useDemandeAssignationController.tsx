@@ -135,8 +135,8 @@ export function useDemandeAssignationController(demandeAssignations: DemandeAssi
             } finally {
                 confirm.setMessage("")
             }
-            confirm.openConfirmDialog(confirmAndAccorder);
         }
+        confirm.openConfirmDialog(confirmAndAccorder);
 
     }
 
