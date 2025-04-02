@@ -10,7 +10,7 @@ import FormUpDate from '../../../components/dashboard/price-liste/FormUpDate';
 import PriceListeTools from '@/components/dashboard/price-liste/price-list-tools';
 import { useRouter } from 'next/navigation';
 import { Restaurant } from '@/types/models';
-import { getDetailRestaurant } from '@/src/actions/restaurants.actions';
+import { getDetailRestaurant } from '@/src/restaurants/restaurants.actions';
 
 interface Props {
     initialData: RestaurantDefini[];
