@@ -15,15 +15,15 @@ export default function SlotLayout({ children }: { children: React.ReactNode }) 
         href: string;
         label: string;
     }[] = [
-        { id: '/delivery-men/creneau', href: '/delivery-men/creneau', label: 'Flotte performance de Turboys Bird' },
-        { id: '/delivery-men/creneau/turboys-assignes', href: '/delivery-men/creneau/turboys-assignes', label: 'Flotte performance de Turboys Assignés' },
+        { id: '/delivery-men/creneau-progression', href: '/delivery-men/creneau-progression', label: 'Flotte performance de Turboys Bird' },
+        { id: '/delivery-men/creneau-progression/turboys-assignes', href: '/delivery-men/creneau-progression/turboys-assignes', label: 'Flotte performance de Turboys Assignés' },
     ];
     
     return (
         <div>
             <HeaderCreneau/>
             {/* <HeaderList initialData={initialData}/> */}
-            <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/delivery-men/creneau'?'/delivery-men/creneau':pathname == '/delivery-men/creneau/turboys-assignes'?'/delivery-men/creneau/turboys-assignes':''} className="w-full">
+            <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/delivery-men/creneau-progression'?'/delivery-men/creneau-progression':pathname == '/delivery-men/creneau-progression/turboys-assignes'?'/delivery-men/creneau-progression/turboys-assignes':''} className="w-full">
             {(item) => {
                 return (
                     <Tab key={item.id} as={Link} href={item.href} title={item.label}>

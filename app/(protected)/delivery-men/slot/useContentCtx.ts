@@ -12,7 +12,7 @@ interface props{
 
 const dataa:Livreur[] = [
     {
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "id": "a30580e5-8ca4-4613-9aaa-c7ecfb5e5a7e",
       "nomComplet": "Alice Dupont",
       "dateInscrit": "2025-03-31",
       "dateDefiniEmploiTemps": "2025-03-31",
@@ -253,7 +253,7 @@ export default function useContentCtx({initialData}:props){
              setData(initialData?.content||[]);
            }
          
-         }, [search, textParam, initialData?.content]);
+         }, [search, textParam, initialData]);
         
     
 

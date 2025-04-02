@@ -1,6 +1,7 @@
 'use client'
 import RetourButton from "@/components/dashboard/retourButton";
 import { LivreurDetail } from "@/types/livreur";
+import createUrlFile from "@/utils/createUrlFile";
 import { Button, Card, Input } from "@heroui/react";
 import { Select, SelectItem } from "@heroui/select";
 import { ArrowLeft, Edit } from "lucide-react";
@@ -30,7 +31,7 @@ export default function Content({user}:{user:LivreurDetail}){
           <div className="flex justify-center mb-10">
             <Card className="w-24 h-24 overflow-hidden rounded-md">
               <Image
-                src="/assets/images/illustrations/dashboard/profile.png"
+                src={createUrlFile(user?.avatarUrl ?? '', "backend")}
                 alt="Photo de profil"
                 layout="fill"
                 objectFit="cover"
@@ -66,7 +67,7 @@ export default function Content({user}:{user:LivreurDetail}){
             <div className="mb-6 flex space-x-4">
               <Card className="w-32 h-20 overflow-hidden">
                 <Image
-                  src="/assets/images/illustrations/dashboard/devant.png"
+                  src={createUrlFile(user?.cniUrlR ?? '', "backend")}
                   alt="Recto"
                   layout="fill"
                   objectFit="cover"
@@ -74,7 +75,7 @@ export default function Content({user}:{user:LivreurDetail}){
               </Card>
               <Card className="w-32 h-20 overflow-hidden">
                 <Image
-                  src="/assets/images/illustrations/dashboard/deriere.png"
+                  src={createUrlFile(user?.cniUrlV ?? '', "backend")}
                   alt="Verso"
                   layout="fill"
                   objectFit="cover"

@@ -68,35 +68,61 @@ const CreneauxDetail = ({ dataCreneau }: { dataCreneau: CreneauID[] | null }) =>
   } else {
     return (
       <div className="gap-2 gap-x-5 grid grid-cols-2 sm:grid-cols-3 mt-24">
+    
         <div className="flex flex-col gap-4">
-          <p className="text-red-500">Plan mensuel -19 au 20 mars</p>
-          <div>Créneaux du : 19-25 février</div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <p className="text-red-500">Plan mensuel -19 au 20 mars</p>
-          <div>Créneaux du : 19-25 février</div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Skeleton className="w-3/5 rounded-lg" >
+        <p className='text-red-500 text-lg'>Aucun creneau trouvé</p>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
             <div className="h-3 w-full rounded-lg bg-secondary" />
           </Skeleton>
-          {/* <p className="text-red-500">Plan mensuel -19 au 20 mars</p>
-          <div>Créneaux du : 19-25 février</div> */}
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
         </div>
+
+        <div className="flex flex-col gap-4">
+        <p className='text-red-500 text-lg'>Aucun creneau trouvé</p>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+        </div>
+
+        <div className="flex flex-col gap-4">
+        <p className='text-red-500 text-lg'>Aucun creneau trouvé</p>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+          <Skeleton className=" bg-slate-200 rounded-xl  py-2 px-2" >
+            <div className="h-3 w-full rounded-lg bg-secondary" />
+          </Skeleton>
+        </div>
+   
+   
+
       </div>
     );
   }
 
-  // if (dataCreneau?.length==0&&dataCreneau==null) {
-  //   return (
-  //     <div className="flex flex-col gap-4">
-  //       <p className="text-red-500">Plan mensuel -19 au 20 mars</p>
-  //       <div>Créneaux du : 19-25 février</div>
-  //     </div>
-  //   );
-  // }
 };
 
 export default CreneauxDetail;

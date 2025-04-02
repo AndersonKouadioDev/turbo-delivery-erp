@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import { Card } from '@heroui/react';
 import { LivreurDetail } from '@/types/livreur';
+import createUrlFile from '@/utils/createUrlFile';
 
 const User = ({user}:{user:LivreurDetail}) => {
   const imgFictive="/assets/images/illustrations/dashboard/profile.png"
@@ -9,7 +10,7 @@ const User = ({user}:{user:LivreurDetail}) => {
     <div className="flex gap-4  mb-6 ">
       <Card className="w-24 h-24 overflow-hidden rounded-md">
         
-        <Image src={imgFictive} alt="Photo de profil" layout="fill" objectFit="cover" />
+        <Image src= {createUrlFile(user?.avatarUrl ?? '', "backend")} alt="Photo de profil" layout="fill" objectFit="cover" />
       </Card>
       <div className="flex justify-between  flex-grow">
         <div className="w-1/3 flex flex-col gap-2  border-r px-6 border-black">
@@ -19,11 +20,11 @@ const User = ({user}:{user:LivreurDetail}) => {
           </div>
           <div className=" flex justify-between">
             <span>Id</span>
-            <span className=' max-w-[150px] overflow-x-auto text-nowrap'>{user.id}</span>
+            <span className=' max-w-[120px] overflow-x-auto text-nowrap'>{user.id}</span>
           </div>
           <div className="flex justify-between">
             <span>Inscription</span>
-            <span>{user.birthDay}</span>
+            <span className=' max-w-[120px] overflow-x-auto text-nowrap'>{user.birthDay}</span>
           </div>
           <div className=" flex justify-between">
             <span>Debut du créneau</span>
@@ -48,7 +49,7 @@ const User = ({user}:{user:LivreurDetail}) => {
 
           <div className=" flex justify-between">
             <span>immatriculation</span>
-            <span>{user.immatriculation}</span>
+            <span className='max-w-[120px] overflow-x-auto text-nowrap'>{user.immatriculation}</span>
           </div>
         </div>
 
@@ -59,7 +60,7 @@ const User = ({user}:{user:LivreurDetail}) => {
           </div>
           <div className=" flex justify-between">
             <span>E-mail</span>
-            <span>{user.email}</span>
+            <span className=' max-w-[200px] overflow-x-auto text-nowrap'>{user.email}</span>
           </div>
           <div className=" flex justify-between">
             <span>...</span>
@@ -67,7 +68,7 @@ const User = ({user}:{user:LivreurDetail}) => {
           </div>
           <div className=" flex justify-between">
             <span>Adresse</span>
-            <span>{user.habitation}</span>
+            <span className=' max-w-[120px] overflow-x-auto text-nowrap'>{user.habitation}</span>
           </div>
         </div>
       </div>

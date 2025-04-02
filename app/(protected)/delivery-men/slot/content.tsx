@@ -8,7 +8,9 @@ import { TurboysBird, TurboysNotSlot } from "@/types/slot";
 import { Avatar } from "@heroui/react";
 import useContentCtx from "./useContentCtx";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { IconLayoutGrid, IconListCheck } from "@tabler/icons-react";
+// import UserListNoCreneau from "@/components/dashboard/slot/bird/user-list-no-creneau";
 
 
 interface Props {
@@ -19,6 +21,8 @@ interface Props {
 export default function Content({initialData}:Props){
  
   const {data}=useContentCtx({initialData})
+      const [value, setValue] = useState<'list' | 'grid'>('list');
+  
 
   const dataNotCreneau = data.filter(livreur =>
     !livreur.disponibiliteCreneau ||
@@ -38,20 +42,41 @@ export default function Content({initialData}:Props){
 
    const style1 = 'bg-white flex flex-col gap-1 rounded-lg  overflow-x-auto'
 
-   const style2 = 'gap-2 grid grid-cols-2 sm:grid-cols-4'
+   const style2 = ' grid gap-6 md:grid-cols-2 lg:grid-cols-3'
 
    
     return (
         <div className="p-4 bbg-gray-100 min-h-screen">
         
         {/* Turboys avec créneaux */}
-        <div className="mb-6 bg">
+        <div className="mb-6 bg ">
+          <div className="flex gap-60 pb-10">
           <h2 className="text-lg font-semibold mb-2">Turboys ayant des créneaux</h2>
-          <div className={`${style1}`}>
-            {dataCreneau.map((turboy) => (
-              // <UserListeModel2 turboy={turboy}/>
-            <UserListeModel1 turboy={turboy}/>
-            ))}
+
+              <div className="flex gap-2">
+                <div>
+                    <button type="button" className={`btn btn-outline-primary p-2 ${value === 'list' && 'bg-primary text-white'}`} onClick={() => setValue('list')}>
+                        <IconListCheck />
+                    </button>
+                </div>
+                <div>
+                    <button type="button" className={`btn btn-outline-primary p-2 ${value === 'grid' && 'bg-primary text-white'}`} onClick={() => setValue('grid')}>
+                        <IconLayoutGrid />
+                    </button>
+                </div>
+              </div>
+          </div>
+
+        
+          <div className={`${value === 'list' && style1}${value === 'grid' && style2}`}>
+            {dataCreneau.map((turboy) =>{ 
+              if(value=='list')  return  <UserListeModel1 turboy={turboy}/>
+              if(value=='grid')  return <UserListeModel2 turboy={turboy}/>
+
+
+                // {value=='grid'  return <UserListeModel2 turboy={turboy}/> }
+}
+            )}
           </div>
         </div>
         
@@ -61,6 +86,7 @@ export default function Content({initialData}:Props){
           <h2 className="text-lg font-semibold mb-2">Turboys sans créneaux</h2>
           <div className="bg-white rounded-lg shadow overflow-hidden">
             {dataNotCreneau.map((turboy) => (
+              // <UserListNoCreneau turboy={turboy}/>
               <div key={turboy.id} className="border-b border-gray-200 last:border-0">
                 <div className="flex items-center justify-between p-4">
                   <div className="flex items-center">

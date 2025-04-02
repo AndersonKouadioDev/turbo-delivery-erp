@@ -44,7 +44,7 @@ import { IconMap, IconUser } from "@tabler/icons-react";
             </DropdownItem>
             <DropdownItem
               key="performance-details"
-              href={`/delivery-men/creneau-details/${id}`}
+              href={`/delivery-men/creneau-progressionById/${id}`}
               description="voir les details"
               startContent={<IconUser className={iconClasses} />}
             >

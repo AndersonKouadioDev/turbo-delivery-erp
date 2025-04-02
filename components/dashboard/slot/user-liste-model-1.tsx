@@ -23,12 +23,13 @@ const userListeModel1 = ({ turboy }: props) => {
       <div className="mr-8 flex-1 flex justify-between items-center">
         <p className="text-sm text-gray-500 mr-3">Défini le : {turboy.dateDefiniEmploiTemps}</p>
 
-        <div className="relative flex ">
+        <div className="relative flex gap-2">
           {/* <span className='absolutee'>creneau du 12-27 fev(5/7)</span> */}
           {progresseBare(turboy)}
-          <span className="flex items-end mt-6">
+          <span className="relative flex  items-end mt-6">
             {turboy.disponibilite?<IconPointFilled color="#16B84E" size={30} />:<IconPointFilled color="#FF0000" size={30} />}
-            
+            {turboy.disponibilite?<span className="absolute -top-[3px] inline-flex h-full w-full animate-ping duration-3000 rounded-full bg-success/50 opacity-75 ltr:-left-[3px] rtl:-right-[3px]"></span>:''}
+
           </span>
 
           {/* {turboy.disponibilite == true ? <IconPointFilled color="#16B84E" size={30} /> : <IconPointFilled color="#FF0000" size={30} />} */}

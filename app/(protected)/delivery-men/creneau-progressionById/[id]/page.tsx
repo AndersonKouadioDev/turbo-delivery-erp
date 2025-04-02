@@ -46,7 +46,7 @@ const userDetail: LivreurDetail = {
 
   const dataCreneau: CreneauID[] = [
     {
-      id: "1a2b3c4d-1234-5678-9101-112131415161",
+      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       debut: "2025-04-01",
       fin: "2025-05-01",
       semainePassee: true
@@ -133,5 +133,5 @@ export default async function UserPage({ params }: TurboysPageProps) {
 
   console.log({u:user});
   
-  return <Content user={userDetail} dataCreneau={dataCreneau}/>;
+  return <Content user={user} dataCreneau={dataCreneau}/>;
 }

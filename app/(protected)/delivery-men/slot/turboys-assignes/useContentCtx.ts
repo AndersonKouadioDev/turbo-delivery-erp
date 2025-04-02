@@ -12,7 +12,7 @@ interface props{
 
 const dataa:Restaurant[] = [
     { 
-      nombreLivreur: 1,
+      nombreLivreur: 4,
       nomRestaurant: "Restaurant Bom Gout",
       livreurs: [
         {
@@ -48,7 +48,7 @@ const dataa:Restaurant[] = [
           },
           creneauIndisponible: "2025-04-04",
           dateNonDefini: "2025-04-05",
-          disponibilite: false,
+          disponibilite: true,
           disponibiliteCreneau: true
         },
         {
@@ -91,7 +91,7 @@ const dataa:Restaurant[] = [
       ]
     },
     { 
-      nombreLivreur: 2,
+      nombreLivreur: 4,
       nomRestaurant: "Restaurant Marcory",
       livreurs: [
         {
@@ -196,7 +196,7 @@ export default function useContentCtx({initialData}:props){
              setData(initialData?.content||[]);
            }
          
-         }, [search, textParam, initialData?.content]);
+         }, [search, textParam, initialData]);
         
     
 
