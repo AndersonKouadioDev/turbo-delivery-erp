@@ -1,65 +1,107 @@
+'use client'
 import DropDownAction from "@/components/dashboard/slot/dropDownAction";
+import UserListeModel1 from "@/components/dashboard/slot/user-liste-model-1";
+import UserListeModel2 from "@/components/dashboard/slot/user-liste-model-2";
+import { PaginatedResponse } from "@/types";
+import { Livreur } from "@/types/creneau-bird";
 import { TurboysBird, TurboysNotSlot } from "@/types/slot";
 import { Avatar } from "@heroui/react";
+import useContentCtx from "./useContentCtx";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { IconLayoutGrid, IconListCheck } from "@tabler/icons-react";
+// import UserListNoCreneau from "@/components/dashboard/slot/bird/user-list-no-creneau";
 
 
 interface Props {
-    turboysBird: TurboysBird[],
-    turboysNotSlot: TurboysNotSlot[];
+      initialData:PaginatedResponse<Livreur> | null;
+    
 }
 
-export default function Content({turboysBird,turboysNotSlot}:Props){
+export default function Content({initialData}:Props){
+ 
+  const {data}=useContentCtx({initialData})
+      const [value, setValue] = useState<'list' | 'grid'>('list');
+  
 
+  const dataNotCreneau = data.filter(livreur =>
+    !livreur.disponibiliteCreneau ||
+    !livreur.creneauVM ||
+    !livreur.creneauVM.debut ||
+    !livreur.creneauVM.fin
+  );
+  const dataCreneau =  data.filter(livreur =>
+    livreur.disponibiliteCreneau &&
+    livreur.creneauVM &&
+    livreur.creneauVM.debut &&
+    livreur.creneauVM.fin
+  );
+  
+  // const restaurants = data?.content ?? [];
+
+
+   const style1 = 'bg-white flex flex-col gap-1 rounded-lg  overflow-x-auto'
+
+   const style2 = ' grid gap-6 md:grid-cols-2 lg:grid-cols-3'
+
+   
     return (
         <div className="p-4 bbg-gray-100 min-h-screen">
         
         {/* Turboys avec créneaux */}
-        <div className="mb-6 bg">
+        <div className="mb-6 bg ">
+          <div className="flex gap-60 pb-10">
           <h2 className="text-lg font-semibold mb-2">Turboys ayant des créneaux</h2>
-          <div className="bg-white flex flex-col gap-1 rounded-lg  overflow-hidden">
-            {turboysBird.map((turboy) => (
-              <div key={turboy.id} className=" w-full flex items-center border-2 rounded-2xl">
-                 <div className="py-2 px-4 flex-1 flex gap-2 items-center  rounded-lg">
-                    <div className="flex items-center w-1/2"> 
-                    {/* <Avatar isBordered radius="full" size="md" src={undefinedRestaurant.logo_Url} /> */}
-                    <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
-                    <p className="font-semibold">{turboy.nom} {turboy.nom}</p>
-                    </div>
-                    <p className="w-1/2 text-sm text-gray-500">Inscrit le : {turboy.DateinscritLe}</p>
-                 </div>
 
-                 <div className="flex-1 flex items-center">
-                 <p className="text-sm text-gray-500 mr-3">Défini le : {turboy.definiLe}</p>
-                 <span className="bg-orange-500 text-white px-2 py-1 rounded text-sm mr-3">
-                      {turboy.creneau}
-                    </span>
-                    <DropDownAction id={turboy.id} url="delivery-men/profil/turboys-bird"/>
-                 </div>
+              <div className="flex gap-2">
+                <div>
+                    <button type="button" className={`btn btn-outline-primary p-2 ${value === 'list' && 'bg-primary text-white'}`} onClick={() => setValue('list')}>
+                        <IconListCheck />
+                    </button>
+                </div>
+                <div>
+                    <button type="button" className={`btn btn-outline-primary p-2 ${value === 'grid' && 'bg-primary text-white'}`} onClick={() => setValue('grid')}>
+                        <IconLayoutGrid />
+                    </button>
+                </div>
               </div>
-            ))}
+          </div>
+
+        
+          <div className={`${value === 'list' && style1}${value === 'grid' && style2}`}>
+            {dataCreneau.map((turboy) =>{ 
+              if(value=='list')  return  <UserListeModel1 turboy={turboy}/>
+              if(value=='grid')  return <UserListeModel2 turboy={turboy}/>
+
+
+                // {value=='grid'  return <UserListeModel2 turboy={turboy}/> }
+}
+            )}
           </div>
         </div>
         
         {/* Turboys sans créneaux */}
+
         <div>
           <h2 className="text-lg font-semibold mb-2">Turboys sans créneaux</h2>
           <div className="bg-white rounded-lg shadow overflow-hidden">
-            {turboysNotSlot.map((turboy) => (
+            {dataNotCreneau.map((turboy) => (
+              // <UserListNoCreneau turboy={turboy}/>
               <div key={turboy.id} className="border-b border-gray-200 last:border-0">
                 <div className="flex items-center justify-between p-4">
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
                     <div>
-                      <p className="font-semibold">{turboy.nom}</p>
-                      <p className="text-sm text-gray-500">Inscrit le : {turboy.inscritLe}</p>
+                      <p className="font-semibold">{turboy.nomComplet}</p>
+                      <p className="text-sm text-gray-500">Inscrit le : {turboy.dateInscrit}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center">
-                    <p className="text-sm text-gray-500 mr-3">Créé le : {turboy.creeLe}</p>
-                    <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded text-sm mr-3">
-                      {turboy.statut}
-                    </span>
+                    <p className="text-sm text-gray-500 mr-3">Créé le : {turboy.dateNonDefini}</p>
+                    {/* <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded text-sm mr-3">
+                      {turboy.}
+                    </span> */}
                     
                     <div className="relative">
                       {/* <button 
@@ -89,6 +131,7 @@ export default function Content({turboysBird,turboysNotSlot}:Props){
             ))}
           </div>
         </div>
+        
       </div>
     )
 }
