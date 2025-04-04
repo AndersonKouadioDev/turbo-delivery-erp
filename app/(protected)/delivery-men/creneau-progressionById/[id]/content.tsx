@@ -8,6 +8,7 @@ import { Button, Card, Input } from "@heroui/react";
 import { Select, SelectItem } from "@heroui/select";
 import { ArrowLeft, Edit } from "lucide-react";
 import Image from "next/image";
+import useContentCtx from "./useContentCtx";
 
 
 export interface Turboys  {
@@ -27,10 +28,10 @@ export interface Turboys  {
 
 export default function Content({user,dataCreneau}:{user:LivreurDetail,dataCreneau:CreneauID[]|null}){
    
+  const {exerianceLivreur}=useContentCtx({dataCreneau})
     return (
 
-        <Card>
-            <div className="py-6 px-4 lg:px-20 bbg-gray-50 min-h-screen">
+        <Card className="py-6 px-4 lg:px-20 bbg-gray-50 min-h-screen">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
              <div className="flex items-center">
@@ -42,10 +43,8 @@ export default function Content({user,dataCreneau}:{user:LivreurDetail,dataCrene
             </div>
           </div>
     
-         <User user={user}/>
+         <User user={user} dataCreneau={dataCreneau} exerianceLivreur={exerianceLivreur}/>
          <CreneauxDetail dataCreneau={dataCreneau}/>
-
-        </div>
         </Card>
       );
 }

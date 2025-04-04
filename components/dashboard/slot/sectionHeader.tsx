@@ -7,7 +7,7 @@ export default function SectionHeader() {
 
     const pathname = usePathname()
    
-     const pushUrl = pathname ==='/delivery-men/slot' ?'/delivery-men/creneau': pathname=== '/delivery-men/slot/turboys-assignes'? '/delivery-men/creneau/turboys-assignes':''
+     const pushUrl = pathname ==='/delivery-men/slot' ?'/delivery-men/creneau-progression': pathname=== '/delivery-men/slot/turboys-assignes'? '/delivery-men/creneau-progression/turboys-assignes':''
    
 
     return (

@@ -1,36 +1,21 @@
-import { Livreur } from "@/types/creneau-bird"
+// import { Livreur } from "@/types/creneau-bird"
 import { BirdPerformance } from "@/types/slot";
 import { Progress } from "@heroui/react"
 
 // :{turboys:Livreur}
-  const progresseBare2 =(turboys:BirdPerformance)=>{
-
-
-
-    //    if(turboys.jour.jourTravaille===7){
-    //            return <Progress label={turboys.progression}  color="success" className="max-w-md"  value={100} />
-    //            }
-    //     if(turboys.jour.jourTravaille<7 && turboys.jour.jourTravaille>3){
-    //         return <Progress label={turboys.progression}  color="warning" className="max-w-md"  value={65} />
-    //         }
-    //     if(turboys.jour.jourTravaille<=3){
-            
-    //         return <Progress  label={turboys.progression} color="danger" className="max-w-md"  value={20} />
-    //         }
-
-    if(turboys.id!=null||turboys.creneauVM?.debut||turboys.jour?.jourTravaille){
+  const progresseBare2 =(turboys:CreneauProgressionBird)=>{
 
             if(turboys.progression==100){
-            return <Progress label={turboys.progression +'%'}   color="success" className="max-w-md"  value={turboys.progression} />
+            return <Progress label={turboys.progression +'%'}   color="success" className="max-w-md"  value={100} />
             }
             if(turboys.progression<100 && turboys.progression>=65){
-                return <Progress label={turboys.progression +'%'}   color="warning" className="max-w-md"  value={turboys.progression} />
+                return <Progress label={turboys.progression +'%'}   color="warning" className="max-w-md"  value={65} />
                 }
             if(turboys.progression<65){
                 
-                return <Progress label={turboys.progression +'%'}   color="danger" className="max-w-md"  value={turboys.progression} />
+                return <Progress label={turboys.progression +'%'}   color="danger" className="max-w-md"  value={20} />
                 }
-              }
+          
 
               return 'null'
 

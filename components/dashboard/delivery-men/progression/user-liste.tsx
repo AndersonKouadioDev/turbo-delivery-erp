@@ -2,7 +2,7 @@ import { BirdPerformance } from '@/types/slot';
 import { Pagination, Progress } from '@heroui/react';
 import progresseBare2 from './progression-barre2';
 
-const UserListe = ({ initialData }: { initialData: BirdPerformance[] }) => {
+const UserListe = ({ initialData }: { initialData: CreneauProgressionBird[] }) => {
   
   
     return (
@@ -38,8 +38,8 @@ const UserListe = ({ initialData }: { initialData: BirdPerformance[] }) => {
                   <td>{item.nomComplet}</td>
                   <td>{progresseBare2(item)}</td>
                   <td>{item.jour.jourNonTravaille}/{item.jour.jourTravaille}</td>
-                  <td>{item.creneauVM.debut}</td>
-                  <td>{item.creneauVM.fin}</td>
+                  <td>{item.creneauVM.jourDebut}</td>
+                  <td>{item.creneauVM.jourFin}</td>
                 </tr>
               );
             })}

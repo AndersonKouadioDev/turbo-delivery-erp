@@ -48,8 +48,9 @@ export default function Content({user}:{user:LivreurDetail}){
               <Input label="Téléphone" value={`+225 ${user.telephone}`} readOnly />
               <Input label="Domicile" value={user.habitation} readOnly />
               <Input label="Email" value={user.email} readOnly />
-    
-              <Select label="Photo de la pièce" value={user.immatriculation} disabled>
+              <Input label="Document d'identité" value="Carte d'identité (CNI)" readOnly />
+
+              {/* <Select label="Document d'identité" value={user.immatriculation} disabled>
                 <SelectItem key="CNI" value="Carte d'identité (CNI)">
                  {` Carte d'identité (CNI)`}
                 </SelectItem>
@@ -59,7 +60,7 @@ export default function Content({user}:{user:LivreurDetail}){
                 <SelectItem key="Permis" value="Permis de conduire">
                   Permis de conduire
                 </SelectItem>
-              </Select>
+              </Select> */}
     
               <Input label="Numéro de la pièce" value={user.numeroCni} readOnly />
             </div>
@@ -84,7 +85,7 @@ export default function Content({user}:{user:LivreurDetail}){
             </div>
     
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <Select label="Type" value={user.type} disabled>
+              {/* <Select label="Type" value={user.type} disabled>
                 <SelectItem key="Dispatcher" value="Dispatcher">
                   Dispatcher
                 </SelectItem>
@@ -94,7 +95,9 @@ export default function Content({user}:{user:LivreurDetail}){
                 <SelectItem key="Administrateur" value="Administrateur">
                   Administrateur
                 </SelectItem>
-              </Select>
+              </Select> */}
+              <Input label="Type"  value={user.type} readOnly />
+
               <Input label="Nom du véhicule"  readOnly />
               <Input label="Immatriculation" value={user.immatriculation} readOnly />
               <Card className="w-full h-20 bg-gray-100 flex items-center justify-center rounded-md">
