@@ -43,7 +43,7 @@ import { ActionResult, PaginatedResponse } from '@/types';
 
 import { apiClientHttp } from '@/lib/api-client-http';
 import { Restaurant } from '@/types/creneau-turbo';
-import { Livreur } from '@/types/creneau-bird';
+import { LivreurBird } from '@/types/creneau-bird';
 import { LivreurPerformance } from '@/types/creneau-performance';
 import { CreneauxRestaurantProgression } from '@/types/creneaux-progression';
 import { LivreurDetail } from '@/types/livreur';

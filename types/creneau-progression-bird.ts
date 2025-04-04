@@ -4,8 +4,8 @@ interface Jour {
   }
   
   interface CreneauVM {
-    debut: string;  // Date de début du créneau (format ISO 8601 : YYYY-MM-DD)
-    fin: string;    // Date de fin du créneau (format ISO 8601 : YYYY-MM-DD)
+    jourDebut: string;  // Date de début du créneau (format ISO 8601 : YYYY-MM-DD)
+    jourFin: string;    // Date de fin du créneau (format ISO 8601 : YYYY-MM-DD)
   }
   
   interface CreneauProgressionBird {

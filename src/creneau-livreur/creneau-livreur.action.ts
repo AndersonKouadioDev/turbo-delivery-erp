@@ -5,7 +5,7 @@ import { ActionResult, PaginatedResponse } from '@/types';
 
 import { apiClientHttp } from '@/lib/api-client-http';
 import { Restaurant } from '@/types/creneau-turbo';
-import { Livreur } from '@/types/creneau-bird';
+import { LivreurBird } from '@/types/creneau-bird';
 import { CreneauID } from '@/types/creneau-byId';
 
 // Configuration
@@ -60,9 +60,9 @@ export async function getAllCreneauTurbo(page: number = 0, size: number = 10): P
 }
 
 
-export async function getAllCreneauBird(page: number = 0, size: number = 10): Promise<PaginatedResponse<Livreur> | null> {
+export async function getAllCreneauBird(page: number = 0, size: number = 10): Promise<PaginatedResponse<LivreurBird> | null> {
     try {
-        const data = await apiClientHttp.request<PaginatedResponse<Livreur> | null>({
+        const data = await apiClientHttp.request<PaginatedResponse<LivreurBird> | null>({
             endpoint: creneauEndpoints.getAllCreneauBird.endpoint,
             method: creneauEndpoints.getAllCreneauBird.method,
             service: 'backend',

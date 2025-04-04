@@ -1,14 +1,16 @@
 'use client';
 import { LivreurBird } from '@/types/creneau-bird';
-import DropDownAction from './dropDownAction';
-import CreneauxDetail from './progression-details/creneaux-detail';
-import progresseBare from '../delivery-men/progression/progression-barre';
+// import DropDownAction from './dropDownAction';
+// import CreneauxDetail from './progression-details/creneaux-detail';
+// import progresseBare from '../delivery-men/progression/progression-barre';
 import { IconPointFilled } from '@tabler/icons-react';
+import DropDownAction from '../dropDownAction';
+import progresseBare from '../../progression/progression-barre';
 
 interface props {
   turboy: LivreurBird;
 }
-const userListeModel1 = ({ turboy }: props) => {
+export default function UserListeModel1 ({ turboy }: props) {
   return (
     <div key={turboy.id} className="w-ful flex items-center border-2 rounded-2xl">
       <div className="py-2 px-4 flex-1 flex justify-between gap-2 items-center  rounded-lg">
@@ -40,5 +42,3 @@ const userListeModel1 = ({ turboy }: props) => {
     </div>
   );
 };
-
-export default userListeModel1;

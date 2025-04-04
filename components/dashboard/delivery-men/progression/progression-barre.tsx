@@ -1,4 +1,4 @@
-import { Livreur } from "@/types/creneau-bird"
+import { Livreur } from "@/types/creneau-turbo";
 import { Progress } from "@heroui/react"
 
 // :{turboys:Livreur}
@@ -6,9 +6,9 @@ import { Progress } from "@heroui/react"
 
     const fnData=()=>{
 
-        const mois = turboys.creneauVM.fin.substring(5, 7);
-        const jourDebut = turboys.creneauVM.debut.substring(8, 10);
-        const jourFin = turboys.creneauVM.fin.substring(8, 10);
+        const mois = turboys.creneauVM.jourDebut?.substring(5, 7);
+        const jourDebut = turboys.creneauVM.jourDebut?.substring(8, 10);
+        const jourFin = turboys.creneauVM.jourFin?.substring(8, 10);
          
         let moi
 

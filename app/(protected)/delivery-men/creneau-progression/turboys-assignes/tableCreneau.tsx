@@ -149,19 +149,30 @@ const bird = [
         case "jours":
           return (
             <div>
-              {data.jour ? `${data.jour.jourNonTravaille}/7`:'Jour non definie'}
+               {/* `${data.jour.jourNonTravaille}/7` */}
+              {data.jour ? `${data.jour.jourTravaille}/7`:'Jour non definie'}
             </div>
           );
           case "debut":
             return (
               <div>
-                {data.creneauVM?.debut??'creneauVM non definie'}
+                {data.creneauVM?.jourDebut??'Jour non definie'}
               </div>
             );
+            // {
+            //   if(!data||data.jour||data.jour&&data.jour.jourNonTravaille)
+            //   return (
+            //     <div>
+            //       {data.creneauVM.debut}
+            //     </div>
+            //   );
+
+            // }
+         
           case "fin":
             return (
               <div>
-                {data.creneauVM?.fin??'creneauVM non definie'}
+                {data.creneauVM?.jourFin??'creneauVM non definie'}
               </div>
             );
   

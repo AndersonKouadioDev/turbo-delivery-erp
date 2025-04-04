@@ -3,8 +3,27 @@ import Image from 'next/image';
 import { Card } from '@heroui/react';
 import { LivreurDetail } from '@/types/livreur';
 import createUrlFile from '@/utils/createUrlFile';
+import { CreneauID } from '@/types/creneau-byId';
+import RetourButton from '../../retourButton';
 
-const User = ({user}:{user:LivreurDetail}) => {
+
+interface props{
+  user:LivreurDetail,
+  dataCreneau:CreneauID[]|null,
+  exerianceLivreur:string
+}
+
+function User({user,dataCreneau,exerianceLivreur}:props) {
+
+  if(!user){
+        return (
+        <div>
+            <RetourButton/>
+
+            <h2>EREUR 404</h2>
+        </div>)
+      }
+
   const imgFictive="/assets/images/illustrations/dashboard/profile.png"
   return (
     <div className="flex gap-4  mb-6 ">
@@ -28,7 +47,7 @@ const User = ({user}:{user:LivreurDetail}) => {
           </div>
           <div className=" flex justify-between">
             <span>Debut du créneau</span>
-            <span>12/03/2024</span>
+            <span>{''}</span>
           </div>
         </div>
 
@@ -38,8 +57,8 @@ const User = ({user}:{user:LivreurDetail}) => {
             <span>{user.type}</span>
           </div>
           <div className=" flex justify-between">
-            <span>...</span>
-            <span>...</span>
+            <span>Expériance </span>
+            <span>{exerianceLivreur}</span>
           </div>
 
           <div className=" flex justify-between">

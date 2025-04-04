@@ -4,8 +4,8 @@ interface Jour {
 }
 
 interface CreneauVM {
-  debut: string; // Format ISO 8601 : YYYY-MM-DD
-  fin: string;   // Format ISO 8601 : YYYY-MM-DD
+  jourDebut: string; // Format ISO 8601 : YYYY-MM-DD
+  jourFin: string;   // Format ISO 8601 : YYYY-MM-DD
 }
 
 interface Livreur {

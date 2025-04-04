@@ -1,8 +1,6 @@
 'use client'
 
 import React from "react";
-
-import { BirdPerformance } from "@/types/slot";
 import {
     Table,
     TableHeader,
@@ -16,78 +14,78 @@ import useContentCtx from "./useContentCtx";
 import progresseBare2 from "@/components/dashboard/delivery-men/progression/progression-barre2";
 import EmptyDataTable from "@/components/commons/EmptyDataTable";
   
-const bird = [
-  {
-    id: "1a2b3c4d-1234-5678-9101-abcdefabcdef",
-    nomComplet: "Jean Dupont",
-    progression: 75,
-    jour: {
-      jourTravaille: 15,
-      jourNonTravaille: 5
-    },
-    creneauVM: {
-      debut: "2025-04-01",
-      fin: "2025-04-15"
-    }
-  },
-  {
-    id: "1a2b3c1d-1234-5678-9101-abcdefabcdef",
-    nomComplet: "Jean Dupont",
-    progression: 65,
-    jour: {
-      jourTravaille: 5,
-      jourNonTravaille: 2
-    },
-    creneauVM: {
-      debut: "2025-04-11",
-      fin: "2025-04-15"
-    }
-  },
-  {
-    id: "1a2b3c1d-1234-5678-9109-abcdefabcdef",
-    nomComplet: "Jean Dupont",
-    progression: 50,
-    jour: {
-      jourTravaille: 5,
-      jourNonTravaille: 2
-    },
-    creneauVM: {
-      debut: "2025-04-11",
-      fin: "2025-04-16"
-    }
-  },
+// const bird = [
+//   {
+//     id: "1a2b3c4d-1234-5678-9101-abcdefabcdef",
+//     nomComplet: "Jean Dupont",
+//     progression: 75,
+//     jour: {
+//       jourTravaille: 15,
+//       jourNonTravaille: 5
+//     },
+//     creneauVM: {
+//       debut: "2025-04-01",
+//       fin: "2025-04-15"
+//     }
+//   },
+//   {
+//     id: "1a2b3c1d-1234-5678-9101-abcdefabcdef",
+//     nomComplet: "Jean Dupont",
+//     progression: 65,
+//     jour: {
+//       jourTravaille: 5,
+//       jourNonTravaille: 2
+//     },
+//     creneauVM: {
+//       debut: "2025-04-11",
+//       fin: "2025-04-15"
+//     }
+//   },
+//   {
+//     id: "1a2b3c1d-1234-5678-9109-abcdefabcdef",
+//     nomComplet: "Jean Dupont",
+//     progression: 50,
+//     jour: {
+//       jourTravaille: 5,
+//       jourNonTravaille: 2
+//     },
+//     creneauVM: {
+//       debut: "2025-04-11",
+//       fin: "2025-04-16"
+//     }
+//   },
   
  
-];
+// ];
 
 
 
-  const rows = [
-    {
-      key: "1",
-      name: "Tony Reichert",
-      role: "CEO",
-      status: "Active",
-    },
-    {
-      key: "2",
-      name: "Zoey Lang",
-      role: "Technical Lead",
-      status: "Paused",
-    },
-    {
-      key: "3",
-      name: "Jane Fisher",
-      role: "Senior Developer",
-      status: "Active",
-    },
-    {
-      key: "4",
-      name: "William Howard",
-      role: "Community Manager",
-      status: "Vacation",
-    },
-  ];
+  // const rows = [
+  //   {
+  //     key: "1",
+  //     name: "Tony Reichert",
+  //     role: "CEO",
+  //     status: "Active",
+  //   },
+  //   {
+  //     key: "2",
+  //     name: "Zoey Lang",
+  //     role: "Technical Lead",
+  //     status: "Paused",
+  //   },
+  //   {
+  //     key: "3",
+  //     name: "Jane Fisher",
+  //     role: "Senior Developer",
+  //     status: "Active",
+  //   },
+  //   {
+  //     key: "4",
+  //     name: "William Howard",
+  //     role: "Community Manager",
+  //     status: "Vacation",
+  //   },
+  // ];
   
   const columns = [
     {
@@ -118,13 +116,13 @@ const bird = [
     
 
     const renderCell = React.useCallback((data:CreneauProgressionBird, columnKey:any) => {
-      const cellValue = rows[columnKey];
+      // const cellValue = rows[columnKey];
 
       switch (columnKey) {
         case "nom":
           return (
           <div>
-            {data.nomComplet}
+            {data.nomComplet||'non definie'}
           </div>
           );
         case "progression":
@@ -136,19 +134,19 @@ const bird = [
         case "jours":
           return (
             <div>
-              {`${data.jour.jourNonTravaille}/7`}
+            {data.jour?.jourNonTravaille?data.jour.jourTravaille+'/7':'non definie'}  
             </div>
           );
           case "debut":
             return (
               <div>
-                {data.creneauVM.debut}
+                {data.creneauVM?.jourDebut || 'non definie'}
               </div>
             );
           case "fin":
             return (
               <div>
-                {data.creneauVM.fin}
+                {data.creneauVM?.jourFin || 'non definie'}
               </div>
             );
   

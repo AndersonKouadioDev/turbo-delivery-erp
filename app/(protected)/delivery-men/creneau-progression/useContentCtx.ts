@@ -58,7 +58,7 @@ export default function useContentCtx({initialData}:props){
      const [search,setSearch] = useState<string|null>(null)
      const textParam = searchParams.get('text');
 
-        const [data, setData] = useState<BirdPerformance[]|[]>(initialData?.content||[]);
+        const [data, setData] = useState<CreneauProgressionBird[]|[]>(initialData?.content||[]);
 
          useEffect(() => { 
            // Initialiser search à partir de textParam

@@ -4,11 +4,12 @@ export interface JourTravaille {
 }
 
 export interface Creneau {
-  debut: string;  // Utiliser Date si tu veux une vraie gestion de date
-  fin: string;
+  jourDebut: string;  // Utiliser Date si tu veux une vraie gestion de date
+  jourFin: string;
 }
 
-export interface Livreur {
+
+export interface LivreurBird {
   id: string;
   nomComplet: string;
   dateInscrit: string;  // Utiliser Date si tu veux une vraie gestion de date

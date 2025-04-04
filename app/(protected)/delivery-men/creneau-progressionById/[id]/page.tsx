@@ -23,101 +23,41 @@ interface TurboysPageProps {
 }
 
 
-const userDetail: LivreurDetail = {
-  id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  nom: "Doe",
-  prenoms: "John",
-  telephone: "+2250123456789",
-  avatarUrl: "https://example.com/avatar.jpg",
-  email: "johndoe@example.com",
-  birthDay: "1990-05-15",
-  gender: "HOMME",
-  numeroCni: "CNI123456789",
-  habitation: "Abidjan, Côte d'Ivoire",
-  immatriculation: "IVR12345",
-  matricule: "JD12345",
-  deleted: false,
-  type: "WAITING", // Peut être "WAITING", "ACTIVE", etc.
-  cniUrlR: "https://example.com/cni_r.jpg",
-  cniUrlV: "https://example.com/cni_v.jpg",
-  status: 1 // Par exemple, 1 pour un utilisateur actif
-};
+// const userDetail: LivreurDetail = {
+//   id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+//   nom: "Doe",
+//   prenoms: "John",
+//   telephone: "+2250123456789",
+//   avatarUrl: "https://example.com/avatar.jpg",
+//   email: "johndoe@example.com",
+//   birthDay: "1990-05-15",
+//   gender: "HOMME",
+//   numeroCni: "CNI123456789",
+//   habitation: "Abidjan, Côte d'Ivoire",
+//   immatriculation: "IVR12345",
+//   matricule: "JD12345",
+//   deleted: false,
+//   type: "WAITING", // Peut être "WAITING", "ACTIVE", etc.
+//   cniUrlR: "https://example.com/cni_r.jpg",
+//   cniUrlV: "https://example.com/cni_v.jpg",
+//   status: 1 // Par exemple, 1 pour un utilisateur actif
+// };
   
 
   const dataCreneau: CreneauID[] = [
-    {
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      debut: "2025-04-01",
-      fin: "2025-05-01",
-      semainePassee: true
-    },
-    {
-      id: "2b3c4d5e-2234-5678-9101-112131415162",
-      debut: "2025-04-02",
-      fin: "2025-04-02",
-      semainePassee: false
-    },
-    {
-      id: "3c4d5e6f-3234-5678-9101-112131415163",
-      debut: "2025-04-03",
-      fin: "2025-04-03",
-      semainePassee: false
-    },
-    {
-      id: "4d5e6f7g-4234-5678-9101-112131415164",
-      debut: "2025-04-04",
-      fin: "2025-04-04",
-      semainePassee: true
-    },
-    {
-      id: "5e6f7g8h-5234-5678-9101-112131415165",
-      debut: "2025-04-05",
-      fin: "2025-04-05",
-      semainePassee: false
-    },
-    {
-      id: "6f7g8h9i-6234-5678-9101-112131415166",
-      debut: "2025-04-06",
-      fin: "2025-04-06",
-      semainePassee: true
-    },
-    {
-      id: "7g8h9i0j-7234-5678-9101-112131415167",
-      debut: "2025-04-07",
-      fin: "2025-04-07",
-      semainePassee: false
-    },
-    {
-      id: "8h9i0j1k-8234-5678-9101-112131415168",
-      debut: "2025-04-08",
-      fin: "2025-04-08",
-      semainePassee: true
-    },
-    {
-      id: "9i0j1k2l-9234-5678-9101-112131415169",
-      debut: "2025-04-09",
-      fin: "2025-04-09",
-      semainePassee: false
-    },
-    {
-      id: "0j1k2l3m-0234-5678-9101-112131415170",
-      debut: "2025-04-10",
-      fin: "2025-04-10",
-      semainePassee: true
-    },
-    {
-      id: "1k2l3m4n-1234-5678-9101-112131415171",
-      debut: "2025-04-11",
-      fin: "2025-04-11",
-      semainePassee: false
-    },
-    {
-      id: "2l3m4n5o-2345-6789-9010-123456789012",
-      debut: "2025-04-12",
-      fin: "2025-04-12",
-      semainePassee: false
-    }
-  ];
+    { "id": "1", "debut": "2024-01-08", "fin": "2024-01-12", "semainePassee": true },
+    { "id": "2", "debut": "2024-02-05", "fin": "2024-02-09", "semainePassee": true },
+    { "id": "3", "debut": "2024-03-04", "fin": "2024-03-08", "semainePassee": true },
+    { "id": "4", "debut": "2024-04-01", "fin": "2024-04-05", "semainePassee": true },
+    { "id": "5", "debut": "2024-05-06", "fin": "2024-05-10", "semainePassee": true },
+    { "id": "6", "debut": "2024-06-03", "fin": "2024-06-07", "semainePassee": true },
+    { "id": "7", "debut": "2024-07-01", "fin": "2024-07-05", "semainePassee": true },
+    { "id": "8", "debut": "2024-08-05", "fin": "2024-08-09", "semainePassee": true },
+    { "id": "9", "debut": "2024-09-02", "fin": "2024-09-06", "semainePassee": true },
+    { "id": "10", "debut": "2024-10-07", "fin": "2024-10-11", "semainePassee": true },
+    { "id": "11", "debut": "2024-11-04", "fin": "2024-11-08", "semainePassee": true },
+    { "id": "12", "debut": "2024-12-02", "fin": "2024-12-06", "semainePassee": true }
+  ]
     
 
 export default async function UserPage({ params }: TurboysPageProps) {
