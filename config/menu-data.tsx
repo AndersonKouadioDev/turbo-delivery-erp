@@ -46,6 +46,7 @@ const menuData: IMenuData[] = [
         children: [
             { icon: TbTruckDelivery, title: 'external_delivery_new', path: '/external_delivery' },
             { icon: TbTruckDelivery, title: 'external_delivery_all', path: '/external_delivery/all' },
+            { icon: TbMoneybag, title: 'gestion_de_paie', path: '/external_delivery/gestion_de_paie' },
         ],
     },
     { icon: AiOutlineDollarCircle, title: 'price-list', path: '/price-list' },
@@ -71,7 +72,7 @@ const menuData: IMenuData[] = [
                 icon: HandPlatter,
                 title: 'type_plats',
                 path: '/type-plat',
-            },    
+            },
             {
                 icon: IconBuildingSkyscraper,
                 title: 'restaurants',

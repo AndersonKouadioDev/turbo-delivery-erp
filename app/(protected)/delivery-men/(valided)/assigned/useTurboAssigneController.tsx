@@ -20,7 +20,8 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const [updateLivreurId, setUpdateLivreurId] = useState("")
+    const [updateLivreurId, setUpdateLivreurId] = useState("");
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         if (searchKey && initialData && initialData.content) {
@@ -68,8 +69,6 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         }
         confirm.openConfirmDialog(confirmAndSend);
     }
-
-    console.log("restaurantSelected", restaurantSelected)
 
     const changerRestaurantLivreurs = async (livreur: LivreurStatutVM) => {
         confirm.setMessage("Êtes-vous sûr de vouloir changer le restaurant de ce livreur ?")
