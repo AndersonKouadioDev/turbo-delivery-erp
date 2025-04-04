@@ -13,6 +13,8 @@ import { getProfile } from '@/src/actions/users.actions';
 import { FormChangePassword } from '@/components/auth/form-change-password';
 import { auth } from '@/auth';
 
+
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const profile = await getProfile();
     const session = await auth();
@@ -42,7 +44,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                         {/* BEGIN FOOTER */}
                         <Footer />
                         {/* END FOOTER */}
-                        
+
                         <Portals />
                     </div>
                 </MainContainer>

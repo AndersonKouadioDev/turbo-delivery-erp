@@ -1,7 +1,7 @@
 'use client';
 
 import RestaurantTools from '@/components/dashboard/restaurants/restaurant-tools';
-import { getRestaurantsValidated } from '@/src/actions/restaurants.actions';
+import { getRestaurantsValidated } from '@/src/restaurants/restaurants.actions';
 import { PaginatedResponse } from '@/types';
 import { Restaurant } from '@/types/models';
 import createUrlFile from '@/utils/createUrlFile';

@@ -5,10 +5,12 @@ import { changerStatusLivreur, getToutLivreurStatusAssigners } from '@/src/actio
 import { PaginatedResponse } from '@/types';
 import { LivreurStatutVM, Restaurant, TypeEnum } from '@/types/models';
 import { useDisclosure } from '@heroui/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export function useTurboAssigneController(initialData: PaginatedResponse<LivreurStatutVM[]> | null, restaurants: Restaurant[] | null) {
+    const router = useRouter();
     const [data, setData] = useState<PaginatedResponse<LivreurStatutVM[]> | null>(initialData);
     const confirm = useConfirm()
     const [selectValue, setSelectValue] = useState('');
@@ -18,6 +20,7 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
     const [pageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const [updateLivreurId, setUpdateLivreurId] = useState("")
 
     useEffect(() => {
         if (searchKey && initialData && initialData.content) {
@@ -34,7 +37,8 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         onOpen()
     }
 
-    const onConfirmStatut = (livreur: LivreurStatutVM, typeLivreur: any) => {
+    const onConfirmStatut = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir changer le statut de ce livreur en bird?")
         const confirmAndSend = async () => {
             const livreurRestaurant = restaurants?.find((item) => item.nomEtablissement === livreur.restaurantLibelle)
             if (!livreur) {
@@ -53,6 +57,8 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
                 })
                 if (result.status === "success") {
                     toast.success(result.message);
+                    setUpdateLivreurId("")
+                    router.refresh();
                 } else {
                     toast.error(result.message);
                 }
@@ -75,6 +81,35 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
             setIsLoading(false);
         }
     };
+
+    const supprimerLivreur = (livreur: LivreurStatutVM, typeLivreur?: any) => {
+        confirm.setMessage("Êtes-vous sûr de vouloir retirer ce livreur ? ")
+        const confirmAndSend = async () => {
+            if (!livreur) {
+                toast.error("Veuillez choisir un statut")
+                return false;
+            }
+            try {
+                const result = await changerStatusLivreur({
+                    livreurId: livreur?.livreurId ?? "",
+                    restaurantId: "",
+                    typeLivreur: typeLivreur
+                })
+                if (result.status === "success") {
+                    toast.success(result.message);
+                    router.refresh();
+                } else {
+                    toast.error(result.message);
+                }
+            } catch (error) {
+                toast.error("Une erreur s'est produite")
+            } finally {
+                confirm.setMessage("");
+            }
+        }
+        confirm.openConfirmDialog(confirmAndSend);
+    }
+
     return {
         data,
         selectValue,
@@ -94,5 +129,9 @@ export function useTurboAssigneController(initialData: PaginatedResponse<Livreur
         pageSize,
         isLoading,
         restaurants,
+        updateLivreurId,
+        setUpdateLivreurId,
+        setLivreur,
+        supprimerLivreur
     };
 }

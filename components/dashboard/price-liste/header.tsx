@@ -1,5 +1,6 @@
+'use client';
 import { title } from '@/components/primitives';
-import { ArrowDownToLine, Plus, PlusCircle, Save, Search } from 'lucide-react';
+import { ArrowDownToLine, Plus, Save } from 'lucide-react';
 import { Popover, PopoverTrigger, PopoverContent, Button, Input, Card, CardHeader, Divider, CardBody, Select, SelectItem } from '@heroui/react';
 import { _deliveryFeeCreateSchema, _deliveryFeeUpdateSchema, deliveryFeeCreateSchema } from '@/src/price-list/price-list.schema';
 import { useForm, Controller } from 'react-hook-form';
@@ -11,7 +12,6 @@ import { SubmitButton } from '@/components/ui/form-ui/submit-button';
 import { Restaurant } from '@/types/models';
 import useContentHeaderPriceListDefined from '../../../app/(protected)/price-list/useContentHeaderPriceListDefined';
 import TextInputToUrl from './searchDelivery';
-import { Label } from 'recharts';
 
 type LatLng = {
   lat: number;
@@ -20,7 +20,7 @@ type LatLng = {
 export default function Header({ initialData }: { initialData: Restaurant[] | null }) {
   const [typeCommission, setTypeCommission] = useState<string>('Type non definie');
   const [id, setId] = useState<string>('');
-  const { createOrUpdateFee, } = useContentHeaderPriceListDefined(initialData, id);
+  const { createOrUpdateFee } = useContentHeaderPriceListDefined(initialData, id);
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
 
   const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
@@ -64,7 +64,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   } = useForm<_deliveryFeeCreateSchema>({
     resolver: zodResolver(deliveryFeeCreateSchema),
     defaultValues: {
-      name:'',
+      name: '',
       restaurantId: '',
       zone: '',
       longitude: 0,
@@ -176,8 +176,7 @@ useEffect(()=>{
                         }}
                         className="flex flex-col gap-4 "
                       >
-                       
-                       <Controller
+                        <Controller
                           control={control}
                           name="name"
                           render={({ field }) => (

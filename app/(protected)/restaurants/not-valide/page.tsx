@@ -1,4 +1,4 @@
-import { getRestaurantsNoValidated } from '@/src/actions/restaurants.actions';
+import { getRestaurantsNoValidated } from '@/src/restaurants/restaurants.actions';
 import { Metadata } from 'next';
 import Content from './content';
 export const metadata: Metadata = {
