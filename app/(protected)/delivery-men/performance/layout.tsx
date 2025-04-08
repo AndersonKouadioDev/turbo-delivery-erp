@@ -6,6 +6,7 @@ import {usePathname } from 'next/navigation';
 import Link from 'next/link';
 import SectionHeader from '@/components/dashboard/slot/sectionHeader';
 import { IconList, IconMist } from '@tabler/icons-react';
+import SectionHeaderRetour from '@/components/commons/section-header-retour';
 
 {/* <IconList stroke={2} /> */}
 
@@ -21,8 +22,8 @@ export default function SlotLayout({ children }: { children: React.ReactNode }) 
         href: string;
         label: string;
     }[] = [
-        { id: '/delivery-men/slot', href: '/delivery-men/slot', label: 'Flotte de Turboys Bird' },
-        { id: '/delivery-men/slot/turboys-assignes', href: '/delivery-men/slot/turboys-assignes', label: 'Flotte de Turboys Assignés' },
+        { id: '/delivery-men/performance', href: '/delivery-men/performance', label: 'Flotte de Turboys Bird' },
+        { id: '/delivery-men/performance/turboys-assignes', href: '/delivery-men/performance/turboys-assignes', label: 'Flotte de Turboys Assignés' },
     ];
 
 
@@ -32,17 +33,8 @@ export default function SlotLayout({ children }: { children: React.ReactNode }) 
     
     return (
         <div>
-            <SectionHeader/>
-            {/* <HeaderList initialData={initialData}/> */}
-            {/* <div className='absolute right-24 -ttsop-4'>
-               <button onClick={toggelModel}>
-                {
-                    model? <IconList stroke={2} />:<IconMist/>
-                 
-                }
-               </button>
-            </div> */}
-            <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/delivery-men/slot' ? '/delivery-men/slot' : pathname == '/delivery-men/slot/turboys-assignes'?'/delivery-men/slot/turboys-assignes':''} className="w-full">
+            <SectionHeaderRetour text="Performance"/>
+            <Tabs color="primary" variant="underlined" items={tabs} selectedKey={pathname == '/delivery-men/performance' ? '/delivery-men/performance' : pathname == '/delivery-men/performance/turboys-assignes'?'/delivery-men/performance/turboys-assignes':''} className="w-full">
             {(item) => {
                 return (
                     <Tab key={item.id} as={Link} href={item.href} title={item.label}>

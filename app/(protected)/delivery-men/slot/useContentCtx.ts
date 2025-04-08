@@ -10,224 +10,63 @@ interface props {
   initialData: PaginatedResponse<LivreurBird> | null;
 }
 
-// const dataa:LivreurBird[] = [
-//     {
-//       "id": "a30580e5-8ca4-4613-9aaa-c7ecfb5e5a7e",
-//       "nomComplet": "Alice Dupont",
-//       "dateInscrit": "2025-03-31",
-//       "dateDefiniEmploiTemps": "2025-03-31",
-//       "jour": {
-//         "jourTravaille": 5,
-//         "jourNonTravaille": 2
-//       },
-//       "creneauVM": {
-//         "jourDebut": "2025-04-08",
-//         "jourFin": "2025-04-01"
-//       },
-//       "creneauIndisponible": "Aucun",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "4fa85f64-5717-4562-b3fc-2c963f66afb7",
-//       "nomComplet": "Bob Martin",
-//       "dateInscrit": "2025-04-01",
-//       "dateDefiniEmploiTemps": "2025-04-05",
-//       "jour": {
-//         "jourTravaille": 4,
-//         "jourNonTravaille": 3
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-05",
-//         "fin": "2025-04-02"
-//       },
-//       "creneauIndisponible": "Partiel",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": false
-//     },
-//     {
-//       "id": "5fa85f64-5717-4562-b3fc-2c963f66afc8",
-//       "nomComplet": "Caroline Petit",
-//       "dateInscrit": "2025-04-02",
-//       "dateDefiniEmploiTemps": "2025-04-06",
-//       "jour": {
-//         "jourTravaille": 6,
-//         "jourNonTravaille": 1
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-20",
-//         "fin": "2025-04-10"
-//       },
-//       "creneauIndisponible": "Aucun",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": false,
-//       "disponibiliteCreneau": false
-//     },
-//     {
-//       "id": "6fa85f64-5717-4562-b3fc-2c963f66afd9",
-//       "nomComplet": "David Leroy",
-//       "dateInscrit": "2025-04-03",
-//       "dateDefiniEmploiTemps": "2025-04-03",
-//       "jour": {
-//         "jourTravaille": 3,
-//         "jourNonTravaille": 4
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-17",
-//         "fin": "2025-04-14"
-//       },
-//       "creneauIndisponible": "Matinée",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "7fa85f64-5717-4562-b3fc-2c963f66afe0",
-//       "nomComplet": "Emma Rousseau",
-//       "dateInscrit": "2025-04-14",
-//       "dateDefiniEmploiTemps": "2025-04-04",
-//       "jour": {
-//         "jourTravaille": 7,
-//         "jourNonTravaille": 0
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-25",
-//         "fin": "2025-04-16"
-//       },
-//       "creneauIndisponible": "Aucun",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "8fa85f64-5717-4562-b3fc-2c963f66afe1",
-//       "nomComplet": "Fabrice Bernard",
-//       "dateInscrit": "2025-04-05",
-//       "dateDefiniEmploiTemps": "2025-04-01",
-//       "jour": {
-//         "jourTravaille": 4,
-//         "jourNonTravaille": 3
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-20",
-//         "fin": "2025-04-10"
-//       },
-//       "creneauIndisponible": "Après-midi",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": false,
-//       "disponibiliteCreneau": false
-//     },
-//     {
-//       "id": "9fa85f64-5717-4562-b3fc-2c963f66afe2",
-//       "nomComplet": "Gabriel Moreau",
-//       "dateInscrit": "2025-04-06",
-//       "dateDefiniEmploiTemps": "2025-04-03",
-//       "jour": {
-//         "jourTravaille": 5,
-//         "jourNonTravaille": 2
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-22",
-//         "fin": "2025-04-20"
-//       },
-//       "creneauIndisponible": "Aucun",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "0fa85f64-5717-4562-b3fc-2c963f66afe3",
-//       "nomComplet": "Hélène Durand",
-//       "dateInscrit": "2025-04-07",
-//       "dateDefiniEmploiTemps": "2025-04-07",
-//       "jour": {
-//         "jourTravaille": 3,
-//         "jourNonTravaille": 4
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-25",
-//         "fin": "2025-04-21"
-//       },
-//       "creneauIndisponible": "Matinée",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": false,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "1fa85f64-5717-4562-b3fc-2c963f66afe4",
-//       "nomComplet": "Isabelle Lambert",
-//       "dateInscrit": "2025-04-08",
-//       "dateDefiniEmploiTemps": "2025-04-08",
-//       "jour": {
-//         "jourTravaille": 6,
-//         "jourNonTravaille": 1
-//       },
-//       "creneauVM": {
-//         "debut": "2025-04-21",
-//         "fin": "2025-04-28"
-//       },
-//       "creneauIndisponible": "Aucun",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "2fa85f64-5717-4562-b3fc-2c963f66afe5",
-//       "nomComplet": "Julien Caron",
-//       "dateInscrit": "2025-04-09",
-//       "dateDefiniEmploiTemps": "2025-04-09",
-//       "jour": {
-//         "jourTravaille": 2,
-//         "jourNonTravaille": 5
-//       },
-//       "creneauVM": {
-//         "debut": "2025-05-11",
-//         "fin": "2025-05-01"
-//       },
-//       "creneauIndisponible": "Soirée",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": false
-//     },
-//     {
-//       "id": "3fa85f64-5717-4562-b3fc-2c963f66afe6",
-//       "nomComplet": "Karine Dubois",
-//       "dateInscrit": "2025-04-10",
-//       "dateDefiniEmploiTemps": "2025-04-20",
-//       "jour": {
-//         "jourTravaille": 5,
-//         "jourNonTravaille": 2
-//       },
-//       "creneauVM": {
-//         "debut": "2025-05-05",
-//         "fin": "2025-05-05"
-//       },
-//       "creneauIndisponible": "Aucun",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": true,
-//       "disponibiliteCreneau": true
-//     },
-//     {
-//       "id": "4fa85f64-5717-4562-b3fc-2c963f66afe7",
-//       "nomComplet": "Louis Petit",
-//       "dateInscrit": "2025-04-11",
-//       "dateDefiniEmploiTemps": "2025-04-11",
-//       "jour": {
-//         "jourTravaille": 4,
-//         "jourNonTravaille": 3
-//       },
-//       "creneauVM": {
-//         "debut": "2025-05-11",
-//         "fin": "2025-05-10"
-//       },
-//       "creneauIndisponible": "Après-midi",
-//       "dateNonDefini": "N/A",
-//       "disponibilite": false,
-//       "disponibiliteCreneau": false
-//     }
-//   ]
+const dataa:LivreurBird[] = [
+  {
+    id: "1a2b3c4d-5678-9101-1121-314151617181",
+    nomComplet: "Pierre Dupont",
+    dateInscrit: "2025-03-15",
+    dateDefiniEmploiTemps: "2025-04-01",
+    jour: {
+      jourTravaille: 5, // Vendredi
+      jourNonTravaille: 2 // Mardi
+    },
+    creneauVM: {
+      jourDebut: "2025-04-07T08:00:00",
+      jourFin: "2025-04-07T12:00:00"
+    },
+    creneauIndisponible: "2025-04-07T14:00:00",
+    dateNonDefini: "2025-04-05",
+    disponibilite: true,
+    disponibiliteCreneau: true
+  },
+  {
+    id: "2a3b4c5d-6789-1021-3141-516171819202",
+    nomComplet: "Marie Martin",
+    dateInscrit: "2025-01-22",
+    dateDefiniEmploiTemps: "2025-03-10",
+    jour: {
+      jourTravaille: 1, // Lundi
+      jourNonTravaille: 6 // Samedi
+    },
+    creneauVM: {
+      jourDebut: "2025-04-07T09:00:00",
+      jourFin: "2025-04-07T13:00:00"
+    },
+    creneauIndisponible: "2025-04-07T15:00:00",
+    dateNonDefini: "2025-04-05",
+    disponibilite: false,
+    disponibiliteCreneau: false
+  },
+  {
+    id: "3a4b5c6d-7890-1234-5678-910111213141",
+    nomComplet: "Lucas Leblanc",
+    dateInscrit: "2025-02-10",
+    dateDefiniEmploiTemps: "2025-04-03",
+    jour: {
+      jourTravaille: 3, // Mercredi
+      jourNonTravaille: 4 // Jeudi
+    },
+    creneauVM: {
+      jourDebut: "2025-04-08T10:00:00",
+      jourFin: "2025-04-08T14:00:00"
+    },
+    creneauIndisponible: "2025-04-08T16:00:00",
+    dateNonDefini: "2025-04-06",
+    disponibilite: true,
+    disponibiliteCreneau: true
+  }
+];
+
 
 export default function useContentCtx({ initialData }: props) {
   const searchParams = useSearchParams();
@@ -242,14 +81,14 @@ export default function useContentCtx({ initialData }: props) {
 
   function filterBirdCreneau() {
     let data;
-    if (initialData) data = initialData.content.filter((item) => item.disponibiliteCreneau);
+    if (dataa) data = dataa.filter((item) => item.disponibiliteCreneau);
     
     setInitialBirdCreneau(data || []);
   }
 
   function filterBirdNotCreneau() {
     let data;
-    if (initialData) data = initialData.content.filter((item) => !item.disponibiliteCreneau);
+    if (dataa) data = dataa.filter((item) => !item.disponibiliteCreneau);
     
     setInitialBirdNotCreneau(data || []);
   }

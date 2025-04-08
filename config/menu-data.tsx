@@ -86,6 +86,8 @@ const menuData: IMenuData[] = [
                 title: 'delivery_men',
                 children: [
                     { icon: IconBuildingSkyscraper, title: 'slot', path: '/delivery-men/slot' },
+                    { icon: IconBuildingSkyscraper, title: 'slot-progression', path: '/delivery-men/creneau-progression' },
+                    { icon: IconBuildingSkyscraper, title: 'performance', path: '/delivery-men/performance' },
                     { icon: IconBuildingSkyscraper, title: 'slot-calendar', path: '/delivery-men/slot/slot-calendar' },
                     { icon: IconBuildingSkyscraper, title: 'all', path: '/delivery-men' },
                     // { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/delivery-men/valide' },

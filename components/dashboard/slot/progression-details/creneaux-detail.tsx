@@ -15,7 +15,7 @@ export default function CreneauxDetail  ({ dataCreneau }: { dataCreneau: Creneau
           // console.log( estSemainePassee(item.fin));
 
           return (
-            <div className="flex flex-col gap-4">
+            <div key={item.id} className="flex flex-col gap-4">
               <p className="text-red-500">Plan mensuel -19 au 20 mars</p>
               <div className={style}>Créneaux du : 19-25 février</div>
             </div>

@@ -2,8 +2,8 @@ import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image } from '@h
 // import DropDownAction from './dropDownAction';
 // import progresseBare from '../delivery-men/progression/progression-barre';
 import { IconPointFilled } from '@tabler/icons-react';
-import progresseBare from '../../progression/progression-barre';
-import DropDownAction from '../dropDownAction';
+import progresseBare from '../progression/progression-barre';
+import DropDownAction from './dropDownAction';
 function UserListeModel2 ({ turboy }:any) {
   return (
     <Card className="max-w-[400px]">

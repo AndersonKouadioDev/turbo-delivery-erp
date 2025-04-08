@@ -2,8 +2,8 @@ import { IconLayoutGrid, IconListCheck } from "@tabler/icons-react"
 // import UserListeModel2 from "./user-liste-model-2"
 // import UserListeModel1 from "./user-liste-model-1"
 import { LivreurBird } from "@/types/creneau-bird"
-import UserListeModel1 from "../assignes/user-liste-model-1";
-import UserListeModel2 from "../assignes/user-liste-model-2";
+import UserListeModel1 from "../user-liste-model-1";
+import UserListeModel2 from "../user-liste-model-2";
 import EmptyDataTable from "@/components/commons/EmptyDataTable";
 
 interface props{
@@ -30,7 +30,7 @@ export default function AllModelViewNotCreneau({value,birdNotCreneau,setValue}:p
         <div className="flex gap-60 pb-10">
         <h2 className="text-2xl mb-2">Turboys sans créneaux</h2>
 
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
               <div>
                   <button type="button" className={`btn btn-outline-primary p-2 ${value === 'list' && 'bg-primary text-white'}`} onClick={() => setValue('list')}>
                       <IconListCheck />
@@ -41,7 +41,7 @@ export default function AllModelViewNotCreneau({value,birdNotCreneau,setValue}:p
                       <IconLayoutGrid />
                   </button>
               </div>
-            </div>
+            </div> */}
         </div>
 
       

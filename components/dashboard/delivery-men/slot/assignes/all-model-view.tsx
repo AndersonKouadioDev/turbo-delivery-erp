@@ -1,6 +1,6 @@
 import { IconLayoutGrid, IconListCheck } from "@tabler/icons-react"
-import UserListeModel2 from "./user-liste-model-2"
-import UserListeModel1 from "./user-liste-model-1"
+import UserListeModel2 from "../user-liste-model-2"
+import UserListeModel1 from "../user-liste-model-1"
 import { LivreurBird } from "@/types/creneau-bird"
 import EmptyDataTable from "@/components/commons/EmptyDataTable";
 
@@ -40,9 +40,9 @@ export default function AllModelView({value,birdCreneau,setValue}:props){
 
       
         <div className={`${value === 'list' && style1}${value === 'grid' && style2}`}>
-          {birdCreneau.map((turboy) =>{ 
-            if(value=='list')  return  <UserListeModel1 turboy={turboy}/>
-            if(value=='grid')  return <UserListeModel2 turboy={turboy}/>}
+          {birdCreneau.map((turboy,index) =>{ 
+            if(value=='list')  return  <UserListeModel1 key={index} turboy={turboy}/>
+            if(value=='grid')  return <UserListeModel2 key={index} turboy={turboy}/>}
           )}
         </div>
       </div>
