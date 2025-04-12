@@ -51,7 +51,6 @@ import { Progress } from "@heroui/react"
                     return moi="Des"
                     break; 
                 default:
-                  // code block
               }
         }
 
@@ -63,10 +62,11 @@ import { Progress } from "@heroui/react"
     }
 
 
+      if(turboys.jour?.jourTravaille){
 
-       if(turboys.jour.jourTravaille===7){
-               return <Progress label={fnData()}  color="success" className="max-w-md"  value={100} />
-               }
+        if(turboys.jour.jourTravaille===7){
+            return <Progress label={fnData()}  color="success" className="max-w-md"  value={100} />
+            }
         if(turboys.jour.jourTravaille<7 && turboys.jour.jourTravaille>3){
             return <Progress label={fnData()}  color="warning" className="max-w-md"  value={65} />
             }
@@ -75,19 +75,12 @@ import { Progress } from "@heroui/react"
             return <Progress  label={fnData()} color="danger" className="max-w-md"  value={20} />
             }
 
+      }else{
+        return <Progress label="Date créneau vide"   className="max-w-md"  value={0} />
+      }
 
-            // if(progression==100){
-            // return <Progress label={progression +'%'}   color="success" className="max-w-md"  value={100} />
-            // }
-            // if(progression<100 && progression>=65){
-            //     return <Progress label={progression +'%'}   color="warning" className="max-w-md"  value={65} />
-            //     }
-            // if(progression<65){
-                
-            //     return <Progress label={progression +'%'}   color="danger" className="max-w-md"  value={20} />
-            //     }
-        }
-        
+
+        }        
 
 
 export default progresseBare

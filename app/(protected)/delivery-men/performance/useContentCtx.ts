@@ -8,135 +8,94 @@ interface props {
   initialData: PaginatedResponse<LivreurPerformanceBirdEndTorubo> | null;
 }
 
-const livreur: LivreurPerformanceBirdEndTorubo[] = [
+const livreur: LivreurPerformanceBirdEndTorubo[] =[
   {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "avatarUrl": "https://www.example.com/avatar1.png",
-    "nomComplet": "Jean Dupont",
-    "creneau": {
-      "debut": "2025-03-31",  // Semaine actuelle
-      "fin": "2025-04-06"
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    avatarUrl: "https://www.example.com/avatar1.png",
+    nomComplet: "Jean Dupont",
+    creneau: {
+      debut: "2025-03-31",
+      fin: "2025-04-06"
     },
-    "etats": [
-      {
-        "date": "2025-03-31",
-        "jour": "LUNDI",
-        "statut": "VALIDE"
-      }, {
-        "date": "2025-04-01",
-        "jour": "MARDI",
-        "statut": "MANQUE"
-      }, {
-        "date": "2025-04-02",
-        "jour": "MERCREDI",
-        "statut": "VALIDE"
-      }, {
-        "date": "2025-04-03",
-        "jour": "JEUDI",
-        "statut": "MANQUE"
-      }, {
-        "date": "2025-04-04",
-        "jour": "VANDREDI",
-        "statut": "VALIDE"
-      }, {
-        "date": "2025-04-05",
-        "jour": "SAMEDI",
-        "statut": "NON_DEMARRE"
-      }, {
-        "date": "2025-04-06",
-        "jour": "DIMANCHE",
-        "statut": "NON_DEMARRE"
-      }
+    etats: [
+      { date: "2025-03-31", jour: "LUNDI", statut: "VALIDE" },
+      { date: "2025-04-01", jour: "MARDI", statut: "MANQUE" },
+      { date: "2025-04-02", jour: "MERCREDI", statut: "VALIDE" },
+      { date: "2025-04-03", jour: "JEUDI", statut: "MANQUE" },
+      { date: "2025-04-04", jour: "VENDREDI", statut: "VALIDE" },
+      { date: "2025-04-05", jour: "SAMEDI", statut: "NON_DEMARRE" },
+      { date: "2025-04-06", jour: "DIMANCHE", statut: "NON_DEMARRE" }
     ],
-    "performance": 85,
-    "commission": 150,
-    "prime": 200
+    performance: 85,
+    commission: 150,
+    prime: 200
   },
   {
-    "id": "4fb86g75-6829-3762-c4hd-9d974g67ghc7",
-    "avatarUrl": "https://www.example.com/avatar2.png",
-    "nomComplet": "Marie Lefevre",
-    "creneau": {
-      "debut": "2025-03-28",  // Semaine passée
-      "fin": "2025-03-28"
+    id: "4fb86g75-6829-3762-c4hd-9d974g67ghc7",
+    avatarUrl: "https://www.example.com/avatar2.png",
+    nomComplet: "Marie Lefevre",
+    creneau: {
+      debut: "2025-03-28",
+      fin: "2025-03-28"
     },
-    "etats": [
-      {
-        "date": "2025-03-28",
-        "jour": "VENDREDI",
-        "statut": "VALIDE"
-      }
+    etats: [
+      { date: "2025-03-28", jour: "VENDREDI", statut: "VALIDE" }
     ],
-    "performance": 20,
-    "commission": 80,
-    "prime": 70
+    performance: 20,
+    commission: 80,
+    prime: 70
   },
   {
-    "id": "2fa45h23-1248-9035-b4df-5c874f95kld4",
-    "avatarUrl": "https://www.example.com/avatar3.png",
-    "nomComplet": "Paul Martin",
-    "creneau": {
-      "debut": "2025-04-02",  // Semaine actuelle
-      "fin": "2025-04-02"
+    id: "2fa45h23-1248-9035-b4df-5c874f95kld4",
+    avatarUrl: "https://www.example.com/avatar3.png",
+    nomComplet: "Paul Martin",
+    creneau: {
+      debut: "2025-04-02",
+      fin: "2025-04-02"
     },
-    "etats": [
-      {
-        "date": "2025-04-02",
-        "jour": "MERCREDI",
-        "statut": "VALIDE"
-      }
+    etats: [
+      { date: "2025-04-02", jour: "MERCREDI", statut: "VALIDE" }
     ],
-    "performance": 55,
-    "commission": 120,
-    "prime": 180
+    performance: 55,
+    commission: 120,
+    prime: 180
   },
   {
-    "id": "a8b61h49-6123-9876-z3kq-4w978s45cgd9",
-    "avatarUrl": "https://www.example.com/avatar4.png",
-    "nomComplet": "Alice Bernard",
-    "creneau": {
-      "debut": "2025-03-30",  // Semaine passée
-      "fin": "2025-03-30"
+    id: "a8b61h49-6123-9876-z3kq-4w978s45cgd9",
+    avatarUrl: "https://www.example.com/avatar4.png",
+    nomComplet: "Alice Bernard",
+    creneau: {
+      debut: "2025-03-30",
+      fin: "2025-03-30"
     },
-    "etats": [
-      {
-        "date": "2025-03-30",
-        "jour": "DIMANCHE",
-        "statut": "VALIDE"
-      }
+    etats: [
+      { date: "2025-03-30", jour: "DIMANCHE", statut: "VALIDE" }
     ],
-    "performance": 80,
-    "commission": 140,
-    "prime": 210
+    performance: 80,
+    commission: 140,
+    prime: 210
   },
   {
-    "id": "c9d70f22-3789-4507-b6bf-7c298n90tdi0",
-    "avatarUrl": "https://www.example.com/avatar5.png",
-    "nomComplet": "Lucie Dupuis",
-    "creneau": {
-      "debut": "2025-04-03",  // Semaine actuelle
-      "fin": "2025-04-03"
+    id: "c9d70f22-3789-4507-b6bf-7c298n90tdi0",
+    avatarUrl: "https://www.example.com/avatar5.png",
+    nomComplet: "Lucie Dupuis",
+    creneau: {
+      debut: "2025-04-03",
+      fin: "2025-04-03"
     },
-    "etats": [
-      {
-        "date": "2025-04-03",
-        "jour": "JEUDI",
-        "statut": "VALIDE"
-      }
+    etats: [
+      { date: "2025-04-03", jour: "JEUDI", statut: "VALIDE" }
     ],
-    "performance": 100,
-    "commission": 330,
-    "prime": 390
+    performance: 100,
+    commission: 330,
+    prime: 390
   }
-]
+];
 
 
 
 
 export default function useContentCtx({ initialData }: props) {
-  const searchParams = useSearchParams();
-  const [search, setSearch] = useState<string | null>(null);
-  const textParam = searchParams.get('text');
   const [data, setData] = useState<LivreurPerformanceBirdEndTorubo[]>(livreur||[]);
 
 
@@ -169,22 +128,6 @@ const currentWeekItems = livreur.filter(item =>
 console.log({dd:currentWeekItems});
 
   },[])
-
-
-  // //filtrage
-  // useEffect(() => {
-  //   // Initialiser search à partir de textParam
-  //   setSearch(textParam);
-
-  //   // Si search n'est pas vide, filtrer les données
-  //   if (search !== null && search.trim() !== '') {
-  //     const filtered = livreur.filter((item) => item.nomComplet.toLowerCase().includes(search.toLowerCase())) || [];
-  //     setData(filtered);
-  //   } else {
-  //     // Si search est vide, restaurer la liste initiale
-  //     setData(livreur || []);
-  //   }
-  // }, [search, textParam]);
 
 
   return {

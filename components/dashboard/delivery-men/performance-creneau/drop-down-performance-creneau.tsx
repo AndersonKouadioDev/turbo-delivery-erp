@@ -1,5 +1,5 @@
 import {Transition, Dialog, DialogPanel, TransitionChild } from "@headlessui/react";
-import {Popover, PopoverTrigger, PopoverContent, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem, Card, CardHeader, CardBody, CardFooter} from "@heroui/react";
+import { Button, Card, CardHeader, CardBody, CardFooter} from "@heroui/react";
 import { IconChevronLeft, IconChevronRight, IconX } from "@tabler/icons-react";
 import React, { Fragment, useEffect, useState } from 'react';
 import TableCreneauDetail from "../performance-apercu/table-creneau-detail";
@@ -7,38 +7,42 @@ import TableCreneauDetail from "../performance-apercu/table-creneau-detail";
 interface props{
     open: boolean,
      setOpen: (open: boolean) => void,
-     gainsData: PerformanceApercuGlobalGain
+     gainsData: PerformanceApercuGlobalGain|null
 }
 
 export default function DropDownPerformanceCrenea({open,setOpen,gainsData}:props) {
    
     const [currentIndex, setCurrentIndex] = useState(0);
 
- const[data,setData]=useState<JourGain>(gainsData?.gains?.[0]||null)
+ const[data,setData]=useState<JourGain|null>(gainsData?.gains[0]||null)
 
-
+ console.log({gainsDataaa:gainsData});
+ 
  
  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex < gainsData.gains.length - 1 ? prevIndex + 1 : prevIndex
-    );
+    if (gainsData && gainsData.gains.length > 0) {
+        setCurrentIndex((prevIndex) =>
+          prevIndex < gainsData.gains.length - 1 ? prevIndex + 1 : prevIndex
+        );
+
+      }
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : prevIndex
-    );
+    if (gainsData && gainsData.gains.length > 0) {
+        setCurrentIndex((prevIndex) =>
+          prevIndex > 0 ? prevIndex - 1 : prevIndex
+        );
+      }
   };
 
     useEffect(()=>{
         if(gainsData)
-            setData(gainsData.gains[currentIndex])
+            setData(gainsData.gains[currentIndex])        
+    },[gainsData,currentIndex])
 
 
-    },[currentIndex])
-
-
-if(data)
+// if(data)
 
   return (
      <Transition appear show={open} as={Fragment} >
@@ -67,18 +71,18 @@ if(data)
                                   </button>
                                     <Card className="py-4 w-full ">
                                     <CardHeader className="pb-0 pt-2 px-4 flex-col ">
-                                        <p className="text-tiny uppercase font-bold"> {data.date}</p>                                   
+                                        <p className="text-tiny uppercase font-bold"> {data?.date}</p>                                   
                                     </CardHeader>
                                     <CardBody className="overflow-visible pt-5 flex items-center">
                                         <div className="bg-slate-300  flex items-center rounded-lg">
                                         <Button onClick={handlePrev} size="sm"><IconChevronLeft stroke={2} /></Button>
-                                       {data.jour}
+                                       {data?.jour}
 
                                         <Button  onClick={handleNext} size="sm" ><IconChevronRight stroke={2} /></Button>
                                           
                                         </div>
 
-                                       <TableCreneauDetail initialData={data.gain.gains}/>
+                                       <TableCreneauDetail initialData={data?.gain.gains|| []}/>
                                     </CardBody>
                                     <CardFooter className="py-5 flex justify-center">
                                          <Button size="sm" >imprimer</Button>

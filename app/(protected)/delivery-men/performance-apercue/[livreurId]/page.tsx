@@ -1,6 +1,7 @@
 
 import { getPerformanceCreneauById } from '@/src/performance/performance.action';
 import Content from './content'
+import EmptyDataTable from '@/components/commons/EmptyDataTable';
 
 
 // interface Props {
@@ -13,7 +14,8 @@ const dataCreneau={
       {
         creneau: {
           debut: "2025-04-07",
-          fin: "2025-04-07"
+          fin: "2025-04-07",
+          emploiId:"0b729dc1-03e4-40d8-8567-2e0c5fa027f3",
         },
         progressions: [
           {
@@ -45,7 +47,9 @@ const dataCreneau={
       {
         creneau: {
           debut: "2025-04-07",
-          fin: "2025-04-07"
+          fin: "2025-04-07",
+          emploiId:"0b729dc1-03e4-40d8-8567-2e0c5fa027f3",
+
         },
         progressions: [
           {
@@ -77,7 +81,9 @@ const dataCreneau={
       {
         creneau: {
           debut: "2025-04-07",
-          fin: "2025-04-07"
+          fin: "2025-04-07",
+          emploiId:"0b729dc1-03e4-40d8-8567-2e0c5fa027f3",
+
         },
         progressions: [
           {
@@ -109,7 +115,9 @@ const dataCreneau={
       {
         creneau: {
           debut: "2025-04-07",
-          fin: "2025-04-07"
+          fin: "2025-04-07",
+          emploiId:"0b729dc1-03e4-40d8-8567-2e0c5fa027f3",
+
         },
         progressions: [
           {
@@ -141,7 +149,9 @@ const dataCreneau={
       {
         creneau: {
           debut: "2025-04-07",
-          fin: "2025-04-07"
+          fin: "2025-04-07",
+          emploiId:"0b729dc1-03e4-40d8-8567-2e0c5fa027f3",
+
         },
         progressions: [
           {
@@ -173,7 +183,9 @@ const dataCreneau={
       {
         creneau: {
           debut: "2025-04-07",
-          fin: "2025-04-07"
+          fin: "2025-04-07",
+          emploiId:"5f6b6875-e58d-4d95-bff1-a2df3f746f66",
+
         },
         progressions: [
           {
@@ -222,7 +234,7 @@ export default async function Page({ params }: CreneauIdPageProps){
       // const dataCreneau = await getCreneauById(id)
     
       if (!user) {
-        return <div>Aucun utilisateur trouvé</div>;
+        return <EmptyDataTable/>
       } 
  
    

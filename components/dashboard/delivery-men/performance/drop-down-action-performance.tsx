@@ -39,7 +39,7 @@ import { AlignJustify } from "lucide-react";
             </DropdownItem>
             <DropdownItem
               key="performance-details"
-              href={`/delivery-men/performance-apercu/${id}/creneau`}
+              href={`/delivery-men/performance-apercue/${id}`}
               description="voir les details"
               startContent={<IconUser className={iconClasses} />}
             >

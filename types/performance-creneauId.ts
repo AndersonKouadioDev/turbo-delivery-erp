@@ -5,8 +5,9 @@ export interface PerformanceCreneauId {
 
 export interface CreneauItem {
   creneau: {
-    debut: string; // format 'YYYY-MM-DD'
-    fin: string;   // format 'YYYY-MM-DD'
+    debut: string;
+    fin: string;   
+    emploiId:string
   };
   progressions: Progression[];
 }

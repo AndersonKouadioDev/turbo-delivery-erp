@@ -1,7 +1,5 @@
-import { TurboysBird,TurboysNotSlot } from "@/types/slot"
 import Content from "./content"
 import { Metadata } from "next";
-import { getAllCreneauBird } from "@/src/creneau-livreur/creneau-livreur.action";
 import { getAllPerformanceBird } from "@/src/performance/performance.action";
 
     

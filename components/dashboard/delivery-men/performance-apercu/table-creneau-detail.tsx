@@ -153,8 +153,14 @@ const dataCreneau={
         label: "commussion",
       },
   ];
+
+
+  // {initialData}:{initialData:GainDetail[]}
   
-  export default function TableCreneauDetail({initialData}:{initialData:GainDetail[]}) {
+  export default function TableCreneauDetail({initialData}:{initialData:GainDetail[]|[]}) {
+
+    console.log(initialData);
+    
          
     const [open, setOpen] = useState<boolean>(false);
         
@@ -202,7 +208,7 @@ const dataCreneau={
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={initialData} emptyContent={<EmptyDataTable title="Aucun  Livreur" />}>
+      <TableBody items={initialData||[]} emptyContent={<EmptyDataTable title="Aucun  Livreur" />}>
         {(item) => (
           <TableRow key={item.code} onClick={() => setOpen(true)}>
             {(columnKey) => <TableCell >{renderCell(item, columnKey)}</TableCell>}

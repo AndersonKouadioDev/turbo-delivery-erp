@@ -1,6 +1,8 @@
 interface Creneau {
     debut: string;  
-    fin: string;    
+    fin: string;  
+    emploiId: string
+  
 }
 
 interface Progression{

@@ -16,16 +16,14 @@ interface Props {
     
 }
 
-export default function Content({data,}:Props){
-
-  // console.log(data)
+export default function Content({data}:Props){
   
     return (
       <>
           <div>
               <div className="flex items-center pb-10">
                 <ButtonRetour/>
-                <h1 className={title({ size: 'h3', class: 'text-primary' })}>Aperçu-Performance</h1>
+                <h1 className={title({ size: 'h3', class: 'text-primary' })}>Aperçu Performance</h1>
                </div>
                 <ListPerformanceApercu data={data} />          
           </div>

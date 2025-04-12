@@ -1,13 +1,10 @@
 'use server';
 
-import { ActionResult, PaginatedResponse } from '@/types';
-// import { LivreurStatutVM, Restaurant } from '@/types/models';
-
+import { PaginatedResponse } from '@/types';
 import { apiClientHttp } from '@/lib/api-client-http';
-import { Restaurant } from '@/types/creneau-turbo';
-import { LivreurBird } from '@/types/creneau-bird';
-import { CreneauID } from '@/types/creneau-byId';
 import { PerformanceCreneauId } from '@/types/performance-creneauId';
+import { AxiosError } from 'axios';
+import { PerformanceHebdomadaire } from '@/types/performance-hebdomadaire';
 
 // Configuration
 const BASE_URL = '/api/erp/performance';
@@ -27,16 +24,16 @@ const creneauEndpoints = {
         endpoint: `${BASE_URL}/bird`,
         method: 'GET',
     },
-    // getAllCreneauProgressionTurbo: {
-    //     endpoint: `${BASE_URL}/turbo/progression`,
-    //     method: 'GET',
-    // },
-    // getAllCreneauProgressionBird: {
-    //     endpoint: `${BASE_URL}/bird/progression`,
-    //     method: 'GET',
-    // },
     getPerformanceCreneauById: {
         endpoint: (creneauId: string) => `${BASE_URL}/${creneauId}/creneau`,
+        method: 'GET',
+    },
+    getPerformancePlanning: {
+        endpoint: (creneauId: string,emploiId:string) => `${BASE_URL}/${creneauId}/planning-hebdomadaire/${emploiId}`,
+        method: 'GET',
+    },
+    getPerformanceFichePaie: {
+        endpoint: (creneauId: string,emploiId:string) => `${BASE_URL}/${creneauId}/creneau/${emploiId}`,
         method: 'GET',
     },
 };
@@ -84,10 +81,75 @@ export async function getPerformanceCreneauById(creneauId: string): Promise<Perf
             service: 'backend',
         });
         return data;
-    } catch (error: any) {
+    } catch (error: AxiosError | unknown) {
+        if (error instanceof AxiosError) {
+            // Si l'erreur est une AxiosError, affichez plus de détails sur l'erreur
+            // console.error('Error fetching performance creneau by ID:', error.message);
+            // console.error('Response:', error.response); // Réponse complète du serveur
+            // console.error('Status:', error.response?.status); // Code de statut HTTP
+            console.error('Data:', error.response?.data); // Données retournées par le serveur (si disponibles)
+        } else {
+            // Si c'est une erreur inconnue (non Axios), loggez l'erreur brute
+            console.error('Unknown error occurred:', error);
+        }
+        // Retourner null en cas d'erreur
         return null;
     }
 }
+
+
+export async function getPerformancePlanning(creneauId: string,emploiId:string): Promise<PerformanceHebdomadaire|null> {
+    try {
+        const data = await apiClientHttp.request<PerformanceHebdomadaire|null>({
+            endpoint: creneauEndpoints.getPerformancePlanning.endpoint(creneauId,emploiId),
+            method: creneauEndpoints.getPerformancePlanning.method,
+            service: 'backend',
+        });
+        return data;
+    } catch (error: AxiosError | unknown) {
+        if (error instanceof AxiosError) {
+            // Si l'erreur est une AxiosError, affichez plus de détails sur l'erreur
+            // console.error('Error fetching performance creneau by ID:', error.message);
+            // console.error('Response:', error.response); // Réponse complète du serveur
+            // console.error('Status:', error.response?.status); // Code de statut HTTP
+            console.error('Data:', error.response?.data); // Données retournées par le serveur (si disponibles)
+        } else {
+            // Si c'est une erreur inconnue (non Axios), loggez l'erreur brute
+            console.error('Unknown error occurred:', error);
+        }
+        // Retourner null en cas d'erreur
+        return null;
+    }
+}
+
+
+export async function getPerformanceFichePaie(creneauId: string,emploiId:string): Promise<PerformanceApercuGlobalGain|null> {
+    try {
+        const data = await apiClientHttp.request<PerformanceApercuGlobalGain|null>({
+            endpoint: creneauEndpoints.getPerformanceFichePaie.endpoint(creneauId,emploiId),
+            method: creneauEndpoints.getPerformanceFichePaie.method,
+            service: 'backend',
+        });
+        return data;
+    } catch (error: AxiosError | unknown) {
+        if (error instanceof AxiosError) {
+            // Si l'erreur est une AxiosError, affichez plus de détails sur l'erreur
+            // console.error('Error fetching performance creneau by ID:', error.message);
+            // console.error('Response:', error.response); // Réponse complète du serveur
+            // console.error('Status:', error.response?.status); // Code de statut HTTP
+            console.error('Data:', error.response?.data); // Données retournées par le serveur (si disponibles)
+        } else {
+            // Si c'est une erreur inconnue (non Axios), loggez l'erreur brute
+            console.error('Unknown error occurred:', error);
+        }
+        // Retourner null en cas d'erreur
+        return null;
+    }
+}
+
+
+
+
 
 
 
