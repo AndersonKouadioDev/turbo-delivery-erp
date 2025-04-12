@@ -15,7 +15,8 @@ const livreur: LivreurPerformanceBirdEndTorubo[] =[
     nomComplet: "Jean Dupont",
     creneau: {
       debut: "2025-03-31",
-      fin: "2025-04-06"
+      fin: "2025-04-06",
+      emploiId:"206337d9-c5f9-43a9-b778-74f35069c13e",
     },
     etats: [
       { date: "2025-03-31", jour: "LUNDI", statut: "VALIDE" },
@@ -36,7 +37,9 @@ const livreur: LivreurPerformanceBirdEndTorubo[] =[
     nomComplet: "Marie Lefevre",
     creneau: {
       debut: "2025-03-28",
-      fin: "2025-03-28"
+      fin: "2025-03-28",
+      emploiId:"206337d9-c5f9-43a9-b778-74f35069c13e",
+
     },
     etats: [
       { date: "2025-03-28", jour: "VENDREDI", statut: "VALIDE" }
@@ -51,7 +54,9 @@ const livreur: LivreurPerformanceBirdEndTorubo[] =[
     nomComplet: "Paul Martin",
     creneau: {
       debut: "2025-04-02",
-      fin: "2025-04-02"
+      fin: "2025-04-02",
+      emploiId:"206337d9-c5f9-43a9-b778-74f35069c13e",
+
     },
     etats: [
       { date: "2025-04-02", jour: "MERCREDI", statut: "VALIDE" }
@@ -66,7 +71,9 @@ const livreur: LivreurPerformanceBirdEndTorubo[] =[
     nomComplet: "Alice Bernard",
     creneau: {
       debut: "2025-03-30",
-      fin: "2025-03-30"
+      fin: "2025-03-30",
+      emploiId:"206337d9-c5f9-43a9-b778-74f35069c13e",
+
     },
     etats: [
       { date: "2025-03-30", jour: "DIMANCHE", statut: "VALIDE" }
@@ -81,7 +88,9 @@ const livreur: LivreurPerformanceBirdEndTorubo[] =[
     nomComplet: "Lucie Dupuis",
     creneau: {
       debut: "2025-04-03",
-      fin: "2025-04-03"
+      fin: "2025-04-03",
+      emploiId:"206337d9-c5f9-43a9-b778-74f35069c13e",
+
     },
     etats: [
       { date: "2025-04-03", jour: "JEUDI", statut: "VALIDE" }
