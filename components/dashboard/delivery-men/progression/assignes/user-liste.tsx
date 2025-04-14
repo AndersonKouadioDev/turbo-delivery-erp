@@ -17,7 +17,7 @@ if(initialData)
     <div className="flex flex-col gap-6 ">
       {initialData.map((item, index) => {
         return (
-          <div className="panel mt-5 overflow-hidden border-0 p-0">
+          <div key={index} className="panel mt-5 overflow-hidden border-0 p-0">
             <div className="table-responsive">
               <table className="table-striped table-hover">
                 <thead>

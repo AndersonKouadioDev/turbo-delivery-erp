@@ -114,21 +114,11 @@ const bird = [
   ];
 
   interface props{
-    initialData: Livreur[]
-    // RestaurantProgressionTurbo
-    
-    // Livreur[]
-
-    
+    initialData: Livreur[]    
   }
   
   export default function TableCreneau({initialData}:props) {
-    
-    // const {data} =useContentCtx({initialData})
-
-    console.log(initialData);
-    
-    
+        
 
     const renderCell = React.useCallback((data:Livreur, columnKey:any) => {
       const cellValue = rows[columnKey];
@@ -136,7 +126,7 @@ const bird = [
       switch (columnKey) {
         case "nom":
           return (
-          <div>
+          <div >
             {data.nomComplet??'Nom du coursier non definie'}
           </div>
           );
@@ -194,7 +184,7 @@ const bird = [
       <TableBody items={initialData}  emptyContent={<EmptyDataTable title="Aucun  Livreur" />}>
         {(item) => (
           <TableRow key={String(item.id)}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            {(columnKey) => <TableCell className="w-1/5">{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
       </TableBody>

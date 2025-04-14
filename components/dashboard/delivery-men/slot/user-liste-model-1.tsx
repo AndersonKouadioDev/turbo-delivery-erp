@@ -4,8 +4,8 @@ import { LivreurBird } from '@/types/creneau-bird';
 // import CreneauxDetail from './progression-details/creneaux-detail';
 // import progresseBare from '../delivery-men/progression/progression-barre';
 import { IconPointFilled } from '@tabler/icons-react';
-import DropDownAction from '../dropDownAction';
-import progresseBare from '../../progression/progression-barre';
+import DropDownAction from './dropDownAction';
+import progresseBare from '../progression/progression-barre';
 
 interface props {
   turboy: LivreurBird;

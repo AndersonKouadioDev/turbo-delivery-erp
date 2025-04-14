@@ -71,7 +71,6 @@ export default async function UserPage({ params }: TurboysPageProps) {
     return <div>Aucun utilisateur trouvé</div>;
   }  
 
-  console.log({u:user});
   
   return <Content user={user} dataCreneau={dataCreneau}/>;
 }

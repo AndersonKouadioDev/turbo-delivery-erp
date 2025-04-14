@@ -8,7 +8,7 @@ import Content from './content';
 
 export const metadata: Metadata = {
   title: 'Restaurants ayant des livraisons définies ',
-  description: 'La liste des restaurants qui sont ont des livraisons définies.',
+  description: 'La liste des restaurants qui ont des livraisons définies.',
 };
 
 export default async function Page() {
