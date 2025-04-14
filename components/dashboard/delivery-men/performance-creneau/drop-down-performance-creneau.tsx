@@ -7,17 +7,56 @@ import TableCreneauDetail from "../performance-apercu/table-creneau-detail";
 interface props{
     open: boolean,
      setOpen: (open: boolean) => void,
-     gainsData: PerformanceApercuGlobalGain|null
+     gainsData: PerformanceApercuGlobalGain|null,
+     jour: string|undefined,
 }
 
-export default function DropDownPerformanceCrenea({open,setOpen,gainsData}:props) {
+
+
+export default function DropDownPerformanceCrenea({open,setOpen,gainsData,jour}:props) {
    
     const [currentIndex, setCurrentIndex] = useState(0);
 
- const[data,setData]=useState<JourGain|null>(gainsData?.gains[0]||null)
+    const[data,setData]=useState<JourGain|null>(gainsData?.gains[0]||null)
 
- console.log({gainsDataaa:gainsData});
+    // {gainsData: PerformanceApercuGlobalGain|null,jour:string|undefined}
+
+    useEffect(()=>{
+
+        function jourDeLaSemaine(jour:string|undefined) {
+            switch (jour) {
+              case "LUNDI":
+                return 0;
+              case "MARDI":
+                return 1;
+              case "MERCREDI":
+                return 2;
+              case "JEUDI":
+                return 3;
+              case "VENDREDI":
+                return 4;
+              case "SAMEDI":
+                return 5;
+              case "DIMANCHE":
+                return 6;
+              default:
+                return 0;
+            }
+          }
+
+          setCurrentIndex(jourDeLaSemaine(jour))        
+
+    },[gainsData,jour])
+
+
+
+//  const[data,setData]=useState<JourGain|null>(curentItemClick({gainsData,jour})||null)
+
+
+
+//  console.log({gainsDataaa:gainsData});
  
+
  
  const handleNext = () => {
     if (gainsData && gainsData.gains.length > 0) {

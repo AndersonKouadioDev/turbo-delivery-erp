@@ -2,7 +2,7 @@ interface GainDetail {
   code: string;
   frais: number;
   commission: number;
-  date: string; // ISO format
+  date: string; 
 }
 
 interface Gain {
@@ -11,8 +11,8 @@ interface Gain {
 }
 
 interface JourGain {
-  date: string; // e.g. "2025-04-08"
-  jour: string; // e.g. "LUNDI"
+  date: string; 
+  jour: string; 
   gain: Gain;
 }
 

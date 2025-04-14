@@ -159,7 +159,7 @@ const dataCreneau={
   
   export default function TableCreneauDetail({initialData}:{initialData:GainDetail[]|[]}) {
 
-    console.log(initialData);
+    // console.log(initialData);
     
          
     const [open, setOpen] = useState<boolean>(false);
