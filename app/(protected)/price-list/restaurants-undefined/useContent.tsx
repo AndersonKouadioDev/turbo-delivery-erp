@@ -18,32 +18,33 @@ export const columns = [
 
 export default function useContent({ initialData }: Props) {
 
-    const [initialDataPriceList,setInitialDataPriceList] = useState<DeliveryFee[]>([])
-    const [search,setSearch] = useState<string|null>(null)
+    const [initialDataPriceList, setInitialDataPriceList] = useState<DeliveryFee[]>([])
+    const [search, setSearch] = useState<string | null>(null)
 
-    const searchParams = useSearchParams(); 
-    const textParam = searchParams.get('text'); 
+    const searchParams = useSearchParams();
+    const textParam = searchParams.get('text');
 
     const tabsRef = useRef<HTMLDivElement>(null);
     const [undefinedRestaurant, setUndefinedRestaurant] = useState<RestaurantDefini[] | null>(initialData);
 
 
-    useEffect(() => { 
+    useEffect(() => {
+        console.log("textParam", textParam)
         // Initialiser search à partir de textParam
         setSearch(textParam);
-      
+
         // Si search n'est pas vide, filtrer les données
         if (search !== null && search.trim() !== "") {
-          const filtered = initialData.filter(item => 
-            item.nomEtablissement.toLowerCase().includes(search.toLowerCase())
-          ) || [];
-          setUndefinedRestaurant(filtered);
+            const filtered = initialData.filter(item =>
+                item.nomEtablissement.toLowerCase().includes(search.toLowerCase())
+            ) || [];
+            setUndefinedRestaurant(filtered);
         } else {
-          // Si search est vide, restaurer la liste initiale
-          setUndefinedRestaurant(initialData);
+            // Si search est vide, restaurer la liste initiale
+            setUndefinedRestaurant(initialData);
         }
-      
-      }, [search, textParam, initialDataPriceList]);
+
+    }, [search, textParam, initialDataPriceList]);
 
 
     // const tabs = initialData.map((resto) => ({ id: resto.id, nomComplet: resto.nomEtablissement }));
@@ -60,10 +61,10 @@ export default function useContent({ initialData }: Props) {
                 );
             case 'typeCommission':
                 return <span>
-                     {undefinedRestaurant.typeCommission === 'POURCENTAGE' ? 'POURCENTAGE %' : 
-      undefinedRestaurant.typeCommission === 'FIXE' ? '(XOF)' : 'Non definie'}
+                    {undefinedRestaurant.typeCommission === 'POURCENTAGE' ? 'POURCENTAGE %' :
+                        undefinedRestaurant.typeCommission === 'FIXE' ? '(XOF)' : 'Non definie'}
                     {/* {undefinedRestaurant.typeCommission == 'POURCENTAGE' ? ' POURCENTAGE %' :undefinedRestaurant.typeCommission == '(XOF)'? '(XOF)':''} */}
-                    </span>;
+                </span>;
             default:
                 return <></>;
         }
