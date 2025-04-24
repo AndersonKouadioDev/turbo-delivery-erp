@@ -36,9 +36,11 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
 
 
 
-  {typeCommission === 'POURCENTAGE' ? '(POURCENTAGE %)' : 
-    typeCommission === 'FIXE' ? '(XOF)' : ' (type Non definie)'}
-  
+  {
+    typeCommission === 'POURCENTAGE' ? '(POURCENTAGE %)' :
+    typeCommission === 'FIXE' ? '(XOF)' : ' (type Non definie)'
+  }
+
 
   const handleInputChange = useCallback(async (value: string) => {
     if (value.length > 2 && !loading) {
@@ -53,7 +55,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     }
   }, []);
 
- 
+
   const {
     formState: { errors },
     watch,
@@ -90,17 +92,17 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   let longitude = getValues('restaurantId');
 
 
-useEffect(()=>{
- const commussion = initialData?.find(item=>item.id===longitude)
- let comm='Type non definie'
- if(commussion)
+  useEffect(() => {
+    const commussion = initialData?.find(item => item.id === longitude)
+    let comm = 'Type non definie'
+    if (commussion)
 
-  comm = commussion.typeCommission === 'POURCENTAGE' ?'Type commussion (En pourcentage %)' : 
-  commussion.typeCommission === 'FIXE' ? 'Type commussion (XOF)' : ' Type commussion (non definie)'
- 
-  setTypeCommission(comm)
+      comm = commussion.typeCommission === 'POURCENTAGE' ? 'Type commussion (En pourcentage %)' :
+        commussion.typeCommission === 'FIXE' ? 'Type commussion (XOF)' : ' Type commussion (non definie)'
 
-},[longitude])
+    setTypeCommission(comm)
+
+  }, [longitude])
 
   const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
     setLoading(true);
@@ -112,7 +114,7 @@ useEffect(()=>{
       // setInputCalculate()
       setValue('longitude', details.result.geometry?.location.lng ?? 0, { shouldValidate: true });
       setValue('latitude', details.result.geometry?.location.lat ?? 0, { shouldValidate: true });
-      
+
 
       let longitude = getValues('longitude');
       let latitude = getValues('latitude');
@@ -124,8 +126,8 @@ useEffect(()=>{
         lng: longitude,
       });
 
-      setValue('distanceFin',calculateDistanceR?? 0 );      
-      
+      setValue('distanceFin', calculateDistanceR ?? 0);
+
       setResulFinaleDistance(calculateDistanceR);
     } catch (error) {
       console.error('Error fetching place details:', error);
@@ -181,21 +183,21 @@ useEffect(()=>{
                           name="name"
                           render={({ field }) => (
                             <div>
-                                <Input
-                              {...field}
-                              value={field.value.toString() ?? ''}
-                              type="text"
-                              label="name"
-                              variant="bordered"
-                              isRequired
-                              required
-                              aria-invalid={errors.name ? 'true' : 'false'}
-                              aria-label="name input"
-                              errorMessage={errors.name?.message ?? ''}
-                              isInvalid={!!errors.name}
-                              name="name"
-                              radius="sm"
-                            />
+                              <Input
+                                {...field}
+                                value={field.value.toString() ?? ''}
+                                type="text"
+                                label="name"
+                                variant="bordered"
+                                isRequired
+                                required
+                                aria-invalid={errors.name ? 'true' : 'false'}
+                                aria-label="name input"
+                                errorMessage={errors.name?.message ?? ''}
+                                isInvalid={!!errors.name}
+                                name="name"
+                                radius="sm"
+                              />
                             </div>
                           )}
                         />
@@ -206,7 +208,7 @@ useEffect(()=>{
                           render={({ field }) => (
                             <div  >
                               <Select
-                             
+
                                 {...field}
                                 isRequired
                                 required
@@ -226,7 +228,7 @@ useEffect(()=>{
                         <Controller
                           control={control}
                           name="zone"
-                       
+
                           render={({ field }) => (
                             <div className="relative">
                               <Input
