@@ -21,9 +21,9 @@ const tabsItems: {
   href: string;
   label: string;
 }[] = [
-  { id: '/price-list', href: '/price-list', label: 'Liste des restaurants definis' },
-  { id: '/price-list/restaurants-undefined', href: '/price-list/restaurants-undefined', label: 'Liste des restaurants indefinis' },
-];
+    { id: '/price-list', href: '/price-list', label: 'Liste des restaurants definis' },
+    { id: '/price-list/restaurants-undefined', href: '/price-list/restaurants-undefined', label: 'Liste des restaurants indefinis' },
+  ];
 
 export default function Content({ initialData }: Props) {
   const { undefinedRestaurant, renderCell } = useContent({ initialData });
@@ -32,7 +32,7 @@ export default function Content({ initialData }: Props) {
     <Tabs color="primary" variant="underlined" items={tabsItems} selectedKey={'/price-list/restaurants-undefined'} className="w-full">
       {(item) => {
         return (
-          <Tab key={item.id} as={Link} href={item.href} title={item.label}>
+          <Tab key={item.id} as={Link} href={item.href} title={item.label}>*
             <div className="flex flex-col">
               <Table aria-label="Tableau de Frais de livraison">
                 <TableHeader columns={columns}>

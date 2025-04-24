@@ -26,7 +26,6 @@ export default function usePriceLiceDefined({ initialData }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const tabs = initialData.map((resto) => ({ id: resto.id, nomComplet: resto.nomEtablissement }));
   const initialSelectedKey = searchParams.get('restoId') || (initialData.length > 0 ? initialData[0].id : null);
   const [selectedKey, setSelectedKey] = useState<string | null>(initialSelectedKey);
@@ -73,8 +72,9 @@ export default function usePriceLiceDefined({ initialData }: Props) {
   }, [currentRestaurant]);
 
   const search = searchParams.get('search');
-  const deliveryFees = search ? initialDataPriceList.filter((item) => item.zone.toLowerCase().includes(search.toLowerCase())) : initialDataPriceList;
 
+  const deliveryFees = search ? initialDataPriceList.filter((item) => item.zone.toLowerCase().includes(search.toLowerCase()) ||
+    item.name?.toLocaleLowerCase().includes(search.toLocaleLowerCase())) : initialDataPriceList;
   const tabsRef = useRef<HTMLDivElement>(null);
   const handleMoveScroll = (value: number) => {
     if (tabsRef.current) {
@@ -107,7 +107,7 @@ export default function usePriceLiceDefined({ initialData }: Props) {
           return (
             <div className="relative flex items-center gap-2">
               <Tooltip content="Edit user">
-                <FormUpDate typeCm={currentRestaurant?.typeCommission??""} initialData={deliveryFee} restaurantId={selectedKey || ''} />
+                <FormUpDate typeCm={currentRestaurant?.typeCommission ?? ""} initialData={deliveryFee} restaurantId={selectedKey || ''} />
               </Tooltip>
               <Tooltip color="danger" content="Delete user">
                 <PriceListeTools id={deliveryFee.id || ''} />
