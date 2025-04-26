@@ -18,9 +18,11 @@ interface Props {
 export default function Content({ initialData }: Props) {
   const {turboysCreneau } = useContentCtx({ initialData });
 
+
+  console.log({turboysCreneau:turboysCreneau});
   
 
-  
+
   // const restaurants = data?.content ?? [];
 
  
