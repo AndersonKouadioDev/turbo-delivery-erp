@@ -24,7 +24,7 @@ interface Props {
 export default function useContentCtx({ initialData }: Props) {
   const [isLoading, setIsLoading] = useState(!initialData);
 
-  const [currentPage, setCurrentPage] = useState(initialData?.totalPages??1);
+  const [currentPage, setCurrentPage] = useState(initialData?.totalPages ?? 1);
   const [pageSize] = useState(10);
   const [data, setData] = useState<PaginatedResponse<BonLivraison> | null>(initialData);
 
@@ -34,61 +34,34 @@ export default function useContentCtx({ initialData }: Props) {
   // Fonction de gestion du changement de date
   const handleDateChange = (value: CalendarDate | null) => {
     if (value) {
-      const date = new Date(value.toString())
+      const date = new Date(value.toString());
       const formattedDate = date.toISOString().split('T')[0];
-      setBirthDate((state)=>formattedDate); 
-      handlerPage(1)
-      console.log({birthDate});
-      
+      setBirthDate((state) => formattedDate);
+      handlerPage(1);
     } else {
-      setBirthDate(null)
+      setBirthDate(null);
     }
   };
 
-  const handlerPage =(page:number)=>{
-
-    setCurrentPage((state)=>page);
-
-  }
-  console.log({currentPage,birthDate})
+  const handlerPage = (page: number) => {
+    setCurrentPage((state) => page);
+  };
   useEffect(() => {
-
     const fetchData = async () => {
-        if(birthDate ){
-      // setCurrentPage(page);
-      setIsLoading(true);
-      try {
-        const newData = await getBonLivraisonAll(currentPage, pageSize, birthDate);
-        setData(newData);
-      } catch (error) {
-        toast.error('Erreur lors de la récupération des données');
-      } finally {
-        setIsLoading(false);
+      if (birthDate || currentPage) {
+        setIsLoading(true);
+        try {
+          const newData = await getBonLivraisonAll(currentPage, pageSize, birthDate);
+          setData(newData);
+        } catch (error) {
+          toast.error('Erreur lors de la récupération des données');
+        } finally {
+          setIsLoading(false);
+        }
       }
-    }
-
     };
     fetchData();
-  }, [birthDate,currentPage]);
-
-//   useEffect(() => {
-//   }, [data]);
-
-  // Fonction de récupération des données
-
-//   const fetchData = useCallback(async (page: number) => {
-//     setCurrentPage(page);
-//     setIsLoading(true);
-//     try {
-//       const newData = await getBonLivraisonAll(page - 1, pageSize, birthDate);
-//       if (newData) 
-//         setData(newData);
-//     } catch (error) {
-//       toast.error('Erreur lors de la récupération des données');
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   },[birthDate,pageSize]);
+  }, [birthDate, currentPage, pageSize]);
 
   const renderCell = useCallback((bonLivraison: BonLivraison, columnKey: Key) => {
     const cellValue = bonLivraison[columnKey as keyof BonLivraison];
