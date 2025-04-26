@@ -1,16 +1,17 @@
-import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image } from '@heroui/react';
+import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Avatar } from '@heroui/react';
 // import DropDownAction from './dropDownAction';
 // import progresseBare from '../delivery-men/progression/progression-barre';
 import { IconPointFilled } from '@tabler/icons-react';
 import progresseBare from '../progression/progression-barre';
 import DropDownAction from './dropDownAction';
+import createUrlFile from '@/utils/createUrlFile';
 function UserListeModel2 ({ turboy }:any) {
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex justify-between gap-3">
         <div className='flex gap-2 items-center'>
-          <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
-
+          {/* <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div> */}
+          <Avatar isBordered radius="full" size="md" src={createUrlFile(turboy?.avatar ?? '', "backend")}/>
           {/* <Image alt="heroui logo" height={40} radius="sm" src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4" width={40} /> */}
           <p className="text-md">{turboy.nomComplet}</p>
         </div>
@@ -23,7 +24,7 @@ function UserListeModel2 ({ turboy }:any) {
 
       </CardBody>
       <CardFooter>
-      <div className="flex gap-2">
+      <div className="flex gap-2 w-full">
         {progresseBare(turboy)}
       <span className='relative mt-5  '>
        {turboy.disponibilite?<IconPointFilled  style={{ border: 'none' }}  color="#16B84E" size={30} />:<IconPointFilled  style={{ border: 'none' }}  color="#FF0000" size={30} />}
