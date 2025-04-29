@@ -6,12 +6,14 @@ import { BonLivraison } from '@/types/bon-livraison.model';
 import useContentCtx from './useContentCtx';
 import { Calendar, Cherry, CircleFadingPlus, Home, SquareMenu, ToggleRight, User } from 'lucide-react';
 import { PaginatedResponse } from '@/types';
+import { Restaurant } from '@/types/models';
 
 interface ContentProps {
     initialData: PaginatedResponse<BonLivraison> | null;
+    restaurants: Restaurant[]
 }
 
-export default function Content({ initialData }: ContentProps) {
+export default function Content({ initialData, restaurants }: ContentProps) {
     const { columns, renderCell, data, fetchData, currentPage, isLoading } = useContentCtx({ initialData });
 
     return (
