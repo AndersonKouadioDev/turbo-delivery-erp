@@ -1,35 +1,20 @@
-import Loading from '@/components/layouts/loading';
 import { Metadata } from 'next';
-import React, { Suspense } from 'react';
 import Content from './content';
-import { getRestaurants, getRestaurantsNoValidated, getRestaurantsValidated } from '@/src/actions/restaurants.actions';
 import NotFound from '@/app/not-found';
+import { getDetailRestaurant } from '@/src/actions/restaurants.actions';
 
 export const metadata: Metadata = {
-    title: 'Restaurants',
+  title: 'Restaurants',
 };
 
 export default async function Restaurants({ params }: { params: { restaurant_id: string } }) {
-    let restaurants = await getRestaurants(0, 10);
-    let restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
+  const currentRestaurant = await getDetailRestaurant(params.restaurant_id);
 
-    if (!restaurant) {
-        restaurants = await getRestaurantsNoValidated();
-        restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
+  if (!currentRestaurant) {
+    return <NotFound />;
+  }
 
-        if (!restaurant) {
-            restaurants = await getRestaurantsValidated();
-            restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
+  console.log(currentRestaurant);
 
-            if (!restaurant) {
-                return NotFound();
-            }
-        }
-    }
-
-    return (
-        <Suspense fallback={<Loading />}>
-            <Content restaurant={restaurant} />
-        </Suspense>
-    );
+  return <Content restaurant={currentRestaurant} />;
 }

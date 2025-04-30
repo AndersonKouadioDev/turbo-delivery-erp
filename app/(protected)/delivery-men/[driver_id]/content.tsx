@@ -7,9 +7,8 @@ import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from "@
 import createUrlFile from '@/utils/createUrlFile';
 import { DeliveryMan } from '@/types/models';
 
-export default function Content({ driver }: { driver: DeliveryMan }) {
+export default function Content({ driver }: { driver: DeliveryMan | null }) {
     const router = useRouter();
-
     return (
         <div className="min-h-screen">
             <header className="border-b">
@@ -33,7 +32,7 @@ export default function Content({ driver }: { driver: DeliveryMan }) {
                 <div className="space-y-6">
                     <div className="flex justify-center mb-8">
                         <div className="relative w-32 h-32 rounded-full overflow-hidden">
-                            <Image src={createUrlFile(driver?.avatarUrl ?? '', 'delivery')} alt="Photo du livreur" fill className="object-cover" />
+                            <Image src={createUrlFile(driver?.avatarUrl ?? '', "backend")} alt="Photo du livreur" fill className="object-cover" />
                         </div>
                     </div>
 
@@ -61,8 +60,8 @@ export default function Content({ driver }: { driver: DeliveryMan }) {
                                 <p className="text-sm font-medium mb-2">Photo de la pièce</p>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
-                                        <Image src={createUrlFile(driver?.cniUrlR ?? '', 'delivery')} alt={`Photo de la pièce Recto`} fill className="object-cover" />
-                                        <Image src={createUrlFile(driver?.cniUrlV ?? '', 'delivery')} alt={`Photo de la pièce Verso`} fill className="object-cover" />
+                                        <Image src={createUrlFile(driver?.cniUrlR ?? '', 'backend')} alt={`Photo de la pièce Recto`} fill className="object-cover" />
+                                        <Image src={createUrlFile(driver?.cniUrlV ?? '', 'backend')} alt={`Photo de la pièce Verso`} fill className="object-cover" />
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +73,7 @@ export default function Content({ driver }: { driver: DeliveryMan }) {
                             <h2 className="text-xl font-semibold text-red-600">Informations du véhicule</h2>
                         </CardHeader>
                         <CardBody className="md:grid grid-cols-2 gap-6">
-                            <Select label="Type" labelPlacement="outside" defaultSelectedKeys={[driver.category ?? '']} variant="bordered">
+                            <Select label="Type" labelPlacement="outside" defaultSelectedKeys={[driver?.category ?? '']} variant="bordered">
                                 <SelectItem key="dispatcher" value={driver?.category ?? 'dispatcher'}>
                                     Dispatcher
                                 </SelectItem>

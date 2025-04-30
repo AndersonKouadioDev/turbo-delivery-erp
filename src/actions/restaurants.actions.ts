@@ -1,7 +1,7 @@
 'use server';
 
 import { ActionResult, PaginatedResponse } from '@/types';
-import { Restaurant } from '@/types/models';
+import { LivreurStatutVM, Restaurant } from '@/types/models';
 import { apiClientHttp } from '@/lib/api-client-http';
 
 // Configuration
@@ -25,6 +25,10 @@ const restaurantEndpoints = {
         endpoint: `${BASE_URL_2}/validated/opsmanager/0`,
         method: 'GET',
     },
+    getAlls: {
+        endpoint: BASE_URL,
+        method: 'GET',
+    },
     getAllValidated: {
         endpoint: `${BASE_URL_2}/validated/authservice/0`,
         method: 'GET',
@@ -45,6 +49,11 @@ const restaurantEndpoints = {
         endpoint: (idRestaurant: string) => `${BASE_URL_2}/info/${idRestaurant}`,
         method: 'GET',
     },
+    allRestaurants: {
+        endpoint: `${BASE_URL}`,
+        method: 'GET',
+
+    }
 };
 
 export async function getDetailRestaurant(idRestaurant: string): Promise<Restaurant | null> {
@@ -77,6 +86,21 @@ export async function getRestaurants(page: number, size: number): Promise<Pagina
         return null;
     }
 }
+
+export async function getAllRestaurants(): Promise<Restaurant[]> {
+    try {
+        const data = await apiClientHttp.request({
+            endpoint: restaurantEndpoints.getAlls.endpoint,
+            method: restaurantEndpoints.getAlls.method,
+            service: 'backend',
+
+        });
+        return data;
+    } catch (error) {
+        return [];
+    }
+}
+
 
 export async function getRestaurantsValidated(): Promise<PaginatedResponse<Restaurant> | null> {
     try {
@@ -149,4 +173,17 @@ export async function validateRestaurant(id: string, validateBy: 'auth' | 'ops' 
         status: 'error',
         message: 'Méthode de validation invalide',
     };
+}
+
+
+export async function allRestaurants(): Promise<Restaurant[]> {
+    try {
+        const data = await apiClientHttp.request<Restaurant[]>({
+            endpoint: restaurantEndpoints.allRestaurants.endpoint,
+            method: restaurantEndpoints.allRestaurants.method,
+        });
+        return data;
+    } catch (error) {
+        return [] as Restaurant[];
+    }
 }

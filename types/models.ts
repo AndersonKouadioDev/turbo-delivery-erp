@@ -59,6 +59,7 @@ export interface Restaurant {
         longitude: number;
         latitude: number;
     };
+    typeCommission: string,
 
 }
 export interface Picture {
@@ -230,4 +231,47 @@ export interface LivreurDisponible {
         latitude: number;
     };
     course?: CourseExterne;
+}
+
+export interface DemandeAssignationVM {
+    id?: string;
+    nomComplet?: string;
+    statutDemandeAssignation?: StatutDemandeAssignationEnum
+    type?: string;
+    date?: string;
+}
+
+export interface ValiderDemandeAssignationCommande {
+    demandeAssignationId: string
+    restaurantId?: string;
+}
+
+export interface LivreurStatutVM {
+    livreurId?: string;
+    nomPrenom?: string;
+    telephone?: string;
+    status?: number;
+    type?: string;
+    restaurantLibelle?: string;
+    dateInscription?: string;
+}
+
+export interface ChangerStatutLivreurCommande {
+    typeLivreur: string;
+    livreurId: string;
+    restaurantId?: string;
+
+}
+
+export interface ChangerRestaurantLivreurCommande {
+    livreurId: string;
+    restaurantId: string;
+}
+
+export enum StatutDemandeAssignationEnum {
+    EN_ATTENTE = "EN_ATTENTE", VALIDE = "VALIDE", REJETER = "REJETER"
+}
+
+export enum TypeEnum {
+    WAITING, TURBO, FREE
 }

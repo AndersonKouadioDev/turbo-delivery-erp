@@ -48,6 +48,7 @@
         "@smastrom/react-rating": "^1.5.0",
         "@tabler/icons": "^3.22.0",
         "@tabler/icons-react": "^3.22.0",
+        "@tanstack/react-query": "^4.36.1",
         "@tanstack/react-table": "^8.20.6",
         "@tippyjs/react": "^4.2.6",
         "@types/react": "^18.0.27",
@@ -123,6 +124,7 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.8",
+        "@tanstack/eslint-plugin-query": "^5.68.0",
         "@types/google.maps": "^3.58.1",
         "@types/lodash": "^4.17.10",
         "@types/node": "^22.13.2",
@@ -132,10 +134,15 @@
         "@types/react-text-mask": "^5.4.11",
         "@types/sortablejs": "^1.15.0",
         "autoprefixer": "^10.4.17",
+        "heroui-cli": "^1.2.2",
         "postcss": "^8.4.35",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.8",
         "tailwindcss": "^3.4.1"
     },
-    "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "sharp"
+        ]
+    }
 }

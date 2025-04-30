@@ -1,0 +1,232 @@
+
+import { getPerformanceCreneauById } from '@/src/performance/performance.action';
+import Content from './content'
+
+
+// interface Props {
+//   data:PerformanceCreneauId;    
+// }
+
+const dataCreneau={
+    livreurId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    creneaux: [
+      {
+        creneau: {
+          debut: "2025-04-07",
+          fin: "2025-04-07"
+        },
+        progressions: [
+          {
+            jour: "LUNDI",
+            progression: 5,
+            heure: 8,
+            commission: 4
+          },
+          {
+            jour: "MARDI",
+            progression: 6,
+            heure: 9,
+            commission: 40
+          },
+          {
+            jour: "MERCREDI",
+            progression: 8,
+            heure: 10,
+            commission: 100
+          },
+          {
+            jour: "JEUDI",
+            progression: 3,
+            heure: 5,
+            commission: 50
+          }
+        ]
+      },
+      {
+        creneau: {
+          debut: "2025-04-07",
+          fin: "2025-04-07"
+        },
+        progressions: [
+          {
+            jour: "LUNDI",
+            progression: 5,
+            heure: 8,
+            commission: 4
+          },
+          {
+            jour: "MARDI",
+            progression: 6,
+            heure: 7,
+            commission: 40
+          },
+          {
+            jour: "MERCREDI",
+            progression: 7,
+            heure: 5,
+            commission: 100
+          },
+          {
+            jour: "JEUDI",
+            progression: 3,
+            heure: 0,
+            commission: 50
+          }
+        ]
+      },
+      {
+        creneau: {
+          debut: "2025-04-07",
+          fin: "2025-04-07"
+        },
+        progressions: [
+          {
+            jour: "LUNDI",
+            progression: 5,
+            heure: 8,
+            commission: 4
+          },
+          {
+            jour: "MARDI",
+            progression: 6,
+            heure: 9,
+            commission: 40
+          },
+          {
+            jour: "MERCREDI",
+            progression: 8,
+            heure: 10,
+            commission: 100
+          },
+          {
+            jour: "JEUDI",
+            progression: 3,
+            heure: 5,
+            commission: 50
+          }
+        ]
+      },
+      {
+        creneau: {
+          debut: "2025-04-07",
+          fin: "2025-04-07"
+        },
+        progressions: [
+          {
+            jour: "LUNDI",
+            progression: 5,
+            heure: 8,
+            commission: 4
+          },
+          {
+            jour: "MARDI",
+            progression: 6,
+            heure: 9,
+            commission: 40
+          },
+          {
+            jour: "MERCREDI",
+            progression: 8,
+            heure: 10,
+            commission: 100
+          },
+          {
+            jour: "JEUDI",
+            progression: 3,
+            heure: 5,
+            commission: 50
+          }
+        ]
+      },
+      {
+        creneau: {
+          debut: "2025-04-07",
+          fin: "2025-04-07"
+        },
+        progressions: [
+          {
+            jour: "LUNDI",
+            progression: 5,
+            heure: 8,
+            commission: 4
+          },
+          {
+            jour: "MARDI",
+            progression: 6,
+            heure: 9,
+            commission: 40
+          },
+          {
+            jour: "MERCREDI",
+            progression: 8,
+            heure: 10,
+            commission: 100
+          },
+          {
+            jour: "JEUDI",
+            progression: 3,
+            heure: 5,
+            commission: 50
+          }
+        ]
+      },
+      {
+        creneau: {
+          debut: "2025-04-07",
+          fin: "2025-04-07"
+        },
+        progressions: [
+          {
+            jour: "LUNDI",
+            progression: 5,
+            heure: 8,
+            commission: 4
+          },
+          {
+            jour: "MARDI",
+            progression: 6,
+            heure: 9,
+            commission: 40
+          },
+          {
+            jour: "MERCREDI",
+            progression: 8,
+            heure: 10,
+            commission: 100
+          },
+          {
+            jour: "JEUDI",
+            progression: 3,
+            heure: 5,
+            commission: 50
+          }
+        ]
+      }
+    ]
+  }
+  
+  
+
+
+interface CreneauIdPageProps {
+    params: { livreurId: string }; // Définit explicitement le type
+  }
+
+export default async function Page({ params }: CreneauIdPageProps){
+
+      const { livreurId } = params; // Récupère l'ID depuis l'URL
+      // const user = userData.find(item => item.id === id);
+      
+      const user= await getPerformanceCreneauById(livreurId)
+          
+      // const dataCreneau = await getCreneauById(id)
+    
+      if (!user) {
+        return <div>Aucun utilisateur trouvé</div>;
+      } 
+ 
+   
+    return (
+             <Content data={user} />
+    )
+}

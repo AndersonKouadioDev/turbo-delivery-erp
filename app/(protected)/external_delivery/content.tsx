@@ -1,17 +1,14 @@
 'use client';
 import { title } from '@/components/primitives';
-import { CourseExterne, LivreurDisponible, Restaurant } from '@/types/models';
+import { CourseExterne, LivreurDisponible } from '@/types/models';
 import { PaginatedResponse } from '@/types';
-import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { Button, Card, CardBody, CardHeader, Input, Chip, Divider, Pagination, Skeleton, Select, SelectItem } from "@heroui/react";
-import { IconPlus } from '@tabler/icons-react';
+import { Clock, MapPin, User, Package, CreditCard, Store, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button, Card, CardBody, CardHeader, Chip, Divider, Pagination, Skeleton } from "@heroui/react";
 import { useState } from 'react';
-import Link from 'next/link';
 import { SORT_OPTIONS } from '@/data';
 import DeliveryTools from './component/deliveryTools';
 import { getPaginationCourseExterneEnAttente } from '@/src/actions/courses.actions';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { courses_statuses_filters } from '@/data';
+
 
 type SortOption = (typeof SORT_OPTIONS)[keyof typeof SORT_OPTIONS];
 
@@ -120,13 +117,12 @@ export default function Content({ initialData, delivers }: Props) {
     const toggleExpand = (deliveryId: string) => {
         setExpandedDelivery(expandedDelivery === deliveryId ? null : deliveryId);
     };
+
+    console.log("dataFilter", dataFilter)
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
                 <h1 className={title({ size: 'h3', class: 'text-primary' })}>Mes Courses</h1>
-                <Button as={Link} href="/delivery/create" color="primary" size="sm" startContent={<IconPlus className="h-5 w-5" />}>
-                    Demande de coursier
-                </Button>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-4">

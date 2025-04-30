@@ -2,6 +2,8 @@
 
 import { apiClientHttp } from '@/lib/api-client-http';
 import { ChiffreAffaire, ChiffreAffaireRestaurant } from '@/types/statistiques.model';
+import { formatDate } from '@/utils/date-formate';
+import { RangeValue } from '@heroui/react';
 
 const BASE_URL = '/api/erp/file-attente';
 
@@ -24,12 +26,16 @@ export async function getAllChiffreAffaire(): Promise<ChiffreAffaire | null> {
         return null;
     }
 }
-export async function getAllRestaurantChiffreAffaire(): Promise<ChiffreAffaireRestaurant[]> {
+export async function getAllRestaurantChiffreAffaire({ dates: { start, end } }: { dates: RangeValue<Date | null> }): Promise<ChiffreAffaireRestaurant[]> {
     try {
         const data = await apiClientHttp.request<ChiffreAffaireRestaurant[]>({
             endpoint: statistiquesEndpoints.getAllRestaurantChiffreAffaire.endpoint,
             method: statistiquesEndpoints.getAllRestaurantChiffreAffaire.method,
             service: 'backend',
+            params: {
+                dateDebut: start ? formatDate(start, 'YYYY-MM-DD') : '',
+                dateFin: end ? formatDate(end, 'YYYY-MM-DD') : '',
+            },
         });
 
         return data;

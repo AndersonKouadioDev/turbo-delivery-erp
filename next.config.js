@@ -23,6 +23,10 @@ const nextConfig = {
                 protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL,
                 hostname: 'delivery.turbodeliveryapp.com',
             },
+            {
+                protocol: process.env.NEXT_PUBLIC_BACKEND_PROTOCOL,
+                hostname: 'backend.turbodeliveryapp.com',
+            },
         ],
     },
 };
