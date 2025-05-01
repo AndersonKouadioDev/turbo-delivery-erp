@@ -7,6 +7,7 @@ export interface Heure {
   }
   
   export interface Jour {
+    date:string;
     jour: string;  // Le jour de la semaine, par exemple "LUNDI"
     debut: string; // Heure de début du travail (au format HH:MM:SS)
     fin: string;   // Heure de fin du travail (au format HH:MM:SS)

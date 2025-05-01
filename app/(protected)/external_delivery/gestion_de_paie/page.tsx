@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Content from "./content";
+import { getFicheDePaies } from "@/src/actions/gestion-de-paie.actions";
 
 const data: any[] = [
     {
@@ -131,7 +132,9 @@ const data: any[] = [
 ]
 
 export default async function Page() {
+    const initialData = await getFicheDePaies();
+    console.log("initialData++++++++++++++++++++", initialData)
     return (
-        <Content initialData={data} />
+        <Content initialData={initialData} />
     )
 }

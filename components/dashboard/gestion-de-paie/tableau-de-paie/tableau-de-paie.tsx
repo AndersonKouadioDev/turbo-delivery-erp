@@ -4,10 +4,11 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, 
 import { MoveUpRight, MoveDownRight } from "lucide-react";
 import { useTableauDePaiController } from "./controller";
 import { DetailFichePaieModal } from "../detail-fiche-de-paie/detail-fiche-paie-modal";
+import { InfoParJour, PaieErpVM, PaieParLivreur } from "@/types/gestion-de-paie.model";
 
 
 interface TableauDePaieProps {
-    initialData: any[];
+    initialData: PaieErpVM | null;
     periode?: string,
     searchKey?: string;
 }
@@ -30,30 +31,32 @@ export function TableauDePaie({ initialData, periode, searchKey }: TableauDePaie
                     <TableColumn>{""}</TableColumn>
                 </TableHeader>
                 <TableBody>
-                    {ctrl.data.map((item, index) => (
+                    {ctrl.data.map((item: PaieParLivreur, index) => (
                         <TableRow key={index} className={"hover:bg-primary/10 cursor-pointer"} onClick={() => ctrl.openDetailModal(item)} >
                             <TableCell className="border-b-2">
                                 <div className="flex items-center gap-4">
                                     <span className="w-7 h-7 rounded-full bg-gray-300"> </span>
-                                    <div className="flex flex-col gap-1">{item.nomComplet} {ctrl.getStatusChip(item.typeLivreur)}</div>
+                                    <div className="flex flex-col gap-1">{item.nomComplet} {ctrl.getStatusChip(item.type)}</div>
                                 </div>
                             </TableCell>
-                            <TableCell className="border-b-2 text-gray-500">{item.totalReliser}&nbsp;&nbsp; FCFA</TableCell>
-                            <TableCell className="border-b-2 text-gray-500">{item.gainInitial}&nbsp;&nbsp; FCFA</TableCell>
+                            <TableCell className="border-b-2 text-gray-500">{item.total}&nbsp;&nbsp; FCFA</TableCell>
+                            <TableCell className="border-b-2 text-gray-500">{item.gain}&nbsp;&nbsp; FCFA</TableCell>
                             <TableCell className="border-b-2 text-gray-500">
-                                {item.jourTravails.map((jour: any, index: number) => (
-                                    <Chip key={index} className={`${jour.isWorking ? "bg-yellow-400" : "bg-primary/70"} mr-1 text-white`} size="sm" >{jour.abreviation}</Chip>
+                                {item.joursTravaille?.map((jour: InfoParJour, index: number) => (
+                                    <span key={index}>{ctrl.recupererStatutJours(jour)}</span>
+                                    // <Chip key={index} className={`${jour. ? "bg-yellow-400" : "bg-primary/70"} mr-1 text-white`} size="sm" >{jour.abreviation}</Chip>
                                 ))}
                             </TableCell>
                             <TableCell className="border-b-2 text-gray-500">
-                                {item.weekend.map((weeek: any, index: number) => (
-                                    <Chip key={index} size="sm" className={`${weeek.isWorking ? "bg-green-500" : "bg-gray-300"} mr-1 text-white`} >{weeek.abreviation}</Chip>
+                                {item.weekEnd?.map((weeek: InfoParJour, index: number) => (
+                                    <span key={index}>{ctrl.recupererStatutJoursWeekend(weeek)}</span>
+                                    // <Chip key={index} size="sm" className={`${weeek.isWorking ? "bg-green-500" : "bg-gray-300"} mr-1 text-white`} >{weeek.abreviation}</Chip>
                                 ))}
                             </TableCell>
-                            <TableCell className="border-b-2 text-gray-500">{item.tauxInteret}</TableCell>
+                            <TableCell className="border-b-2 text-gray-500">{item.taux}</TableCell>
                             <TableCell className="border-b-2 text-gray-500">{item.commission}&nbsp;&nbsp; FCFA</TableCell>
                             <TableCell className=" border-b-2 text-gray-500">
-                                {item.prime > 0 ? <span className="ml-1 flex gap-1 text-green-500"><MoveUpRight className="text-green-500" size={16} /> + {item.prime}&nbsp;&nbsp; FCFA</span>
+                                {item?.prime && item?.prime > 0 ? <span className="ml-1 flex gap-1 text-green-500"><MoveUpRight className="text-green-500" size={16} /> + {item.prime}&nbsp;&nbsp; FCFA</span>
                                     : <span className="ml-1 flex gap-1 text-red-500"> <MoveDownRight className="text-red-500" size={16} /> + {item.prime}&nbsp;&nbsp;  FCFA</span>}
                             </TableCell>
                             <TableCell className="border-b-2">

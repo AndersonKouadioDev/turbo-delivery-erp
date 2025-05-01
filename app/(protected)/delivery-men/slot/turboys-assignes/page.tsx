@@ -13,8 +13,7 @@ export default async function Page(){
 
 
       const response = await getAllCreneauTurbo();
-
-
+      
         return <Content initialData={response}  />
     
 }

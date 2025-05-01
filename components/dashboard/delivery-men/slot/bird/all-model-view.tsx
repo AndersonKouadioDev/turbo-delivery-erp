@@ -46,9 +46,9 @@ export default function AllModelViewNotCreneau({value,birdNotCreneau,setValue}:p
 
       
         <div className={`${value === 'list' && style1}${value === 'grid' && style2}`}>
-          {birdNotCreneau.map((turboy) =>{ 
-            if(value=='list')  return  <UserListeModel1 turboy={turboy}/>
-            if(value=='grid')  return <UserListeModel2 turboy={turboy}/>}
+          {birdNotCreneau.map((turboy,index) =>{ 
+            if(value=='list')  return  <UserListeModel1 key={index} turboy={turboy}/>
+            if(value=='grid')  return <UserListeModel2 key={index} turboy={turboy}/>}
           )}
         </div>
       </div>

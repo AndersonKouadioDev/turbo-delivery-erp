@@ -6,6 +6,8 @@ import { LivreurBird } from '@/types/creneau-bird';
 import { IconPointFilled } from '@tabler/icons-react';
 import DropDownAction from './dropDownAction';
 import progresseBare from '../progression/progression-barre';
+import { Avatar } from '@heroui/react';
+import createUrlFile from '@/utils/createUrlFile';
 
 interface props {
   turboy: LivreurBird;
@@ -14,9 +16,9 @@ export default function UserListeModel1 ({ turboy }: props) {
   return (
     <div key={turboy.id} className="w-ful flex items-center border-2 rounded-2xl">
       <div className="py-2 px-4 flex-1 flex justify-between gap-2 items-center  rounded-lg">
-        <div className="flex items-center w-1/2">
-          {/* <Avatar isBordered radius="full" size="md" src={undefinedRestaurant.logo_Url} /> */}
-          <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+        <div className="flex items-center w-1/2 gap-2">
+          <Avatar isBordered radius="full" size="md" src={createUrlFile(turboy?.avatar ?? '', "backend")}/>
+          {/* <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div> */}
           <p className="font-semibold">{turboy.nomComplet}</p>
         </div>
         <p className="w-1/2 text-sm text-gray-500">Inscrit le : {turboy.dateInscrit}</p>

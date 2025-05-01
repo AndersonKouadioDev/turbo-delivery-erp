@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Content from './content';
 import NotFound from '@/app/not-found';
-import { getDetailRestaurant, getRestaurants, getRestaurantsNoValidated, getRestaurantsValidated } from '@/src/restaurants/restaurants.actions';
+import { getDetailRestaurant } from '@/src/actions/restaurants.actions';
 
 export const metadata: Metadata = {
   title: 'Restaurants',
@@ -9,23 +9,12 @@ export const metadata: Metadata = {
 
 export default async function Restaurants({ params }: { params: { restaurant_id: string } }) {
   const currentRestaurant = await getDetailRestaurant(params.restaurant_id);
-  let restaurants = await getRestaurants(0, 10);
-  let restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
 
-  if (!restaurant) {
-    restaurants = await getRestaurantsNoValidated();
-    restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
-
-    if (!restaurant) {
-      restaurants = await getRestaurantsValidated();
-      restaurant = restaurants && restaurants?.content?.find((res) => res.id == params.restaurant_id);
-
-      if (!restaurant) {
-        return NotFound();
-      }
-    }
+  if (!currentRestaurant) {
+    return <NotFound />;
   }
-  console.log(JSON.stringify(restaurant))
 
-  return <Content restaurant={restaurant} />;
+  console.log(currentRestaurant);
+
+  return <Content restaurant={currentRestaurant} />;
 }

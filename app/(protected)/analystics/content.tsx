@@ -107,24 +107,44 @@ export default function Content({ initialItems }: { initialItems: Record<string,
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="col-span-3 space-y-6">
-          <Card className="bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-xl hover:shadow-2xl transition-all duration-200">
-            <CardHeader className="pb-0 pt-4 px-6">
-              <h4 className="text-lg font-medium opacity-90">Commission sur Chiffre Affaire</h4>
-            </CardHeader>
-            <CardBody className="py-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-white/20 rounded-lg">
-                    <TbChartBar className="w-8 h-8" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-xl hover:shadow-2xl transition-all duration-200">
+              <CardHeader className="pb-0 pt-4 px-6">
+                <h4 className="text-lg font-medium opacity-90">Commission sur Chiffre Affaire</h4>
+              </CardHeader>
+              <CardBody className="py-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-white/20 rounded-lg">
+                      <TbChartBar className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <p className="text-3xl font-bold">{items?.chiffreAffaire?.commissionChiffreAffaire?.toLocaleString()} XOF</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-3xl font-bold">{items?.chiffreAffaire?.commissionChiffreAffaire?.toLocaleString()} XOF</p>
-                  </div>
+                  <TbArrowUpRight className="w-8 h-8 opacity-80" />
                 </div>
-                <TbArrowUpRight className="w-8 h-8 opacity-80" />
-              </div>
-            </CardBody>
-          </Card>
+              </CardBody>
+            </Card>
+            <Card className="bg-gradient-to-br from-purple-500 to-purple-700 text-white shadow-xl hover:shadow-2xl transition-all duration-200">
+              <CardHeader className="pb-0 pt-4 px-6">
+                <h4 className="text-lg font-medium opacity-90">Commission par Commande</h4>
+              </CardHeader>
+              <CardBody className="py-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-white/20 rounded-lg">
+                      <TbChartBar className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <p className="text-3xl font-bold">{items?.chiffreAffaire?.commissionCommande?.toLocaleString()} XOF</p>
+                    </div>
+                  </div>
+                  <TbArrowUpRight className="w-8 h-8 opacity-80" />
+                </div>
+              </CardBody>
+            </Card>
+          </div>
 
           <CardUI className="p-6 shadow-lg bg-white">
             <DatabaseCards

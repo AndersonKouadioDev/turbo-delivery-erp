@@ -2,7 +2,7 @@
 import { ArrowLeft } from 'lucide-react';
 
 import Image from 'next/image';
-import {Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@heroui/react';
+import { Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { Restaurant } from '@/types/models';
 import createUrlFile from '@/utils/createUrlFile';
@@ -70,11 +70,6 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
                 <div className="col-span-2">
                   <Textarea label="Description" labelPlacement="outside" value={restaurant?.description ?? ''} placeholder={restaurant?.description ?? ''} variant="bordered" />
                 </div>
-                {/* <div className="col-span-2 my-8 flex justify-center items-center">
-                                    <Button color="primary" className="w-1/2">
-                                        Enregistrer
-                                    </Button>
-                                </div> */}
               </CardBody>
             </Card>
             <Card>
@@ -84,7 +79,7 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
               <CardBody>
                 <Select
                   label="Choissez le type de commisison"
-                  defaultSelectedKeys={['FIXE']}
+                  defaultSelectedKeys={[restaurant.typeCommission]}
                   labelPlacement="outside"
                   variant="bordered"
                   onChange={async (e) => {

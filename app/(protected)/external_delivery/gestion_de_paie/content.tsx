@@ -4,9 +4,10 @@ import { PeriodeDePaie } from "@/components/dashboard/gestion-de-paie/periode-de
 import { periode, useGestionPaieController } from "./controller";
 import { TableauDePaie } from "@/components/dashboard/gestion-de-paie/tableau-de-paie/tableau-de-paie";
 import { SearchField } from "@/components/commons/form/search-field";
+import { PaieErpVM } from "@/types/gestion-de-paie.model";
 
 interface ContentProps {
-    initialData: any[]
+    initialData: PaieErpVM | null
 }
 export default function Content({ initialData }: ContentProps) {
     const ctrl = useGestionPaieController()
