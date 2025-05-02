@@ -1,7 +1,25 @@
+import { getFichePaieById } from "@/src/actions/gestion-de-paie.actions";
+import { FichePaieDetailVM } from "@/types/gestion-de-paie.model";
 import { useDisclosure } from "@heroui/react";
+import { useEffect, useState } from "react";
 
-export function useInitierPaiementController() {
+export function useInitierPaiementController(fichePaieId?: string) {
+    const [detailFichePaie, setDetailFichePaie] = useState<FichePaieDetailVM | null>();
     const initierPaiementClosure = useDisclosure();
+
+    const fetchDetailFichePaie = async () => {
+        try {
+            const result = await getFichePaieById(fichePaieId ?? "");
+            setDetailFichePaie(result)
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        fetchDetailFichePaie()
+    }, [fichePaieId]);
+
     const creneauDePaieClosure = useDisclosure();
     const joursPaies = [
         {
@@ -36,6 +54,7 @@ export function useInitierPaiementController() {
     return {
         initierPaiementClosure,
         creneauDePaieClosure,
-        joursPaies
+        joursPaies,
+        detailFichePaie
     }
 }

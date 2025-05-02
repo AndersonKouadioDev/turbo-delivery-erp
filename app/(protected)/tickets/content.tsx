@@ -7,39 +7,37 @@ import useContentCtx from './useContentCtx';
 import { Calendar, Cherry, CircleFadingPlus, Home, SquareMenu, ToggleRight, User } from 'lucide-react';
 import { PaginatedResponse } from '@/types';
 import { useEffect, useState } from 'react';
+import { Restaurant } from '@/types/models';
+import { SelectField } from '@/components/commons/form/select-field';
 
 interface ContentProps {
     initialData: PaginatedResponse<BonLivraison> | null;
+    restaurants: Restaurant[]
 }
 
-export default function Content({ initialData }: ContentProps) {
-    const { columns, renderCell, data,handlerPage,handleDateChange, currentPage, isLoading } = useContentCtx({ initialData });
-
-
+export default function Content({ initialData, restaurants }: ContentProps) {
+    const { columns, renderCell, data, handlerPage, handleDateChange, currentPage, isLoading, handleCangeRestaurant } = useContentCtx({ initialData, restaurants });
     return (
         <div className="w-full h-full pb-10 flex flex-1 flex-col gap-4">
             <div className="flex items-center justify-between">
                 <h1 className={title({ size: 'h3', class: 'text-primary' })}>Gestions des tickets</h1>
             </div>
-            <div className="flex gap-2 items-center">
-                {/* <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
-                            {periods.map((period: { key: string; label: string }) => (
-                                <SelectItem key={period.key}>{period.label}</SelectItem>
-                            ))}
-                        </Select> */}
-                <span>Rechercher la période</span>
-                
-                      {/* Utilise le DatePicker avec l'événement onChange */}
+            <div className='grid grid-cols-4 gap-4'>
+                <div className="flex flex-col gap-2 ">
+                    <span>Rechercher par période</span>
+                    {/* Utilise le DatePicker avec l'événement onChange */}
                     <DatePicker
                         className="max-w-[284px]"
                         onChange={handleDateChange} // Passe la fonction handleDateChange
                     />
-
-
-
-                {/* <DatePicker label="Birth date"  className="max-w-xs relative" onChange={(value) => handleDateChange(value as RangeValue<CalendarDate>)}/> */}
-                {/* <DateRangePicker className="max-w-xs relative" onChange={(value) => handleDateChange(value as RangeValue<CalendarDate>)} /> */}
+                </div>
+                <div className='flex flex-col gap-2'>
+                    <span>Selectionnez un restaurant :</span>
+                    <SelectField options={restaurants} optionLabel={"nomEtablissement"} optionValue={'nomEtablissement'} label='nomEtablissement'
+                        setValue={handleCangeRestaurant} />
+                </div>
             </div>
+
             <Table aria-label="Example table with custom cells">
                 <TableHeader columns={columns}>
                     {(column) => (

@@ -16,7 +16,7 @@ const bonLivraisonEndpoints = {
     },
 };
 
-export async function getBonLivraisonAll(page: number, size: number, date?: string|null): Promise<PaginatedResponse<BonLivraison> | null> {
+export async function getBonLivraisonAll(page: number, size: number, date?: string | null): Promise<PaginatedResponse<BonLivraison> | null> {
     try {
         const params: { page: string; size: string; date?: string } = {
             page: String(page),
@@ -35,6 +35,7 @@ export async function getBonLivraisonAll(page: number, size: number, date?: stri
         });
         return data;
     } catch (error: any) {
+        console.log("error", error)
         return null;
     }
 }
