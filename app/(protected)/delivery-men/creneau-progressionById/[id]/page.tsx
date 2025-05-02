@@ -67,6 +67,9 @@ export default async function UserPage({ params }: TurboysPageProps) {
 
   const dataCreneau = await getCreneauById(id)
 
+  console.log({dataCreneau:dataCreneau});
+  
+
   if (!user) {
     return <div>Aucun utilisateur trouvé</div>;
   }  
