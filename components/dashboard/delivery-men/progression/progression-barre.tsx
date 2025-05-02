@@ -4,6 +4,7 @@ import { Progress } from "@heroui/react"
 // :{turboys:Livreur}
   const progresseBare =(turboys:Livreur)=>{
 
+
     const fnData=()=>{
 
         const mois = turboys.creneauVM.jourDebut?.substring(5, 7);
@@ -62,17 +63,17 @@ import { Progress } from "@heroui/react"
     }
 
 
-      if(turboys.jour?.jourTravaille){
+      if(turboys.creneauVM?.jourDebut && turboys.creneauVM?.jourFin){
 
         if(turboys.jour.jourTravaille===7){
-            return <Progress label={fnData()}  color="success" className="max-w-md"  value={100} />
+            return <Progress label={fnData()}  color="success" className="max-w-md flex-none"  value={100} />
             }
         if(turboys.jour.jourTravaille<7 && turboys.jour.jourTravaille>3){
-            return <Progress label={fnData()}  color="warning" className="max-w-md"  value={65} />
+            return <Progress label={fnData()}  color="warning" className="max-w-md flex-none"  value={65} />
             }
         if(turboys.jour.jourTravaille<=3){
             
-            return <Progress  label={fnData()} color="danger" className="max-w-md"  value={20} />
+            return <Progress  label={fnData()} color="danger" className="max-w-md flex-none"  value={20} />
             }
 
       }else{

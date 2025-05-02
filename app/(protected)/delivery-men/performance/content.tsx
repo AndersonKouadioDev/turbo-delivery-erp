@@ -11,7 +11,7 @@ interface Props {
 
 export default function Content({initialData}:Props){
 
-  console.log({perfor:initialData});
+  console.log({performance:initialData});
   
  
   const {data}=useContentCtx({initialData})

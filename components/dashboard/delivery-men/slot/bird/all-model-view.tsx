@@ -14,6 +14,9 @@ interface props{
 
 export default function AllModelViewNotCreneau({value,birdNotCreneau,setValue}:props){
 
+  console.log({birdNotCreneau:birdNotCreneau});
+  
+
      if(!birdNotCreneau||birdNotCreneau.length==0){
         return(
         <div className="mt-16">
