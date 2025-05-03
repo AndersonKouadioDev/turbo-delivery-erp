@@ -14,39 +14,49 @@ import { Input } from "@heroui/react";
 import { useFileAttenteController } from '@/components/dashboard/trafic/file-attente/file-attente.controller';
 
 export default function RestaurantContent() {
-    const { fileAttentes, refreshData, isLoading } = useFileAttenteController();
+    const { fileAttentes, refreshData, onSelectFileAttente, selectedData, setFileAttentSeled, fileAttenteSelected } = useFileAttenteController();
 
     return (
         <PageWrapper>
             <div className="space-y-4">
                 <CardHeader title="File d'attente" />
-                <div className="flex gap-4">
-                    <div className="relative w-fit">
-                        <Input startContent={<Search size={20} />} placeholder="Rechercher un coursier ou un restaurant" />
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="relative w-full sm:w-auto">
+                        <Input
+                            startContent={<Search size={20} />}
+                            placeholder="Rechercher un coursier ou un restaurant"
+                            className="w-full"
+                        />
                     </div>
-                    <Link href={'/trafic'}>
-                        <Badge className="rounded-full pr-4 cursor-pointer">
-                            <Map className="mr-4" size={30} /> Maps
+                    <Link href="/trafic">
+                        <Badge className="rounded-full pr-4 cursor-pointer flex items-center justify-center">
+                            <Map className="mr-2" size={20} /> Maps
                         </Badge>
                     </Link>
                 </div>
             </div>
-            <div className="flex gap-4 w-2/3">
-                <Card className="card bg-slate-200 box-shadow text-center p-4 w-[35%]">
-                    <div className="text-2xl mt-2 ">12 Turboys</div>
-                    <Button variant={'destructive'} className="mt-8 w-full text-xl hover:bg-red-300">
+
+            <div className="flex flex-col md:flex-row gap-4 w-full">
+                <Card className="bg-slate-200 box-shadow text-center p-4 w-full md:w-1/2 lg:w-1/3">
+                    <div className="text-2xl mt-2">12 Turboys</div>
+                    <Button variant="destructive" className="mt-8 w-full text-xl hover:bg-red-300">
                         Voir la liste
                     </Button>
                 </Card>
-                <Card className="card bg-slate-200 box-shadow text-center p-4 w-[35%]">
-                    <div className="text-2xl mt-2">10 Partenairs</div>
-                    <Button variant={'destructive'} className="mt-8 w-full text-xl hover:bg-red-300">
+                <Card className="bg-slate-200 box-shadow text-center p-4 w-full md:w-1/2 lg:w-1/3">
+                    <div className="text-2xl mt-2">10 Partenaires</div>
+                    <Button variant="destructive" className="mt-8 w-full text-xl hover:bg-red-300">
                         Voir la liste
                     </Button>
                 </Card>
             </div>
-            <RestaurantCards fileAttentes={fileAttentes} refreshData={refreshData} />
-            <RestaurantsTab fileAttentes={fileAttentes} />
+
+            <RestaurantCards fileAttentes={fileAttentes} refreshData={refreshData}
+                setFileAttentSeled={setFileAttentSeled}
+                onSelectFileAttente={onSelectFileAttente}
+                fileAttenteSelected={fileAttenteSelected}
+            />
+            <RestaurantsTab fileAttentes={fileAttentes} accesRapideData={selectedData} fileAttenteSelected={fileAttenteSelected} onSelectFileAttente={onSelectFileAttente} />
         </PageWrapper>
     );
 }

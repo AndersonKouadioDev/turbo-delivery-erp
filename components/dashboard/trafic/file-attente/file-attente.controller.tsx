@@ -5,8 +5,10 @@ import { FilleAttenteHistoriqueVM, FilleAttenteVM } from '@/types/file-attente.m
 import { useEffect, useState } from 'react';
 
 export function useFileAttenteController() {
+    const [fileAttenteSelected, setFileAttentSeled] = useState<any>(null)
     const [fileAttentes, setFileAttentes] = useState<FilleAttenteHistoriqueVM[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedData, setSelectedData] = useState<FilleAttenteVM[] | undefined>([])
 
     const fetchFileAttentes = async () => {
         try {
@@ -24,9 +26,19 @@ export function useFileAttenteController() {
         fetchFileAttentes();
     }, []);
 
+    const onSelectFileAttente = (restaurantId?: string) => {
+        const fileAttenteFound = fileAttentes.find((item) => item.restaurantId === restaurantId);
+        setSelectedData(fileAttenteFound?.fileAttentes);
+        setFileAttentSeled(restaurantId)
+    }
+
     return {
         fileAttentes,
         isLoading,
         refreshData: fetchFileAttentes,
+        setFileAttentSeled,
+        fileAttenteSelected,
+        onSelectFileAttente,
+        selectedData
     };
 }
