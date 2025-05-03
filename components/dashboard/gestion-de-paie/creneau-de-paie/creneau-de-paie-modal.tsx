@@ -2,14 +2,16 @@ import { dayOfWeek } from "@/app/(protected)/external_delivery/gestion_de_paie/c
 import { Button, Dropdown, Table, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/react";
 import { Printer, ChevronRight, ChevronLeft, Banknote } from "lucide-react";
 import { useCreneauDePaieController } from "./controller";
+import { GainVm } from "@/types/gestion-de-paie.model";
+import moment from "moment";
 
 interface CreneauDePaieModalProps {
     isOpen: boolean;
     onClose: () => void;
-    details: any;
+    gainsDuJours: GainVm[];
     periode?: string;
 }
-export function CreneauDePaieModal({ details, isOpen, onClose, periode }: CreneauDePaieModalProps) {
+export function CreneauDePaieModal({ gainsDuJours, isOpen, onClose, periode }: CreneauDePaieModalProps) {
     const ctrl = useCreneauDePaieController()
     return (
         <>
@@ -35,7 +37,11 @@ export function CreneauDePaieModal({ details, isOpen, onClose, periode }: Crenea
                                         }
                                     </DropdownMenu>
                                 </Dropdown>
-                                <div className="text-gray-400" style={{ fontSize: 15 }}>Gain du jour <span className="text-primary  !text-md font-bold">4.800 FCFA</span></div>
+                                <div className="text-gray-400" style={{ fontSize: 15 }}>Gain du jour <span className="text-primary  !text-md font-bold">{gainsDuJours.map((item) => {
+                                    let gainTotal = 0;
+                                    gainTotal = item.commission ? gainTotal + item.commission : gainTotal
+                                    return gainTotal
+                                })[0] ?? 0} FCFA</span></div>
                             </div>
                             <div className="max-h-[500px] overflow-auto">
                                 <Table>
@@ -46,13 +52,13 @@ export function CreneauDePaieModal({ details, isOpen, onClose, periode }: Crenea
                                         <TableColumn>Commission</TableColumn>
                                     </TableHeader>
                                     <TableBody>
-                                        {ctrl.creneaux.map((item, index) => (
+                                        {gainsDuJours && gainsDuJours.map((item: GainVm, index: number) => (
                                             <TableRow key={index} className={"hover:bg-primary/10"} >
                                                 <TableCell className="border-b-2 text-gray-500 text-sm">
-                                                    <div className="flex items-center gap-2"><Banknote size={18} />{item.dateHeure}</div>
+                                                    <div className="flex items-center gap-2"><Banknote size={18} />{item.date && moment(item.date).format("DD/MM/YYYY HH:mm")}</div>
                                                 </TableCell>
-                                                <TableCell className="border-b-2 text-gray-500 font-bold text-sm">{item.ticket}</TableCell>
-                                                <TableCell className="border-b-2 text-gray-500 font-bold text-sm">{item.coutLivraison}&nbsp;&nbsp; FCFA</TableCell>
+                                                <TableCell className="border-b-2 text-gray-500 font-bold text-sm">{item.code}</TableCell>
+                                                <TableCell className="border-b-2 text-gray-500 font-bold text-sm">{item.frais}&nbsp;&nbsp; FCFA</TableCell>
                                                 <TableCell className="border-b-2 text-gray-500 font-bold text-sm">
                                                     <div className="flex flex-col text-green-500">
                                                         <span className="text-sm">{item.commission}&nbsp;&nbsp; FCFA</span>
