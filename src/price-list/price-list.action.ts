@@ -166,7 +166,7 @@ export async function updatePriceList(formData: _deliveryFeeCreateSchema): Promi
         
         // const data=formdata
              
-        console.log(data);
+        console.log({data:data});
         
         return {
             status: 'success',
