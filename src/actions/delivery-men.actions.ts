@@ -213,10 +213,8 @@ export async function getToutLivreurStatus(page: number = 0, size: number = 10):
                 size: size.toString()
             }
         });
-        console.log("data+++", data)
         return data;
     } catch (error) {
-        console.log("error+++++++++++++", error);
         return null;
     }
 }
@@ -252,7 +250,6 @@ export async function changerStatusLivreur(commande: ChangerStatutLivreurCommand
             data: data,
         };
     } catch (error: any) {
-        console.log("error", error);
         if (error.response && error.response?.data.message) {
             return {
                 status: 'error',
@@ -269,7 +266,6 @@ export async function changerStatusLivreur(commande: ChangerStatutLivreurCommand
 }
 
 export async function changerRestaurantLivreur(commande: ChangerRestaurantLivreurCommande): Promise<any> {
-    console.log("commande+++++++++++", commande)
     try {
         const data = await apiClientHttp.request<any>({
             endpoint: deliveryMenEndpoints.changerRestaurantLivreur.endpoint,

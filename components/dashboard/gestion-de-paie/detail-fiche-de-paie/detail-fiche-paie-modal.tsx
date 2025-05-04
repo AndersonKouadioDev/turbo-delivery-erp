@@ -13,7 +13,7 @@ import { MoveDownLeft, MoveDownRight, MoveUpRight, Printer } from "lucide-react"
 import { useInitierPaiementController } from "./controller";
 import { InitierPaiementModal } from "../initier-paiement/initier-paiement-modal";
 import { CreneauDePaieModal } from "../creneau-de-paie/creneau-de-paie-modal";
-import { GainHebdomadaireVm, PaieParLivreur } from "@/types/gestion-de-paie.model";
+import { GainHebdomadaireVm, GainParJour, PaieParLivreur } from "@/types/gestion-de-paie.model";
 
 interface DetailFichePaieProps {
     isOpen: boolean;
@@ -24,8 +24,7 @@ interface DetailFichePaieProps {
 }
 
 export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEligible }: DetailFichePaieProps) {
-    const ctrl = useInitierPaiementController(details?.id);
-    console.log("ctrl", details)
+    const ctrl = useInitierPaiementController(details, isOpen);
     return (
         <>
             <Modal isOpen={isOpen} size={"2xl"} onClose={onClose}>
@@ -34,12 +33,12 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                         <ModalHeader className="flex flex-col gap-1 text-center text-primary font-bold">Détail de la fiche de paie</ModalHeader>
                         <ModalBody>
                             {
-                                ctrl.joursPaies ?
+                                ctrl.detailFichePaie ?
                                     <div className="pl-4 pr-4">
                                         <div className="flex justify-between mb-5">
                                             <div className="flex flex-col gap-1">
                                                 <span className="text-gray-500 font-bold text-xl">{ctrl.detailFichePaie?.nomPrenom}</span>
-                                                <span className="text-sm">Lieur de travail <span className="text-gray-500 font-bold">{7855}</span></span>
+                                                <span className="text-sm">Lieur de travail <span className="text-gray-500 font-bold">{ctrl.detailFichePaie?.lieuTravail ?? ""}</span></span>
                                             </div>
                                             {
                                                 nonEligible ?
@@ -51,12 +50,12 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                                         <div className="flex gap-20 mb-4">
                                             <div className="flex flex-col gap-1">
                                                 <div className="text-gray-500">Commssion</div>
-                                                <div className="text-md text-gray-500 font-bold">{4555}&nbsp;&nbsp; FCFA</div>
+                                                <div className="text-md text-gray-500 font-bold">{ctrl.detailFichePaie?.commission ?? 0}&nbsp;&nbsp; FCFA</div>
                                             </div>
                                             <div className="flex flex-col gap-1">
                                                 <div className="text-gray-500">Prime</div>
                                                 {ctrl.detailFichePaie?.prime && ctrl.detailFichePaie?.prime > 0 ? <span className="ml-1 flex gap-1 text-green-500"><MoveUpRight className="text-green-500" size={16} /> + {ctrl.detailFichePaie?.prime}&nbsp;&nbsp; FCFA</span>
-                                                    : <span className="ml-1 flex gap-1 text-red-500"> <MoveDownRight className="text-red-500" size={16} /> + {ctrl.detailFichePaie?.prime}&nbsp;&nbsp;  FCFA</span>}
+                                                    : <span className="ml-1 flex gap-1 text-red-500"> <MoveDownRight className="text-red-500" size={16} /> + {ctrl.detailFichePaie?.prime ?? 0}&nbsp;&nbsp;  FCFA</span>}
 
                                             </div>
                                         </div>
@@ -64,11 +63,11 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                                         <div className="flex gap-20 mb-4">
                                             <div className="flex flex-col gap-1">
                                                 <div className="text-gray-500">Total réalisé</div>
-                                                <div className="text-md  text-gray-500">{ctrl.detailFichePaie?.totalRealise}&nbsp;&nbsp; FCFA</div>
+                                                <div className="text-md  text-gray-500">{ctrl.detailFichePaie?.totalRealise ?? 0}&nbsp;&nbsp; FCFA</div>
                                             </div>
                                             <div className="flex flex-col gap-1">
                                                 <div className="text-gray-500">Gain initial</div>
-                                                <span className="text-md  text-gray-500">{ctrl.detailFichePaie?.gainInitial}&nbsp;&nbsp;  FCFA</span>
+                                                <span className="text-md  text-gray-500">{ctrl.detailFichePaie?.gainInitial ?? 0}&nbsp;&nbsp;  FCFA</span>
 
                                             </div>
                                         </div>
@@ -76,21 +75,22 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                                             <div className="flex items-center justify-between mb-4" >
                                                 <div className="flex flex-col gap-1">
                                                     <div className="text-gray-500">Total a payer</div>
-                                                    <div className="text-md  font-bold text-gray-500">290000 XOF</div>
+                                                    <div className="text-md  font-bold text-gray-500">{ctrl.detailFichePaie?.gainInitial ?? 0} FCFA</div>
                                                 </div>
                                                 <div className="flex flex-col gap-1">
                                                     <div>Date de récupéreration</div>
                                                     <div className="flex justify-end">
-                                                        <div className="text-sm  font-bold text-gray-500">2023-08-15</div>
+                                                        <div className="text-sm  font-bold text-gray-500">...</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             {
-                                                ctrl.joursPaies && ctrl.joursPaies.map((item: any, index: number) => (
-                                                    <div key={index} onClick={() => ctrl.creneauDePaieClosure.onOpen()} className="cursor-pointer">
+                                                (ctrl.detailFichePaie?.gainFicheVM && ctrl.detailFichePaie?.gainFicheVM?.gains) &&
+                                                ctrl.detailFichePaie?.gainFicheVM?.gains.map((item: GainParJour, index: number) => (
+                                                    <div key={index} onClick={() => ctrl.onpenCrennauxDialog(item.gain?.gains)} className="cursor-pointer">
                                                         <div className="flex justify-between mt-2 border-b-2 pb-2 text-md hover:bg-primary/10" >
-                                                            <div className="text-sm">{item.frais + " " + (index + 1)}</div>
-                                                            <div className="text-sm font-bold text-gray-500">{item.solde}&nbsp;&nbsp;  FCFA</div>
+                                                            <div className="text-sm">{item.jour + " " + (index + 1)}</div>
+                                                            <div className="text-sm font-bold text-gray-500">{item.gain?.frais}&nbsp;&nbsp;  FCFA</div>
                                                         </div>
                                                     </div>
                                                 ))
@@ -110,7 +110,7 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                         </ModalFooter>
                     </>
                     <InitierPaiementModal onClose={ctrl.initierPaiementClosure.onClose} isOpen={ctrl.initierPaiementClosure.isOpen} details={details} />
-                    <CreneauDePaieModal onClose={ctrl.creneauDePaieClosure.onClose} isOpen={ctrl.creneauDePaieClosure.isOpen} details={details} periode={periode} />
+                    <CreneauDePaieModal onClose={ctrl.creneauDePaieClosure.onClose} isOpen={ctrl.creneauDePaieClosure.isOpen} gainsDuJours={ctrl.gainsDuJours} periode={periode} />
                 </ModalContent>
             </Modal>
         </>

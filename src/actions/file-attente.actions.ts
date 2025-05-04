@@ -9,6 +9,7 @@ const fileAttenteEndpoints = {
     fetchFilleAttente: { endpoint: `${BASE_URL}/historique`, method: 'GET' },
 };
 
+
 export async function fetchFilleAttente(): Promise<FilleAttenteHistoriqueVM[]> {
     try {
         const data = await apiClientHttp.request<FilleAttenteHistoriqueVM[]>({

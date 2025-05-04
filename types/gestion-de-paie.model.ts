@@ -53,7 +53,7 @@ type JourType = "LUNDI" | "MARDI" | "MERCREDI" | "JEUDI" | "VENDREDI" | "SAMEDI"
 export interface GainHebdomadaireVm {
     frais?: number;
     solde?: number;
-    gains?: GainParJour;
+    gains?: GainParJour[];
 }
 
 export type TypeLivreur = "WAITING" | "TURBO" | "FREE"
@@ -69,7 +69,9 @@ export interface PaieParLivreur {
     taux?: number
     commission?: number
     prime?: number
-    statut?: StatutType
+    statut?: StatutType,
+    livreurId?: string;
+    emploiId?: string;
 }
 
 export interface PaieErpVM {
@@ -85,7 +87,8 @@ export interface FichePaieDetailVM {
     prime?: number
     lieuTravail?: string
     statut?: StatutType
-    gainFicheVM?: GainHebdomadaireVm[]
+    gainFicheVM?: GainHebdomadaireVm,
+
 }
 
 export type TypeStatutStatistique = "PASSE" | "EN_COURS" | "A_VENIR"
@@ -104,7 +107,7 @@ export interface GainParJour {
 export interface GainParDateVm {
     frais?: number;
     solde?: number;
-    gains?: GainVm;
+    gains?: GainVm[];
 }
 
 export interface GainVm {

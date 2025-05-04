@@ -8,13 +8,13 @@ import { InfoParJour, PaieErpVM, PaieParLivreur } from "@/types/gestion-de-paie.
 
 
 interface TableauDePaieProps {
-    initialData: PaieErpVM | null;
+    datas: PaieErpVM | null;
     periode?: string,
     searchKey?: string;
 }
 
-export function TableauDePaie({ initialData, periode, searchKey }: TableauDePaieProps) {
-    const ctrl = useTableauDePaiController(initialData, searchKey);
+export function TableauDePaie({ datas, periode, searchKey }: TableauDePaieProps) {
+    const ctrl = useTableauDePaiController(datas, searchKey);
 
     return (
         <div className="mt-4 bg-white  rounded-lg">
@@ -44,13 +44,11 @@ export function TableauDePaie({ initialData, periode, searchKey }: TableauDePaie
                             <TableCell className="border-b-2 text-gray-500">
                                 {item.joursTravaille?.map((jour: InfoParJour, index: number) => (
                                     <span key={index}>{ctrl.recupererStatutJours(jour)}</span>
-                                    // <Chip key={index} className={`${jour. ? "bg-yellow-400" : "bg-primary/70"} mr-1 text-white`} size="sm" >{jour.abreviation}</Chip>
                                 ))}
                             </TableCell>
                             <TableCell className="border-b-2 text-gray-500">
                                 {item.weekEnd?.map((weeek: InfoParJour, index: number) => (
                                     <span key={index}>{ctrl.recupererStatutJoursWeekend(weeek)}</span>
-                                    // <Chip key={index} size="sm" className={`${weeek.isWorking ? "bg-green-500" : "bg-gray-300"} mr-1 text-white`} >{weeek.abreviation}</Chip>
                                 ))}
                             </TableCell>
                             <TableCell className="border-b-2 text-gray-500">{item.taux}</TableCell>
