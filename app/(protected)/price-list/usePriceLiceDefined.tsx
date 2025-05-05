@@ -23,6 +23,9 @@ export const columns = [
 ];
 
 export default function usePriceLiceDefined({ initialData }: Props) {
+
+  
+  
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -57,6 +60,7 @@ export default function usePriceLiceDefined({ initialData }: Props) {
   }, [selectedKey]);
 
   const [initialDataPriceList, setInitialDataPriceList] = useState<DeliveryFee[]>([]);
+  
 
   const handleFetchDeliveryFee = async (restaurantId: string) => {
     const data = await getPriceListByRestaurant(restaurantId, 0, 10);
@@ -72,9 +76,8 @@ export default function usePriceLiceDefined({ initialData }: Props) {
   }, [currentRestaurant]);
 
   const search = searchParams.get('search');
-
-  const deliveryFees = search ? initialDataPriceList.filter((item) => item.zone.toLowerCase().includes(search.toLowerCase()) ||
-    item.name?.toLocaleLowerCase().includes(search.toLocaleLowerCase())) : initialDataPriceList;
+  const deliveryFees = search ? initialDataPriceList.filter((item) => item.zone.toLowerCase().includes(search.toLowerCase())) : initialDataPriceList;
+  
   const tabsRef = useRef<HTMLDivElement>(null);
   const handleMoveScroll = (value: number) => {
     if (tabsRef.current) {

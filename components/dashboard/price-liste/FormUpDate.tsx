@@ -20,7 +20,9 @@ type LatLng = {
   lng: number;
 };
 
-export default function FormUpDate({ initialData, restaurantId, typeCm }: { initialData: DeliveryFee; restaurantId: string | null; typeCm: string | null }) {
+export default function FormUpDate({ initialData, restaurantId, typeCm }: { initialData: DeliveryFee; restaurantId: string | null; typeCm: string | null }) {  
+  // console.log({initialData});
+  
   const [typeCommission, setTypeCommission] = useState<string>('type commussion (non definie)');
   const { createOrUpdateFee } = useContentCtx(initialData);
   const [suggestions, setSuggestions] = useState<PlaceAutocompleteResult[]>([]);
@@ -33,7 +35,7 @@ export default function FormUpDate({ initialData, restaurantId, typeCm }: { init
     point2: { lat: 0, lng: 0 },
   });
 
-  const [resulFinalDistance, setResulFinaleDistance] = useState<number>();
+  const [resulFinalDistance, setResulFinaleDistance] = useState<number>(initialData.distanceFin);
 
   const handleInputChange = useCallback(async (value: string) => {
     if (value.length > 2 && !loading) {
@@ -98,6 +100,7 @@ export default function FormUpDate({ initialData, restaurantId, typeCm }: { init
             ...prevState, // On garde les autres points
             point1: { lat: detailRestaurant.latitude || 0, lng: detailRestaurant.longitude || 0 },
           }));
+          
         }
       };
 
@@ -154,7 +157,9 @@ export default function FormUpDate({ initialData, restaurantId, typeCm }: { init
               <CardBody>
                 <form
                   onSubmit={async (e) => {
-                    e.preventDefault();                    
+                    e.preventDefault();     
+                    // console.log({data:getValues()});
+                                   
                     createOrUpdateFee(getValues());
                   }}
                   className="flex flex-col gap-4"
