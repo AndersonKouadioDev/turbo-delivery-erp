@@ -39,7 +39,7 @@ export const PeriodeDePaie = ({
                         onAction={(key) => setSelectedPeriodIndex(periodes.indexOf(key as any))}
                         className="overflow-auto"
                     >
-                        {periodes.map((prd) => (
+                        {periodes && periodes.map((prd) => (
                             <DropdownItem key={prd}>{prd}</DropdownItem>
                         ))}
                     </DropdownMenu>
@@ -52,7 +52,7 @@ export const PeriodeDePaie = ({
                 </div>
                 <div className="flex justify-around ">
                     <div className="flex items-center gap-1 overflow-auto">
-                        {MoisEnCours.map((item: string) => {
+                        {MoisEnCours && MoisEnCours.map((item: string) => {
                             return (
                                 <div key={item} className="min-w-8 h-auto lg:w-8 xl:w-8 md:w-8 lg:h-8 xl:h-8 md:h-8 flex items-center justify-center text-white text-sm rounded-lg">
                                     <span className={`${joursDeTravailsValides(Number(item)) ? "bg-green-500 text-white" : "bg-gray-200 text-gray-400 "}p-1 pl-2 pr-2 font-bold rounded-md `}>{item}</span>

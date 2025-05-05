@@ -31,7 +31,7 @@ export function TableauDePaie({ datas, periode, searchKey }: TableauDePaieProps)
                     <TableColumn>{""}</TableColumn>
                 </TableHeader>
                 <TableBody>
-                    {ctrl.data.map((item: PaieParLivreur, index) => (
+                    {ctrl.data && ctrl.data.map((item: PaieParLivreur, index) => (
                         <TableRow key={index} className={"hover:bg-primary/10 cursor-pointer"} onClick={() => ctrl.openDetailModal(item)} >
                             <TableCell className="border-b-2">
                                 <div className="flex items-center gap-4">
@@ -42,12 +42,12 @@ export function TableauDePaie({ datas, periode, searchKey }: TableauDePaieProps)
                             <TableCell className="border-b-2 text-gray-500">{item.total}&nbsp;&nbsp; FCFA</TableCell>
                             <TableCell className="border-b-2 text-gray-500">{item.gain}&nbsp;&nbsp; FCFA</TableCell>
                             <TableCell className="border-b-2 text-gray-500">
-                                {item.joursTravaille?.map((jour: InfoParJour, index: number) => (
+                                {item.joursTravaille && item.joursTravaille?.map((jour: InfoParJour, index: number) => (
                                     <span key={index}>{ctrl.recupererStatutJours(jour)}</span>
                                 ))}
                             </TableCell>
                             <TableCell className="border-b-2 text-gray-500">
-                                {item.weekEnd?.map((weeek: InfoParJour, index: number) => (
+                                {item.weekEnd && item.weekEnd?.map((weeek: InfoParJour, index: number) => (
                                     <span key={index}>{ctrl.recupererStatutJoursWeekend(weeek)}</span>
                                 ))}
                             </TableCell>

@@ -1,11 +1,11 @@
 import { getFichePaieByEmploiAndLivreur, getFichePaieById } from "@/src/actions/gestion-de-paie.actions";
-import { FichePaieDetailVM, GainParJour, GainVm, PaieParLivreur } from "@/types/gestion-de-paie.model";
+import { FichePaieDetailVM, GainHebdomadaireVm, GainParJour, GainVm, PaieParLivreur } from "@/types/gestion-de-paie.model";
 import { useDisclosure } from "@heroui/react";
 import { useEffect, useState } from "react";
 
 export function useInitierPaiementController(details?: PaieParLivreur, isOpen?: boolean) {
     const [detailFichePaie, setDetailFichePaie] = useState<FichePaieDetailVM | null>();
-    const [gainsDuJours, setGainDuJours] = useState<GainVm[]>([])
+    const [gainsHedomadaires, setGainsHedomadaires] = useState<GainHebdomadaireVm | undefined>()
     const initierPaiementClosure = useDisclosure();
 
     const fetchDetailFichePaie = async () => {
@@ -27,8 +27,8 @@ export function useInitierPaiementController(details?: PaieParLivreur, isOpen?: 
 
     const creneauDePaieClosure = useDisclosure();
 
-    const onpenCrennauxDialog = (gain?: GainVm[]) => {
-        setGainDuJours(gain || []);
+    const onpenCrennauxDialog = (gainsHedomadaires?: GainHebdomadaireVm) => {
+        setGainsHedomadaires(gainsHedomadaires);
         creneauDePaieClosure.onOpen()
     }
 
@@ -37,6 +37,6 @@ export function useInitierPaiementController(details?: PaieParLivreur, isOpen?: 
         creneauDePaieClosure,
         detailFichePaie,
         onpenCrennauxDialog,
-        gainsDuJours
+        gainsHedomadaires
     }
 }
