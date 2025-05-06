@@ -112,8 +112,6 @@ export default function CreneauxDetail({ dataCreneau }: { dataCreneau: CreneauID
           };
           const style = !item.semainePassee ? 'bg-red-500 text-red-500 rounded-xl text-white py-2 px-2' : 'bg-slate-200 rounded-xl  py-2 px-2';
 
-          // console.log( estSemainePassee(item.fin));
-
           return (
             <div key={item.id} className="flex flex-col gap-4">
               <p className="text-red-500">

@@ -21,7 +21,6 @@ type LatLng = {
 };
 
 export default function FormUpDate({ initialData, restaurantId, typeCm }: { initialData: DeliveryFee; restaurantId: string | null; typeCm: string | null }) {  
-  // console.log({initialData});
   
   const [typeCommission, setTypeCommission] = useState<string>('type commussion (non definie)');
   const { createOrUpdateFee } = useContentCtx(initialData);
@@ -87,6 +86,8 @@ export default function FormUpDate({ initialData, restaurantId, typeCm }: { init
       point2: { lat: initialData.latitude || 0, lng: initialData.longitude || 0 },
     }));
   }, []);
+
+  
 
   useEffect(() => {
     if (restaurantId) {
@@ -343,7 +344,59 @@ export default function FormUpDate({ initialData, restaurantId, typeCm }: { init
                       />
                     )}
                   />
-                  <Controller
+
+
+                    {
+                      typeCm=== 'POURCENTAGE'?
+                      <Controller
+                      
+                      control={control}
+                      name="commission"
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          value={field.value.toString() ?? ''}
+                          type="number"
+                          label={typeCommission}
+                          variant="bordered"
+                          isRequired
+                          required
+                          aria-invalid={errors.commission ? 'true' : 'false'}
+                          aria-label="commission input"
+                          errorMessage={errors.commission?.message ?? ''}
+                          isInvalid={!!errors.commission}
+                          name="commission"
+                          radius="sm"
+                          hidden
+                          className='hidden'
+                        />
+                      )}
+                    />:
+
+                      <Controller
+                      control={control}
+                      name="commission"
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          value={field.value.toString() ?? ''}
+                          type="number"
+                          label={typeCommission}
+                          variant="bordered"
+                          isRequired
+                          required
+                          aria-invalid={errors.commission ? 'true' : 'false'}
+                          aria-label="commission input"
+                          errorMessage={errors.commission?.message ?? ''}
+                          isInvalid={!!errors.commission}
+                          name="commission"
+                          radius="sm"
+                        />
+                      )}
+                    />
+                    }
+
+                  {/* <Controller
                     control={control}
                     name="commission"
                     render={({ field }) => (
@@ -363,7 +416,7 @@ export default function FormUpDate({ initialData, restaurantId, typeCm }: { init
                         radius="sm"
                       />
                     )}
-                  />
+                  /> */}
                   <SubmitButton startContent={<Save size={20} />}>Modifier</SubmitButton>
                 </form>
               </CardBody>

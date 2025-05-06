@@ -14,6 +14,8 @@ interface Props {
 export const columns = [
   { name: 'Nom du restaurent', uid: 'nomEtablissement' },
   { name: 'Type de commission', uid: 'typeCommission' },
+  { name: 'Actions', uid: 'actions' },
+
 ];
 
 const tabsItems: {

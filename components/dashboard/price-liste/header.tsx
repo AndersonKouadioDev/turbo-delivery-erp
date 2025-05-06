@@ -88,14 +88,14 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   }, [restaurantId]);
 
   let longitude = getValues('restaurantId');
-
+  const commussion = initialData?.find(item=>item.id===longitude)
 
 useEffect(()=>{
  const commussion = initialData?.find(item=>item.id===longitude)
  let comm='Type non definie'
  if(commussion)
 
-  comm = commussion.typeCommission === 'POURCENTAGE' ?'Type commussion (En pourcentage %)' : 
+  comm = commussion.typeCommission === 'POURCENTAGE'  ?'Type commussion (En pourcentage %)' : 
   commussion.typeCommission === 'FIXE' ? 'Type commussion (XOF)' : ' Type commussion (non definie)'
  
   setTypeCommission(comm)
@@ -140,6 +140,7 @@ useEffect(()=>{
   }, [w]);
 
 
+ 
 
   return (
     <div>
@@ -217,7 +218,16 @@ useEffect(()=>{
                                   setRestaurantId(e.target.value);
                                 }}
                               >
-                                {initialData && initialData?.map((item) => <SelectItem key={item.id}>{item.nomEtablissement}</SelectItem>)}
+                                {initialData && initialData
+                                    ?.filter(item =>
+                                      item.typeCommission === 'POURCENTAGE' ||
+                                      item.typeCommission === 'FIXE'
+                                    )
+                                    .map(item => (
+                                      <SelectItem key={item.id}>{item.nomEtablissement}</SelectItem>
+                                    ))
+                                  }
+                                {/* {initialData && initialData?.map((item) => <SelectItem key={item.id}>{item.nomEtablissement}</SelectItem>)} */}
                               </Select>
                             </div>
                           )}
@@ -370,7 +380,34 @@ useEffect(()=>{
                             />
                           )}
                         />
-                        <Controller
+                        {
+                          commussion?.typeCommission=== 'POURCENTAGE'?
+                          <Controller
+                          
+                          control={control}
+                          name="commission"
+                          render={({ field }) => (
+                            <Input
+                              {...field}
+                              value={field.value.toString() ?? ''}
+                              type="number"
+                              label={typeCommission}
+                              variant="bordered"
+                              isRequired
+                              required
+                              aria-invalid={errors.commission ? 'true' : 'false'}
+                              aria-label="commission input"
+                              errorMessage={errors.commission?.message ?? ''}
+                              isInvalid={!!errors.commission}
+                              name="commission"
+                              radius="sm"
+                              hidden
+                              className='hidden'
+                            />
+                          )}
+                        />:
+
+                          <Controller
                           control={control}
                           name="commission"
                           render={({ field }) => (
@@ -391,6 +428,29 @@ useEffect(()=>{
                             />
                           )}
                         />
+                        }
+                        
+                        {/* <Controller
+                          control={control}
+                          name="commission"
+                          render={({ field }) => (
+                            <Input
+                              {...field}
+                              value={field.value.toString() ?? ''}
+                              type="number"
+                              label={typeCommission}
+                              variant="bordered"
+                              isRequired
+                              required
+                              aria-invalid={errors.commission ? 'true' : 'false'}
+                              aria-label="commission input"
+                              errorMessage={errors.commission?.message ?? ''}
+                              isInvalid={!!errors.commission}
+                              name="commission"
+                              radius="sm"
+                            />
+                          )}
+                        /> */}
                         <SubmitButton startContent={<Save size={20} />}>Ajouter</SubmitButton>
                       </form>
                     </CardBody>
