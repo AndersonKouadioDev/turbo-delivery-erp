@@ -53,17 +53,16 @@ const menuData: IMenuData[] = [
 
     {
         icon: IconMotorbike,
-        title: 'delivery_men',
+        title: 'slot',
         children: [
           { icon: IconBuildingSkyscraper, title: 'slot', path: '/delivery-men/slot' },
                     { icon: IconBuildingSkyscraper, title: 'slot-progression', path: '/delivery-men/creneau-progression' },
                     { icon: IconBuildingSkyscraper, title: 'performance', path: '/delivery-men/performance' },  
-                    { icon: IconBuildingSkyscraper, title: 'all', path: '/delivery-men' },
 
         ],
     },
     
-    { icon: Bell, title: 'delivery_info', path: '/notification' },
+    { icon: Bell, title: 'notification', path: '/notification' },
 
     // {
     //     icon: IconMotorbike,
@@ -95,19 +94,7 @@ const menuData: IMenuData[] = [
                     { icon: IconBuildingSkyscraper, title: 'new', path: '/restaurants/not-valide' },
                 ],
             },
-            // {
-            //     icon: IconMotorbike,
-            //     title: 'delivery_men',
-            //     children: [
-            //         { icon: IconBuildingSkyscraper, title: 'slot', path: '/delivery-men/slot' },
-            //         { icon: IconBuildingSkyscraper, title: 'slot-progression', path: '/delivery-men/creneau-progression' },
-            //         { icon: IconBuildingSkyscraper, title: 'performance', path: '/delivery-men/performance' },
-            //         { icon: IconBuildingSkyscraper, title: 'slot-calendar', path: '/delivery-men/slot/slot-calendar' },
-            //         { icon: IconBuildingSkyscraper, title: 'all', path: '/delivery-men' },
-            //         // { icon: IconBuildingSkyscraper, title: 'partially_validated', path: '/delivery-men/valide' },
-            //         // { icon: IconBuildingSkyscraper, title: 'new', path: '/delivery-men/not-valide' },
-            //     ],
-            // },
+            { icon: IconMotorbike, title: 'delivery_men', path: '/delivery-men' },
         ],
     },
     { isHeader: true, icon: IconSettings2, title: 'settings', children: [{ icon: IconUser, title: 'profile', path: '/settings/profile' }] },
