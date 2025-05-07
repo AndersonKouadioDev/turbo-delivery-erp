@@ -1,5 +1,5 @@
 export interface restaurantUpdateCommission {
   restoId: string;
-  type: 'POURCENTAGE' | 'FIXE';
+  type: string;
   commission: number;
 }

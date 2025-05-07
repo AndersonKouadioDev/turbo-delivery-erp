@@ -28,12 +28,12 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
   const dayOrder = ['LUNDI', 'MARDI', 'MERCREDI', 'JEUDI', 'VENDREDI', 'SAMEDI', 'DIMANCHE'];
   const sortedHours = [...restaurant.openingHours].sort((a, b) => dayOrder.indexOf(a.dayOfWeek) - dayOrder.indexOf(b.dayOfWeek));
 
-  const [type, setType] = useState<CommissionType>('FIXE');
+  const [type, setType] = useState<string>(restaurant.typeCommission);
   const [isLoading, setIsLoading] = useState(false);
-  const [commissionValue, setCommissionValue] = useState<number>(0);
+  const [commissionValue, setCommissionValue] = useState<number>(restaurant.commission);
 
   const handleTypeChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setType(e.target.value as CommissionType);
+    setType(e.target.value);
   }, []);
 
   const handleSubmit = useCallback(async () => {
@@ -132,11 +132,6 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
                 <div className="col-span-2">
                   <Textarea label="Description" labelPlacement="outside" value={restaurant?.description ?? ''} placeholder={restaurant?.description ?? ''} variant="bordered" />
                 </div>
-                {/* <div className="col-span-2 my-8 flex justify-center items-center">
-                                    <Button color="primary" className="w-1/2">
-                                        Enregistrer
-                                    </Button>
-                                </div> */}
               </CardBody>
             </Card>
 
@@ -146,8 +141,8 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
               <CardHeader>
                 <h2 className="text-xl font-semibold text-red-600 mb-6">Type de commission</h2>
               </CardHeader>
-              <CardBody>
-                <div className="flex flex-col gap-4 max-w-lg">
+              <CardBody className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-4">
                   <Select
                     id="commission-type-select"
                     label="Choisissez le type de commission"
@@ -167,11 +162,10 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
 
                   {type === 'POURCENTAGE' && (
                     <Input
-                      label="Pourcentage (%)"
+                      placeholder="Pourcentage (%) Ex: 10"
                       type="number"
                       labelPlacement="outside"
                       variant="bordered"
-                      placeholder="Ex: 10"
                       max={100}
                       min={0}
                       value={commissionValue.toString()}
@@ -180,9 +174,11 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
                   )}
                 </div>
 
-                <Button onClick={handleSubmit} isLoading={isLoading} disabled={isLoading} className="mt-4">
+                <div className="flex flex-col justify-end">
+                <Button onClick={handleSubmit} color="primary" isLoading={isLoading} disabled={isLoading} className="mt-4 self-end">
                   Valider mon choix
                 </Button>
+                </div>
               </CardBody>
             </Card>
 

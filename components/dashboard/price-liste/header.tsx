@@ -18,7 +18,6 @@ type LatLng = {
   lng: number;
 };
 export default function Header({ initialData }: { initialData: Restaurant[] | null }) {
-  const [typeCommission, setTypeCommission] = useState<string>('Type non definie');
   const [id, setId] = useState<string>('');
   const { createOrUpdateFee } = useContentHeaderPriceListDefined(initialData, id);
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
@@ -34,14 +33,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     point2: { lat: 0, lng: 0 },
   });
 
-
-
-  {
-    typeCommission === 'POURCENTAGE' ? '(POURCENTAGE %)' :
-    typeCommission === 'FIXE' ? '(XOF)' : ' (type Non definie)'
-  }
-
-
   const handleInputChange = useCallback(async (value: string) => {
     if (value.length > 2 && !loading) {
       try {
@@ -54,7 +45,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
       setSuggestions([]);
     }
   }, []);
-
 
   const {
     formState: { errors },
@@ -90,21 +80,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
   }, [restaurantId]);
 
   let longitude = getValues('restaurantId');
-  const commussion = initialData?.find(item=>item.id===longitude)
-
-  useEffect(() => {
-    const commussion = initialData?.find(item => item.id === longitude)
-    let comm = 'Type non definie'
-    if (commussion)
-
-  comm = commussion.typeCommission === 'POURCENTAGE'  ?'Type commussion (En pourcentage %)' : 
-  commussion.typeCommission === 'FIXE' ? 'Type commussion (XOF)' : ' Type commussion (non definie)'
- 
-  setTypeCommission(comm)
-
-    setTypeCommission(comm)
-
-  }, [longitude])
+  const restaurant = initialData?.find((item) => item.id === longitude);
 
   const handleSuggestionClick = async (suggestion: PlaceAutocompleteResult) => {
     setLoading(true);
@@ -116,7 +92,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
       // setInputCalculate()
       setValue('longitude', details.result.geometry?.location.lng ?? 0, { shouldValidate: true });
       setValue('latitude', details.result.geometry?.location.lat ?? 0, { shouldValidate: true });
-
 
       let longitude = getValues('longitude');
       let latitude = getValues('latitude');
@@ -143,9 +118,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
     setId(w);
   }, [w]);
 
-
- 
-
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -170,7 +142,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
             <PopoverContent className="w-[400px]">
               {(titleProps) => (
                 <div className="px-1 py-2 w-full">
-                  <Card >
+                  <Card>
                     <CardHeader className="flex gap-3"></CardHeader>
                     <Divider />
                     <CardBody>
@@ -209,9 +181,8 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                           control={control}
                           name="restaurantId"
                           render={({ field }) => (
-                            <div  >
+                            <div>
                               <Select
-
                                 {...field}
                                 isRequired
                                 required
@@ -222,15 +193,7 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                                   setRestaurantId(e.target.value);
                                 }}
                               >
-                                {initialData && initialData
-                                    ?.filter(item =>
-                                      item.typeCommission === 'FIXE'
-                                    )
-                                    .map(item => (
-                                      <SelectItem key={item.id}>{item.nomEtablissement}</SelectItem>
-                                    ))
-                                  }
-                                {/* {initialData && initialData?.map((item) => <SelectItem key={item.id}>{item.nomEtablissement}</SelectItem>)} */}
+                                {initialData && initialData?.filter((item) => item.typeCommission).map((item) => <SelectItem key={item.id}>{item.nomEtablissement}</SelectItem>)}
                               </Select>
                             </div>
                           )}
@@ -239,7 +202,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                         <Controller
                           control={control}
                           name="zone"
-
                           render={({ field }) => (
                             <div className="relative">
                               <Input
@@ -270,11 +232,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                             </div>
                           )}
                         />
-                        {/* <div className="px-2 py-2 border-2 rounded-lg flex flex-col gap-1">
-                          <h3>distance totale</h3>
-                          <p>{resulFinalDistance} km</p>
-                        </div> */}
-
                         <Controller
                           control={control}
                           name="latitude"
@@ -364,13 +321,13 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                         <Controller
                           control={control}
                           name="prix"
-                          rules={{ required: "Ce champ est requis" }}
+                          rules={{ required: 'Ce champ est requis' }}
                           render={({ field }) => (
                             <Input
                               {...field}
                               value={field.value.toString() ?? ''}
                               type="number"
-                              label="prix"
+                              label="Prix en XOF"
                               variant="bordered"
                               isRequired
                               required
@@ -383,77 +340,29 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                             />
                           )}
                         />
-                        {
-                          commussion?.typeCommission=== 'POURCENTAGE'?
+                        {restaurant?.typeCommission === 'FIXE' && (
                           <Controller
-                          
-                          control={control}
-                          name="commission"
-                          render={({ field }) => (
-                            <Input
-                              {...field}
-                              value={field.value.toString() ?? ''}
-                              type="number"
-                              label={typeCommission}
-                              variant="bordered"
-                              isRequired
-                              required
-                              aria-invalid={errors.commission ? 'true' : 'false'}
-                              aria-label="commission input"
-                              errorMessage={errors.commission?.message ?? ''}
-                              isInvalid={!!errors.commission}
-                              name="commission"
-                              radius="sm"
-                              hidden
-                              className='hidden'
-                            />
-                          )}
-                        />:
-
-                          <Controller
-                          control={control}
-                          name="commission"
-                          render={({ field }) => (
-                            <Input
-                              {...field}
-                              value={field.value.toString() ?? ''}
-                              type="number"
-                              label={typeCommission}
-                              variant="bordered"
-                              isRequired
-                              required
-                              aria-invalid={errors.commission ? 'true' : 'false'}
-                              aria-label="commission input"
-                              errorMessage={errors.commission?.message ?? ''}
-                              isInvalid={!!errors.commission}
-                              name="commission"
-                              radius="sm"
-                            />
-                          )}
-                        />
-                        }
-                        
-                        {/* <Controller
-                          control={control}
-                          name="commission"
-                          render={({ field }) => (
-                            <Input
-                              {...field}
-                              value={field.value.toString() ?? ''}
-                              type="number"
-                              label={typeCommission}
-                              variant="bordered"
-                              isRequired
-                              required
-                              aria-invalid={errors.commission ? 'true' : 'false'}
-                              aria-label="commission input"
-                              errorMessage={errors.commission?.message ?? ''}
-                              isInvalid={!!errors.commission}
-                              name="commission"
-                              radius="sm"
-                            />
-                          )}
-                        /> */}
+                            control={control}
+                            name="commission"
+                            render={({ field }) => (
+                              <Input
+                                {...field}
+                                value={field.value.toString() ?? ''}
+                                type="number"
+                                label="Commission XOF"
+                                variant="bordered"
+                                isRequired
+                                required
+                                aria-invalid={errors.commission ? 'true' : 'false'}
+                                aria-label="commission input"
+                                errorMessage={errors.commission?.message ?? ''}
+                                isInvalid={!!errors.commission}
+                                name="commission"
+                                radius="sm"
+                              />
+                            )}
+                          />
+                        )}
                         <SubmitButton startContent={<Save size={20} />}>Ajouter</SubmitButton>
                       </form>
                     </CardBody>

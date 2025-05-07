@@ -14,7 +14,5 @@ export default async function Restaurants({ params }: { params: { restaurant_id:
     return <NotFound />;
   }
 
-  console.log(currentRestaurant);
-
   return <Content restaurant={currentRestaurant} />;
 }

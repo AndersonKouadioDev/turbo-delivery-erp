@@ -55,6 +55,7 @@ export async function getRestaurantDefined(): Promise<RestaurantDefini[]> {
         return [];
     }
 }
+
 export async function getRestaurantUndefined(): Promise<RestaurantDefini[]> {
     try {
         const data = await apiClientHttp.request<RestaurantDefini[]>({
