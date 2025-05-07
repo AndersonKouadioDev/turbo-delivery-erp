@@ -1,4 +1,5 @@
 'use client';
+
 import { title } from '@/components/primitives';
 import { ArrowDownToLine, Plus, Save } from 'lucide-react';
 import { Popover, PopoverTrigger, PopoverContent, Button, Input, Card, CardHeader, Divider, CardBody, Select, SelectItem } from '@heroui/react';
@@ -143,7 +144,10 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
               {(titleProps) => (
                 <div className="px-1 py-2 w-full">
                   <Card>
-                    <CardHeader className="flex gap-3"></CardHeader>
+                    <CardHeader className="flex flex-col gap-2">
+                      <h2 className="text-xl font-semibold text-red-600">Ajouter un frais de livraison</h2>
+                      {restaurant?.typeCommission && <p>Type de commission : {restaurant?.typeCommission}</p>}
+                    </CardHeader>
                     <Divider />
                     <CardBody>
                       <form
