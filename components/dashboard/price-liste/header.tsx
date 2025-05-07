@@ -224,7 +224,6 @@ export default function Header({ initialData }: { initialData: Restaurant[] | nu
                               >
                                 {initialData && initialData
                                     ?.filter(item =>
-                                      item.typeCommission === 'POURCENTAGE' ||
                                       item.typeCommission === 'FIXE'
                                     )
                                     .map(item => (
