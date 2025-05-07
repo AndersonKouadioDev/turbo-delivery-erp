@@ -87,7 +87,7 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                                             {
                                                 (ctrl.detailFichePaie?.gainFicheVM && ctrl.detailFichePaie?.gainFicheVM?.gains) &&
                                                 ctrl.detailFichePaie?.gainFicheVM?.gains.map((item: GainParJour, index: number) => (
-                                                    <div key={index} onClick={() => ctrl.onpenCrennauxDialog(item.gain?.gains)} className="cursor-pointer">
+                                                    <div key={index} onClick={() => ctrl.onpenCrennauxDialog(ctrl.detailFichePaie?.gainFicheVM)} className="cursor-pointer">
                                                         <div className="flex justify-between mt-2 border-b-2 pb-2 text-md hover:bg-primary/10" >
                                                             <div className="text-sm">{item.jour + " " + (index + 1)}</div>
                                                             <div className="text-sm font-bold text-gray-500">{item.gain?.frais}&nbsp;&nbsp;  FCFA</div>
@@ -97,7 +97,7 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                                             }
                                         </Card>
                                     </div>
-                                    : <span className="text-center text-primry font-bold">Aucun details tpour cette fiche de paie</span>
+                                    : <span className="text-center text-primry font-bold">Aucun details pour cette fiche de paie</span>
                             }
                         </ModalBody>
                         <ModalFooter>
@@ -110,7 +110,7 @@ export function DetailFichePaieModal({ isOpen, onClose, details, periode, nonEli
                         </ModalFooter>
                     </>
                     <InitierPaiementModal onClose={ctrl.initierPaiementClosure.onClose} isOpen={ctrl.initierPaiementClosure.isOpen} details={details} />
-                    <CreneauDePaieModal onClose={ctrl.creneauDePaieClosure.onClose} isOpen={ctrl.creneauDePaieClosure.isOpen} gainsDuJours={ctrl.gainsDuJours} periode={periode} />
+                    <CreneauDePaieModal onClose={ctrl.creneauDePaieClosure.onClose} isOpen={ctrl.creneauDePaieClosure.isOpen} gainsHedomadaires={ctrl.gainsHedomadaires} periode={periode} />
                 </ModalContent>
             </Modal>
         </>

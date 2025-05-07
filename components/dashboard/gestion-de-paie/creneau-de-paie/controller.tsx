@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { GainHebdomadaireVm, GainVm } from "@/types/gestion-de-paie.model";
+import { useEffect, useState } from "react";
 
-export function useCreneauDePaieController() {
+export function useCreneauDePaieController(gainsHedomadaires?: GainHebdomadaireVm) {
     const [daySelected, setDaySelected] = useState("Lundi");
+    const [gainParJours, setGainParJours] = useState<GainVm[]>([]);
+
+    useEffect(() => {
+        const filterData = gainsHedomadaires && gainsHedomadaires.gains?.filter((item) =>
+            item.jour?.toLocaleLowerCase().includes(daySelected)) || []
+        setGainParJours(filterData)
+    }, [daySelected, gainsHedomadaires])
 
     const creneaux = [
         {
@@ -43,6 +51,7 @@ export function useCreneauDePaieController() {
     return {
         daySelected,
         setDaySelected,
-        creneaux
+
+        gainParJours
     }
 }
