@@ -9,7 +9,8 @@ import {
   CardHeader,
   Input,
   Select,
-  SelectItem
+  SelectItem,
+  Textarea
 } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { Restaurant } from '@/types/models';
@@ -103,9 +104,47 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
           </div>
 
           <div className="space-y-6">
-            <Card>
+
+          <Card>
               <CardHeader>
                 <h2 className="text-xl font-semibold text-red-600 mb-6">Informations Générales</h2>
+              </CardHeader>
+              <CardBody className="md:grid grid-cols-2 gap-6">
+                <Input label="Nom de l'établissement" labelPlacement="outside" value={restaurant?.nomEtablissement ?? ''} placeholder={restaurant?.nomEtablissement ?? ''} variant="bordered" />
+                <Input label="Email" type="email" labelPlacement="outside" value={restaurant?.email ?? ''} placeholder={restaurant?.email ?? ''} variant="bordered" />
+                <Input label="Localisation" labelPlacement="outside" value={restaurant?.localisation ?? ''} placeholder={restaurant?.localisation ?? ''} variant="bordered" />
+                <Input label="Téléphone" labelPlacement="outside" value={restaurant?.telephone ?? ''} placeholder={restaurant?.telephone ?? ''} variant="bordered" />
+                <Input label="Commune" labelPlacement="outside" value={restaurant?.commune ?? ''} placeholder={restaurant?.commune ?? ''} variant="bordered" />
+                <Input label="Code Postal" labelPlacement="outside" value={restaurant?.codePostal ?? ''} placeholder={restaurant?.codePostal ?? ''} variant="bordered" />
+                <Select label="Type d'entreprise" defaultSelectedKeys={['restaurant']} labelPlacement="outside" variant="bordered">
+                  <SelectItem key="restaurant" value="restaurant">
+                    Restaurant
+                  </SelectItem>
+                  <SelectItem key="cafe" value="cafe">
+                    Café
+                  </SelectItem>
+                  <SelectItem key="bar" value="bar">
+                    Bar
+                  </SelectItem>
+                </Select>
+                <Input label="Site web (si disponible)" labelPlacement="outside" value={restaurant?.siteWeb ?? ''} placeholder={restaurant?.siteWeb ?? 'https://www.site.com'} variant="bordered" />
+
+                <div className="col-span-2">
+                  <Textarea label="Description" labelPlacement="outside" value={restaurant?.description ?? ''} placeholder={restaurant?.description ?? ''} variant="bordered" />
+                </div>
+                {/* <div className="col-span-2 my-8 flex justify-center items-center">
+                                    <Button color="primary" className="w-1/2">
+                                        Enregistrer
+                                    </Button>
+                                </div> */}
+              </CardBody>
+            </Card>
+
+            {/* Ajout */}
+
+            <Card>
+              <CardHeader>
+                <h2 className="text-xl font-semibold text-red-600 mb-6">Type de commission</h2>
               </CardHeader>
               <CardBody>
                 <div className="flex flex-col gap-4 max-w-lg">
@@ -147,7 +186,7 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
               </CardBody>
             </Card>
 
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <h2 className="text-xl font-semibold text-red-600 mb-6">Type de commission</h2>
               </CardHeader>
@@ -176,7 +215,7 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
                   Valider mon choix
                 </Button>
               </CardBody>
-            </Card>
+            </Card> */}
 
             <Card>
               <CardHeader>
