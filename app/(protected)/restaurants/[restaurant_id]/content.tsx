@@ -2,19 +2,61 @@
 import { ArrowLeft } from 'lucide-react';
 
 import Image from 'next/image';
-import { Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@heroui/react';
+import {Button, Card, CardBody, CardHeader, Input, Select, SelectItem, Textarea } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { Restaurant } from '@/types/models';
 import createUrlFile from '@/utils/createUrlFile';
 import { formatTime } from '@/lib/date';
 import { toast } from 'react-toastify';
 import { updateCommission } from '@/src/restaurants/restaurants.actions';
+import { useCallback, useState } from 'react';
+
+
+export type CommissionType = 'FIXE' | 'POURCENTAGE';
+
 
 export default function Content({ restaurant }: { restaurant: Restaurant }) {
   const router = useRouter();
 
   const dayOrder = ['LUNDI', 'MARDI', 'MERCREDI', 'JEUDI', 'VENDREDI', 'SAMEDI', 'DIMANCHE'];
   const sortedHours = [...restaurant.openingHours].sort((a, b) => dayOrder.indexOf(a.dayOfWeek) - dayOrder.indexOf(b.dayOfWeek));
+
+
+  const [type, setType] = useState<CommissionType>('FIXE');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Met à jour l'état lors du changement de sélection
+  const handleTypeChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setType(e.target.value as CommissionType);
+  }, []);
+
+  // Soumet la commission choisie
+  const handleSubmit = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const res = await updateCommission({
+        body: {
+          restoId: restaurant.id,
+          type,
+          commission: 0,
+        },
+      });
+
+      if (res.status === 'success') {
+        toast.success('Bravo, votre action a été prise en compte');
+      } else {
+        toast.error(
+          `Désolé, votre action n’a pas été prise en compte`
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Une erreur est survenue, veuillez réessayer');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [restaurant, type]);
+
 
   return (
     <div className="min-h-screen">
@@ -76,7 +118,45 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
               <CardHeader>
                 <h2 className="text-xl font-semibold text-red-600 mb-6">Type de commission</h2>
               </CardHeader>
-              <CardBody>
+               
+              <CardBody >
+
+                <div className='flex gap-16 items-center'>
+                <Select
+                className='max-w-lg'
+                  id="commission-type-select"
+                  label="Choisissez le type de commission"
+                  defaultSelectedKeys={[type]}
+                  labelPlacement="outside"
+                  variant="bordered"
+                  isDisabled={isLoading}
+                  onChange={handleTypeChange}
+                >
+                  
+                  <SelectItem key="FIXE" value="FIXE">
+                    Fixe
+                  </SelectItem>
+                  <SelectItem key="POURCENTAGE" value="POURCENTAGE">
+                    Pourcentage
+                  </SelectItem>
+                </Select>
+
+                <Button
+                  onClick={handleSubmit}
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                  className="mt-4"
+                >
+                  Valider mon choix
+                </Button>
+
+                </div>
+              
+              </CardBody>
+
+
+
+              {/* <CardBody>
                 <Select
                   label="Choissez le type de commisison"
                   defaultSelectedKeys={[restaurant.typeCommission]}
@@ -102,7 +182,7 @@ export default function Content({ restaurant }: { restaurant: Restaurant }) {
                     POURCENTAGE
                   </SelectItem>
                 </Select>
-              </CardBody>
+              </CardBody> */}
             </Card>
             <Card>
               <CardHeader>
