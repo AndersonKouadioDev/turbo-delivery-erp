@@ -72,9 +72,9 @@ export default function useContent({ initialData }: Props) {
                         <Link
                     
                         href={`/restaurants/${undefinedRestaurant.id}`} 
-                        className='bg-red-500 text-white font-semibold py-4 px-4 rounded-xl'
+                        className='bg-red-500 text-white font-semibold py-2 px-4 rounded-xl'
                         >
-                          definie type restaurent
+                          Definie type restaurent
                         </Link>
                     );
             default:
