@@ -2,19 +2,20 @@
 
 import { DeliveryFee, RestaurantDefini } from '@/types/price-list';
 import { Avatar } from '@heroui/react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Props {
     initialData: RestaurantDefini[];
 }
-export const columns = [
-    { name: 'Zone', uid: 'zone' },
-    { name: 'Distance', uid: 'distance' },
-    { name: 'Coût de livraison', uid: 'prix' },
-    { name: 'Commission', uid: 'commission' },
-    { name: 'Action', uid: 'actions' },
-];
+// export const columns = [
+//     { name: 'Zone', uid: 'zone' },
+//     { name: 'Distance', uid: 'distance' },
+//     // { name: 'Coût de livraison', uid: 'prix' },
+//     // { name: 'Commission', uid: 'commission' },
+//     { name: 'Action', uid: 'actions' },
+// ];
 
 export default function useContent({ initialData }: Props) {
 
@@ -60,18 +61,29 @@ export default function useContent({ initialData }: Props) {
                     </span>
                 );
             case 'typeCommission':
-                return <span>
-                    {undefinedRestaurant.typeCommission === 'POURCENTAGE' ? 'POURCENTAGE %' :
-                        undefinedRestaurant.typeCommission === 'FIXE' ? '(XOF)' : 'Non definie'}
+                return (<span>
+                     {undefinedRestaurant.typeCommission === 'POURCENTAGE' ? 'POURCENTAGE %' : 
+      undefinedRestaurant.typeCommission === 'FIXE' ? '(XOF)' : 'Non definie'};
                     {/* {undefinedRestaurant.typeCommission == 'POURCENTAGE' ? ' POURCENTAGE %' :undefinedRestaurant.typeCommission == '(XOF)'? '(XOF)':''} */}
-                </span>;
+                    </span>
+                );
+                case 'actions':
+                    return (
+                        <Link
+                    
+                        href={`/restaurants/${undefinedRestaurant.id}`} 
+                        className='bg-red-500 text-white font-semibold py-4 px-4 rounded-xl'
+                        >
+                          definie type restaurent
+                        </Link>
+                    );
             default:
                 return <></>;
         }
     }, []);
 
     return {
-        columns,
+        // columns,
         // tabs,
         tabsRef,
         undefinedRestaurant,

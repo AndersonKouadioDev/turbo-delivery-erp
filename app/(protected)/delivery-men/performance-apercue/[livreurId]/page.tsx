@@ -2,6 +2,7 @@
 import { getPerformanceCreneauById } from '@/src/performance/performance.action';
 import Content from './content'
 import EmptyDataTable from '@/components/commons/EmptyDataTable';
+import { getInfoLivreurById } from '@/src/livreurInfo/livreur-info.action';
 
 
 // interface Props {
@@ -217,28 +218,26 @@ const dataCreneau={
     ]
   }
   
-  
-
-
 interface CreneauIdPageProps {
-    params: { livreurId: string }; // Définit explicitement le type
+    params: { livreurId: string }
   }
 
 export default async function Page({ params }: CreneauIdPageProps){
 
-      const { livreurId } = params; // Récupère l'ID depuis l'URL
+      const { livreurId } = params
       // const user = userData.find(item => item.id === id);
+      const infoUser = await getInfoLivreurById(livreurId)
       
       const user= await getPerformanceCreneauById(livreurId)
           
       // const dataCreneau = await getCreneauById(id)
     
-      if (!user) {
+      if (!user||!infoUser) {
         return <EmptyDataTable/>
       } 
  
    
     return (
-             <Content data={user} />
+             <Content data={user} infoUser={infoUser} />
     )
 }

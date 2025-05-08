@@ -152,7 +152,7 @@ const performanceApercuGlobalGain: PerformanceApercuGlobalGain|null = {
             <div className="flex gap-2">
               {progresseBarePerformance(data)}
               <span>{data.progression} %</span>
-              <span>{data.heure} de travail</span>
+              <span>{data.heure}h de travail</span>
             </div>
           );
         case "commission":

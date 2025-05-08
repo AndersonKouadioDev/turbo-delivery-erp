@@ -46,8 +46,8 @@ const priceListEndpoints = {
 export async function getRestaurantDefined(): Promise<RestaurantDefini[]> {
     try {
         const data = await apiClientHttp.request<RestaurantDefini[]>({
-            endpoint: priceListEndpoints.getRestaurantDefined.endpoint,
-            method: priceListEndpoints.getRestaurantDefined.method,
+            endpoint: priceListEndpoints.getRestaurantUndefined.endpoint,
+            method: priceListEndpoints.getRestaurantUndefined.method,
             service: 'backend',
         });
         return data;
@@ -100,7 +100,7 @@ export async function createDeliveryFee(formData: _deliveryFeeCreateSchema): Pro
             latitude: (value) => Number(value),
         },
     });
-   
+
     if (!success && errorsInArray) {
         return {
             status: 'error',
@@ -115,11 +115,11 @@ export async function createDeliveryFee(formData: _deliveryFeeCreateSchema): Pro
             data: formdata,
             service: 'backend',
         });
-        
+
         // const data=formdata
-             
+
         console.log(data);
-        
+
         return {
             status: 'success',
             data,
@@ -148,7 +148,7 @@ export async function updatePriceList(formData: _deliveryFeeCreateSchema): Promi
             latitude: (value) => Number(value),
         },
     });
-   
+
     if (!success && errorsInArray) {
         return {
             status: 'error',
@@ -163,11 +163,11 @@ export async function updatePriceList(formData: _deliveryFeeCreateSchema): Promi
             data: formdata,
             service: 'backend',
         });
-        
+
         // const data=formdata
-             
-        console.log({data:data});
-        
+
+        console.log({ data: data });
+
         return {
             status: 'success',
             data,
@@ -197,7 +197,7 @@ export async function deletePriceList(fraisDeLivraisonId: string) {
     //         latitude: (value) => Number(value),
     //     },
     // });
-   
+
     // if (!success && errorsInArray) {
     //     return {
     //         status: 'error',
@@ -212,11 +212,11 @@ export async function deletePriceList(fraisDeLivraisonId: string) {
             data: fraisDeLivraisonId,
             service: 'backend',
         });
-        
+
         // const data=formdata
-             
+
         console.log(data);
-        
+
         return {
             status: 'success',
             data,
