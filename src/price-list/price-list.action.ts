@@ -46,8 +46,8 @@ const priceListEndpoints = {
 export async function getRestaurantDefined(): Promise<RestaurantDefini[]> {
     try {
         const data = await apiClientHttp.request<RestaurantDefini[]>({
-            endpoint: priceListEndpoints.getRestaurantUndefined.endpoint,
-            method: priceListEndpoints.getRestaurantUndefined.method,
+            endpoint: priceListEndpoints.getRestaurantDefined.endpoint,
+            method: priceListEndpoints.getRestaurantDefined.method,
             service: 'backend',
         });
         return data;
@@ -55,7 +55,6 @@ export async function getRestaurantDefined(): Promise<RestaurantDefini[]> {
         return [];
     }
 }
-
 export async function getRestaurantUndefined(): Promise<RestaurantDefini[]> {
     try {
         const data = await apiClientHttp.request<RestaurantDefini[]>({
