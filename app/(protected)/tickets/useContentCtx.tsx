@@ -25,7 +25,7 @@ interface Props {
 
 export default function useContentCtx({ initialData, restaurants }: Props) {
     const [isLoading, setIsLoading] = useState(!initialData);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     // const [currentPage, setCurrentPage] = useState(initialData?.totalPages ?? 1);
     const [pageSize] = useState(10);
     const [data, setData] = useState<PaginatedResponse<BonLivraison> | null>(initialData);
