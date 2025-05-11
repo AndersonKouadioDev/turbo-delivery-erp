@@ -13,6 +13,7 @@ import { ChiffreAffaireRestaurant } from '@/types/statistiques.model';
 import DatabaseCards from '@/components/dashboard/apercu/DatabaseCards';
 import useContentCtx from './useContentCtx';
 import { TbArrowUpRight, TbChartBar } from 'react-icons/tb';
+import Link from 'next/link';
 
 export default function Content({ initialItems }: { initialItems: Record<string, any> }) {
   const { items, handleDateChange } = useContentCtx({ initialItems });
@@ -30,27 +31,30 @@ export default function Content({ initialItems }: { initialItems: Record<string,
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-        <CardUI className="p-6 flex flex-col justify-between bg-[#1e98e9] text-white shadow-lg">
-          <div className="flex flex-col gap-2 mb-4">
-            <div className="text-base font-medium">Total Commande Terminée</div>
-            {/* <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
+        <Link href={"/tikets-terminers"}>
+          <CardUI className="p-6 flex flex-col justify-between bg-[#1e98e9] text-white shadow-lg">
+            <div className="flex flex-col gap-2 mb-4">
+              <div className="text-base font-medium">Total Commande Terminée</div>
+              {/* <Select className="max-w-xs" selectedKeys={period} onSelectionChange={(keys) => setPeriod(keys as any)}>
                             {periods.map((period: { key: string; label: string }) => (
                                 <SelectItem key={period.key}>{period.label}</SelectItem>
                             ))}
                         </Select> */}
-          </div>
-          <div className="text-3xl font-bold mb-4">
-            {formatNumber(items?.chiffreAffaire?.commandeTotalTermine ?? 0)} <br /> FCFA
-          </div>
-          <div className="flex items-center justify-between">
-            <Button variant="ghost" className="text-white hover:bg-[#94d4ff] px-1 text-sm">
-              Voir toutes les commandes
-            </Button>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-transparent px-2">
-              <Printer className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardUI>
+            </div>
+            <div className="text-3xl font-bold mb-4">
+              {formatNumber(items?.chiffreAffaire?.commandeTotalTermine ?? 0)} <br /> FCFA
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Button variant="ghost" className="text-white hover:bg-[#94d4ff] px-1 text-sm">
+                Voir toutes les commandes
+              </Button>
+              <Button variant="ghost" size="icon" className="text-white hover:bg-transparent px-2">
+                <Printer className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardUI>
+        </Link>
 
         <CardUI className="p-6  flex flex-col justify-between  bg-[#E91E63] text-white shadow-lg">
           <div className="flex flex-col gap-2 mb-4">
@@ -68,24 +72,26 @@ export default function Content({ initialItems }: { initialItems: Record<string,
             </Button>
           </div>
         </CardUI>
-
-        <CardUI className="p-6  flex flex-col justify-between  bg-[#1F2937] text-white shadow-lg">
-          <div className="flex flex-col gap-2 mb-4">
-            <div className="text-base font-medium">Total Frais Livraison Terminée</div>
-          </div>
-          <div className="text-3xl font-bold mb-4">
-            {formatNumber(items?.chiffreAffaire?.fraisLivraisonTotalTermine ?? 0)} <br /> FCFA
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-sm">Aujourd&apos;hui</span>
-              <span className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full text-sm font-medium">+2,8</span>
+        <Link href={"/external_delivery/commande-terminers"}>
+          <CardUI className="p-6  flex flex-col justify-between  bg-[#1F2937] text-white shadow-lg">
+            <div className="flex flex-col gap-2 mb-4">
+              <div className="text-base font-medium">Total Frais Livraison Terminée</div>
             </div>
-            <Button variant="ghost" size="icon" className="hover:bg-gray-100 px-2">
-              <Printer className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardUI>
+            <div className="text-3xl font-bold mb-4">
+              {formatNumber(items?.chiffreAffaire?.fraisLivraisonTotalTermine ?? 0)} <br /> FCFA
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-sm">Aujourd&apos;hui</span>
+                <span className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full text-sm font-medium">+2,8</span>
+              </div>
+              <Button variant="ghost" size="icon" className="hover:bg-gray-100 px-2">
+                <Printer className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardUI>
+        </Link>
         <CardUI className="p-6  flex flex-col justify-between bg-[#fffb0e] shadow-lg">
           <div className="flex flex-col gap-2 mb-4">
             <div className="text-base font-medium">Total Frais Livraison en Attente</div>
