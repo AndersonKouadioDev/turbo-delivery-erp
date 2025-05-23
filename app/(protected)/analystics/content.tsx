@@ -26,11 +26,7 @@ export default function Content({ initialItems }: { initialItems: Record<string,
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-
-        <Link href={'/tikets-terminers'}>
-
-        <Link href={"/ticktes-terminers/commande-terminer"}>
-
+        <Link href={'/ticktes-terminers/commande-terminer'}>
           <CardUI className="p-6 flex flex-col justify-between bg-[#1e98e9] text-white shadow-lg">
             <div className="flex flex-col gap-2 mb-4">
               <div className="text-base font-medium">Total Commande Terminée</div>
@@ -66,10 +62,7 @@ export default function Content({ initialItems }: { initialItems: Record<string,
             </Button>
           </div>
         </CardUI>
-
-        <Link href={'/external_delivery/commande-terminers'}>
-
-        <Link href={"/ticktes-terminers/frais-livraison"}>
+        <Link href={'/ticktes-terminers/frais-livraison'}>
 
           <CardUI className="p-6  flex flex-col justify-between  bg-[#1F2937] text-white shadow-lg">
             <div className="flex flex-col gap-2 mb-4">
@@ -114,10 +107,10 @@ export default function Content({ initialItems }: { initialItems: Record<string,
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-xl hover:shadow-2xl transition-all duration-200">
               <CardHeader className="pb-0 pt-4 px-6">
-                <div className='flex gap-2 items-center'>
+                <div className="flex gap-2 items-center">
                   <h4 className="text-lg font-medium opacity-90">Commission sur Chiffre Affaire</h4>
-                  <Tooltip content="Commission en type pourcentage" className='bg-yellow-200 font-bold'>
-                    <Info size={18} className='cursor-pointer mt-2' />
+                  <Tooltip content="Commission en type pourcentage" className="bg-yellow-200 font-bold">
+                    <Info size={18} className="cursor-pointer mt-2" />
                   </Tooltip>
                 </div>
               </CardHeader>
@@ -139,10 +132,10 @@ export default function Content({ initialItems }: { initialItems: Record<string,
             </Card>
             <Card className="bg-gradient-to-br from-purple-500 to-purple-700 text-white shadow-xl hover:shadow-2xl transition-all duration-200">
               <CardHeader className="pb-0 pt-4 px-6">
-                <div className='flex gap-2 items-center'>
+                <div className="flex gap-2 items-center">
                   <h4 className="text-lg font-medium opacity-90">Commission par Commande</h4>
-                  <Tooltip content="Commission en type fixe" className='bg-yellow-200 font-bold'>
-                    <Info size={20} className='cursor-pointer' />
+                  <Tooltip content="Commission en type fixe" className="bg-yellow-200 font-bold">
+                    <Info size={20} className="cursor-pointer" />
                   </Tooltip>
                 </div>
               </CardHeader>
