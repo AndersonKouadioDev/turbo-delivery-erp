@@ -46,10 +46,6 @@ export interface Restaurant {
     localisation: string;
     siteWeb: string | null;
     logo: string;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1536169 (first commit)
     logo_Url: string;
     dateService: string;
     documentUrl: string;
